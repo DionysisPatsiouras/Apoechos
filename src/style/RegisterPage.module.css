@@ -1,0 +1,30 @@
+.container {
+  text-align: center;
+}
+
+.container2 {
+  display: flex;
+}
+
+.bar {
+  display: flex;
+  flex-direction: column;
+  margin: 0 10px;
+}
+
+.title {
+  font-size: 36px;
+  color: #565656;
+  margin: 20px 0;
+}
+
+.terms {
+  display: flex;
+  align-items: center;
+  margin: 40px 0;
+}
+
+.terms input {
+  min-width: auto;
+  margin: 0 5px;
+}/*# sourceMappingURL=RegisterPage.module.css.map */

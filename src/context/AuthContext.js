@@ -3,6 +3,7 @@ import jwt_decode from 'jwt-decode'
 import { useNavigate } from "react-router-dom";
 // import axios from 'axios'
 
+
 const AuthContext = createContext()
 export default AuthContext;
 
@@ -37,7 +38,7 @@ export const AuthProvider = ({ children }) => {
             setAuthTokens(data)
             setUser(jwt_decode(data.access))
             localStorage.setItem('authTokens', JSON.stringify(data))
-            navigate('/')
+            navigate('/discover')
 
         } else {
             console.log('error!')
