@@ -2,10 +2,9 @@ import React, { useContext, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
 
+import axios from 'axios'
 
 import '../style/main.css'
-
-
 import style from '../style/Header.module.css'
 
 import burgerMenuIcon from '../media/icons/burger-menu.svg'
@@ -31,6 +30,7 @@ export default function Header() {
     const [accountIsOpen, setAccountIsOpen] = useState(false)
     const [dropdownIsOpen, setDropDownIsOpen] = useState(false)
 
+
     useEffect(() => {
         window.addEventListener("resize", () => setWidth(window.innerWidth));
     }, [])
@@ -40,6 +40,8 @@ export default function Header() {
 
         <div className={style.container}>
 
+
+            {/*   MAIN MENU  */}
             <div className={style.menu}>
                 {width < 769 ?
                     <>
@@ -64,7 +66,7 @@ export default function Header() {
                 }
             </div>
 
-
+            {/* ACCOUNT MENU */}
 
             <div className={style.account}>
 
@@ -75,6 +77,8 @@ export default function Header() {
                         <ul className={style.dropdown} style={{ 'left': accountIsOpen ? '0' : '-200%' }}>
                             {user ?
                                 <ul className={style.accountMenu} >
+                                    {user && !user.hasMusicianProfile && !user.hasBandProfile && !user.hasStoreProfile && !user.hasStageProfile && !user.StudioProfile ? <Link to='/create-profile' className={style.joinButton}>Join the community!</Link> : null}
+
                                     <Link to="/account" onClick={() => setAccountIsOpen(false)}><img src={profileIcon} width={40} height={40} alt='Account' />Account</Link>
                                     <Link to="/profile" onClick={() => setAccountIsOpen(false)}><img src={editIcon} width={40} height={40} alt='Edit' />Edit profile</Link>
                                     <Link to="/notifications" onClick={() => setAccountIsOpen(false)}><img src={notificationsIcon} width={40} height={40} alt='Notifications' />Notifications</Link>
@@ -92,22 +96,20 @@ export default function Header() {
                     </>
                     :
                     <ul className={style.onlineMenu}>
-                 
-                            {user ? <img src={notificationsIcon} width={25} height={25} alt='Notifications' /> : null}
-                            {user ? <img src={messagesIcon} width={25} height={25} alt='Messages' /> : null}
-                            {user ? <img src={onlinePic} width={40} height={40} alt='Account' style={{ 'borderRadius': '199px', 'border': dropdownIsOpen ? '3px solid #5F69C6' : '3px solid #ffffff' }} onClick={() => setDropDownIsOpen(!dropdownIsOpen)} /> : null}
-                       
+                        {user && !user.hasMusicianProfile && !user.hasBandProfile && !user.hasStoreProfile && !user.hasStageProfile && !user.StudioProfile ? <Link to='/create-profile' className={style.joinButton}>Join the community!</Link> : null}
+                        {user ? <img src={notificationsIcon} width={25} height={25} alt='Notifications' /> : null}
+                        {user ? <img src={messagesIcon} width={25} height={25} alt='Messages' /> : null}
+                        {user ? <img src={onlinePic} width={40} height={40} alt='Account' style={{ 'borderRadius': '199px', 'border': dropdownIsOpen ? '3px solid #5F69C6' : '3px solid #ffffff' }} onClick={() => setDropDownIsOpen(!dropdownIsOpen)} /> : null}
+
                         {dropdownIsOpen ?
                             <ul className={style.dropDownDesktop} >
-                                <Link to="/profiles" onClick={() => setAccountIsOpen(false)}>  <img src={musicianIcon} width={20} height={20} alt='Profiles' />Profiles</Link>
-                                <Link to="/account" onClick={() => setAccountIsOpen(false)}> <img src={profileIcon} width={20} height={20} alt='Account' />Account</Link>
+                                <Link to="/profiles" onClick={() => {setAccountIsOpen(false); setDropDownIsOpen(false)}}>  <img src={musicianIcon} width={20} height={20} alt='Profiles' />Profiles</Link>
+                                <Link to="/account" onClick={() => {setAccountIsOpen(false); setDropDownIsOpen(false) }}> <img src={profileIcon} width={20} height={20} alt='Account' />Account</Link>
                                 <Link to="/login" onClick={() => { setDropDownIsOpen(false); logoutUser() }}><img src={logoutIcon} width={20} height={20} alt='Logout' />Log Out</Link>
                             </ul>
                             :
                             null
                         }
-
-
 
                         {user ? null :
                             <ul className={style.accountMenu}>

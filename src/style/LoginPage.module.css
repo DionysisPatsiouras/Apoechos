@@ -35,4 +35,8 @@ form {
   justify-content: center;
   flex-direction: column;
   align-items: center;
+}
+
+.errorHandle {
+  color: #ff0000;
 }/*# sourceMappingURL=LoginPage.module.css.map */

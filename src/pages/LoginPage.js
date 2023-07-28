@@ -7,17 +7,18 @@ import style from '../style/LoginPage.module.css'
 
 export default function LoginPage() {
 
-    let { loginUser, user } = useContext(AuthContext)
+    let { loginUser, user, error } = useContext(AuthContext)
+ 
 
-    const [message, setMessage] = useState('')
-
-    
     const [data, setData] = useState({
         email: '',
         password: ''
     })
 
     const handleInput = (event) => {
+    
+        error.email = ''
+        error.password = ''
         setData({ ...data, [event.target.name]: event.target.value })
     }
 
@@ -29,24 +30,25 @@ export default function LoginPage() {
         user ?
             <Navigate to="/discover" />
             :
-
             <div className={style.container}>
-
+       
                 <h6 className={style.title}>Log In</h6>
 
                 <form onSubmit={loginUser}>
                     <input type="email" name="email" placeholder="E-mail" onChange={handleInput} />
+                    <p className={style.errorHandle}>{error.email}</p>
                     <input type="password" name="password" placeholder="Password" onChange={handleInput} />
-
+                    <p className={style.errorHandle}>{error.password}</p>
+               
                     <button>Log In</button>
                 </form>
 
                 <br></br>
-                {message}
-                {console.log(data)}
+                
+                {/* {console.log(data)} */}
 
                 <section>
-                    Don’t you have an account?
+                    Don’t have an account?
                     <br></br>
                     Register <Link to='/register' style={{ 'color': '#5F69C6' }}>here</Link>
                 </section>

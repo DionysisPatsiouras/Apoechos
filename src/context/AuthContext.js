@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react"
 import jwt_decode from 'jwt-decode'
 import { useNavigate } from "react-router-dom";
-// import axios from 'axios'
+import axios from 'axios'
 
 
 const AuthContext = createContext()
@@ -13,12 +13,14 @@ export const AuthProvider = ({ children }) => {
     let [authTokens, setAuthTokens] = useState(() => localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null)
     let [user, setUser] = useState(() => localStorage.getItem('authTokens') ? jwt_decode(localStorage.getItem('authTokens')) : null)
     let [loading, setLoading] = useState(false)
+    let [error, setError] = useState([])
 
     const navigate = useNavigate()
 
 
     async function loginUser(e) {
         e.preventDefault()
+        
         let response = await fetch('http://127.0.0.1:8000/api/token/', {
             method: 'POST',
             headers: {
@@ -29,8 +31,18 @@ export const AuthProvider = ({ children }) => {
         })
 
 
+        // axios
+        //     .get('http://127.0.0.1:8000/users/' + user.user_id + '/')
+        //     .then((response) => {
+        //         setData(response.data);
+        //     })
+        //     .catch((error) => (console.log(error)))
+
+
+
         let data = await response.json()
         console.log(data)
+        setError(data)
         console.log(response)
 
 
@@ -39,10 +51,12 @@ export const AuthProvider = ({ children }) => {
             setUser(jwt_decode(data.access))
             localStorage.setItem('authTokens', JSON.stringify(data))
             navigate('/discover')
-
-        } else {
-            console.log('error!')
         }
+        // } else {
+        //     console.log('error!')
+        // }
+
+
     }
 
     function logoutUser() {
@@ -89,26 +103,27 @@ export const AuthProvider = ({ children }) => {
         user: user,
         authTokens: authTokens,
         loginUser: loginUser,
-        logoutUser: logoutUser
+        logoutUser: logoutUser,
+        error: error,
     }
 
 
 
 
-    useEffect(()=> {
+    useEffect(() => {
 
-        if(loading){
+        if (loading) {
             updateToken()
         }
 
         let fourMinutes = 1000 * 60 * 4
 
-        let interval =  setInterval(()=> {
-            if(authTokens){
+        let interval = setInterval(() => {
+            if (authTokens) {
                 updateToken()
             }
         }, fourMinutes)
-        return ()=> clearInterval(interval)
+        return () => clearInterval(interval)
 
     }, [authTokens, loading])
 
