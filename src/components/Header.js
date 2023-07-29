@@ -43,9 +43,7 @@ export default function Header() {
         <div className={style.container}>
 
 
-
-
-            {/*   MAIN MENU  */}
+            {/*   NAVIGATION MENU  */}
             <div className={style.menu}>
                 {mobileEnabled ? <img src={menuIsOpen ? closeIcon : burgerMenuIcon} width={44} height={44} alt="menu" onClick={() => { setMenuIsOpen(!menuIsOpen); setAccountIsOpen(false) }} /> : null}
                 <ul style={{ 'left': menuIsOpen ? '0%' : '-200%' }}>
@@ -59,9 +57,7 @@ export default function Header() {
 
 
 
-
-            {/* ACCOUNT MENU */}
-
+            {/* USER MENU */}
             <div className={style.account}>
 
                 {mobileEnabled ?

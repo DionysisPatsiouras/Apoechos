@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 35px 0;
+}
+
+h5 {
+  font-size: 16px;
+  color: #4D4D4D;
+}
+
+.about {
+  color: #9A9A9A;
+  font-size: 14px;
+  padding: 14px 0 42px 0;
+  width: 256px;
+  text-align: center;
+}
+
+.box {
+  margin: 0 0 10px 0;
+  text-align: center;
+}
+
+.selection {
+  width: 300px;
+  border-radius: 4px;
+  background-color: #EFEEEE;
+  color: #6B6767;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  height: 45px;
+}
+
+.description {
+  font-size: 13px;
+}/*# sourceMappingURL=Profiles.module.css.map */
