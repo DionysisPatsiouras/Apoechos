@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  width: 350px;
+  height: 200px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1px 2px 11px;
+  border-radius: 4px;
+  margin: 10px;
+  padding: 20px;
+}
+
+.card h6 {
+  color: #5F69C6;
+  font-size: 14px;
+}
+
+.card img {
+  width: 84px;
+  height: 84px;
+}
+
+.decoration {
+  width: 150px;
+  height: 150px;
+  position: relative;
+  top: -131px;
+  left: 220px;
+}/*# sourceMappingURL=Discover.module.css.map */
