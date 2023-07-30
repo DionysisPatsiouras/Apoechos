@@ -3,6 +3,17 @@ import style from '../style/Profiles.module.css'
 import AuthContext from '../context/AuthContext'
 import ProfileSelection from './minor/ProfileSelection'
 
+import storeBlack from '../media/icons/store.svg'
+import storeWhite from '../media/icons/storewhite.svg'
+import bandBlack from '../media/icons/bandBlack.svg'
+import bandWhite from '../media/icons/bandWhite.svg'
+import studioBlack from '../media/icons/studioBlack.svg'
+import studioWhite from '../media/icons/studioWhite.svg'
+import musicianBlack from '../media/icons/musicianBlack.svg'
+import musicianWhite from '../media/icons/musicianWhite.svg'
+import stageBlack from '../media/icons/stageBlack.svg'
+import stageWhite from '../media/icons/stageWhite.svg'
+
 export default function Profiles() {
 
 
@@ -41,6 +52,10 @@ export default function Profiles() {
               setActive={() => setActive('Musician')}
               setNumberOfSteps={() => setNumberOfSteps(3)}
               active={active}
+              blackImg={musicianBlack}
+              whiteImg={musicianWhite}
+        
+
             />
           }
 
@@ -53,6 +68,8 @@ export default function Profiles() {
               setActive={() => setActive('Band')}
               setNumberOfSteps={() => setNumberOfSteps(4)}
               active={active}
+              blackImg={bandBlack}
+              whiteImg={bandWhite}
             />
           }
 
@@ -65,6 +82,8 @@ export default function Profiles() {
               setActive={() => setActive('Music Studio')}
               setNumberOfSteps={() => setNumberOfSteps(2)}
               active={active}
+              blackImg={studioBlack}
+              whiteImg={studioWhite}
             />
           }
 
@@ -78,8 +97,11 @@ export default function Profiles() {
               setActive={() => setActive('Live Stage')}
               setNumberOfSteps={() => setNumberOfSteps(5)}
               active={active}
+              blackImg={stageBlack}
+              whiteImg={stageWhite}
             />
           }
+
 
 
           {user.hasStoreProfile ? null :
@@ -91,6 +113,8 @@ export default function Profiles() {
               setActive={() => setActive('Music Store')}
               setNumberOfSteps={() => setNumberOfSteps(3)}
               active={active}
+              blackImg={storeBlack}
+              whiteImg={storeWhite}
             />
 
           }

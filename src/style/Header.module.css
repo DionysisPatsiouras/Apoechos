@@ -4,6 +4,12 @@
   justify-content: space-between;
   align-items: center;
   padding: 30px;
+  z-index: 999;
+}
+
+.menu ul, .dropdown ul {
+  position: relative;
+  z-index: 88888;
 }
 
 .menu ul, .dropdown ul {

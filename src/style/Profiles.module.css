@@ -29,21 +29,23 @@ h5 {
   border-radius: 4px;
   background-color: #EFEEEE;
   color: #6B6767;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
   height: 45px;
   transition: 0.3s;
+  padding: 13px 0;
+  height: 20px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .selection p {
   color: #ffffff;
-  padding: 0 0 0 5px;
 }
 
-.selectio svg path {
-  padding: 0 2px 0 0;
+.selection img {
+  position: absolute;
+  padding: 0 212px 0 0;
 }
 
 .description {
@@ -126,6 +128,7 @@ h5 {
     justify-content: space-around;
   }
   .profileIcon {
-    padding: 2px;
+    width: 50px;
+    height: 50px;
   }
 }/*# sourceMappingURL=Profiles.module.css.map */

@@ -82,9 +82,10 @@ export default function Header() {
                     <ul className={style.onlineMenu}>
                         {user && !user.hasMusicianProfile && !user.hasBandProfile && !user.hasStoreProfile && !user.hasStageProfile && !user.StudioProfile ? <Link to='/create-profile' className={style.joinButton}>Join the community!</Link> : null}
                         {user ? <img src={notificationsIcon} width={25} height={25} alt='Notifications' /> : null}
+
                         {user ? <img src={messagesIcon} width={25} height={25} alt='Messages' /> : null}
                         {user ? <img src={onlinePic} width={40} height={40} alt='Account' style={{ 'borderRadius': '199px', 'border': dropdownIsOpen ? '3px solid #5F69C6' : '3px solid #ffffff' }} onClick={() => setDropDownIsOpen(!dropdownIsOpen)} /> : null}
-                        
+
 
                         {dropdownIsOpen ?
                             <ul className={style.dropDownDesktop} >
