@@ -1,15 +1,31 @@
 .container {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.allCards {
+  display: flex;
+  justify-content: center;
 }
 
 .card {
   width: 350px;
   height: 200px;
   box-shadow: rgba(0, 0, 0, 0.15) 1px 2px 11px;
-  border-radius: 4px;
+  border-radius: 5px;
   margin: 10px;
   padding: 20px;
+}
+
+.cardWhitePart {
+  width: 350px;
+  height: 200px;
+  margin: -20px 0 0 -20px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 4px 143px 4px 4px;
 }
 
 .card h6 {
@@ -17,7 +33,7 @@
   font-size: 14px;
 }
 
-.card img {
+.userImg {
   width: 84px;
   height: 84px;
 }
@@ -28,4 +44,36 @@
   position: relative;
   top: -131px;
   left: 220px;
+}
+
+.signatureIcon {
+  width: 20px;
+  height: 20px;
+  float: right;
+  margin-top: -114px;
+  margin-right: -5px;
+}
+
+.menu {
+  margin: 20px 0 0 0;
+}
+
+.menu ul {
+  display: flex;
+}
+
+.menu ul li {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.menu ul li:hover {
+  color: red;
+}
+
+.searchAndResults {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }/*# sourceMappingURL=Discover.module.css.map */

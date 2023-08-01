@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
 
-import axios from 'axios'
+// import axios from 'axios'
 
 import '../style/main.css'
 import style from '../style/Header.module.css'
@@ -16,6 +16,7 @@ import messagesIcon from '../media/icons/messages.svg'
 import editIcon from '../media/icons/edit.svg'
 import logoutIcon from '../media/icons/logout.svg'
 import musicianIcon from '../media/icons/musicianIcon.svg'
+// import logo from '../media/logo.svg'
 
 
 
@@ -47,6 +48,7 @@ export default function Header() {
             <div className={style.menu}>
                 {mobileEnabled ? <img src={menuIsOpen ? closeIcon : burgerMenuIcon} width={44} height={44} alt="menu" onClick={() => { setMenuIsOpen(!menuIsOpen); setAccountIsOpen(false) }} /> : null}
                 <ul style={{ 'left': menuIsOpen ? '0%' : '-200%' }}>
+                
                     <Link to="/" onClick={() => setMenuIsOpen(false)}>What's New</Link>
                     <Link to="/discover" onClick={() => setMenuIsOpen(false)}>Discover</Link>
                     <Link to="/mystudio" onClick={() => setMenuIsOpen(false)}>My Studio</Link>

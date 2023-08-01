@@ -2,53 +2,62 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import style from '../style/Discover.module.css'
 import pic from '../media/musician.png'
+import musicianIcon from '../media/icons/musicianWhite.svg'
+import bandIcon from '../media/icons/bandWhite.svg'
+import studioIcon from '../media/icons/studioWhite.svg'
+import storeIcon from '../media/icons/storewhite.svg'
+import stageIcon from '../media/icons/stageWhite.svg'
+import Everything from '../components/getProfiles.js/Everything'
+import Musicians from '../components/getProfiles.js/Musicians'
+
+
+
+
 
 
 export default function Discover() {
 
 
-  const [data, setData] = useState([])
-  const [color, setColor] = useState()
 
-
-  useEffect(() => {
-    axios
-      .get('http://127.0.0.1:8000/profiles/')
-      .then((response) => {
-        setData(response.data)
-      });
-  }, []);
-
+  const [activeFilter, setActiveFilter] = useState('Everything')
 
 
 
   return (
     <div className={style.container}>
 
-      {console.log(...data)}
 
-      {data.map((i) => (
-        <div key={i.id + i.category} className={style.card}>
-       
-
-          <img src={pic} />
-          {console.log(i.category)}
+      {console.log(activeFilter)}
 
 
-          <h6>{i.title || i.first_name}</h6>
-          <svg className={style.decoration} width="127" height="120" viewBox="0 0 127 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0.420479 6.61019e-06C98.7057 3.61285e-06 125.759 80 127 120L127 4C127 1.79087 125.249 2.80339e-06 123.039 2.87076e-06L0.420479 6.61019e-06Z"
-              fill={color}
+      <div className={style.menu}>
+        <ul>
+          <li style={{ 'color': activeFilter === 'Everything' ? 'black' : '#AFAFAF', 'borderBottom': activeFilter === 'Everything' ? '3px solid black' : 'transparent' }} onClick={() => setActiveFilter('Everything')}>Everything</li>
+          <li style={{ 'color': activeFilter === 'Musicians' ? '#10ACDD' : '#AFAFAF', 'borderBottom': activeFilter === 'Musicians' ? '3px solid #10ACDD' : 'transparent' }} onClick={() => setActiveFilter('Musicians')}>Musicians</li>
+          <li style={{ 'color': activeFilter === 'Bands' ? '#E37056' : '#AFAFAF', 'borderBottom': activeFilter === 'Bands' ? '3px solid #E37056' : 'transparent' }} onClick={() => setActiveFilter('Bands')}>Bands</li>
+          <li style={{ 'color': activeFilter === 'Studios' ? '#FF8514' : '#AFAFAF', 'borderBottom': activeFilter === 'Studios' ? '3px solid #FF8514' : 'transparent' }} onClick={() => setActiveFilter('Studios')}>Studios</li>
+          <li style={{ 'color': activeFilter === 'Live Stages' ? '#E558C6' : '#AFAFAF', 'borderBottom': activeFilter === 'Live Stages' ? '3px solid #E558C6' : 'transparent' }} onClick={() => setActiveFilter('Live Stages')}>Live Stages</li>
+          <li style={{ 'color': activeFilter === 'Music Stores' ? '#12C59A' : '#AFAFAF', 'borderBottom': activeFilter === 'Music Stores' ? '3px solid #12C59A' : 'transparent' }} onClick={() => setActiveFilter('Music Stores')}>Music Stores</li>
+        </ul>
+
+        
+
+      </div>
 
 
 
-            />
-          </svg>
-        </div>
 
-      ))}
+      {(() => {
+        switch (activeFilter) {
+          case 'Everything':
+            return <Everything /> 
+          case 'Musicians':
+            return <Musicians />
 
-
+          default:
+            return <Everything /> 
+        }
+      })()}
 
     </div>
   )

@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react"
 import jwt_decode from 'jwt-decode'
 import { useNavigate } from "react-router-dom";
-import axios from 'axios'
+
 
 
 const AuthContext = createContext()
@@ -29,14 +29,6 @@ export const AuthProvider = ({ children }) => {
             body: JSON.stringify({ 'email': e.target.email.value, 'password': e.target.password.value })
 
         })
-
-
-        // axios
-        //     .get('http://127.0.0.1:8000/users/' + user.user_id + '/')
-        //     .then((response) => {
-        //         setData(response.data);
-        //     })
-        //     .catch((error) => (console.log(error)))
 
 
 
