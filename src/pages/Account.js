@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 
 
-import Profiles from '../components/Profiles'
+import CreateNewProfile from '../components/CreateNewProfile'
 import Settings from '../components/Settings'
 import Notifications from '../components/Notifications'
 import Messages from '../components/Messages'
@@ -16,11 +16,11 @@ export default function Account() {
   const [width, setWidth] = React.useState(window.innerWidth);
   const [activeTab, setActiveTab] = useState('Profiles')
 
-  const hasAllProfiles = user.hasMusicianProfile && user.hasBandProfile && user.hasStudioProfile && user.hasStageProfile && user.hasStoreProfile
 
+  const hasAllProfiles = user.hasMusicianProfile && user.hasBandProfile && user.hasStudioProfile && user.hasStageProfile && user.hasStoreProfile
   const [newProfileWindow, setNewProfileWindow] = useState(false)
 
-
+  
 
 
 
@@ -33,8 +33,9 @@ export default function Account() {
     <div>
 
 
-    {/* ACCOUNT MAIN MENU >>>>> PROFILES, SETTINGS, NOTIFICATIONS, MESSAGES */}
+      {/* ACCOUNT MAIN MENU >>>>> PROFILES, SETTINGS, NOTIFICATIONS, MESSAGES */}
       <ul className={style.list}>
+
 
         <li
           style={{ 'backgroundColor': activeTab === 'Profiles' && width < 769 ? '#5F69C6' : 'transparent', 'borderBottom': activeTab === 'Profiles' ? '4px solid #5F69C6' : 'none' }}
@@ -92,30 +93,49 @@ export default function Account() {
           {user.hasStudioProfile ? <div className={style.object}><img src={img} alt='img' /></div> : null}
           {user.hasStageProfile ? <div className={style.object}><img src={img2} alt='img' /></div> : null}
           {user.hasStoreProfile ? <div className={style.object}><img src={img} alt='img' /></div> : null}
-          {hasAllProfiles ? null : <div className={style.special} onClick={() => setNewProfileWindow(!newProfileWindow)}><p className={style.plus}>+</p><p className={style.text}>Create new</p></div>}
+
+          {/* IF USER HAS ALL PROFILES, DONT SHOW ANYTHING, ELSE SHOW 'CREATE NEW' BUTTON */}
+          {/* {hasAllProfiles ? null :
+            <div className={style.special}
+              onClick={() => setNewProfileWindow(!newProfileWindow)}>
+              <p className={style.plus}>+</p>
+              <p className={style.text}>Create new</p></div>} */}
+
+
+          {hasAllProfiles ? null :
+
+            !user.hasMusicianProfile && !user.hasBandProfile && !user.hasStudioProfile && !user.hasStageProfile && !user.hasStoreProfile ?
+              <CreateNewProfile /> :
+              <div className={style.special}
+                onClick={() => setNewProfileWindow(!newProfileWindow)}>
+                <p className={style.plus}>+</p>
+                <p className={style.text}>Create new</p></div>}
         </div>
         : null
       }
 
 
 
-      {(() => {
-        switch (activeTab) {
-          case 'Profiles':
-            return newProfileWindow ? <Profiles /> : null
-          case 'Settings':
-            return <Settings />
-          case 'Notifications':
-            return <Notifications />
-          case 'Messages':
-            return <Messages />
 
-          default:
-            return <Profiles />
-        }
-      })()}
+      {
+        (() => {
+          switch (activeTab) {
+            case 'Profiles':
+              return newProfileWindow ? <CreateNewProfile /> : null
+            case 'Settings':
+              return <Settings />
+            case 'Notifications':
+              return <Notifications />
+            case 'Messages':
+              return <Messages />
+
+            default:
+              return <CreateNewProfile />
+          }
+        })()
+      }
 
 
-    </div>
+    </div >
   )
 }
