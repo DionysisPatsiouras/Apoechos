@@ -46,9 +46,10 @@ export default function Header() {
 
             {/*   NAVIGATION MENU  */}
             <div className={style.menu}>
+
                 {mobileEnabled ? <img src={menuIsOpen ? closeIcon : burgerMenuIcon} width={44} height={44} alt="menu" onClick={() => { setMenuIsOpen(!menuIsOpen); setAccountIsOpen(false) }} /> : null}
                 <ul style={{ 'left': menuIsOpen ? '0%' : '-200%' }}>
-                
+                    {/* <Link to="/"><img src={logo} width={30} height={30} /></Link> */}
                     <Link to="/" onClick={() => setMenuIsOpen(false)}>What's New</Link>
                     <Link to="/discover" onClick={() => setMenuIsOpen(false)}>Discover</Link>
                     <Link to="/mystudio" onClick={() => setMenuIsOpen(false)}>My Studio</Link>
@@ -82,7 +83,8 @@ export default function Header() {
                     :
                     // DESKTOP VERSION
                     <ul className={style.onlineMenu}>
-                        {user && !user.hasMusicianProfile && !user.hasBandProfile && !user.hasStoreProfile && !user.hasStageProfile && !user.StudioProfile ? <Link to='/create-profile' className={style.joinButton}>Join the community!</Link> : null}
+
+                        {user && !user.hasMusicianProfile && !user.hasBandProfile && !user.hasStoreProfile && !user.hasStageProfile && !user.StudioProfile ? <Link to='/account' className={style.joinButton}>Join the community!</Link> : null}
                         {user ? <img src={notificationsIcon} width={25} height={25} alt='Notifications' /> : null}
 
                         {user ? <img src={messagesIcon} width={25} height={25} alt='Messages' /> : null}

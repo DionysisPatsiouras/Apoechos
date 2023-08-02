@@ -22,10 +22,25 @@
 .terms {
   display: flex;
   align-items: center;
-  margin: 40px 0;
+  margin: 40px 0 10px 0;
+}
+
+.terms input, .terms label {
+  cursor: pointer;
 }
 
 .terms input {
   min-width: auto;
   margin: 0 5px;
+}
+
+.inputImg {
+  position: absolute;
+  margin: 26px 0 0 232px;
+}
+
+@media screen and (min-width: 768px) {
+  .container2 {
+    flex-direction: row;
+  }
 }/*# sourceMappingURL=RegisterPage.module.css.map */

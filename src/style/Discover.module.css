@@ -54,22 +54,17 @@
   margin-right: -5px;
 }
 
-.menu {
+.desktopMenu {
   margin: 20px 0 0 0;
 }
 
-.menu ul {
+.desktopMenu ul {
   display: flex;
 }
 
-.menu ul li {
+.desktopMenu ul li {
   padding: 10px;
   cursor: pointer;
-  border-bottom: 2px solid transparent;
-}
-
-.menu ul li:hover {
-  color: red;
 }
 
 .searchAndResults {

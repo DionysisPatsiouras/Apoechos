@@ -19,7 +19,7 @@ export default function Musicians() {
 
     return (
         <div>
-            <SearchAndResults results={data.length} />
+            {/* <SearchAndResults results={data.length} /> */}
             {data.map((i) => (
 
                 <div key={i.id + i.category} className={style.card} style={{ 'backgroundColor': i.category === 'Musician' ? '#10ACDD' : i.category === 'Band' ? '#E37056' : i.category === 'Studio' ? '#FF8514' : i.category === 'Store' ? '#12C59A' : i.category === 'Stage' ? '#E558C6' : null }}>
