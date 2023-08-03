@@ -20,7 +20,7 @@ export default function Account() {
   const hasAllProfiles = user.hasMusicianProfile && user.hasBandProfile && user.hasStudioProfile && user.hasStageProfile && user.hasStoreProfile
   const [newProfileWindow, setNewProfileWindow] = useState(false)
 
-  
+
 
 
 
@@ -102,9 +102,10 @@ export default function Account() {
             !user.hasMusicianProfile && !user.hasBandProfile && !user.hasStudioProfile && !user.hasStageProfile && !user.hasStoreProfile ?
               <CreateNewProfile /> :
               <div className={style.special}
+                style={{ 'backgroundColor': newProfileWindow ? '#5F69C6' : '#ffffff', 'border': newProfileWindow ? '3px solid #5F69C6' : '3px dashed #CECECE' }}
                 onClick={() => setNewProfileWindow(!newProfileWindow)}>
-                <p className={style.plus}>+</p>
-                <p className={style.text}>Create new</p></div>}
+                <p style={{ 'color': newProfileWindow ? '#ffffff' : '#565656' }} className={style.plus}>+</p>
+                <p style={{ 'color': newProfileWindow ? '#ffffff' : '#565656' }} className={style.text}>Create new</p></div>}
         </div>
         : null
       }

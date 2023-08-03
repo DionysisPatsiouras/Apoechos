@@ -71,7 +71,7 @@ export default function Header() {
                         <img src={user ? onlinePic : accountIcon} width={41} height={41} alt="menu" style={{ 'borderRadius': '99px', 'border': accountIsOpen ? '3px solid #5F69C6' : '3px solid #ffffff' }} onClick={() => { setAccountIsOpen(!accountIsOpen); setMenuIsOpen(false) }} />
                         <ul className={style.dropdown} style={{ 'left': accountIsOpen ? '0' : '-200%' }}>
                             <ul className={style.accountMenu}>
-                                {user && !user.hasMusicianProfile && !user.hasBandProfile && !user.hasStoreProfile && !user.hasStageProfile && !user.StudioProfile ? <Link to='/create-profile' className={style.joinButton}>Join the community!</Link> : null}
+                                {user && !user.hasMusicianProfile && !user.hasBandProfile && !user.hasStoreProfile && !user.hasStageProfile && !user.StudioProfile ? <Link to='/account' onClick={() => setAccountIsOpen(false)} className={style.joinButton}>Join the community!</Link> : null}
                                 {user ? <Link to="/account" onClick={() => setAccountIsOpen(false)}><img src={accountIcon} width={40} height={40} alt='Account' />Account</Link> : null}
                                 {user ? <Link to="/profile" onClick={() => setAccountIsOpen(false)}><img src={editIcon} width={40} height={40} alt='Edit' />Edit profile</Link> : null}
                                 {user ? <Link to="/notifications" onClick={() => setAccountIsOpen(false)}><img src={notificationsIcon} width={40} height={40} alt='Notifications' />Notifications</Link> : null}
@@ -87,7 +87,7 @@ export default function Header() {
                     // DESKTOP VERSION
                     <ul className={style.onlineMenu}>
 
-                        {user && !user.hasMusicianProfile && !user.hasBandProfile && !user.hasStoreProfile && !user.hasStageProfile && !user.StudioProfile ? <Link to='/account' className={style.joinButton}>Join the community!</Link> : null}
+                        {user && !user.hasMusicianProfile && !user.hasBandProfile && !user.hasStoreProfile && !user.hasStageProfile && !user.StudioProfile ? <Link to='/account' className={style.joinButton}>Join the community! </Link> : null}
                         {user ? <img src={notificationsIcon} width={25} height={25} alt='Notifications' /> : null}
 
                         {user ? <img src={messagesIcon} width={25} height={25} alt='Messages' /> : null}

@@ -56,24 +56,6 @@
     padding: 10px
     cursor: pointer
 
-.searchAndResults
-    display: flex
-    align-items: center
-    justify-content: space-between
-    width: 573px
-
-.searchAndResults form
-    display: flex
-    flex-direction: row
-
-.searchAndResults input
-    background-color: #ffffff
-    color: #4F4F4F
-    font-size: 15px
-    padding: 16px 0 16px 10px
-    outline: none
-
-
 .cardsContainer
     display: flex
     flex-wrap: wrap
@@ -92,3 +74,52 @@
     font-size: 14px
     position: relative
     bottom: -74px
+
+.searchAndResults form
+    display: flex
+    flex-direction: row
+
+.searchAndResults input
+    background-color: #ffffff
+    color: #4F4F4F
+    font-size: 15px
+    padding: 16px 0 16px 10px
+    outline: none
+
+.searchAndResults
+    width: 100%
+
+.searchAndResults input
+    color: #ffffff
+
+.searchAndResults input::placeholder
+    color: white
+    opacity: 1
+
+.wrapper
+    width: 100%
+    display: flex
+    flex-direction: column-reverse
+    align-items: center
+
+.dropDownMenu
+    display: flex
+    align-items: center
+
+@media screen and ( min-width: 768px )
+
+    .wrapper
+        display: flex
+        flex-direction: column
+        align-items: center
+    .searchAndResults
+        display: flex
+        align-items: center
+        justify-content: space-between
+        width: 573px
+
+    .searchAndResults input::placeholder
+        color: #4F4F4F
+
+    .searchAndResults input
+        color: #4F4F4F
