@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import style from '../style/Discover.module.css'
+import MobileMenu from '../components/DiscoverComponents/MobileMenu'
+import DesktopMenu from '../components/DiscoverComponents/DesktopMenu'
 import pic from '../media/musician.png'
 import musicianIcon from '../media/icons/musicianWhite.svg'
 import bandIcon from '../media/icons/bandWhite.svg'
@@ -11,13 +13,11 @@ import stageIcon from '../media/icons/stageWhite.svg'
 
 export default function Discover() {
 
-
-
-
-
   const [activeFilter, setActiveFilter] = useState('everything')
   const [signatureColor, setSignatureColor] = useState('everything')
+  const [width, setWidth] = React.useState(window.innerWidth);
   const [data, setData] = useState([])
+  const mobileEnabled = width < 769
 
 
   useEffect(() => {
@@ -31,87 +31,26 @@ export default function Discover() {
   }, [activeFilter]);
 
 
+
+  useEffect(() => {
+    window.addEventListener("resize", () => setWidth(window.innerWidth));
+  }, [])
+
+
+
   return (
     <div className={style.container}>
 
 
 
-
-      {/* PROFILES MENU */}
-      <div className={style.desktopMenu}>
-        <ul>
-          <li
-            style={{
-              'color': signatureColor === 'everything' || activeFilter === 'everything' ? '#000000' : '#AFAFAF',
-              'borderBottom': signatureColor === 'everything' || activeFilter === 'everything' ? '3px solid #000000' : '3px solid transparent'
-            }}
-            onClick={() => setActiveFilter('everything')}
-            onMouseOver={() => setSignatureColor('everything')}
-            onMouseLeave={() => setSignatureColor('')}>
-            Everything
-          </li>
-
-
-          <li
-            style={{
-              'color': signatureColor === 'musicians' || activeFilter === 'musicians' ? '#10ACDD' : '#AFAFAF',
-              'borderBottom': signatureColor === 'musicians' || activeFilter === 'musicians' ? '3px solid #10ACDD' : '3px solid transparent'
-            }}
-            onClick={() => setActiveFilter('musicians')}
-            onMouseOver={() => setSignatureColor('musicians')}
-            onMouseLeave={() => setSignatureColor('')}>
-            Musicians
-          </li>
-
-
-          <li
-            style={{
-              'color': signatureColor === 'bands' || activeFilter === 'bands' ? '#E37056' : '#AFAFAF',
-              'borderBottom': signatureColor === 'bands' || activeFilter === 'bands' ? '3px solid #E37056' : '3px solid transparent'
-            }}
-            onClick={() => setActiveFilter('bands')}
-            onMouseOver={() => setSignatureColor('bands')}
-            onMouseLeave={() => setSignatureColor('')}>
-            Bands
-          </li>
-
-
-          <li
-            style={{
-              'color': signatureColor === 'studios' || activeFilter === 'studios' ? '#FF8514' : '#AFAFAF',
-              'borderBottom': signatureColor === 'studios' || activeFilter === 'studios' ? '3px solid #FF8514' : '3px solid transparent'
-            }}
-            onClick={() => setActiveFilter('studios')}
-            onMouseOver={() => setSignatureColor('studios')}
-            onMouseLeave={() => setSignatureColor('')}>
-            Studios
-          </li>
-
-
-          <li
-            style={{
-              'color': signatureColor === 'stages' || activeFilter === 'stages' ? '#E558C6' : '#AFAFAF',
-              'borderBottom': signatureColor === 'stages' || activeFilter === 'stages' ? '3px solid #E558C6' : '3px solid transparent'
-            }}
-            onClick={() => setActiveFilter('stages')}
-            onMouseOver={() => setSignatureColor('stages')}
-            onMouseLeave={() => setSignatureColor('')}>
-            Live Stages
-          </li>
-
-
-          <li
-            style={{
-              'color': signatureColor === 'stores' || activeFilter === 'stores' ? '#12C59A' : '#AFAFAF',
-              'borderBottom': signatureColor === 'stores' || activeFilter === 'stores' ? '3px solid #12C59A' : '3px solid transparent'
-            }}
-            onClick={() => setActiveFilter('stores')}
-            onMouseOver={() => setSignatureColor('stores')}
-            onMouseLeave={() => setSignatureColor('')}>
-            Music Stores
-          </li>
-        </ul>
-      </div>
+      {mobileEnabled ?
+        <MobileMenu /> :
+        <DesktopMenu
+          signatureColor={signatureColor}
+          activeFilter={activeFilter}
+          setActiveFilter={setActiveFilter}
+          setSignatureColor={setSignatureColor} />
+      }
 
 
       {/* SEARCH BAR & RESULTS */}
@@ -123,7 +62,7 @@ export default function Discover() {
 
           <input placeholder='Search...' />
         </form>
-        <small style={{ 'textAlign': 'right' }}>Results : {data.length}</small>
+        <small >Results : {data.length}</small>
       </div>
 
 
@@ -154,7 +93,7 @@ export default function Discover() {
                           null}
               />
               <div className={style.profileInfo}>
-                <img src={pic} width={84} height={84} alt='Profile'/>
+                <img src={pic} width={84} height={84} alt='Profile' />
                 <h6 className={style.profileTitle}>{i.title || i.first_name || i.name}</h6>
               </div>
 

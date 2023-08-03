@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 
 
-import CreateNewProfile from '../components/CreateNewProfile'
+import CreateNewProfile from '../components/AccountComponents/CreateNewProfile'
 import Settings from '../components/Settings'
 import Notifications from '../components/Notifications'
 import Messages from '../components/Messages'
@@ -94,12 +94,7 @@ export default function Account() {
           {user.hasStageProfile ? <div className={style.object}><img src={img2} alt='img' /></div> : null}
           {user.hasStoreProfile ? <div className={style.object}><img src={img} alt='img' /></div> : null}
 
-          {/* IF USER HAS ALL PROFILES, DONT SHOW ANYTHING, ELSE SHOW 'CREATE NEW' BUTTON */}
-          {/* {hasAllProfiles ? null :
-            <div className={style.special}
-              onClick={() => setNewProfileWindow(!newProfileWindow)}>
-              <p className={style.plus}>+</p>
-              <p className={style.text}>Create new</p></div>} */}
+
 
 
           {hasAllProfiles ? null :

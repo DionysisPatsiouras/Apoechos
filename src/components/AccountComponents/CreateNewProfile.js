@@ -1,18 +1,19 @@
 import React, { useContext, useState } from 'react'
-import style from '../style/Profiles.module.css'
-import AuthContext from '../context/AuthContext'
-import ProfileSelection from './minor/ProfileSelection'
+import style from '../../style/Profiles.module.css'
 
-import storeBlack from '../media/icons/store.svg'
-import storeWhite from '../media/icons/storewhite.svg'
-import bandBlack from '../media/icons/bandBlack.svg'
-import bandWhite from '../media/icons/bandWhite.svg'
-import studioBlack from '../media/icons/studioBlack.svg'
-import studioWhite from '../media/icons/studioWhite.svg'
-import musicianBlack from '../media/icons/musicianBlack.svg'
-import musicianWhite from '../media/icons/musicianWhite.svg'
-import stageBlack from '../media/icons/stageBlack.svg'
-import stageWhite from '../media/icons/stageWhite.svg'
+import AuthContext from '../../context/AuthContext'
+import ProfileSelection from './ProfileSelection'
+
+import storeBlack from '../../media/icons/store.svg'
+import storeWhite from '../../media/icons/storewhite.svg'
+import bandBlack from '../../media/icons/bandBlack.svg'
+import bandWhite from '../../media/icons/bandWhite.svg'
+import studioBlack from '../../media/icons/studioBlack.svg'
+import studioWhite from '../../media/icons/studioWhite.svg'
+import musicianBlack from '../../media/icons/musicianBlack.svg'
+import musicianWhite from '../../media/icons/musicianWhite.svg'
+import stageBlack from '../../media/icons/stageBlack.svg'
+import stageWhite from '../../media/icons/stageWhite.svg'
 
 export default function Profiles() {
 
