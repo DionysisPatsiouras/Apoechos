@@ -15,7 +15,7 @@ import notificationsIcon from '../media/icons/notifications.svg'
 import messagesIcon from '../media/icons/messages.svg'
 import editIcon from '../media/icons/edit.svg'
 import logoutIcon from '../media/icons/logout.svg'
-import musicianIcon from '../media/icons/musicianIcon.svg'
+// import musicianIcon from '../media/icons/musicianIcon.svg'
 // import logo from '../media/logo.svg'
 
 

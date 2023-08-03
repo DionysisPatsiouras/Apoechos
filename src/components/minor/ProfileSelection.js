@@ -14,7 +14,7 @@ export default function ProfileSelection(props) {
                 {/* <svg className={style.profileIcon} width="30" height="35" viewBox="0 0 60 55" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d={props.svg} fill={props.active === props.id ? '#ffffff' : '#000000'} />
                 </svg> */}
-                <img src={props.active === props.id ? props.whiteImg : props.blackImg} />
+                <img src={props.active === props.id ? props.whiteImg : props.blackImg} alt='icon'/>
 
                 <p style={{ 'color': props.active === props.id ? '#ffffff' : '#6B6767' }}>{props.id}</p>
             </div>  
