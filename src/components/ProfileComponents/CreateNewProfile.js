@@ -4,16 +4,21 @@ import style from '../../style/Profiles.module.css'
 import AuthContext from '../../context/AuthContext'
 import ProfileSelection from './ProfileSelection'
 
-import storeBlack from '../../media/icons/store.svg'
-import storeWhite from '../../media/icons/storewhite.svg'
-import bandBlack from '../../media/icons/bandBlack.svg'
-import bandWhite from '../../media/icons/bandWhite.svg'
-import studioBlack from '../../media/icons/studioBlack.svg'
-import studioWhite from '../../media/icons/studioWhite.svg'
-import musicianBlack from '../../media/icons/musicianBlack.svg'
-import musicianWhite from '../../media/icons/musicianWhite.svg'
-import stageBlack from '../../media/icons/stageBlack.svg'
-import stageWhite from '../../media/icons/stageWhite.svg'
+
+import musicianDark from '../../media/icons/profiles/dark/musician.svg'
+import bandDark from '../../media/icons/profiles/dark/band.svg'
+import studioDark from '../../media/icons/profiles/dark/studio.svg'
+import stageDark from '../../media/icons/profiles/dark/stage.svg'
+import storeDark from '../../media/icons/profiles/dark/store.svg'
+
+
+import musicianLight from '../../media/icons/profiles/light/musician.svg'
+import bandLight from '../../media/icons/profiles/light/band.svg'
+import studioLight from '../../media/icons/profiles/light/studio.svg'
+import stageLight from '../../media/icons/profiles/light/stage.svg'
+import storeLight from '../../media/icons/profiles/light/store.svg'
+
+
 
 export default function Profiles() {
 
@@ -53,8 +58,8 @@ export default function Profiles() {
               setActive={() => setActive('Musician')}
               setNumberOfSteps={() => setNumberOfSteps(3)}
               active={active}
-              blackImg={musicianBlack}
-              whiteImg={musicianWhite}
+              blackImg={musicianDark}
+              whiteImg={musicianLight}
         
 
             />
@@ -69,8 +74,8 @@ export default function Profiles() {
               setActive={() => setActive('Band')}
               setNumberOfSteps={() => setNumberOfSteps(4)}
               active={active}
-              blackImg={bandBlack}
-              whiteImg={bandWhite}
+              blackImg={bandDark}
+              whiteImg={bandLight}
             />
           }
 
@@ -83,8 +88,8 @@ export default function Profiles() {
               setActive={() => setActive('Music Studio')}
               setNumberOfSteps={() => setNumberOfSteps(2)}
               active={active}
-              blackImg={studioBlack}
-              whiteImg={studioWhite}
+              blackImg={studioDark}
+              whiteImg={studioLight}
             />
           }
 
@@ -98,8 +103,8 @@ export default function Profiles() {
               setActive={() => setActive('Live Stage')}
               setNumberOfSteps={() => setNumberOfSteps(5)}
               active={active}
-              blackImg={stageBlack}
-              whiteImg={stageWhite}
+              blackImg={stageDark}
+              whiteImg={stageLight}
             />
           }
 
@@ -114,8 +119,8 @@ export default function Profiles() {
               setActive={() => setActive('Music Store')}
               setNumberOfSteps={() => setNumberOfSteps(3)}
               active={active}
-              blackImg={storeBlack}
-              whiteImg={storeWhite}
+              blackImg={storeDark}
+              whiteImg={storeLight}
             />
 
           }

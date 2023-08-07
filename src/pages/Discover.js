@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import style from '../style/Discover.module.css'
 import MobileMenu from '../components/DiscoverComponents/MobileMenu'
 import DesktopMenu from '../components/DiscoverComponents/DesktopMenu'
 import pic from '../media/musician.png'
-import musicianIcon from '../media/icons/musicianWhite.svg'
-import bandIcon from '../media/icons/bandWhite.svg'
-import studioIcon from '../media/icons/studioWhite.svg'
-import storeIcon from '../media/icons/storewhite.svg'
-import stageIcon from '../media/icons/stageWhite.svg'
+
+
+import musicianLight from '../media/icons/profiles/light/musician.svg'
+import bandLight from '../media/icons/profiles/light/band.svg'
+import studioLight from '../media/icons/profiles/light/studio.svg'
+import stageLight from '../media/icons/profiles/light/stage.svg'
+import storeLight from '../media/icons/profiles/light/store.svg'
+
+
+
+
 
 
 
@@ -42,7 +49,7 @@ export default function Discover() {
 
   return (
     <div className={style.container}>
-      {console.log(link)}
+
       <div className={style.wrapper}>
 
         {mobileEnabled ?
@@ -99,22 +106,23 @@ export default function Discover() {
             className={style.card}
             style={{
               'backgroundColor':
-                i.category === 'Musician' ? '#10ACDD' :
-                  i.category === 'Band' ? '#E37056' :
-                    i.category === 'Studio' ? '#FF8514' :
-                      i.category === 'Store' ? '#12C59A' :
-                        i.category === 'Stage' ? '#E558C6' :
+                i.category === 'musician' ? '#10ACDD' :
+                  i.category === 'band' ? '#E37056' :
+                    i.category === 'studio' ? '#FF8514' :
+                      i.category === 'store' ? '#12C59A' :
+                        i.category === 'stage' ? '#E558C6' :
                           null
             }}>
             <div className={style.cardWhitePart}>
               <img
                 className={style.signatureIcon}
+                style={{'marginRight' : i.category === 'musician' ? '-18px' : '-5px'}}
                 alt='Category Icon'
-                src={i.category === 'Musician' ? musicianIcon :
-                  i.category === 'Band' ? bandIcon :
-                    i.category === 'Studio' ? studioIcon :
-                      i.category === 'Store' ? storeIcon :
-                        i.category === 'Stage' ? stageIcon :
+                src={i.category === 'musician' ? musicianLight :
+                  i.category === 'band' ? bandLight :
+                    i.category === 'studio' ? studioLight :
+                      i.category === 'store' ? storeLight :
+                        i.category === 'stage' ? stageLight :
                           null}
               />
               <div className={style.profileInfo}>
@@ -122,7 +130,7 @@ export default function Discover() {
                 <h6 className={style.profileTitle}>{i.title || i.first_name || i.name}</h6>
               </div>
 
-              <button className={style.seeProfileButton}>See profile</button>
+              <button className={style.seeProfileButton}> <Link to={'/profiles/' + i.category + '/' + i.id} >See profile</Link></button>
             </div>
 
           </div>
