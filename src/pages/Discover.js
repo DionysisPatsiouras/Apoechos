@@ -13,8 +13,9 @@ import stageIcon from '../media/icons/stageWhite.svg'
 
 export default function Discover() {
 
-  const [activeFilter, setActiveFilter] = useState('everything')
-  const [signatureColor, setSignatureColor] = useState('everything')
+  const [activeFilter, setActiveFilter] = useState('Everything')
+  const [link, setLink] = useState('everything')
+
   const [width, setWidth] = React.useState(window.innerWidth);
   const [data, setData] = useState([])
   const mobileEnabled = width < 769
@@ -23,7 +24,7 @@ export default function Discover() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('http://127.0.0.1:8000/profiles/' + activeFilter);
+      const response = await fetch('http://127.0.0.1:8000/profiles/' + link);
       const json = await response.json();
       setData(json);
     };
@@ -41,16 +42,20 @@ export default function Discover() {
 
   return (
     <div className={style.container}>
-
+      {console.log(link)}
       <div className={style.wrapper}>
 
         {mobileEnabled ?
-          <MobileMenu activeFilter={activeFilter} setActiveFilter={setActiveFilter}/> :
-          <DesktopMenu
-            signatureColor={signatureColor}
+          <MobileMenu
+            link={link}
+            setLink={setLink}
             activeFilter={activeFilter}
-            setActiveFilter={setActiveFilter}
-            setSignatureColor={setSignatureColor} />
+            setActiveFilter={setActiveFilter} /> :
+          <DesktopMenu
+            link={link}
+            setLink={setLink}
+            activeFilter={activeFilter}
+            setActiveFilter={setActiveFilter} />
         }
 
 
@@ -59,26 +64,26 @@ export default function Discover() {
         >
           <form style={{
             'backgroundColor':
-              activeFilter === 'everything' && mobileEnabled ? '#000000' :
-                activeFilter === 'musicians' && mobileEnabled ? '#10ACDD' :
-                  activeFilter === 'bands' && mobileEnabled ? '#E37056' :
-                    activeFilter === 'studios' && mobileEnabled ? '#FF8514' :
-                      activeFilter === 'stages' && mobileEnabled ? '#E558C6' :
-                        activeFilter === 'stores' && mobileEnabled ? '#12C59A'
+              activeFilter === 'Everything' && mobileEnabled ? '#000000' :
+                activeFilter === 'Musicians' && mobileEnabled ? '#10ACDD' :
+                  activeFilter === 'Bands' && mobileEnabled ? '#E37056' :
+                    activeFilter === 'Music Studios' && mobileEnabled ? '#FF8514' :
+                      activeFilter === 'Live Stages' && mobileEnabled ? '#E558C6' :
+                        activeFilter === 'Music Stores' && mobileEnabled ? '#12C59A'
                           : '#ffffff'
           }}>
             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M5.52949 10.9786C3.98576 10.9786 2.67825 10.4424 1.60695 9.36997C0.53565 8.29759 0 7.00402 0 5.48928C0 3.97453 0.536193 2.68097 1.60858 1.60858C2.68097 0.536193 3.97788 0 5.49933 0C7.02078 0 8.31434 0.536193 9.38003 1.60858C10.4457 2.68097 10.9786 3.97554 10.9786 5.49229C10.9786 6.0935 10.8948 6.65214 10.7272 7.16823C10.5597 7.68432 10.3083 8.17024 9.97319 8.62601L14.7185 13.3311C14.9062 13.5262 15 13.756 15 14.0203C15 14.2847 14.9062 14.5107 14.7185 14.6984C14.5237 14.8995 14.2925 15 14.025 15C13.7575 15 13.5329 14.8995 13.3512 14.6984L8.62601 9.9933C8.23727 10.3006 7.77842 10.5416 7.24948 10.7164C6.72054 10.8912 6.14721 10.9786 5.52949 10.9786ZM5.51648 9.08847C6.52046 9.08847 7.36679 8.73827 8.05546 8.03787C8.74414 7.33747 9.08847 6.48794 9.08847 5.48928C9.08847 4.49062 8.74315 3.64109 8.05251 2.94068C7.36186 2.24028 6.51652 1.89008 5.51648 1.89008C4.50527 1.89008 3.64807 2.24028 2.94487 2.94068C2.24168 3.64109 1.89008 4.49062 1.89008 5.48928C1.89008 6.48794 2.24069 7.33747 2.94191 8.03787C3.64314 8.73827 4.50133 9.08847 5.51648 9.08847Z" fill={mobileEnabled ? '#ffffff' : '#4F4F4F'} />
             </svg>
 
-            <input placeholder='Search...' style={{
+            <input placeholder={'Search ' + activeFilter + '..'} style={{
               'backgroundColor':
-                activeFilter === 'everything' && mobileEnabled ? '#000000' :
-                  activeFilter === 'musicians' && mobileEnabled ? '#10ACDD' :
-                    activeFilter === 'bands' && mobileEnabled ? '#E37056' :
-                      activeFilter === 'studios' && mobileEnabled ? '#FF8514' :
-                        activeFilter === 'stages' && mobileEnabled ? '#E558C6' :
-                          activeFilter === 'stores' && mobileEnabled ? '#12C59A'
+                activeFilter === 'Everything' && mobileEnabled ? '#000000' :
+                  activeFilter === 'Musicians' && mobileEnabled ? '#10ACDD' :
+                    activeFilter === 'Bands' && mobileEnabled ? '#E37056' :
+                      activeFilter === 'Music Studios' && mobileEnabled ? '#FF8514' :
+                        activeFilter === 'Live Stages' && mobileEnabled ? '#E558C6' :
+                          activeFilter === 'Music Stores' && mobileEnabled ? '#12C59A'
                             : '#ffffff'
             }} />
           </form>

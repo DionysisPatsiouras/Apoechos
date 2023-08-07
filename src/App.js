@@ -7,6 +7,7 @@ import Discover from "./pages/Discover"
 import RegisterPage from "./pages/RegisterPage"
 import PrivateRoutes from "./utils/PrivateRoutes"
 import Account from "./pages/Account"
+import Profiles from "./pages/Profiles"
 
 
 
@@ -27,6 +28,7 @@ export default function App() {
 
             <Route element={<PrivateRoutes />} >
               <Route path='/account' element={<Account />} />
+              <Route path='/profiles' element={<Profiles />} />
             </Route>
 
 

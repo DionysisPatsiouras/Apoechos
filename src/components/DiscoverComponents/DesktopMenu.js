@@ -7,12 +7,12 @@ export default function DesktopMenu(props) {
             <ul>
                 <li
                     style={{
-                        'color': props.signatureColor === 'everything' || props.activeFilter === 'everything' ? '#000000' : '#AFAFAF',
-                        'borderBottom': props.signatureColor === 'everything' || props.activeFilter === 'everything' ? '3px solid #000000' : '3px solid transparent'
+                        'color': props.link === 'everything' || props.activeFilter === 'Everything' ? '#000000' : '#AFAFAF',
+                        'borderBottom': props.link === 'everything' || props.activeFilter === 'Everything' ? '3px solid #000000' : '3px solid transparent'
                     }}
-                    onClick={() => props.setActiveFilter('everything')}
-                    onMouseOver={() => props.setSignatureColor('everything')}
-                    onMouseLeave={() => props.setSignatureColor('')}>
+                    onClick={() => props.setActiveFilter('Everything')}
+                    onMouseOver={() => props.setLink('everything')}
+                    onMouseLeave={() => props.setLink('')}>
                     Everything
                 </li>
                 
@@ -20,60 +20,60 @@ export default function DesktopMenu(props) {
 
                 <li
                     style={{
-                        'color': props.signatureColor === 'musicians' || props.activeFilter === 'musicians' ? '#10ACDD' : '#AFAFAF',
-                        'borderBottom': props.signatureColor === 'musicians' || props.activeFilter === 'musicians' ? '3px solid #10ACDD' : '3px solid transparent'
+                        'color': props.link === 'musicians' || props.activeFilter === 'Musicians' ? '#10ACDD' : '#AFAFAF',
+                        'borderBottom': props.link === 'musicians' || props.activeFilter === 'Musicians' ? '3px solid #10ACDD' : '3px solid transparent'
                     }}
-                    onClick={() => props.setActiveFilter('musicians')}
-                    onMouseOver={() => props.setSignatureColor('musicians')}
-                    onMouseLeave={() => props.setSignatureColor('')}>
+                    onClick={() => props.setActiveFilter('Musicians')}
+                    onMouseOver={() => props.setLink('musicians')}
+                    onMouseLeave={() => props.setLink('')}>
                     Musicians
                 </li>
 
 
                 <li
                     style={{
-                        'color': props.signatureColor === 'bands' || props.activeFilter === 'bands' ? '#E37056' : '#AFAFAF',
-                        'borderBottom': props.signatureColor === 'bands' || props.activeFilter === 'bands' ? '3px solid #E37056' : '3px solid transparent'
+                        'color': props.link === 'bands' || props.activeFilter === 'Bands' ? '#E37056' : '#AFAFAF',
+                        'borderBottom': props.link === 'bands' || props.activeFilter === 'Bands' ? '3px solid #E37056' : '3px solid transparent'
                     }}
-                    onClick={() => props.setActiveFilter('bands')}
-                    onMouseOver={() => props.setSignatureColor('bands')}
-                    onMouseLeave={() => props.setSignatureColor('')}>
+                    onClick={() => props.setActiveFilter('Bands')}
+                    onMouseOver={() => props.setLink('bands')}
+                    onMouseLeave={() => props.setLink('')}>
                     Bands
                 </li>
 
 
                 <li
                     style={{
-                        'color': props.signatureColor === 'studios' || props.activeFilter === 'studios' ? '#FF8514' : '#AFAFAF',
-                        'borderBottom': props.signatureColor === 'studios' || props.activeFilter === 'studios' ? '3px solid #FF8514' : '3px solid transparent'
+                        'color': props.link === 'studios' || props.activeFilter === 'Music Studios' ? '#FF8514' : '#AFAFAF',
+                        'borderBottom': props.link === 'studios' || props.activeFilter === 'Music Studios' ? '3px solid #FF8514' : '3px solid transparent'
                     }}
-                    onClick={() => props.setActiveFilter('studios')}
-                    onMouseOver={() => props.setSignatureColor('studios')}
-                    onMouseLeave={() => props.setSignatureColor('')}>
+                    onClick={() => props.setActiveFilter('Music Studios')}
+                    onMouseOver={() => props.setLink('studios')}
+                    onMouseLeave={() => props.setLink('')}>
                     Studios
                 </li>
 
 
                 <li
                     style={{
-                        'color': props.signatureColor === 'stages' || props.activeFilter === 'stages' ? '#E558C6' : '#AFAFAF',
-                        'borderBottom': props.signatureColor === 'stages' || props.activeFilter === 'stages' ? '3px solid #E558C6' : '3px solid transparent'
+                        'color': props.link === 'stages' || props.activeFilter === 'Live Stages' ? '#E558C6' : '#AFAFAF',
+                        'borderBottom': props.link === 'stages' || props.activeFilter === 'Live Stages' ? '3px solid #E558C6' : '3px solid transparent'
                     }}
-                    onClick={() => props.setActiveFilter('stages')}
-                    onMouseOver={() => props.setSignatureColor('stages')}
-                    onMouseLeave={() => props.setSignatureColor('')}>
+                    onClick={() => props.setActiveFilter('Live Stages')}
+                    onMouseOver={() => props.setLink('stages')}
+                    onMouseLeave={() => props.setLink('')}>
                     Live Stages
                 </li>
 
 
                 <li
                     style={{
-                        'color': props.signatureColor === 'stores' || props.activeFilter === 'stores' ? '#12C59A' : '#AFAFAF',
-                        'borderBottom': props.signatureColor === 'stores' || props.activeFilter === 'stores' ? '3px solid #12C59A' : '3px solid transparent'
+                        'color': props.link === 'stores' || props.activeFilter === 'Music Stores' ? '#12C59A' : '#AFAFAF',
+                        'borderBottom': props.link === 'stores' || props.activeFilter === 'Music Stores' ? '3px solid #12C59A' : '3px solid transparent'
                     }}
-                    onClick={() => props.setActiveFilter('stores')}
-                    onMouseOver={() => props.setSignatureColor('stores')}
-                    onMouseLeave={() => props.setSignatureColor('')}>
+                    onClick={() => props.setActiveFilter('Music Stores')}
+                    onMouseOver={() => props.setLink('stores')}
+                    onMouseLeave={() => props.setLink('')}>
                     Music Stores
                 </li>
             </ul>

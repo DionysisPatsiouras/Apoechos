@@ -1,25 +1,16 @@
 import React, { useEffect, useState, useContext } from 'react'
 
-
-import CreateNewProfile from '../components/AccountComponents/CreateNewProfile'
 import Settings from '../components/Settings'
 import Notifications from '../components/Notifications'
 import Messages from '../components/Messages'
 import AuthContext from '../context/AuthContext'
 import style from '../style/Account.module.css'
 
-import img from '../media/musician.png'
-import img2 from '../media/band.png'
 
 export default function Account() {
   let { user } = useContext(AuthContext)
   const [width, setWidth] = React.useState(window.innerWidth);
-  const [activeTab, setActiveTab] = useState('Profiles')
-
-
-  const hasAllProfiles = user.hasMusicianProfile && user.hasBandProfile && user.hasStudioProfile && user.hasStageProfile && user.hasStoreProfile
-  const [newProfileWindow, setNewProfileWindow] = useState(false)
-
+  const [activeTab, setActiveTab] = useState('Settings')
 
 
 
@@ -33,21 +24,8 @@ export default function Account() {
     <div>
 
 
-      {/* ACCOUNT MAIN MENU >>>>> PROFILES, SETTINGS, NOTIFICATIONS, MESSAGES */}
+      {/* ACCOUNT MAIN MENU >>>>> SETTINGS, NOTIFICATIONS, MESSAGES */}
       <ul className={style.list}>
-
-
-        <li
-          style={{ 'backgroundColor': activeTab === 'Profiles' && width < 769 ? '#5F69C6' : 'transparent', 'borderBottom': activeTab === 'Profiles' ? '4px solid #5F69C6' : 'none' }}
-          onClick={() => setActiveTab('Profiles')}>
-          {width < 769 ?
-            <svg className={style.svgIcon} width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8.42096 33.2825C10.2801 31.8608 12.358 30.7398 14.6546 29.9196C16.9513 29.0994 19.3573 28.6893 21.8726 28.6893C24.388 28.6893 26.7939 29.0994 29.0906 29.9196C31.3872 30.7398 33.4651 31.8608 35.3243 33.2825C36.6002 31.7879 37.5936 30.0928 38.3044 28.1971C39.0153 26.3015 39.3707 24.2783 39.3707 22.1275C39.3707 17.2791 37.6665 13.1506 34.258 9.74213C30.8495 6.33365 26.721 4.62941 21.8726 4.62941C17.0242 4.62941 12.8957 6.33365 9.48725 9.74213C6.07876 13.1506 4.37452 17.2791 4.37452 22.1275C4.37452 24.2783 4.72995 26.3015 5.44081 28.1971C6.15167 30.0928 7.14505 31.7879 8.42096 33.2825ZM21.8726 24.3148C19.7218 24.3148 17.9082 23.5766 16.4318 22.1002C14.9554 20.6238 14.2172 18.8101 14.2172 16.6593C14.2172 14.5085 14.9554 12.6949 16.4318 11.2185C17.9082 9.74213 19.7218 9.00393 21.8726 9.00393C24.0234 9.00393 25.837 9.74213 27.3134 11.2185C28.7898 12.6949 29.528 14.5085 29.528 16.6593C29.528 18.8101 28.7898 20.6238 27.3134 22.1002C25.837 23.5766 24.0234 24.3148 21.8726 24.3148ZM21.8726 44.0001C18.8469 44.0001 16.0035 43.4259 13.3423 42.2776C10.6811 41.1293 8.36627 39.5709 6.39774 37.6024C4.4292 35.6338 2.87078 33.319 1.72247 30.6578C0.574156 27.9966 0 25.1532 0 22.1275C0 19.1018 0.574156 16.2583 1.72247 13.5972C2.87078 10.936 4.4292 8.62116 6.39774 6.65262C8.36627 4.68409 10.6811 3.12566 13.3423 1.97735C16.0035 0.829039 18.8469 0.254883 21.8726 0.254883C24.8983 0.254883 27.7418 0.829039 30.4029 1.97735C33.0641 3.12566 35.3789 4.68409 37.3475 6.65262C39.316 8.62116 40.8744 10.936 42.0228 13.5972C43.1711 16.2583 43.7452 19.1018 43.7452 22.1275C43.7452 25.1532 43.1711 27.9966 42.0228 30.6578C40.8744 33.319 39.316 35.6338 37.3475 37.6024C35.3789 39.5709 33.0641 41.1293 30.4029 42.2776C27.7418 43.4259 24.8983 44.0001 21.8726 44.0001Z" fill={activeTab === 'Profiles' ? '#ffffff' : '#3E3E3E'} />
-            </svg>
-            : 'Profiles '
-
-          }
-        </li>
 
 
         <li
@@ -85,30 +63,6 @@ export default function Account() {
       </ul>
 
 
-      {activeTab === 'Profiles' ?
-
-        <div className={style.existingProfiles}>
-          {user.hasMusicianProfile ? <div className={style.object}> <img src={img} alt='img' /></div> : null}
-          {user.hasBandProfile ? <div className={style.object}><img src={img2} alt='img' /></div> : null}
-          {user.hasStudioProfile ? <div className={style.object}><img src={img} alt='img' /></div> : null}
-          {user.hasStageProfile ? <div className={style.object}><img src={img2} alt='img' /></div> : null}
-          {user.hasStoreProfile ? <div className={style.object}><img src={img} alt='img' /></div> : null}
-
-
-
-
-          {hasAllProfiles ? null :
-
-            !user.hasMusicianProfile && !user.hasBandProfile && !user.hasStudioProfile && !user.hasStageProfile && !user.hasStoreProfile ?
-              <CreateNewProfile /> :
-              <div className={style.special}
-                style={{ 'backgroundColor': newProfileWindow ? '#5F69C6' : '#ffffff', 'border': newProfileWindow ? '3px solid #5F69C6' : '3px dashed #CECECE' }}
-                onClick={() => setNewProfileWindow(!newProfileWindow)}>
-                <p style={{ 'color': newProfileWindow ? '#ffffff' : '#565656' }} className={style.plus}>+</p>
-                <p style={{ 'color': newProfileWindow ? '#ffffff' : '#565656' }} className={style.text}>Create new</p></div>}
-        </div>
-        : null
-      }
 
 
 
@@ -116,17 +70,14 @@ export default function Account() {
       {
         (() => {
           switch (activeTab) {
-            case 'Profiles':
-              return newProfileWindow ? <CreateNewProfile /> : null
             case 'Settings':
               return <Settings />
             case 'Notifications':
               return <Notifications />
             case 'Messages':
               return <Messages />
-
             default:
-              return <CreateNewProfile />
+              return <Settings />
           }
         })()
       }
