@@ -4,12 +4,12 @@ import HomePage from './pages/HomePage'
 import Header from "./components/Header"
 import LoginPage from "./pages/LoginPage"
 import Discover from "./pages/Discover"
-import RegisterPage from "./pages/RegisterPage"
+// import RegisterPage from "./pages/RegisterPage"
 import PrivateRoutes from "./utils/PrivateRoutes"
 import Account from "./pages/Account"
 import Profiles from "./pages/Profiles"
 import ViewProfile from "./pages/ViewProfile"
-
+import RegisterPage from "./pages/RegisterPage.tsx"
 
 
 export default function App() {

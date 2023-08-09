@@ -39,6 +39,17 @@
   margin: 26px 0 0 232px;
 }
 
+.container label {
+  font-size: 13px;
+  width: 264px;
+  text-align: left;
+}
+
+.errorMessage {
+  font-size: 13px;
+  color: #C65F5F;
+}
+
 @media screen and (min-width: 768px) {
   .container2 {
     flex-direction: row;
