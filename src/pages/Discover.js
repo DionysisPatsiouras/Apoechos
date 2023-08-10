@@ -116,7 +116,7 @@ export default function Discover() {
             <div className={style.cardWhitePart}>
               <img
                 className={style.signatureIcon}
-                style={{'marginRight' : i.category === 'musician' ? '-18px' : '-5px'}}
+                style={{ 'marginRight': i.category === 'musician' ? '-18px' : '-5px' }}
                 alt='Category Icon'
                 src={i.category === 'musician' ? musicianLight :
                   i.category === 'band' ? bandLight :
@@ -127,7 +127,7 @@ export default function Discover() {
               />
               <div className={style.profileInfo}>
                 <img src={pic} width={84} height={84} alt='Profile' />
-                <h6 className={style.profileTitle}>{i.title || i.first_name || i.name}</h6>
+                <h6 className={style.profileTitle}>{i.title ||  i.name ||  i.first_name + ' ' + i.last_name}</h6>
               </div>
 
               <button className={style.seeProfileButton}> <Link to={'/profiles/' + i.category + '/' + i.id} >See profile</Link></button>

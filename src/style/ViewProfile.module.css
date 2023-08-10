@@ -1,0 +1,54 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.top {
+  margin: 25px;
+  text-align: center;
+}
+
+.title {
+  font-size: 20px;
+  color: #5F69C6;
+  text-align: center;
+}
+
+.whiteBackground {
+  width: 200px;
+  height: 200px;
+  border-radius: 4px;
+  margin: auto;
+}
+
+.profilePicture {
+  width: 200px;
+  height: 200px;
+  border-radius: 4px 112px 4px 4px;
+}
+
+.interaction {
+  display: flex;
+}
+
+.interaction button {
+  margin: 20px 5px;
+}
+
+.likeBtn {
+  width: 200px;
+}
+
+.sendMsg {
+  background-color: #5F69C6;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signatureIcon {
+  position: absolute;
+  margin: 8px 0 0 62px;
+}/*# sourceMappingURL=ViewProfile.module.css.map */

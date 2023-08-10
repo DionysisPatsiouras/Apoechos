@@ -24,7 +24,7 @@ import onlinePic from '../media/icons/onlinePic.svg'
 
 import logo from '../media/logo-04.png'
 import notificationsIcon from '../media/icons/notifications.svg'
-import messagesIcon from '../media/icons/messages.svg'
+import messagesIcon from '../media/icons/messagesDark.svg'
 import editIcon from '../media/icons/edit.svg'
 
 
