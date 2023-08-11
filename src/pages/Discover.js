@@ -126,7 +126,7 @@ export default function Discover() {
                           null}
               />
               <div className={style.profileInfo}>
-                <img src={pic} width={84} height={84} alt='Profile' />
+                <img src={ i.photo != null ? 'http://127.0.0.1:8000/' + i.photo : pic } width={84} height={84} alt='Profile' />
                 <h6 className={style.profileTitle}>{i.title ||  i.name ||  i.first_name + ' ' + i.last_name}</h6>
               </div>
 

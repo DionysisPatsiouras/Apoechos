@@ -5,14 +5,15 @@
 }
 
 .top {
-  margin: 25px;
+  margin: 35px 0;
   text-align: center;
 }
 
 .title {
-  font-size: 20px;
+  font-size: 24px;
   color: #5F69C6;
   text-align: center;
+  margin: 30px 0;
 }
 
 .whiteBackground {
@@ -26,14 +27,17 @@
   width: 200px;
   height: 200px;
   border-radius: 4px 112px 4px 4px;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .interaction {
   display: flex;
+  flex-direction: column;
 }
 
 .interaction button {
-  margin: 20px 5px;
+  margin: 0 5px;
 }
 
 .likeBtn {
@@ -51,4 +55,27 @@
 .signatureIcon {
   position: absolute;
   margin: 8px 0 0 62px;
+}
+
+.buttons {
+  display: flex;
+  margin: 20px 0;
+}
+
+@media screen and (min-width: 768px) {
+  .top {
+    display: flex;
+    justify-content: space-between;
+  }
+  .title {
+    margin: 0 0 30px 5px;
+    text-align: left;
+  }
+  .interaction {
+    justify-content: space-between;
+    margin: 0 0 0 30px;
+  }
+  .buttons {
+    margin: 0;
+  }
 }/*# sourceMappingURL=ViewProfile.module.css.map */

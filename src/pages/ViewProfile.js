@@ -30,41 +30,47 @@ export default function ViewProfile() {
     const params = useParams();
     return (
         <div className={style.container}>
-            {console.log(data)}
+
             <div className={style.top}>
-                <img
-                    className={style.signatureIcon}
-                    style={{ 'marginRight': data.category === 'musician' ? '-18px' : '-5px' }}
-                    alt='Category Icon'
-                    src={data.category === 'musician' ? musicianLight :
-                        data.category === 'band' ? bandLight :
-                            data.category === 'studio' ? studioLight :
-                                data.category === 'store' ? storeLight :
-                                    data.category === 'stage' ? stageLight :
-                                        null} />
-                                        
-                <div className={style.whiteBackground}
-                    style={{
-                        'backgroundColor':
-                            data.category === 'musician' ? '#10ACDD' :
-                                data.category === 'band' ? '#E37056' :
-                                    data.category === 'studio' ? '#FF8514' :
-                                        data.category === 'store' ? '#12C59A' :
-                                            data.category === 'stage' ? '#E558C6' :
-                                                null
-                    }}>
+                <div className={style.overview}>
+                    <img
+                        className={style.signatureIcon}
+                        style={{ 'marginRight': data.category === 'musician' ? '-18px' : '-5px' }}
+                        alt='Category Icon'
+                        src={data.category === 'musician' ? musicianLight :
+                            data.category === 'band' ? bandLight :
+                                data.category === 'studio' ? studioLight :
+                                    data.category === 'store' ? storeLight :
+                                        data.category === 'stage' ? stageLight :
+                                            null} />
+
+                    <div className={style.whiteBackground}
+                        style={{
+                            'backgroundColor':
+                                data.category === 'musician' ? '#10ACDD' :
+                                    data.category === 'band' ? '#E37056' :
+                                        data.category === 'studio' ? '#FF8514' :
+                                            data.category === 'store' ? '#12C59A' :
+                                                data.category === 'stage' ? '#E558C6' :
+                                                    null
+                        }}>
 
 
-                    <img src={'http://127.0.0.1:8000/' + data.photo} className={style.profilePicture} alt='profile' />
+                        <img src={'http://127.0.0.1:8000/' + data.photo} className={style.profilePicture} alt='profile' />
+                    </div>
+
                 </div>
-                <p className={style.title}>{data.name || data.first_name + ' ' + data.last_name}</p>
+
 
 
 
 
                 <div className={style.interaction}>
-                    <button className={style.likeBtn}>Like</button>
-                    <button className={style.sendMsg}><img src={messageIcon} alt='message' width={28} /></button>
+                    <p className={style.title}>{data.name || data.first_name + ' ' + data.last_name}</p>
+                    <div className={style.buttons}>
+                        <button className={style.likeBtn}>Like</button>
+                        <button className={style.sendMsg}><img src={messageIcon} alt='message' width={28} /></button>
+                    </div>
                 </div>
 
 
