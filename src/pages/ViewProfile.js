@@ -11,12 +11,16 @@ import studioLight from '../media/icons/profiles/light/studio.svg'
 import stageLight from '../media/icons/profiles/light/stage.svg'
 import storeLight from '../media/icons/profiles/light/store.svg'
 
+import expand_icon from '../media/icons/expand.svg'
+import minimize_icon from '../media/icons/minimize.svg'
 
 
 
 export default function ViewProfile() {
 
     const [data, setData] = useState([])
+    const [active, setActive] = useState('')
+    const [content, setContent] = useState('')
 
     useEffect(() => {
         axios
@@ -74,11 +78,63 @@ export default function ViewProfile() {
                 </div>
 
 
+
             </div>
-            {console.log(data)}
+            {/* {console.log(data)} */}
 
 
 
-        </div>
+            <ul className={style.infoMenu}>
+
+
+                {data.bio ?
+                    <div className={style.listItem}>
+                        <li onClick={() => setActive('bio')}>
+                            Bio
+                            <div className={style.expandMinimize}>
+                                {content === 'bio' ?
+                                    <p onClick={() => setContent('')} className={style.expand}>Tap to hide</p> :
+                                    <p onClick={() => setContent('bio')} className={style.expand}>Tap to expand</p>}
+                                <img src={content === 'bio' ? minimize_icon : expand_icon} width={25} height={25} alt='expand/minimize'/>
+                            </div>
+                        </li>
+
+                        <div
+                            style={{ 'padding': content === 'bio' ? '30px' : '0px' }}>
+                            {active === 'bio' ? data.bio : null}
+                        </div>
+                    </div>
+
+                    : null
+                }
+
+
+                {data.websiteLink ?
+                    <div className={style.listItem}>
+                        <li onClick={() => setActive('contact')}>
+                            Contact
+                            <div className={style.expandMinimize}>
+                                {content === 'contact' ?
+                                    <p onClick={() => setContent('')} className={style.expand}>Tap to hide</p> :
+                                    <p onClick={() => setContent('contact')} className={style.expand}>Tap to expand</p>}
+                                <img src={content === 'contact' ? minimize_icon : expand_icon} width={25} height={25} alt='expand/minimize'/>
+                            </div>
+                        </li>
+                        <div
+                            style={{ 'padding': content === 'contact' ? '30px' : '0px' }}>
+                            {active === 'contact' ? data.websiteLink : null}
+                        </div>
+                    </div>
+
+                    : null
+                }
+
+
+
+
+            </ul >
+
+
+        </div >
     )
 }

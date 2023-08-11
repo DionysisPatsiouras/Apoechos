@@ -48,11 +48,36 @@
     display: flex
     margin: 20px 0
 
+.infoMenu
+    width: 100%
+
+.infoMenu li
+    border-top: 1px solid #DBDBDB
+    padding: 30px
+    font-size: 24px
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+.expand
+    color: #989898
+    font-size: 13px
+
+.expandMinimize
+    display: flex
+    align-items: center
+
+.infoMenu li section
+    display: none
+
+
+
 @media screen and ( min-width: 768px )
 
     .top
         display: flex
-        justify-content: space-between
+        justify-content: normal
+        width: 60%
 
     .title
         margin: 0 0 30px 5px
@@ -64,3 +89,29 @@
 
     .buttons
         margin: 0
+
+    .infoMenu
+        border-top: 1px solid #DBDBDB
+        width: 60%
+
+        display: flex
+        justify-content: center
+    .infoMenu li
+        font-size: 24px
+        padding: 15px
+        cursor: pointer
+        border: none
+
+    .infoMenu li section
+        display: block
+
+    .bullet
+        margin: 0
+        text-align: center
+
+    .expand
+        display: none
+
+    .expandMinimize img
+        display: none
+        
