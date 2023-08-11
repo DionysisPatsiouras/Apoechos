@@ -37,6 +37,12 @@ form {
   align-items: center;
 }
 
+.container label {
+  font-size: 13px;
+  width: 264px;
+  text-align: left;
+}
+
 .errorHandle {
   color: #ff0000;
 }/*# sourceMappingURL=LoginPage.module.css.map */

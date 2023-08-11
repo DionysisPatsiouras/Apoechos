@@ -35,9 +35,11 @@ export default function LoginPage() {
                 <h6 className={style.title}>Log In</h6>
 
                 <form onSubmit={loginUser}>
-                    <input type="email" name="email" placeholder="E-mail" onChange={handleInput} />
+                    <label htmlFor="email" >E-mail *</label>
+                    <input type="email" name="email" onChange={handleInput} />
                     <p className={style.errorHandle}>{error.email}</p>
-                    <input type="password" name="password" placeholder="Password" onChange={handleInput} />
+                    <label htmlFor="password" >Password *</label>
+                    <input type="password" name="password" onChange={handleInput} />
                     <p className={style.errorHandle}>{error.password}</p>
                
                     <button>Log In</button>
