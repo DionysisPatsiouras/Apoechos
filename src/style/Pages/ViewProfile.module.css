@@ -117,6 +117,7 @@
     padding: 15px;
     cursor: pointer;
     border: none;
+    flex-direction: column;
   }
   .infoMenu li section {
     display: block;

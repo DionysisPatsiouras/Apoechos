@@ -10,6 +10,7 @@ import Account from "./pages/Account"
 import Profiles from "./pages/Profiles"
 import ViewProfile from "./pages/ViewProfile"
 import RegisterPage from "./pages/RegisterPage.tsx"
+import NewMusician from "./pages/CreateProfile/NewMusician"
 
 
 export default function App() {
@@ -31,6 +32,7 @@ export default function App() {
             <Route element={<PrivateRoutes />} >
               <Route path='/account' element={<Account />} />
               <Route path='/profiles' element={<Profiles />} />
+              <Route path='/create/musician' element={<NewMusician />} />
               
             </Route>
 

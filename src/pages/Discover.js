@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import style from '../style/Discover.module.css'
+import style from '../style/Pages/Discover.module.css'
 import MobileMenu from '../components/DiscoverComponents/MobileMenu'
 import DesktopMenu from '../components/DiscoverComponents/DesktopMenu'
 import pic from '../media/musician.png'

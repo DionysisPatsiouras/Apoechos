@@ -4,7 +4,7 @@ import React, { useContext } from 'react'
 
 import AuthContext from '../context/AuthContext'
 import { Navigate, Link } from 'react-router-dom'
-import style from '../style/RegisterPage.module.css'
+import style from '../style/Pages/RegisterPage.module.css'
 
 
 export default function RegisterPage() {

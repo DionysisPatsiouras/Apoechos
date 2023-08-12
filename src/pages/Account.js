@@ -3,12 +3,12 @@ import React, { useEffect, useState } from 'react'
 import Settings from '../components/Settings'
 import Notifications from '../components/Notifications'
 import Messages from '../components/Messages'
-// import AuthContext from '../context/AuthContext'
-import style from '../style/Account.module.css'
+
+import style from '../style/Pages/Account.module.css'
 
 
 export default function Account() {
-  // let { user } = useContext(AuthContext)
+
   const [width, setWidth] = React.useState(window.innerWidth);
   const [activeTab, setActiveTab] = useState('Settings')
 

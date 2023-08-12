@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
 
-import style from '../style/Profiles.module.css'
+import style from '../style/Pages/Profiles.module.css'
 import img from '../media/musician.png'
 import img2 from '../media/band.png'
 import AuthContext from '../context/AuthContext'

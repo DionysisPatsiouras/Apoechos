@@ -1,5 +1,7 @@
 import React, { useContext, useState } from 'react'
-import style from '../../style/Profiles.module.css'
+import style from '../../style/Pages/Profiles.module.css'
+
+import { Link } from 'react-router-dom'
 
 import AuthContext from '../../context/AuthContext'
 import ProfileSelection from './ProfileSelection'
@@ -20,6 +22,8 @@ import storeLight from '../../media/icons/profiles/light/store.svg'
 
 
 
+
+
 export default function Profiles() {
 
 
@@ -35,7 +39,7 @@ export default function Profiles() {
 
 
 
-      
+
         <h5>Create personal or business profile</h5>
         <p className={style.about}>There is no limit to how many profile types you can create!</p>
 
@@ -60,7 +64,7 @@ export default function Profiles() {
               active={active}
               blackImg={musicianDark}
               whiteImg={musicianLight}
-        
+
 
             />
           }
@@ -129,16 +133,26 @@ export default function Profiles() {
         {/* CHECK IF USER HAS AVAILABLE PROFILE TO CREATE */}
         {hasAllProfiles ? null :
           <>
-          {/* CHECK IF ANY OPTION IS SELECTED */}
+            {/* CHECK IF ANY OPTION IS SELECTED */}
             {active === '' ? <><br></br><br></br></> :
               <div className={style.buttonSection}>
                 <p>Step 1 / {numberOfSteps}</p>
-                <button>Next step</button>
+                <button>
+                  <Link to={
+                    active === 'Musician' ? '../create/musician' :
+                      active === 'Band' ? '../create/band' :
+                        active === 'Music Studio' ? '../create/studio' :
+                          active === 'Music Stage' ? '../create/stage' :
+                            active === 'Music Store' ? '../create/store' : null}>
+                    Next step
+                  </Link>
+                </button>
               </div>
             }
           </>
         }
 
+        {/* {console.log(active)} */}
 
       </div>
     </div>

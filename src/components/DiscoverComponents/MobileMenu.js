@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import style from '../../style/Discover.module.css'
+
+import style from '../../style/Pages/Discover.module.css'
 
 export default function MobileMenu(props) {
 

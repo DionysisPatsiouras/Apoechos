@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from 'react'
 import { useParams } from 'react-router';
 import axios from 'axios'
-import style from '../style/ViewProfile.module.css'
+import style from '../style/Pages/ViewProfile.module.css'
 import messageIcon from '../media/icons/messagesLight.svg'
 
 
@@ -61,8 +61,10 @@ export default function ViewProfile() {
 
 
                         <img src={'http://127.0.0.1:8000/' + data.photo} className={style.profilePicture} alt='profile' />
-                    </div>
+                        {/* GET http://127.0.0.1:8000/undefined 404 (Not Found) comes from above */}
 
+                    </div>  
+                    
                 </div>
 
 
@@ -80,7 +82,7 @@ export default function ViewProfile() {
 
 
             </div>
-            {/* {console.log(data)} */}
+            {console.log(data)}
 
 
 
@@ -100,7 +102,7 @@ export default function ViewProfile() {
                         </li>
 
                         <div
-                            style={{ 'padding': content === 'bio' ? '30px' : '0px' }}>
+                            style={{ 'padding': content === 'bio' ? '30px' : '0px', 'display' : content ==='bio' ? 'block' : 'none' }}>
                             {active === 'bio' ? data.bio : null}
                         </div>
                     </div>
@@ -121,7 +123,7 @@ export default function ViewProfile() {
                             </div>
                         </li>
                         <div
-                            style={{ 'padding': content === 'contact' ? '30px' : '0px' }}>
+                            style={{ 'padding': content === 'contact' ? '30px' : '0px', 'display' : content ==='contact' ? 'block' : 'none' }}>
                             {active === 'contact' ? data.websiteLink : null}
                         </div>
                     </div>

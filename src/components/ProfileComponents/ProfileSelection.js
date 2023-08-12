@@ -1,6 +1,6 @@
 import React from 'react'
 
-import style from '../../style/Profiles.module.css'
+import style from '../../style/Pages/Profiles.module.css'
 
 export default function ProfileSelection(props) {
     return (
