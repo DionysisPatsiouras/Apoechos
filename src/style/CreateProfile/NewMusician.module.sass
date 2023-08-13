@@ -2,13 +2,50 @@
     display: flex
     justify-content: space-between
     align-items: center
-    padding: 20px 0
+    padding: 25px auto 0 auto
     flex-direction: column
 
+.container h5
+    font-size: 24px
+    padding: 25px 0
+    border-top: 1px solid #DBDBDB
+    text-align: center
+
+.personalInfoSection
+    padding: 20px
+    display: flex
+    justify-content: center
+
+    flex-direction: column
+    align-items: center
+
+.uploadPhoto label
+    display: flex
+    align-items: center
+    cursor: pointer
+    margin-top: 20px
+
 .container ul
+
+.topSection
+    display: flex
+    align-items: center
+    width: 80%
+    padding: 25px 0
+    justify-content: space-between
+    border-bottom: 1px solid #DADADA
+
+.backButton
+    display: flex
+    align-items: center
+
+.categoryBoxes
+
     display: flex
     flex-wrap: wrap
     justify-content: center
+    width: 80%
+    margin: 0 auto
 
 .categoryBoxes li
     background-color: #5F69C6
@@ -17,15 +54,69 @@
     border-radius: 4px
     color: #ffffff
     width: 75px
-    height: 50px 
+    height: 50px
     display: flex
-    justify-content: center
+    justify-content: space-around
     font-size: 14px
+    align-items: center
+    flex-direction: column
+    cursor: pointer
 
+.instrumentsList
 
-    
+    justify-content: center
+    flex-wrap: wrap
+    padding: 20px 0
+    width: 100%
+
+.instrumentsList li input
+
+    min-width: auto
+    margin: 5px 8px
+
+.instrumentsList li input
+    padding: 2px
+
+.columnList
+
 .instrumentsForm input
     min-width: auto
 
+.instrumentsForm li
+    margin: 0 20px
+
 .instrumentsForm label
     padding: 0 0 0 10px
+
+.bottomSection
+    background-color: #F6F6F6
+    position: absolute
+    width: 100%
+    margin-top: 200px
+    padding: 30px 0
+    display: flex
+    justify-content: space-around
+    align-items: center
+    font-size: 20px
+
+.bottomSection p
+    color: #9D9D9D
+.nextStepButton
+    background-color: #5F69C6
+    width: 200px
+    margin: 0
+
+@media screen and ( min-width: 768px )
+
+    .container
+        width: 650px
+        margin: 0 auto
+        box-shadow: rgba(0, 0, 0, 0.15) 1px 2px 11px
+        border-radius: 4px
+        margin: 25px auto 25px auto
+    .bottomSection
+        margin: 0
+        position: unset
+        width: 650px
+    .categoryBoxes
+        width: 100%

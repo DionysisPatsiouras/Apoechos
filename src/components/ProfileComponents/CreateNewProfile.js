@@ -137,16 +137,18 @@ export default function Profiles() {
             {active === '' ? <><br></br><br></br></> :
               <div className={style.buttonSection}>
                 <p>Step 1 / {numberOfSteps}</p>
-                <button>
-                  <Link to={
-                    active === 'Musician' ? '../create/musician' :
-                      active === 'Band' ? '../create/band' :
-                        active === 'Music Studio' ? '../create/studio' :
-                          active === 'Music Stage' ? '../create/stage' :
-                            active === 'Music Store' ? '../create/store' : null}>
+                <Link to={
+                  active === 'Musician' ? '../create/musician' :
+                    active === 'Band' ? '../create/band' :
+                      active === 'Music Studio' ? '../create/studio' :
+                        active === 'Music Stage' ? '../create/stage' :
+                          active === 'Music Store' ? '../create/store' : null}>
+                  <button>
+
                     Next step
-                  </Link>
-                </button>
+
+                  </button>
+                </Link>
               </div>
             }
           </>
@@ -155,6 +157,6 @@ export default function Profiles() {
         {/* {console.log(active)} */}
 
       </div>
-    </div>
+    </div >
   )
 }
