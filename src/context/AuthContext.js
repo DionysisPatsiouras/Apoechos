@@ -102,22 +102,22 @@ export const AuthProvider = ({ children }) => {
 
 
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        if (loading) {
-            updateToken()
-        }
+    //     if (loading) {
+    //         updateToken()
+    //     }
 
-        let fourMinutes = 1000 * 60 * 4
+    //     let fourMinutes = 1000 * 60 * 4
 
-        let interval = setInterval(() => {
-            if (authTokens) {
-                updateToken()
-            }
-        }, fourMinutes)
-        return () => clearInterval(interval)
+    //     let interval = setInterval(() => {
+    //         if (authTokens) {
+    //             updateToken()
+    //         }
+    //     }, fourMinutes)
+    //     return () => clearInterval(interval)
 
-    }, [loading, authTokens ])
+    // }, [loading, authTokens ])
 
 
 

@@ -1,7 +1,8 @@
 import { React, useEffect, useState } from 'react'
 import { useParams } from 'react-router';
 import axios from 'axios'
-import style from '../style/Pages/ViewProfile.module.css'
+
+import style from '../style/ViewProfile.module.css'
 import messageIcon from '../media/icons/messagesLight.svg'
 
 

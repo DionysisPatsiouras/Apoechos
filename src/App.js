@@ -10,7 +10,7 @@ import Account from "./pages/Account"
 import Profiles from "./pages/Profiles"
 import ViewProfile from "./pages/ViewProfile"
 import RegisterPage from "./pages/RegisterPage.tsx"
-import NewMusician from "./pages/CreateProfile/NewMusician"
+import NewMusician from "./pages/CreateProfile/NewMusician.tsx"
 
 
 export default function App() {

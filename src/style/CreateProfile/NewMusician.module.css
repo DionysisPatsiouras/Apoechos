@@ -1,3 +1,34 @@
 .container {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  flex-direction: column;
+}
+
+.container ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.categoryBoxes li {
+  background-color: #5F69C6;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 4px;
+  color: #ffffff;
+  width: 75px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.instrumentsForm input {
+  min-width: auto;
+}
+
+.instrumentsForm label {
+  padding: 0 0 0 10px;
 }/*# sourceMappingURL=NewMusician.module.css.map */
