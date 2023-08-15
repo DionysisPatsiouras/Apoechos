@@ -7,6 +7,42 @@
         {
             "pointer": "electric_guitar",
             "title": "Electric Guitar"
+        },
+        {
+            "pointer": "acoustic_guitar",
+            "title": "Acoustic Guitar"
+        },
+        {
+            "pointer": "electric_bass",
+            "title": "Electric Bass"
+        },
+        {
+            "pointer": "acoustic_bass",
+            "title": "Acoustic Bass"
+        },
+        {
+            "pointer": "double_bass",
+            "title": "Double Bass"
+        },
+        {
+            "pointer": "violin",
+            "title": "Violin"
+        },
+        {
+            "pointer": "viola",
+            "title": "Viola"
+        },
+        {
+            "pointer": "cello",
+            "title": "Cello"
+        },
+        {
+            "pointer": "harp",
+            "title": "Harp"
+        },
+        {
+            "pointer": "ukelele",
+            "title": "Ukelele"
         }
     ],
 
@@ -18,6 +54,80 @@
         {
             "pointer": "cajon",
             "title": "Cajon"
+        },
+        {
+            "pointer": "congos",
+            "title": "Congos"
+        },
+        {
+            "pointer": "tambourine",
+            "title": "Tambourine"
+        }
+    ],
+
+    "wind" : [
+        {
+            "pointer": "trumbet",
+            "title": "Trumbet"
+        },
+        {
+            "pointer": "trombone",
+            "title": "Trombone"
+        },
+        {
+            "pointer": "french_horn",
+            "title": "French Horn"
+        },
+        {
+            "pointer": "tuba",
+            "title": "Tuba"
+        },
+        {
+            "pointer": "cornet",
+            "title": "Cornet"
+        },
+        {
+            "pointer": "piccolo_trumbet",
+            "title": "Piccolo Trumbet"
+        },
+        {
+            "pointer": "flugelhorn",
+            "title": "Flugelhorn"
+        }
+    ],
+
+    "vocals": [
+        {
+            "pointer": "vocalist",
+            "title": "Vocalist"
+        },
+        {
+            "pointer": "backing_vocalist",
+            "title": "Backing Vocalist"
+        },
+        {
+            "pointer": "soprano",
+            "title": "Soprano"
+        },
+        {
+            "pointer": "mezzo_soprano",
+            "title": "Mezzo Soprano"
+        },
+        {
+            "pointer": "contralto",
+            "title": "Contralto"
+        },
+        {
+            "pointer": "tenor",
+            "title": "Tenor"
+        },
+        {
+            "pointer": "baritone",
+            "title": "Baritone"
+        },
+        {
+            "pointer": "bass",
+            "title": "Bass"
         }
     ]
 }

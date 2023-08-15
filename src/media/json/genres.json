@@ -1,0 +1,18 @@
+{
+    "genres": [
+        {
+            "pointer": "rock",
+            "title": "rock"
+        },
+        {
+            "pointer": "country",
+            "title": "country"
+        },
+        {
+            "pointer": "jazz",
+            "title": "jazz"
+        }
+    ]
+
+
+}

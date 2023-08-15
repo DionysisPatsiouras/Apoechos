@@ -96,8 +96,7 @@ export default function NewMusician() {
     const i = data.instruments
     const g = data.genres
 
-    const allInstrumentsAreFalse =
-      !i.classic_guitar &&
+    const allInstrumentsAreFalse = !i.classic_guitar &&
       !i.electric_guitar &&
       !i.acoustic_guitar &&
       !i.electric_bass &&

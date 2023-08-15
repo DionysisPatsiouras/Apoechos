@@ -20,7 +20,7 @@ import upload_icon from '../../media/icons/upload.svg'
 import default_img from '../../media/musician.png'
 
 import data from '../../media/json/instruments.json'
-
+import data2 from '../../media/json/genres.json'
 
 export default function NewMusician2() {
 
@@ -29,55 +29,76 @@ export default function NewMusician2() {
   const [category, setCategory] = useState('Strings')
   const [step, setStep] = useState(1)
   const [useMyName, setUseMyName] = useState(false)
-  const x = data
 
 
-  // const onImageChange = (event) => {
-  //   if (event.target.files && event.target.files[0]) {
-  //     setImage(URL.createObjectURL(event.target.files[0]));
-  //   }
-  // }
+
+  // upload new photo
+  const onImageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      setImage(URL.createObjectURL(event.target.files[0]));
+    }
+  }
+  // { console.log(genreData) }
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const onSubmit = data => {
 
-    console.log(data);
-    axios.post('http://127.0.0.1:8000/profiles/musicians/', {
-      first_name: 'user1',
-      last_name: 'his last name',
-
-      classic_guitar: data.instruments.classic_guitar,
-      electric_guitar: data.instruments.electric_guitar,
-      // acoustic_guitar: data.instruments.acoustic_guitar,
-      // electric_bass: data.instruments.electric_bass,
-      // acoustic_bass: data.instruments.acoustic_bass,
-      // double_bass: data.instruments.double_bass,
-      // violin: data.instruments.violin,
-      // viola: data.instruments.viola,
-      // cello: data.instruments.cello,
-      // harp: data.instruments.harp,
-      // ukelele: data.instruments.ukelele,
+    const i = data.instruments
+    const g = data.genres
 
 
-      drums: data.instruments.drums,
-      cajon: data.instruments.drums,
-      // congos: data.instruments.drums,
-      // tambourine: data.instruments.drums,
+    const allInstrumentsAreFalse = !i.classic_guitar &&
+      !i.electric_guitar && !i.acoustic_guitar && !i.electric_bass && !i.acoustic_bass && !i.double_bass && !i.violin && !i.viola && !i.cello && !i.harp && !i.ukelele &&
+      !i.drums && !i.cajon && !i.congos && !i.tambourine &&
+      !i.trumbet && !i.trombone && !i.french_horn && !i.tuba && !i.cornet && !i.piccolo_trumbet && !i.flugelhorn &&
+      !i.vocalist && !i.backing_vocalist && !i.soprano && !i.mezzo_soprano && !i.contralto && !i.tenor && !i.baritone && !i.bass
 
-      // rock: data.genres.rock,
-      // jazz: data.genres.jazz,
-      // country: data.genres.country,
-      // bio: data.bio,
-      // photo: image,
-      user: user.user_id
 
-    })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    const allGenresAreFalse = !g.rock && !g.jaz && !g.country
+
+    const isBelowThreshold = (currentValue) => currentValue = false;
+
+    console.log(data.every(isBelowThreshold));
+
+  
+    // if (allInstrumentsAreFalse || allGenresAreFalse) {
+
+    if (allInstrumentsAreFalse || allGenresAreFalse) {
+      setStep(1)
+      alert('Fill all required fields')
+    } else {
+
+      if (step === 2) {
+
+      } else {
+        axios.post('http://127.0.0.1:8000/profiles/musicians/', {
+          first_name: 'Fistiki',
+          last_name: '123',
+
+          classic_guitar: data.instruments.classic_guitar, electric_guitar: data.instruments.electric_guitar, acoustic_guitar: data.instruments.acoustic_guitar, electric_bass: data.instruments.electric_bass, acoustic_bass: data.instruments.acoustic_bass, double_bass: data.instruments.double_bass, violin: data.instruments.violin, viola: data.instruments.viola, cello: data.instruments.cello, harp: data.instruments.harp, ukelele: data.instruments.ukelele,
+          drums: data.instruments.drums, cajon: data.instruments.cajon, congos: data.instruments.congos, tambourine: data.instruments.tambourine,
+          trumbet: data.instruments.trumbet, trombone: data.instruments.trombone, french_horn: data.instruments.french_horn, tuba: data.instruments.tuba, cornet: data.instruments.cornet, piccolo_trumbet: data.instruments.piccolo_trumbet, flugelhorn: data.instruments.flugelhorn,
+          vocalist: data.instruments.vocalist, backing_vocalist: data.instruments.backing_vocalist, soprano: data.instruments.soprano, mezzo_soprano: data.instruments.mezzo_soprano, contralto: data.instruments.contralto, tenor: data.instruments.tenor, baritone: data.instruments.baritone, bass: data.instruments.bass,
+
+          rock: data.genres.rock,
+          jazz: data.genres.jazz,
+          country: data.genres.country,
+          // bio: data.bio,
+          // photo: image,
+          user: user.user_id
+
+        })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+    }
+
+
+
 
   }
 
@@ -97,6 +118,7 @@ export default function NewMusician2() {
       </div>
 
 
+
       {step === 1 ?
 
         <div>
@@ -105,7 +127,7 @@ export default function NewMusician2() {
             <div>
               <img src={image} style={{ 'borderRadius': '200px', 'objectFit': 'cover' }} width={150} height={150} alt='profile' />
               <div className={style.uploadPhoto}>
-                {/* <input style={{ 'display': 'none' }} type="file" id="img" name="img" accept="image/*" onChange={onImageChange}></input> */}
+                <input style={{ 'display': 'none' }} type="file" id="img" name="img" accept="image/*" onChange={onImageChange}></input>
                 <label className={style.upload_text} htmlFor='img'>
                   <img src={upload_icon} width={25} height={25} alt='upload' />
                   <p>Upload Photo</p></label>
@@ -113,7 +135,7 @@ export default function NewMusician2() {
             </div>
             <div className={style.nameSection}>
               {/* NOT WORKING */}
-              {/* <input type="text" id="name" {...register("name", { required: false })} onChange={() => setUseMyName(false)} placeholder={useMyName ? user.first_name + ' ' + user.last_name : ''} /> */}
+              <input type="text" id="name" {...register("name", { required: false })} onChange={() => setUseMyName(false)} placeholder={useMyName ? user.first_name + ' ' + user.last_name : ''} />
 
               OR
               <input type="checkbox" id="my-name" onClick={() => setUseMyName(!useMyName)} />
@@ -127,7 +149,7 @@ export default function NewMusician2() {
           <h5>Instruments</h5>
           <ul className={style.categoryBoxes}>
             <li onClick={() => setCategory('Strings')} style={{ 'backgroundColor': category === 'Strings' ? '#5F69C6' : '#B4B3B2' }}><img src={strings_icon} alt='strings' />Strings</li>
-            <li onClick={() => setCategory('Brass')} style={{ 'backgroundColor': category === 'Brass' ? '#5F69C6' : '#B4B3B2' }}><img src={brass_icon} alt='brass' />Brass</li>
+            <li onClick={() => setCategory('Wind')} style={{ 'backgroundColor': category === 'Wind' ? '#5F69C6' : '#B4B3B2' }}><img src={brass_icon} alt='wind' />Wind</li>
             <li onClick={() => setCategory('Keys')} style={{ 'backgroundColor': category === 'Keys' ? '#5F69C6' : '#B4B3B2' }}><img src={keys_icon} alt='keys' />Keys</li>
             <li onClick={() => setCategory('Percussion')} style={{ 'backgroundColor': category === 'Percussion' ? '#5F69C6' : '#B4B3B2' }}><img src={percussion_icon} alt='percussion' />Percussion</li>
             <li onClick={() => setCategory('Vocals')} style={{ 'backgroundColor': category === 'Vocals' ? '#5F69C6' : '#B4B3B2' }}><img src={vocals_icon} alt='vocals' />Vocals</li>
@@ -135,30 +157,57 @@ export default function NewMusician2() {
           </ul>
 
 
-          {console.log(data)}
-
+          {/* DISPLAY INSTRUMENTS OF EACH CATEGORY */}
           <div className={style.stepOne}>
             <ul className={style.instrumentsList} style={{ 'display': category === 'Strings' ? 'flex' : 'none' }}>
-              {data.strings.map((i) => (
-                <div key={i.pointer}>
-                  <li><input type="checkbox" id={i.pointer}{...register("instruments." + i.pointer, { required: false })} /><label htmlFor={i.pointer}>{i.title}</label></li>
-                </div>
-              ))}
+
+              {/* STRINGS */}
+              <div className={style.columnList}>
+                {data.strings.map((i) => (
+                  <li key={i.pointer}><input type="checkbox" id={i.pointer}{...register("instruments." + i.pointer, { required: false })} /><label htmlFor={i.pointer}>{i.title}</label></li>
+                ))}
+              </div>
             </ul>
 
+            {/* WIND */}
+            <ul className={style.instrumentsList} style={{ 'display': category === 'Wind' ? 'flex' : 'none' }}>
+              <div className={style.columnList}>
+                {data.wind.map((i) => (
+                  <li key={i.pointer}><input type="checkbox" id={i.pointer}{...register("instruments." + i.pointer, { required: false })} /><label htmlFor={i.pointer}>{i.title}</label></li>
+                ))}
+              </div>
+            </ul>
+
+            {/* PERCUSSION */}
             <ul className={style.instrumentsList} style={{ 'display': category === 'Percussion' ? 'flex' : 'none' }}>
-              {data.percussion.map((i) => (
-                <div key={i.pointer}>
-                  <li><input type="checkbox" id={i.pointer}{...register("instruments." + i.pointer, { required: false })} /><label htmlFor={i.pointer}>{i.title}</label></li>
-                </div>
-              ))}
+              <div className={style.columnList}>
+                {data.percussion.map((i) => (
+                  <li key={i.pointer}><input type="checkbox" id={i.pointer}{...register("instruments." + i.pointer, { required: false })} /><label htmlFor={i.pointer}>{i.title}</label></li>
+                ))}
+              </div>
             </ul>
 
-
-
-
-
+            {/* VOCALS */}
+            <ul className={style.instrumentsList} style={{ 'display': category === 'Vocals' ? 'flex' : 'none' }}>
+              <div className={style.columnList}>
+                {data.vocals.map((i) => (
+                  <li key={i.pointer}><input type="checkbox" id={i.pointer}{...register("instruments." + i.pointer, { required: false })} /><label htmlFor={i.pointer}>{i.title}</label></li>
+                ))}
+              </div>
+            </ul>
           </div>
+
+
+          <h5>Genres</h5>
+          <ul className={style.instrumentsList} style={{ 'display': 'flex' }}>
+            <div className={style.columnList}>
+              {data2.genres.map((i) => (
+                <li key={i.pointer}><input type="checkbox" id={i.pointer}{...register("genres." + i.pointer, { required: false })} /><label htmlFor={i.pointer}>{i.title}</label></li>
+              ))}
+            </div>
+          </ul>
+
+
 
         </div>
         :

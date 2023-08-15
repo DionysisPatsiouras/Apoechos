@@ -122,6 +122,19 @@
   margin: 0;
 }
 
+.columnList {
+  display: flex;
+  height: auto;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  width: 80%;
+}
+
+.columnList li {
+  margin: 5px;
+}
+
 @media screen and (min-width: 768px) {
   .container {
     width: 650px;
@@ -141,5 +154,8 @@
   .personalInfoSection {
     flex-direction: row;
     justify-content: space-around;
+  }
+  .columnList {
+    height: 100px;
   }
 }/*# sourceMappingURL=NewMusician.module.css.map */
