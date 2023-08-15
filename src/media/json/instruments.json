@@ -1,0 +1,23 @@
+{
+    "strings": [
+        {
+            "pointer": "classic_guitar",
+            "title": "Classic Guitar"
+        },
+        {
+            "pointer": "electric_guitar",
+            "title": "Electric Guitar"
+        }
+    ],
+
+    "percussion" : [
+        {
+            "pointer": "drums",
+            "title": "Drums"
+        },
+        {
+            "pointer": "cajon",
+            "title": "Cajon"
+        }
+    ]
+}
