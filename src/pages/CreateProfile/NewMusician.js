@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import AuthContext from '../../context/AuthContext'
 import axios from 'axios'
-
+import FormData from 'form-data'
 
 import back_icon from '../../media/icons/expand.svg'
 import style from '../../style/CreateProfile/NewMusician.module.css'
@@ -31,7 +31,7 @@ export default function NewMusician2() {
   const [useMyName, setUseMyName] = useState(false)
   const [bioStatus, setBioStatus] = useState(false)
 
-
+  var formData = new FormData();
 
   // Upload new photo
   const onImageChange = (event) => {
@@ -41,12 +41,12 @@ export default function NewMusician2() {
   }
 
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  // const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const { register, handleSubmit } = useForm();
   const onSubmit = data => {
 
     const i = data.instruments
     const g = data.genres
-
 
     const allInstrumentsAreFalse = !i.classic_guitar &&
       !i.electric_guitar && !i.acoustic_guitar && !i.electric_bass && !i.acoustic_bass && !i.double_bass && !i.violin && !i.viola && !i.cello && !i.harp && !i.ukelele &&
@@ -54,13 +54,9 @@ export default function NewMusician2() {
       !i.trumbet && !i.trombone && !i.french_horn && !i.tuba && !i.cornet && !i.piccolo_trumbet && !i.flugelhorn &&
       !i.vocalist && !i.backing_vocalist && !i.soprano && !i.mezzo_soprano && !i.contralto && !i.tenor && !i.baritone && !i.bass
 
-
     const allGenresAreFalse = !g.rock && !g.jazz && !g.country
 
-
-
-
-
+    // ADD THAT FIRST NAME IS NOT FALSE
     if (allInstrumentsAreFalse || allGenresAreFalse) {
       setStep(1)
       alert('Fill all required fields')
@@ -76,9 +72,16 @@ export default function NewMusician2() {
           data.last_name = user.last_name
         }
 
-
+        const config = {
+          headers: { 'content-type': 'multipart/form-data' }
+        }
+        formData.append('rock', true);
+        console.log(data)
+        
+        // ADD PUT REQUEST 
         axios.post('http://127.0.0.1:8000/profiles/musicians/', {
 
+          
           first_name: data.first_name,
           last_name: data.last_name,
 
@@ -91,7 +94,7 @@ export default function NewMusician2() {
           jazz: data.genres.jazz,
           country: data.genres.country,
           bio: data.bio,
-          // photo: image,
+          photo: data.image,
           user: user.user_id
 
         })
@@ -135,7 +138,7 @@ export default function NewMusician2() {
             <div>
               <img src={image} style={{ 'borderRadius': '200px', 'objectFit': 'cover' }} width={150} height={150} alt='profile' />
               <div className={style.uploadPhoto}>
-                <input style={{ 'display': 'none' }} type="file" id="img" name="img" accept="image/*" onChange={onImageChange}></input>
+                <input style={{ 'display': 'none' }} type="file" id="img" name="img" accept="image/*" onChange={onImageChange} ></input>
                 <label className={style.upload_text} htmlFor='img'>
                   <img src={upload_icon} width={25} height={25} alt='upload' />
                   <p>Upload Photo</p></label>
@@ -230,10 +233,10 @@ export default function NewMusician2() {
         :
         <>
           <div className={style.optionalField}>
-            <div style={{'height' : '80px'}}>
+            <div style={{ 'height': '80px' }}>
               <h5 className={style.optionalSection}>Bio</h5>
               <div className={style.expand}>
-                <p  onClick={() => setBioStatus(!bioStatus)}>{bioStatus ? 'Click to hide' : 'Click to expand'}</p>
+                <p onClick={() => setBioStatus(!bioStatus)}>{bioStatus ? 'Click to hide' : 'Click to expand'}</p>
                 <img style={{ 'transform': bioStatus ? 'rotate(180deg)' : 'rotate(0deg)' }} width={30} height={30} src={back_icon} alt='back' />
               </div>
             </div>

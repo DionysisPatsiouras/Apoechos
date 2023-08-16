@@ -1,5 +1,5 @@
 import React from 'react'
-import s from '../media/json/genres.json'
+
 export default function HomePage() {
 
 
