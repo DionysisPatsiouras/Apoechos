@@ -2,15 +2,15 @@
     "genres": [
         {
             "pointer": "rock",
-            "title": "rock"
+            "title": "Rock"
         },
         {
             "pointer": "country",
-            "title": "country"
+            "title": "Country"
         },
         {
             "pointer": "jazz",
-            "title": "jazz"
+            "title": "Jazz"
         }
     ]
 

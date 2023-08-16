@@ -34,7 +34,7 @@ export default function LoginPage() {
        
                 <h6 className={style.title}>Log In</h6>
 
-                <form onSubmit={loginUser}>
+                <form className={style.fields} onSubmit={loginUser}>
                     <label htmlFor="email" >E-mail *</label>
                     <input type="email" name="email" onChange={handleInput} />
                     <p className={style.errorHandle}>{error.email}</p>

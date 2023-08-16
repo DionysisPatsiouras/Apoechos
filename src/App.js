@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { AuthProvider } from "./context/AuthContext"
-import HomePage from './pages/HomePage.tsx'
+import HomePage from './pages/HomePage'
 import Header from "./components/Header"
 import LoginPage from "./pages/LoginPage"
 import Discover from "./pages/Discover"
@@ -11,7 +11,7 @@ import Profiles from "./pages/Profiles"
 import ViewProfile from "./pages/ViewProfile"
 // import RegisterPage from "./pages/RegisterPage.tsx"
 // import NewMusician from "./pages/CreateProfile/NewMusician.tsx"
-import NewMusician2 from './pages/CreateProfile/NewMusician2'
+import NewMusician2 from './pages/CreateProfile/NewMusician'
 
 export default function App() {
   return (
