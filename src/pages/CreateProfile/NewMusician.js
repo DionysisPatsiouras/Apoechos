@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import AuthContext from '../../context/AuthContext'
 import axios from 'axios'
-import FormData from 'form-data'
+
 
 import back_icon from '../../media/icons/expand.svg'
 import style from '../../style/CreateProfile/NewMusician.module.css'
@@ -31,7 +31,7 @@ export default function NewMusician2() {
   const [useMyName, setUseMyName] = useState(false)
   const [bioStatus, setBioStatus] = useState(false)
 
-  var formData = new FormData();
+
 
   // Upload new photo
   const onImageChange = (event) => {
@@ -65,23 +65,26 @@ export default function NewMusician2() {
       if (step === 2) {
 
       } else {
-
-
         if (useMyName) {
           data.first_name = user.first_name
           data.last_name = user.last_name
         }
-
-        const config = {
-          headers: { 'content-type': 'multipart/form-data' }
-        }
-        formData.append('rock', true);
         console.log(data)
-        
-        // ADD PUT REQUEST 
+
+        axios.put('http://127.0.0.1:8000/users/' + user.user_id + '/', {
+          hasMusicianProfile: true,
+          //works if email and password are given
+        })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+
         axios.post('http://127.0.0.1:8000/profiles/musicians/', {
 
-          
+
           first_name: data.first_name,
           last_name: data.last_name,
 
