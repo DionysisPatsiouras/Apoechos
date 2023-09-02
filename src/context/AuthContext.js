@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
 
     async function loginUser(e) {
         e.preventDefault()
-        
+
         let response = await fetch('http://127.0.0.1:8000/api/token/', {
             method: 'POST',
             headers: {
@@ -44,9 +44,9 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem('authTokens', JSON.stringify(data))
             navigate('/discover')
         }
-        // } else {
-        //     console.log('error!')
-        // }
+        else {
+            console.log('error!')
+        }
 
 
     }

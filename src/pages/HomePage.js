@@ -1,22 +1,15 @@
-import React from 'react'
+import {React, useContext} from 'react'
+import { SignatureColors } from '../App'
 
 export default function HomePage() {
 
 
-  // let array = [{ guitar: true }, { bass: false }]
-  let array =[1, 12, 15, 16, 55 ]
-
-  array.every(checkAge)
-
-  function checkAge(age) {
-    return age > 18;
-  }
+const colors = useContext(SignatureColors)
 
   return (
     <div>HomePage
-      {/* {console.log(...array)}
-      {console.log(...s.genres)} */}
-      {console.log(checkAge())}
+
+      {console.log(colors)}
 
     </div>
   )

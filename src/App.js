@@ -1,3 +1,4 @@
+import { createContext } from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { AuthProvider } from "./context/AuthContext"
 import HomePage from './pages/HomePage'
@@ -10,35 +11,51 @@ import Account from "./pages/Account"
 import Profiles from "./pages/Profiles"
 import ViewProfile from "./pages/ViewProfile"
 import RegisterPage from "./pages/RegisterPage"
-// import NewMusician from "./pages/CreateProfile/NewMusician.tsx"
 import NewMusician from './pages/CreateProfile/NewMusician'
 
+
+
+export const SignatureColors = createContext()
+
 export default function App() {
+
+
+
   return (
     <div className="App">
 
       <BrowserRouter>
         <AuthProvider>
-          <Header />
 
-          <Routes>
+          {/* Declare signature colors */}
+          <SignatureColors.Provider value=
+            {{
+              everything: '#000000',
+              musician: '#10ACDD',
+              band: '#E37056',
+              studio: '#FF8514',
+              stage: '#E558C6',
+              store: '#12C59A'
+            }}>
+            <Header />
 
-            <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/discover" element={<Discover />} />
-            <Route path='/profiles/:category/:id/' element={<ViewProfile />} />
+            <Routes>
 
-            <Route element={<PrivateRoutes />} >
-              <Route path='/account' element={<Account />} />
-              <Route path='/profiles' element={<Profiles />} />
-              <Route path='/create/musician' element={<NewMusician />} />
-              
-            </Route>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/discover" element={<Discover />} />
+              <Route path='/profiles/:category/:id/' element={<ViewProfile />} />
+
+              <Route element={<PrivateRoutes />} >
+                <Route path='/account' element={<Account />} />
+                <Route path='/profiles' element={<Profiles />} />
+                <Route path='/create/musician' element={<NewMusician />} />
+              </Route>
 
 
-          </Routes>
-
+            </Routes>
+          </SignatureColors.Provider>
         </AuthProvider>
       </BrowserRouter>
 

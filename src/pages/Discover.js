@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
+import { SignatureColors } from '../App'
 import style from '../style/Pages/Discover.module.css'
 import MobileMenu from '../components/DiscoverComponents/MobileMenu'
 import DesktopMenu from '../components/DiscoverComponents/DesktopMenu'
+
 import pic from '../media/musician.png'
-
-
 import musicianLight from '../media/icons/profiles/light/musician.svg'
 import bandLight from '../media/icons/profiles/light/band.svg'
 import studioLight from '../media/icons/profiles/light/studio.svg'
@@ -27,7 +27,7 @@ export default function Discover() {
   const [data, setData] = useState([])
   const mobileEnabled = width < 769
 
-
+  const color = useContext(SignatureColors)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -71,12 +71,12 @@ export default function Discover() {
         >
           <form style={{
             'backgroundColor':
-              activeFilter === 'Everything' && mobileEnabled ? '#000000' :
-                activeFilter === 'Musicians' && mobileEnabled ? '#10ACDD' :
-                  activeFilter === 'Bands' && mobileEnabled ? '#E37056' :
-                    activeFilter === 'Music Studios' && mobileEnabled ? '#FF8514' :
-                      activeFilter === 'Live Stages' && mobileEnabled ? '#E558C6' :
-                        activeFilter === 'Music Stores' && mobileEnabled ? '#12C59A'
+              activeFilter === 'Everything' && mobileEnabled ? color.everything :
+                activeFilter === 'Musicians' && mobileEnabled ? color.musician :
+                  activeFilter === 'Bands' && mobileEnabled ? color.band :
+                    activeFilter === 'Music Studios' && mobileEnabled ? color.studio :
+                      activeFilter === 'Live Stages' && mobileEnabled ? color.stage :
+                        activeFilter === 'Music Stores' && mobileEnabled ? color.store
                           : '#ffffff'
           }}>
             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -85,12 +85,12 @@ export default function Discover() {
 
             <input placeholder={'Search ' + activeFilter + '..'} style={{
               'backgroundColor':
-                activeFilter === 'Everything' && mobileEnabled ? '#000000' :
-                  activeFilter === 'Musicians' && mobileEnabled ? '#10ACDD' :
-                    activeFilter === 'Bands' && mobileEnabled ? '#E37056' :
-                      activeFilter === 'Music Studios' && mobileEnabled ? '#FF8514' :
-                        activeFilter === 'Live Stages' && mobileEnabled ? '#E558C6' :
-                          activeFilter === 'Music Stores' && mobileEnabled ? '#12C59A'
+                activeFilter === 'Everything' && mobileEnabled ? color.everything :
+                  activeFilter === 'Musicians' && mobileEnabled ? color.musician :
+                    activeFilter === 'Bands' && mobileEnabled ? color.band :
+                      activeFilter === 'Music Studios' && mobileEnabled ? color.studio :
+                        activeFilter === 'Live Stages' && mobileEnabled ? color.stage :
+                          activeFilter === 'Music Stores' && mobileEnabled ? color.store
                             : '#ffffff'
             }} />
           </form>
@@ -106,11 +106,11 @@ export default function Discover() {
             className={style.card}
             style={{
               'backgroundColor':
-                i.category === 'musician' ? '#10ACDD' :
-                  i.category === 'band' ? '#E37056' :
-                    i.category === 'studio' ? '#FF8514' :
-                      i.category === 'store' ? '#12C59A' :
-                        i.category === 'stage' ? '#E558C6' :
+                i.category === 'musician' ? color.musician :
+                  i.category === 'band' ? color.band :
+                    i.category === 'studio' ? color.studio :
+                      i.category === 'store' ? color.store :
+                        i.category === 'stage' ? color.stage :
                           null
             }}>
             <div className={style.cardWhitePart}>

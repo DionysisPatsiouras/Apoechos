@@ -1,5 +1,6 @@
-import { React, useEffect, useState } from 'react'
+import { React, useEffect, useState, useContext } from 'react'
 import { useParams } from 'react-router';
+import { SignatureColors } from '../App';
 import axios from 'axios'
 
 import style from '../style/ViewProfile.module.css'
@@ -18,6 +19,8 @@ import minimize_icon from '../media/icons/minimize.svg'
 
 
 export default function ViewProfile() {
+
+    const color = useContext(SignatureColors)
 
     const [data, setData] = useState([])
     const [active, setActive] = useState('')
@@ -52,11 +55,11 @@ export default function ViewProfile() {
                     <div className={style.whiteBackground}
                         style={{
                             'backgroundColor':
-                                data.category === 'musician' ? '#10ACDD' :
-                                    data.category === 'band' ? '#E37056' :
-                                        data.category === 'studio' ? '#FF8514' :
-                                            data.category === 'store' ? '#12C59A' :
-                                                data.category === 'stage' ? '#E558C6' :
+                                data.category === 'musician' ? color.musician :
+                                    data.category === 'band' ? color.band :
+                                        data.category === 'studio' ? color.studio :
+                                            data.category === 'store' ? color.store :
+                                                data.category === 'stage' ? color.stage :
                                                     null
                         }}>
 

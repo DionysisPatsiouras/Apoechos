@@ -4,6 +4,7 @@ import style from '../../style/Pages/Profiles.module.css'
 import { Link } from 'react-router-dom'
 
 import AuthContext from '../../context/AuthContext'
+import { SignatureColors } from '../../App'
 import ProfileSelection from './ProfileSelection'
 
 
@@ -32,6 +33,7 @@ export default function Profiles() {
   let { user } = useContext(AuthContext)
   const hasAllProfiles = user.hasMusicianProfile && user.hasBandProfile && user.hasStudioProfile && user.hasStageProfile && user.hasStoreProfile
 
+  const color = useContext(SignatureColors)
 
   return (
     <div className={style.wrapper}>
@@ -58,7 +60,7 @@ export default function Profiles() {
             <ProfileSelection
               id={'Musician'}
               description={'Discover new musicians'}
-              signatureColor={'#10ACDD'}
+              signatureColor={color.musician}
               setActive={() => setActive('Musician')}
               setNumberOfSteps={() => setNumberOfSteps(3)}
               active={active}
@@ -74,7 +76,7 @@ export default function Profiles() {
             <ProfileSelection
               id={'Band'}
               description={'Promote your band'}
-              signatureColor={'#E37056'}
+              signatureColor={color.band}
               setActive={() => setActive('Band')}
               setNumberOfSteps={() => setNumberOfSteps(4)}
               active={active}
@@ -88,7 +90,7 @@ export default function Profiles() {
             <ProfileSelection
               id={'Music Studio'}
               description={'Promote your business'}
-              signatureColor={'#FF8514'}
+              signatureColor={color.studio}
               setActive={() => setActive('Music Studio')}
               setNumberOfSteps={() => setNumberOfSteps(2)}
               active={active}
@@ -103,7 +105,7 @@ export default function Profiles() {
             <ProfileSelection
               id={'Live Stage'}
               description={'Organize Events'}
-              signatureColor={'#E558C6'}
+              signatureColor={color.stage}
               setActive={() => setActive('Live Stage')}
               setNumberOfSteps={() => setNumberOfSteps(5)}
               active={active}
@@ -119,7 +121,7 @@ export default function Profiles() {
             <ProfileSelection
               id={'Music Store'}
               description={'Increase your sales'}
-              signatureColor={'#12C59A'}
+              signatureColor={color.store}
               setActive={() => setActive('Music Store')}
               setNumberOfSteps={() => setNumberOfSteps(3)}
               active={active}
