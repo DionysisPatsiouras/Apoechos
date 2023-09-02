@@ -37,6 +37,7 @@ export default function NewMusician2() {
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       setImage(URL.createObjectURL(event.target.files[0]));
+      console.log(image)
     }
   }
 
@@ -48,8 +49,9 @@ export default function NewMusician2() {
     const i = data.instruments
     const g = data.genres
 
-    const allInstrumentsAreFalse = !i.classic_guitar &&
-      !i.electric_guitar && !i.acoustic_guitar && !i.electric_bass && !i.acoustic_bass && !i.double_bass && !i.violin && !i.viola && !i.cello && !i.harp && !i.ukelele &&
+
+    const allInstrumentsAreFalse =
+      !i.classic_guitar && !i.electric_guitar && !i.acoustic_guitar && !i.electric_bass && !i.acoustic_bass && !i.double_bass && !i.violin && !i.viola && !i.cello && !i.harp && !i.ukelele &&
       !i.drums && !i.cajon && !i.congos && !i.tambourine &&
       !i.trumbet && !i.trombone && !i.french_horn && !i.tuba && !i.cornet && !i.piccolo_trumbet && !i.flugelhorn &&
       !i.vocalist && !i.backing_vocalist && !i.soprano && !i.mezzo_soprano && !i.contralto && !i.tenor && !i.baritone && !i.bass
@@ -69,24 +71,29 @@ export default function NewMusician2() {
           data.first_name = user.first_name
           data.last_name = user.last_name
         }
+       
         console.log(data)
 
-        axios.put('http://127.0.0.1:8000/users/' + user.user_id + '/', {
-          hasMusicianProfile: true,
-          //works if email and password are given
-        })
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error)
-          })
+        // axios.put('http://127.0.0.1:8000/users/' + user.user_id + '/', {
+        //   hasMusicianProfile: true,
+        //   //works if email and password are given
+        // })
+        //   .then(function (response) {
+        //     console.log(response);
+        //   })
+        //   .catch(function (error) {
+        //     console.log(error)
+        //   })
 
         axios.post('http://127.0.0.1:8000/profiles/musicians/', {
 
 
-          first_name: data.first_name,
+          // first_name: data.first_name,
           last_name: data.last_name,
+
+
+          // for testing purposes only
+          first_name: 'testuser',
 
           classic_guitar: data.instruments.classic_guitar, electric_guitar: data.instruments.electric_guitar, acoustic_guitar: data.instruments.acoustic_guitar, electric_bass: data.instruments.electric_bass, acoustic_bass: data.instruments.acoustic_bass, double_bass: data.instruments.double_bass, violin: data.instruments.violin, viola: data.instruments.viola, cello: data.instruments.cello, harp: data.instruments.harp, ukelele: data.instruments.ukelele,
           drums: data.instruments.drums, cajon: data.instruments.cajon, congos: data.instruments.congos, tambourine: data.instruments.tambourine,
@@ -97,7 +104,7 @@ export default function NewMusician2() {
           jazz: data.genres.jazz,
           country: data.genres.country,
           bio: data.bio,
-          photo: data.image,
+          photo: data.photo,
           user: user.user_id
 
         })
@@ -107,6 +114,7 @@ export default function NewMusician2() {
           .catch(function (error) {
             console.log(error);
           });
+         
       }
     }
 
@@ -141,19 +149,25 @@ export default function NewMusician2() {
             <div>
               <img src={image} style={{ 'borderRadius': '200px', 'objectFit': 'cover' }} width={150} height={150} alt='profile' />
               <div className={style.uploadPhoto}>
-                <input style={{ 'display': 'none' }} type="file" id="img" name="img" accept="image/*" onChange={onImageChange} ></input>
+
+              {/* <input style={{ 'display': 'none' }} type="file" id="img" name="img" accept="image/*" onChange={onImageChange} ></input> */}
+                {/* <input style={{ 'display': 'none' }} type="file" id="img" name="img" accept="image/*" onChange={onImageChange} {...register("image", {required: false})}></input> */}
+
+                <input type="file" id="photo" className={style.artisticNameField} {...register("photo", { required: false })} onChange={onImageChange}/>
+
                 <label className={style.upload_text} htmlFor='img'>
                   <img src={upload_icon} width={25} height={25} alt='upload' />
                   <p>Upload Photo</p></label>
               </div>
             </div>
+
             <div className={style.nameSection}>
               {/* NOT WORKING */}
               {useMyName ?
                 <p>{user.first_name + ' ' + user.last_name}</p> :
                 <>
-                  <input type="text" id="name" className={style.artisticNameField} {...register("first_name", { required: false })} placeholder={'Your artistic name *'} />
-                  <input type="text" id="name" className={style.artisticNameField} {...register("last_name", { required: false })} placeholder={'Last name'} />
+                  <input type="text" id="firstname" className={style.artisticNameField} {...register("first_name", { required: false })} placeholder={'Your artistic name *'} />
+                  <input type="text" id="lastname" className={style.artisticNameField} {...register("last_name", { required: false })} placeholder={'Last name'} />
                   OR
                 </>
 
@@ -163,7 +177,7 @@ export default function NewMusician2() {
                 <input type="checkbox" id="my-name" onClick={() => setUseMyName(!useMyName)} />
                 <label htmlFor='my-name'>Use my account name</label>
               </div>
-              {!useMyName ? <p>{'(' + user.first_name + ' ' + user.last_name + ')'} </p> : null}
+              {useMyName ? <p>{'(' + user.first_name + ' ' + user.last_name + ')'} </p> : null}
             </div>
           </div>
 
@@ -238,8 +252,8 @@ export default function NewMusician2() {
           <div className={style.optionalField}>
             <div style={{ 'height': '80px' }}>
               <h5 className={style.optionalSection}>Bio</h5>
-              <div className={style.expand}>
-                <p onClick={() => setBioStatus(!bioStatus)}>{bioStatus ? 'Click to hide' : 'Click to expand'}</p>
+              <div className={style.expand} onClick={() => setBioStatus(!bioStatus)}>
+                <p >{bioStatus ? 'Click to hide' : 'Click to expand'}</p>
                 <img style={{ 'transform': bioStatus ? 'rotate(180deg)' : 'rotate(0deg)' }} width={30} height={30} src={back_icon} alt='back' />
               </div>
             </div>

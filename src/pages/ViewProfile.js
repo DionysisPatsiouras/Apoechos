@@ -23,14 +23,14 @@ export default function ViewProfile() {
     const color = useContext(SignatureColors)
 
     const [data, setData] = useState([])
-    const [active, setActive] = useState('')
+    const [active, setActive] = useState('bio')
     const [content, setContent] = useState('')
 
     useEffect(() => {
         axios
             .get('http://127.0.0.1:8000/profiles/' + params.category + '/' + params.id)
             .then((response) => setData(response.data))
-    })
+    }, [])
 
 
 
@@ -65,10 +65,9 @@ export default function ViewProfile() {
 
 
                         <img src={'http://127.0.0.1:8000/' + data.photo} className={style.profilePicture} alt='profile' />
-                        {/* GET http://127.0.0.1:8000/undefined 404 (Not Found) comes from above */}
-
+      
+                        {console.log('http://127.0.0.1:8000/' + data.photo)}
                     </div>  
-                    
                 </div>
 
 
@@ -102,6 +101,7 @@ export default function ViewProfile() {
                                     <p onClick={() => setContent('')} className={style.expand}>Tap to hide</p> :
                                     <p onClick={() => setContent('bio')} className={style.expand}>Tap to expand</p>}
                                 <img src={content === 'bio' ? minimize_icon : expand_icon} width={25} height={25} alt='expand/minimize'/>
+                                <p>{data.bio}</p>
                             </div>
                         </li>
 
