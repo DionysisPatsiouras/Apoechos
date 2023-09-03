@@ -7,9 +7,7 @@
 }
 
 .existingProfiles {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: block;
   padding: 15px 0;
 }
 
@@ -175,5 +173,10 @@ h5 {
   .profileIcon {
     width: 50px;
     height: 50px;
+  }
+  .existingProfiles {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }/*# sourceMappingURL=Profiles.module.css.map */

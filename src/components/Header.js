@@ -1,7 +1,7 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
-
+import { WindowSize } from '../App'
 
 
 import '../style/main.css'
@@ -35,7 +35,7 @@ import editIcon from '../media/icons/edit.svg'
 export default function Header() {
 
     let { user, logoutUser } = useContext(AuthContext)
-    const [width, setWidth] = React.useState(window.innerWidth);
+
 
 
     const [menuIsOpen, setMenuIsOpen] = useState(false)
@@ -43,13 +43,8 @@ export default function Header() {
     const [dropdownIsOpen, setDropDownIsOpen] = useState(false)
     const [hover, setHover] = useState('')
 
-    const mobileEnabled = width < 769
 
-
-    useEffect(() => {
-        window.addEventListener("resize", () => setWidth(window.innerWidth));
-    }, [])
-
+    const windowIsResponsive = useContext(WindowSize)
 
     return (
 
@@ -59,7 +54,7 @@ export default function Header() {
             {/*   NAVIGATION MENU  */}
             <div className={style.menu}>
 
-                {mobileEnabled ? <img src={menuIsOpen ? closeIcon : burgerMenuIcon} width={44} height={44} alt="menu" onClick={() => { setMenuIsOpen(!menuIsOpen); setAccountIsOpen(false) }} /> : null}
+                {windowIsResponsive ? <img src={menuIsOpen ? closeIcon : burgerMenuIcon} width={44} height={44} alt="menu" onClick={() => { setMenuIsOpen(!menuIsOpen); setAccountIsOpen(false) }} /> : null}
                 <ul style={{ 'left': menuIsOpen ? '0%' : '-200%' }}>
                     {/* <Link to="/"><img src={logo} width={30} height={30} /></Link> */}
                     <Link to="/" onClick={() => setMenuIsOpen(false)}>What's New</Link>
@@ -75,7 +70,7 @@ export default function Header() {
             {/* USER MENU */}
             <div className={style.account}>
 
-                {mobileEnabled ?
+                {windowIsResponsive ?
                     <>
                         <img src={user ? onlinePic : accountDark} width={41} height={41} alt="menu" style={{ 'borderRadius': '99px', 'border': accountIsOpen ? '3px solid #5F69C6' : '3px solid #ffffff' }} onClick={() => { setAccountIsOpen(!accountIsOpen); setMenuIsOpen(false) }} />
                         <ul className={style.dropdown} style={{ 'left': accountIsOpen ? '0' : '-200%' }}>
