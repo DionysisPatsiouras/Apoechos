@@ -54,6 +54,10 @@
   align-items: center;
 }
 
+.backButton p, .backButton img {
+  cursor: pointer;
+}
+
 .categoryBoxes {
   display: flex;
   flex-wrap: wrap;
@@ -173,6 +177,14 @@
   width: 80%;
   padding: 20px;
   margin: 0 auto 20px auto;
+}
+
+.email {
+  width: 250px;
+}
+
+.content {
+  text-align: center;
 }
 
 .optionalField {

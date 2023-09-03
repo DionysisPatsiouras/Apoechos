@@ -8,13 +8,10 @@ import axios from 'axios'
 import back_icon from '../../media/icons/expand.svg'
 import style from '../../style/CreateProfile/NewMusician.module.css'
 
-import strings_icon from '../../media/icons/instruments/strings.svg'
-import brass_icon from '../../media/icons/instruments/brass.svg'
-import keys_icon from '../../media/icons/instruments/keys.svg'
-import percussion_icon from '../../media/icons/instruments/percussion.svg'
-import vocals_icon from '../../media/icons/instruments/vocals.svg'
-import other_icon from '../../media/icons/instruments/other.svg'
 
+import messageIcon from '../../media/icons/messagesDark.svg'
+import websiteIcon from '../../media/icons/website.svg'
+import phoneIcon from '../../media/icons/phone.svg'
 
 import upload_icon from '../../media/icons/upload.svg'
 import default_img from '../../media/musician.png'
@@ -29,7 +26,15 @@ export default function NewMusician2() {
   const [category, setCategory] = useState('Strings')
   const [step, setStep] = useState(1)
   const [useMyName, setUseMyName] = useState(false)
-  const [bioStatus, setBioStatus] = useState(false)
+  const [error, setError] = useState('')
+
+  var objMap = new Map(Object.entries(data));
+
+  //status of every optional field
+  const [optionalField, setOptionalField] = useState({
+    bio: false,
+    contact: false
+  })
 
 
 
@@ -37,13 +42,15 @@ export default function NewMusician2() {
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       setImage(URL.createObjectURL(event.target.files[0]));
-      console.log(image)
+      console.log(event.target.files)
     }
   }
 
 
   // const { register, handleSubmit, watch, formState: { errors } } = useForm();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState } = useForm();
+
+  const { errors } = formState
   const onSubmit = data => {
 
     const i = data.instruments
@@ -61,7 +68,8 @@ export default function NewMusician2() {
     // ADD THAT FIRST NAME IS NOT FALSE
     if (allInstrumentsAreFalse || allGenresAreFalse) {
       setStep(1)
-      alert('Fill all required fields')
+      // alert('Fill all required fields')
+      setError('check at least 1 option')
     } else {
 
       if (step === 2) {
@@ -71,8 +79,11 @@ export default function NewMusician2() {
           data.first_name = user.first_name
           data.last_name = user.last_name
         }
-       
+
         console.log(data)
+        const formData = new FormData()
+
+        formData.append('image', image)
 
         // axios.put('http://127.0.0.1:8000/users/' + user.user_id + '/', {
         //   hasMusicianProfile: true,
@@ -85,36 +96,39 @@ export default function NewMusician2() {
         //     console.log(error)
         //   })
 
-        axios.post('http://127.0.0.1:8000/profiles/musicians/', {
 
 
-          // first_name: data.first_name,
-          last_name: data.last_name,
+        axios
+          .post(formData, 'http://127.0.0.1:8000/profiles/musicians/', {
+
+            // first_name: data.first_name,
+            last_name: data.last_name,
 
 
-          // for testing purposes only
-          first_name: 'testuser',
+            // for testing purposes only
+            first_name: 'testuser',
 
-          classic_guitar: data.instruments.classic_guitar, electric_guitar: data.instruments.electric_guitar, acoustic_guitar: data.instruments.acoustic_guitar, electric_bass: data.instruments.electric_bass, acoustic_bass: data.instruments.acoustic_bass, double_bass: data.instruments.double_bass, violin: data.instruments.violin, viola: data.instruments.viola, cello: data.instruments.cello, harp: data.instruments.harp, ukelele: data.instruments.ukelele,
-          drums: data.instruments.drums, cajon: data.instruments.cajon, congos: data.instruments.congos, tambourine: data.instruments.tambourine,
-          trumbet: data.instruments.trumbet, trombone: data.instruments.trombone, french_horn: data.instruments.french_horn, tuba: data.instruments.tuba, cornet: data.instruments.cornet, piccolo_trumbet: data.instruments.piccolo_trumbet, flugelhorn: data.instruments.flugelhorn,
-          vocalist: data.instruments.vocalist, backing_vocalist: data.instruments.backing_vocalist, soprano: data.instruments.soprano, mezzo_soprano: data.instruments.mezzo_soprano, contralto: data.instruments.contralto, tenor: data.instruments.tenor, baritone: data.instruments.baritone, bass: data.instruments.bass,
+            classic_guitar: data.instruments.classic_guitar, electric_guitar: data.instruments.electric_guitar, acoustic_guitar: data.instruments.acoustic_guitar, electric_bass: data.instruments.electric_bass, acoustic_bass: data.instruments.acoustic_bass, double_bass: data.instruments.double_bass, violin: data.instruments.violin, viola: data.instruments.viola, cello: data.instruments.cello, harp: data.instruments.harp, ukelele: data.instruments.ukelele,
+            drums: data.instruments.drums, cajon: data.instruments.cajon, congos: data.instruments.congos, tambourine: data.instruments.tambourine,
+            trumbet: data.instruments.trumbet, trombone: data.instruments.trombone, french_horn: data.instruments.french_horn, tuba: data.instruments.tuba, cornet: data.instruments.cornet, piccolo_trumbet: data.instruments.piccolo_trumbet, flugelhorn: data.instruments.flugelhorn,
+            vocalist: data.instruments.vocalist, backing_vocalist: data.instruments.backing_vocalist, soprano: data.instruments.soprano, mezzo_soprano: data.instruments.mezzo_soprano, contralto: data.instruments.contralto, tenor: data.instruments.tenor, baritone: data.instruments.baritone, bass: data.instruments.bass,
 
-          rock: data.genres.rock,
-          jazz: data.genres.jazz,
-          country: data.genres.country,
-          bio: data.bio,
-          photo: data.photo,
-          user: user.user_id
+            rock: data.genres.rock,
+            jazz: data.genres.jazz,
+            country: data.genres.country,
+            bio: data.bio,
+            websiteLink: data.websiteLink,
+            photo: formData,
+            user: user.user_id
 
-        })
+          })
           .then(function (response) {
             console.log(response);
           })
           .catch(function (error) {
             console.log(error);
           });
-         
+
       }
     }
 
@@ -134,8 +148,7 @@ export default function NewMusician2() {
       <div className={style.topSection}>
         <div className={style.backButton}>
           <img style={{ 'transform': 'rotate(90deg)' }} width={30} height={30} src={back_icon} alt='back' />
-
-          <Link to='/profiles'>Back</Link>
+          {step === 1 ? <Link to="/profiles">Back</Link> : step === 2 || step === 3 ? <p onClick={() => setStep(step - 1)}>Back</p> : null}
         </div> {step === 1 ? <p>Required Fields</p> : <p>Optional Fields</p>}
       </div>
 
@@ -150,10 +163,10 @@ export default function NewMusician2() {
               <img src={image} style={{ 'borderRadius': '200px', 'objectFit': 'cover' }} width={150} height={150} alt='profile' />
               <div className={style.uploadPhoto}>
 
-              {/* <input style={{ 'display': 'none' }} type="file" id="img" name="img" accept="image/*" onChange={onImageChange} ></input> */}
+                {/* <input style={{ 'display': 'none' }} type="file" id="img" name="img" accept="image/*" onChange={onImageChange} ></input> */}
                 {/* <input style={{ 'display': 'none' }} type="file" id="img" name="img" accept="image/*" onChange={onImageChange} {...register("image", {required: false})}></input> */}
 
-                <input type="file" id="photo" className={style.artisticNameField} {...register("photo", { required: false })} onChange={onImageChange}/>
+                <input type="file" id="photo" className={style.artisticNameField} {...register("photo", { required: false })} onChange={onImageChange} />
 
                 <label className={style.upload_text} htmlFor='img'>
                   <img src={upload_icon} width={25} height={25} alt='upload' />
@@ -185,14 +198,33 @@ export default function NewMusician2() {
           {/* SELECT INSTRUMENT CATEGORY */}
           <div className={style.instrumentsSection}>
             <h5>Instruments</h5>
+            <p>{error}</p>
             <ul className={style.categoryBoxes}>
-              <li onClick={() => setCategory('Strings')} style={{ 'backgroundColor': category === 'Strings' ? '#5F69C6' : '#B4B3B2' }}><img src={strings_icon} alt='strings' />Strings</li>
-              <li onClick={() => setCategory('Wind')} style={{ 'backgroundColor': category === 'Wind' ? '#5F69C6' : '#B4B3B2' }}><img src={brass_icon} alt='wind' />Wind</li>
-              <li onClick={() => setCategory('Keys')} style={{ 'backgroundColor': category === 'Keys' ? '#5F69C6' : '#B4B3B2' }}><img src={keys_icon} alt='keys' />Keys</li>
-              <li onClick={() => setCategory('Percussion')} style={{ 'backgroundColor': category === 'Percussion' ? '#5F69C6' : '#B4B3B2' }}><img src={percussion_icon} alt='percussion' />Percussion</li>
-              <li onClick={() => setCategory('Vocals')} style={{ 'backgroundColor': category === 'Vocals' ? '#5F69C6' : '#B4B3B2' }}><img src={vocals_icon} alt='vocals' />Vocals</li>
-              <li onClick={() => setCategory('Other')} style={{ 'backgroundColor': category === 'Other' ? '#5F69C6' : '#B4B3B2' }}><img src={other_icon} alt='other' />Other</li>
+              <li onClick={() => setCategory('Strings')} style={{ 'backgroundColor': category === 'Strings' ? '#5F69C6' : '#B4B3B2' }}><img src={require('../../media/icons/instruments/strings.svg').default} alt='strings' />Strings</li>
+              <li onClick={() => setCategory('Wind')} style={{ 'backgroundColor': category === 'Wind' ? '#5F69C6' : '#B4B3B2' }}><img src={require('../../media/icons/instruments/wind.svg').default} alt='wind' />Wind</li>
+              <li onClick={() => setCategory('Keys')} style={{ 'backgroundColor': category === 'Keys' ? '#5F69C6' : '#B4B3B2' }}><img src={require('../../media/icons/instruments/keys.svg').default} alt='keys' />Keys</li>
+              <li onClick={() => setCategory('Percussion')} style={{ 'backgroundColor': category === 'Percussion' ? '#5F69C6' : '#B4B3B2' }}><img src={require('../../media/icons/instruments/percussion.svg').default} alt='percussion' />Percussion</li>
+              <li onClick={() => setCategory('Vocals')} style={{ 'backgroundColor': category === 'Vocals' ? '#5F69C6' : '#B4B3B2' }}><img src={require('../../media/icons/instruments/vocals.svg').default} alt='vocals' />Vocals</li>
+              <li onClick={() => setCategory('Other')} style={{ 'backgroundColor': category === 'Other' ? '#5F69C6' : '#B4B3B2' }}><img src={require('../../media/icons/instruments/other.svg').default} alt='other' />Other</li>
             </ul>
+
+            {/* {console.log(typeof data)} */}
+            {/* {console.log(Object.entries(data))} */}
+            {/* {console.log(objMap)} */}
+
+
+            {objMap.forEach((item, key) => {
+              // do something with an item
+              // console.log(key, item);
+              
+              
+              console.log(item)
+              // Object.entries(item).map()
+              
+           
+            })}
+
+      
 
 
             {/* DISPLAY INSTRUMENTS OF EACH CATEGORY */}
@@ -202,7 +234,7 @@ export default function NewMusician2() {
                 {/* STRINGS */}
                 <div className={style.columnList}>
                   {data.strings.map((i) => (
-                    <li key={i.pointer}><input type="checkbox" id={i.pointer}{...register("instruments." + i.pointer, { required: false })} /><label htmlFor={i.pointer}>{i.title}</label></li>
+                    <li key={i.pointer}><input onClick={() => setError('')} type="checkbox" id={i.pointer}{...register("instruments." + i.pointer, { required: false })} /><label htmlFor={i.pointer}>{i.title}</label></li>
                   ))}
                 </div>
               </ul>
@@ -211,7 +243,7 @@ export default function NewMusician2() {
               <ul className={style.listItem} style={{ 'display': category === 'Wind' ? 'flex' : 'none' }}>
                 <div className={style.columnList}>
                   {data.wind.map((i) => (
-                    <li key={i.pointer}><input type="checkbox" id={i.pointer}{...register("instruments." + i.pointer, { required: false })} /><label htmlFor={i.pointer}>{i.title}</label></li>
+                    <li key={i.pointer}><input onClick={() => setError('')} type="checkbox" id={i.pointer}{...register("instruments." + i.pointer, { required: false })} /><label htmlFor={i.pointer}>{i.title}</label></li>
                   ))}
                 </div>
               </ul>
@@ -220,7 +252,7 @@ export default function NewMusician2() {
               <ul className={style.listItem} style={{ 'display': category === 'Percussion' ? 'flex' : 'none' }}>
                 <div className={style.columnList}>
                   {data.percussion.map((i) => (
-                    <li key={i.pointer}><input type="checkbox" id={i.pointer}{...register("instruments." + i.pointer, { required: false })} /><label htmlFor={i.pointer}>{i.title}</label></li>
+                    <li key={i.pointer}><input onClick={() => setError('')} type="checkbox" id={i.pointer}{...register("instruments." + i.pointer, { required: false })} /><label htmlFor={i.pointer}>{i.title}</label></li>
                   ))}
                 </div>
               </ul>
@@ -229,7 +261,7 @@ export default function NewMusician2() {
               <ul className={style.listItem} style={{ 'display': category === 'Vocals' ? 'flex' : 'none' }}>
                 <div className={style.columnList}>
                   {data.vocals.map((i) => (
-                    <li key={i.pointer}><input type="checkbox" id={i.pointer}{...register("instruments." + i.pointer, { required: false })} /><label htmlFor={i.pointer}>{i.title}</label></li>
+                    <li key={i.pointer}><input onClick={() => setError('')} type="checkbox" id={i.pointer}{...register("instruments." + i.pointer, { required: false })} /><label htmlFor={i.pointer}>{i.title}</label></li>
                   ))}
                 </div>
               </ul>
@@ -252,13 +284,46 @@ export default function NewMusician2() {
           <div className={style.optionalField}>
             <div style={{ 'height': '80px' }}>
               <h5 className={style.optionalSection}>Bio</h5>
-              <div className={style.expand} onClick={() => setBioStatus(!bioStatus)}>
-                <p >{bioStatus ? 'Click to hide' : 'Click to expand'}</p>
-                <img style={{ 'transform': bioStatus ? 'rotate(180deg)' : 'rotate(0deg)' }} width={30} height={30} src={back_icon} alt='back' />
+              <div className={style.expand} onClick={() => setOptionalField({ ...optionalField, bio: !optionalField.bio })}>
+                <p >{optionalField.bio ? 'Click to hide' : 'Click to expand'}</p>
+                <img style={{ 'transform': optionalField.bio ? 'rotate(180deg)' : 'rotate(0deg)' }} width={30} height={30} src={back_icon} alt='back' />
               </div>
             </div>
-            {bioStatus ? <textarea type="text" id="bio" className={style.bio} placeholder='A few words about you...'{...register("bio", { required: false })} /> : null}
+            {optionalField.bio ? <textarea type="text" id="bio" className={style.bio} placeholder='A few words about you...'{...register("bio", { required: false })} /> : null}
+          </div>
 
+          <div className={style.optionalField}>
+            <div style={{ 'height': '80px', 'borderTop': '1px solid #DADADA' }}>
+              <h5 className={style.optionalSection}>Contact</h5>
+
+              <div className={style.expand} onClick={() => setOptionalField({ ...optionalField, contact: !optionalField.contact })}>
+
+                <p >{optionalField.contact ? 'Click to hide' : 'Click to expand'}</p>
+                <img style={{ 'transform': optionalField.contact ? 'rotate(180deg)' : 'rotate(0deg)' }} width={30} height={30} src={back_icon} alt='back' />
+
+              </div>
+            </div>
+
+            <div className={style.content} style={{ 'marginBottom': optionalField.contact ? '30px' : '0' }}>
+              {optionalField.contact ? <p style={{ 'textAlign': 'center', 'width': 'max-content', 'margin': '0 auto', 'padding': '24px' }}>These information are visible to anyone</p> : null}
+              {optionalField.contact ? <div style={{ 'display': 'flex', 'justifyContent': 'center' }}><img src={messageIcon} style={{ 'margin': '0 15px' }} alt="email" /><input type="email" id="email" className={style.email} placeholder='Email'{...register("email", { required: false })} autoComplete='off' /></div> : null}
+              {optionalField.contact ? <div style={{ 'display': 'flex', 'justifyContent': 'center' }}><img src={websiteIcon} style={{ 'margin': '0 15px' }} alt="website" /><input type="url" id="websiteLink" className={style.email} placeholder='Website'
+                {...register("websiteLink",
+                  {
+                    // format checking is not working
+                    required: false,
+                    pattern: {
+                      value: "http(s?)(:\/\/)((www.)?)(([^.]+)\.)?([a-zA-z0-9\-_]+)(.com|.net|.gov|.org|.in)(\/[^\s]*)?",
+                      message: "Invalid link format.",
+                    },
+                  }
+                )}
+
+                autoComplete='off' /></div> : null}
+              <p>{errors.websiteLink?.message}</p>
+              {optionalField.contact ? <div style={{ 'display': 'flex', 'justifyContent': 'center' }}><img src={phoneIcon} style={{ 'margin': '0 15px' }} alt="phone number" /><input type="text" id="phone" className={style.email} placeholder='Phone Number'{...register("phone", { required: false })} autoComplete='off' /></div> : null}
+
+            </div>
           </div>
 
 
@@ -279,7 +344,7 @@ export default function NewMusician2() {
               onClick={() => setStep(2)}>
               Next Step
             </button> :
-            <button style={{ 'backgroundColor': '#5F69C6' }} onClick={() => setStep(3)}>Skip</button>}
+            <button style={{ 'backgroundColor': '#5F69C6' }} onClick={() => setStep(3)}>Summarize</button>}
         </div>
       </form>
 
