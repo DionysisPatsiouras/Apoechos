@@ -19,6 +19,7 @@ import default_img from '../../media/musician.png'
 import data from '../../media/json/instruments.json'
 import data2 from '../../media/json/genres.json'
 
+
 export default function NewMusician2() {
 
   let { user } = useContext(AuthContext)
@@ -26,9 +27,10 @@ export default function NewMusician2() {
   const [category, setCategory] = useState('Strings')
   const [step, setStep] = useState(1)
   const [useMyName, setUseMyName] = useState(false)
-  const [error, setError] = useState('')
+  const [instrError, setInstrError] = useState('')
+  const [genreError, setGenreError] = useState('')
 
-  var objMap = new Map(Object.entries(data));
+
 
   //status of every optional field
   const [optionalField, setOptionalField] = useState({
@@ -68,8 +70,10 @@ export default function NewMusician2() {
     // ADD THAT FIRST NAME IS NOT FALSE
     if (allInstrumentsAreFalse || allGenresAreFalse) {
       setStep(1)
-      // alert('Fill all required fields')
-      setError('check at least 1 option')
+      allInstrumentsAreFalse ? setInstrError('Choose at least 1 instrument') : setInstrError('')
+      allGenresAreFalse ? setGenreError('Choose at least 1 genre') : setGenreError('')
+
+      
     } else {
 
       if (step === 2) {
@@ -155,7 +159,6 @@ export default function NewMusician2() {
 
 
       {step === 1 ?
-
         <div>
           {/* PHOTO SECTION */}
           <div className={style.personalInfoSection}>
@@ -183,7 +186,6 @@ export default function NewMusician2() {
                   <input type="text" id="lastname" className={style.artisticNameField} {...register("last_name", { required: false })} placeholder={'Last name'} />
                   OR
                 </>
-
               }
 
               <div className={style.useMyNameBox}>
@@ -198,7 +200,8 @@ export default function NewMusician2() {
           {/* SELECT INSTRUMENT CATEGORY */}
           <div className={style.instrumentsSection}>
             <h5>Instruments</h5>
-            <p>{error}</p>
+            {instrError != '' ? <p className={style.instrError}>{instrError}</p>: null}
+            
             <ul className={style.categoryBoxes}>
               <li onClick={() => setCategory('Strings')} style={{ 'backgroundColor': category === 'Strings' ? '#5F69C6' : '#B4B3B2' }}><img src={require('../../media/icons/instruments/strings.svg').default} alt='strings' />Strings</li>
               <li onClick={() => setCategory('Wind')} style={{ 'backgroundColor': category === 'Wind' ? '#5F69C6' : '#B4B3B2' }}><img src={require('../../media/icons/instruments/wind.svg').default} alt='wind' />Wind</li>
@@ -208,76 +211,22 @@ export default function NewMusician2() {
               <li onClick={() => setCategory('Other')} style={{ 'backgroundColor': category === 'Other' ? '#5F69C6' : '#B4B3B2' }}><img src={require('../../media/icons/instruments/other.svg').default} alt='other' />Other</li>
             </ul>
 
-            {/* {console.log(typeof data)} */}
-            {/* {console.log(Object.entries(data))} */}
-            {/* {console.log(objMap)} */}
-
-
-            {objMap.forEach((item, key) => {
-              // do something with an item
-              // console.log(key, item);
-              
-              
-              console.log(item)
-              // Object.entries(item).map()
-              
-           
-            })}
-
-      
-
 
             {/* DISPLAY INSTRUMENTS OF EACH CATEGORY */}
             <div className={style.stepOne}>
-              <ul className={style.listItem} style={{ 'display': category === 'Strings' ? 'flex' : 'none' }}>
-
-                {/* STRINGS */}
-                <div className={style.columnList}>
-                  {data.strings.map((i) => (
-                    <li key={i.pointer}><input onClick={() => setError('')} type="checkbox" id={i.pointer}{...register("instruments." + i.pointer, { required: false })} /><label htmlFor={i.pointer}>{i.title}</label></li>
-                  ))}
-                </div>
-              </ul>
-
-              {/* WIND */}
-              <ul className={style.listItem} style={{ 'display': category === 'Wind' ? 'flex' : 'none' }}>
-                <div className={style.columnList}>
-                  {data.wind.map((i) => (
-                    <li key={i.pointer}><input onClick={() => setError('')} type="checkbox" id={i.pointer}{...register("instruments." + i.pointer, { required: false })} /><label htmlFor={i.pointer}>{i.title}</label></li>
-                  ))}
-                </div>
-              </ul>
-
-              {/* PERCUSSION */}
-              <ul className={style.listItem} style={{ 'display': category === 'Percussion' ? 'flex' : 'none' }}>
-                <div className={style.columnList}>
-                  {data.percussion.map((i) => (
-                    <li key={i.pointer}><input onClick={() => setError('')} type="checkbox" id={i.pointer}{...register("instruments." + i.pointer, { required: false })} /><label htmlFor={i.pointer}>{i.title}</label></li>
-                  ))}
-                </div>
-              </ul>
-
-              {/* VOCALS */}
-              <ul className={style.listItem} style={{ 'display': category === 'Vocals' ? 'flex' : 'none' }}>
-                <div className={style.columnList}>
-                  {data.vocals.map((i) => (
-                    <li key={i.pointer}><input onClick={() => setError('')} type="checkbox" id={i.pointer}{...register("instruments." + i.pointer, { required: false })} /><label htmlFor={i.pointer}>{i.title}</label></li>
-                  ))}
-                </div>
-              </ul>
+              <ul className={style.listItem} style={{ 'display': category === 'Strings' ? 'flex' : 'none' }}><div className={style.columnList}>{data.strings.map((i) => (<li key={i.pointer}><input onClick={() => setInstrError('')} type="checkbox" id={i.pointer}{...register("instruments." + i.pointer, { required: false })} /><label htmlFor={i.pointer}>{i.title}</label></li>))}</div></ul>
+              <ul className={style.listItem} style={{ 'display': category === 'Wind' ? 'flex' : 'none' }}><div className={style.columnList}>{data.wind.map((i) => (<li key={i.pointer}><input onClick={() => setInstrError('')} type="checkbox" id={i.pointer}{...register("instruments." + i.pointer, { required: false })} /><label htmlFor={i.pointer}>{i.title}</label></li>))}</div></ul>
+              <ul className={style.listItem} style={{ 'display': category === 'Percussion' ? 'flex' : 'none' }}><div className={style.columnList}>{data.percussion.map((i) => (<li key={i.pointer}><input onClick={() => setInstrError('')} type="checkbox" id={i.pointer}{...register("instruments." + i.pointer, { required: false })} /><label htmlFor={i.pointer}>{i.title}</label></li>))}</div></ul>
+              <ul className={style.listItem} style={{ 'display': category === 'Vocals' ? 'flex' : 'none' }}><div className={style.columnList}>{data.vocals.map((i) => (<li key={i.pointer}><input onClick={() => setInstrError('')} type="checkbox" id={i.pointer}{...register("instruments." + i.pointer, { required: false })} /><label htmlFor={i.pointer}>{i.title}</label></li>))}</div></ul>
             </div>
+
           </div>
+
           {/* DISPLAY GENRES  */}
           <div className={style.genresSection}>
             <h5>Genres</h5>
-            <ul className={style.listItem} style={{ 'display': 'flex' }}>
-              <div className={style.columnList}>
-                {data2.genres.map((i) => (
-                  <li key={i.pointer}><input type="checkbox" id={i.pointer}{...register("genres." + i.pointer, { required: false })} /><label htmlFor={i.pointer}>{i.title}</label></li>
-                ))}
-              </div>
-            </ul>
-          </div>
+            {genreError != '' ? <p className={style.instrError}>{genreError}</p>: null}
+            <ul className={style.listItem} style={{ 'display': 'flex' }}><div className={style.columnList}>{data2.genres.map((i) => (<li key={i.pointer}><input type="checkbox" onClick={() => setGenreError('')} id={i.pointer}{...register("genres." + i.pointer, { required: false })} /><label htmlFor={i.pointer}>{i.title}</label></li>))}</div></ul></div>
         </div>
         :
         <>
@@ -295,33 +244,36 @@ export default function NewMusician2() {
           <div className={style.optionalField}>
             <div style={{ 'height': '80px', 'borderTop': '1px solid #DADADA' }}>
               <h5 className={style.optionalSection}>Contact</h5>
-
               <div className={style.expand} onClick={() => setOptionalField({ ...optionalField, contact: !optionalField.contact })}>
-
                 <p >{optionalField.contact ? 'Click to hide' : 'Click to expand'}</p>
                 <img style={{ 'transform': optionalField.contact ? 'rotate(180deg)' : 'rotate(0deg)' }} width={30} height={30} src={back_icon} alt='back' />
-
               </div>
             </div>
 
+            {/* OPTIONAL - CONTACT */}
             <div className={style.content} style={{ 'marginBottom': optionalField.contact ? '30px' : '0' }}>
-              {optionalField.contact ? <p style={{ 'textAlign': 'center', 'width': 'max-content', 'margin': '0 auto', 'padding': '24px' }}>These information are visible to anyone</p> : null}
-              {optionalField.contact ? <div style={{ 'display': 'flex', 'justifyContent': 'center' }}><img src={messageIcon} style={{ 'margin': '0 15px' }} alt="email" /><input type="email" id="email" className={style.email} placeholder='Email'{...register("email", { required: false })} autoComplete='off' /></div> : null}
-              {optionalField.contact ? <div style={{ 'display': 'flex', 'justifyContent': 'center' }}><img src={websiteIcon} style={{ 'margin': '0 15px' }} alt="website" /><input type="url" id="websiteLink" className={style.email} placeholder='Website'
-                {...register("websiteLink",
-                  {
-                    // format checking is not working
-                    required: false,
-                    pattern: {
-                      value: "http(s?)(:\/\/)((www.)?)(([^.]+)\.)?([a-zA-z0-9\-_]+)(.com|.net|.gov|.org|.in)(\/[^\s]*)?",
-                      message: "Invalid link format.",
-                    },
-                  }
-                )}
+              {optionalField.contact ?
+                <>
+                  <p style={{ 'textAlign': 'center', 'width': 'max-content', 'margin': '0 auto', 'padding': '24px' }}>These information are visible to anyone</p>
+                  <div style={{ 'display': 'flex', 'justifyContent': 'center' }}><img src={messageIcon} style={{ 'margin': '0 15px' }} alt="email" /><input type="email" id="email" className={style.email} placeholder='Email'{...register("email", { required: false })} autoComplete='off' /></div>
+                  <div style={{ 'display': 'flex', 'justifyContent': 'center' }}><img src={websiteIcon} style={{ 'margin': '0 15px' }} alt="website" /><input type="url" id="websiteLink" className={style.email} placeholder='Website'
+                    {...register("websiteLink",
+                      {
+                        // format checking is not working
+                        required: false,
+                        pattern: {
+                          // value: "http(s?)(:\/\/)((www.)?)(([^.]+)\.)?([a-zA-z0-9\-_]+)(.com|.net|.gov|.org|.in)(\/[^\s]*)?",
+                          value: "http(s?)(:)((www.)?)(([^.]+))?([a-zA-z0-9_]+)(.com|.net|.gov|.org|.in)([^]*)?",
+                          message: "Invalid link format.",
+                        },
+                      }
+                    )}
 
-                autoComplete='off' /></div> : null}
-              <p>{errors.websiteLink?.message}</p>
-              {optionalField.contact ? <div style={{ 'display': 'flex', 'justifyContent': 'center' }}><img src={phoneIcon} style={{ 'margin': '0 15px' }} alt="phone number" /><input type="text" id="phone" className={style.email} placeholder='Phone Number'{...register("phone", { required: false })} autoComplete='off' /></div> : null}
+                    autoComplete='off' /></div>
+                  <p>{errors.websiteLink?.message}</p>
+                  <div style={{ 'display': 'flex', 'justifyContent': 'center' }}><img src={phoneIcon} style={{ 'margin': '0 15px' }} alt="phone number" /><input type="text" id="phone" className={style.email} placeholder='Phone Number'{...register("phone", { required: false })} autoComplete='off' /></div>
+                </>
+                : null}
 
             </div>
           </div>
@@ -349,6 +301,6 @@ export default function NewMusician2() {
       </form>
 
 
-    </div >
+    </div>
   )
 }
