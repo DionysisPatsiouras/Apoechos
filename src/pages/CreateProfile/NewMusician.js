@@ -200,7 +200,7 @@ export default function NewMusician2() {
           {/* SELECT INSTRUMENT CATEGORY */}
           <div className={style.instrumentsSection}>
             <h5>Instruments</h5>
-            {instrError != '' ? <p className={style.instrError}>{instrError}</p>: null}
+            {instrError !== '' ? <p className={style.instrError}>{instrError}</p>: null}
             
             <ul className={style.categoryBoxes}>
               <li onClick={() => setCategory('Strings')} style={{ 'backgroundColor': category === 'Strings' ? '#5F69C6' : '#B4B3B2' }}><img src={require('../../media/icons/instruments/strings.svg').default} alt='strings' />Strings</li>
@@ -225,7 +225,7 @@ export default function NewMusician2() {
           {/* DISPLAY GENRES  */}
           <div className={style.genresSection}>
             <h5>Genres</h5>
-            {genreError != '' ? <p className={style.instrError}>{genreError}</p>: null}
+            {genreError !== '' ? <p className={style.instrError}>{genreError}</p>: null}
             <ul className={style.listItem} style={{ 'display': 'flex' }}><div className={style.columnList}>{data2.genres.map((i) => (<li key={i.pointer}><input type="checkbox" onClick={() => setGenreError('')} id={i.pointer}{...register("genres." + i.pointer, { required: false })} /><label htmlFor={i.pointer}>{i.title}</label></li>))}</div></ul></div>
         </div>
         :
