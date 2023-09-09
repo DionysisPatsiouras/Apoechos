@@ -1,7 +1,6 @@
-.container {
+.mainBody {
   display: flex;
-  justify-content: center;
-  flex-direction: column;
+  flex-direction: column-reverse;
   align-items: center;
 }
 
@@ -167,15 +166,51 @@
   text-align: center;
 }
 
+.cardsAndFilter {
+  width: 100%;
+}
+
 .filterBar {
-  position: absolute;
-  left: 0;
-  width: 200px;
-  background-color: #d7d7d7;
-  height: -webkit-fill-available;
+  bottom: 0;
+  width: 100%;
+  transition: 0s;
+  background-color: red;
+  z-index: 9999;
+  position: fixed;
+}
+
+.filterBar input {
+  margin: 0;
+}
+
+.filterBar label {
+  width: 50px;
+}
+
+.filterList {
+  display: block;
+}
+
+.filterList li {
+  padding: 3px 0 3px 50px;
+}
+
+.filterBar h2 {
+  padding: 20px 0 20px 50px;
+  border-bottom: 1px solid #DBDBDB;
+  margin: 0 0 15px 0;
+}
+
+.toggleFilterWindow {
+  position: relative;
+  left: 300px;
 }
 
 @media screen and (min-width: 768px) {
+  .mainBody {
+    flex-direction: row;
+    align-items: normal;
+  }
   .wrapper {
     display: flex;
     flex-direction: column;
@@ -195,5 +230,14 @@
   }
   .searchAndResults input {
     color: #4F4F4F;
+  }
+  .filterBar {
+    position: relative;
+    width: 20%;
+    border-right: 1px solid #DBDBDB;
+    height: -webkit-fill-available;
+  }
+  .cardsAndFilter {
+    width: 60%;
   }
 }/*# sourceMappingURL=Discover.module.css.map */
