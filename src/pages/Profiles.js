@@ -8,6 +8,8 @@ import CreateNewProfile from '../components/ProfileComponents/CreateNewProfile'
 
 export default function Profiles() {
 
+
+
     let { user } = useContext(AuthContext)
 
 

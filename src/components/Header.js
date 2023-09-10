@@ -1,7 +1,8 @@
 import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
 import { WindowSize } from '../App'
+
 
 
 import '../style/main.css'
@@ -23,6 +24,7 @@ import musicianLight from '../media/icons/profiles/light/musician.svg'
 import onlinePic from '../media/icons/onlinePic.svg'
 
 import logo from '../media/logo-04.png'
+
 import notificationsIcon from '../media/icons/notifications.svg'
 import messagesIcon from '../media/icons/messagesDark.svg'
 import editIcon from '../media/icons/edit.svg'
@@ -36,7 +38,7 @@ export default function Header() {
 
     let { user, logoutUser } = useContext(AuthContext)
 
-
+    const navigate = useNavigate();
 
     const [menuIsOpen, setMenuIsOpen] = useState(false)
     const [accountIsOpen, setAccountIsOpen] = useState(false)
@@ -56,12 +58,13 @@ export default function Header() {
 
                 {windowIsResponsive ? <img src={menuIsOpen ? closeIcon : burgerMenuIcon} width={44} height={44} alt="menu" onClick={() => { setMenuIsOpen(!menuIsOpen); setAccountIsOpen(false) }} /> : null}
                 <ul style={{ 'left': menuIsOpen ? '0%' : '-200%' }}>
-                    {/* <Link to="/"><img src={logo} width={30} height={30} /></Link> */}
+                    <img className={style.logo} src={logo} width={60} height={60} alt='logo' onClick={() => navigate('/')}/>
                     <Link to="/" onClick={() => setMenuIsOpen(false)}>What's New</Link>
                     <Link to="/discover" onClick={() => setMenuIsOpen(false)}>Discover</Link>
                     <Link to="/mystudio" onClick={() => setMenuIsOpen(false)}>My Studio</Link>
                     <Link to="/upcoming-events" onClick={() => setMenuIsOpen(false)}>Upcoming Events</Link>
                     <Link to="learn-more" onClick={() => setMenuIsOpen(false)}>Learn More</Link>
+
                 </ul>
             </div>
 

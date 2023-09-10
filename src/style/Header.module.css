@@ -70,13 +70,23 @@
   color: #ffffff;
 }
 
+.logo {
+  display: none;
+}
+
 @media screen and (min-width: 768px) {
   .container {
-    padding: 30px 0;
+    padding: 0;
     border: 1px solid linear-gradient(90deg, rgb(16, 172, 221) 0%, rgb(227, 112, 86) 100%);
   }
-  .menu img {
-    display: none;
+  .logo {
+    display: block;
+    padding: 0 17.5px;
+    transition: 3s;
+  }
+  .logo:hover {
+    cursor: pointer;
+    transform: rotate(360deg);
   }
   .dropdown {
     display: none;
@@ -86,7 +96,9 @@
   }
   .menu ul {
     position: inherit;
-    display: block;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     margin: 0;
   }
   .menu a {

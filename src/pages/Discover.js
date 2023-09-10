@@ -7,6 +7,8 @@ import DesktopMenu from '../components/DiscoverComponents/DesktopMenu'
 
 import pic from '../media/musician.png'
 import arrow from '../media/icons/expand.svg'
+import filters_icon from '../media/icons/filters.svg'
+
 
 
 
@@ -38,7 +40,7 @@ export default function Discover() {
 
 
 
-  // const [double_bass, setDoubleBass] = useState(false)
+
 
 
   const allGenres = [genre.rock, genre.country, genre.jazz]
@@ -68,7 +70,7 @@ export default function Discover() {
     <div className={style.mainBody}>
 
 
-      <div className={style.filterBar} style={{ 'left': showFilters ? '-300px' : '0', 'transition': '1s' }}>
+      <div className={style.filterBar} style={{ 'left': showFilters ? '-20%' : '0', 'transition': '1s' }}>
 
         {/* change content */}
         {activeFilter === 'Musicians' ?
@@ -79,30 +81,38 @@ export default function Discover() {
               <li><input type="checkbox" id="jazz" onClick={() => setGenre({ ...genre, jazz: !genre.jazz })} /> <label htmlFor='jazz'>Jazz</label></li>
               <li><input type="checkbox" id="country" onClick={() => setGenre({ ...genre, country: !genre.country })} /> <label htmlFor='country'>Country</label></li>
             </ul>
+
+            <h2>Instrument</h2>
+            <ul className={style.filterList}>
+              <li><input type="checkbox" id="double_bass" onClick={() => setInstrument({ ...instrument, double_bass: !instrument.double_bass })} /> <label htmlFor='double_bass'>Double Bass</label></li>
+              <li><input type="checkbox" id="classic_guitar" onClick={() => setInstrument({ ...instrument, classic_guitar: !instrument.classic_guitar })} /> <label htmlFor='classic_guitar'>Classic Guitar</label></li>
+              
+            </ul>
           </div>
           : activeFilter === 'Everything' ?
-            <p>heyy</p>
+            <div>
+              <h2>Location</h2>
+            </div>
             : null
         }
-        <div >
-          {showFilters ? <p className={style.toggleFilterWindow} p onClick={() => setShowFilters(!showFilters)} > Show Filters</p> : <p onClick={() => setShowFilters(!showFilters)}><img src={arrow} />Hide Filters</p>}
-
+        {/* Show/Hide filter */}
+        <div>
+          {showFilters ?
+            <div className={style.showWindow} onClick={() => setShowFilters(!showFilters)}>
+              <img src={filters_icon} width={25} height={25} alt='filters' />
+              <p>Show Filters</p>
+            </div>
+            :
+            <div className={style.hideWindow} onClick={() => setShowFilters(!showFilters)}>
+              <img src={arrow} width={25} height={25} alt='filters' />
+              <p>Hide Filters</p>
+            </div>
+          }
         </div>
       </div>
 
 
 
-      {/* {activeFilter === 'Musicians' ?
-        <div className={style.filterBar}>
-          <h2>Genre</h2>
-          <ul className={style.filterList}>
-            <li><input type="checkbox" id="rock" onClick={() => setGenre({ ...genre, rock: !genre.rock })} /> <label htmlFor='rock'>Rock</label></li>
-            <li><input type="checkbox" id="jazz" onClick={() => setGenre({ ...genre, jazz: !genre.jazz })} /> <label htmlFor='jazz'>Jazz</label></li>
-            <li><input type="checkbox" id="country" onClick={() => setGenre({ ...genre, country: !genre.country })} /> <label htmlFor='country'>Country</label></li>
-          </ul>
-        </div>
-        : null
-      } */}
 
       <div className={style.cardsAndFilter}>
         <div className={style.wrapper}>
@@ -113,7 +123,7 @@ export default function Discover() {
             <DesktopMenu link={link} setLink={setLink} activeFilter={activeFilter} setActiveFilter={setActiveFilter} />}
 
 
-          {console.log(data)}
+          {/* {console.log(data)} */}
 
 
 
@@ -127,7 +137,8 @@ export default function Discover() {
             <small >Results : {data.length}</small>
           </div>
 
-
+            {console.log(genre)}
+            {console.log(instrument)}
 
         </div>
         <div className={style.cardsContainer}>
@@ -137,8 +148,9 @@ export default function Discover() {
             .filter((i) => genre.rock ? i.rock : allGenres)
             .filter((i) => genre.jazz ? i.jazz : allGenres)
             .filter((i) => genre.country ? i.country : allGenres)
-            // .filter((i) => instrument.double_bass ? i.double_bass : allInstruments)
-            // .filter((i) => instrument.classic_guitar ? i.classic_guitar : allInstruments)
+            .filter((i2) => instrument.classic_guitar ? i2.classic_guitar : allInstruments)
+            .filter((i2) => instrument.double_bass ? i2.double_bass : allInstruments)
+            
             //display all profiles
             .map((i) => (
               <div key={i.id + i.category}
