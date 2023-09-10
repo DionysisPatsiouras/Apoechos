@@ -10,13 +10,14 @@ export default function DesktopMenu(props) {
                         'color': props.link === 'everything' || props.activeFilter === 'Everything' ? '#000000' : '#AFAFAF',
                         'borderBottom': props.link === 'everything' || props.activeFilter === 'Everything' ? '3px solid #000000' : '3px solid transparent'
                     }}
-                    onClick={() => props.setActiveFilter('Everything')}
+                    // onClick={() => props.setActiveFilter('Everything')}
+                    onClick={() => (props.setActiveFilter('Everything'), props.setGenre(false), props.setInstrument(false))}
                     onTouchStart={() => props.setLink('everything')}
                     onMouseOver={() => props.setLink('everything')}
                     onMouseLeave={() => props.setLink('')}>
                     Everything
                 </li>
-                
+
 
 
                 <li

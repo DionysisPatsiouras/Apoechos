@@ -120,7 +120,7 @@ export default function Discover() {
 
           {windowIsResponsive ?
             <MobileMenu link={link} setLink={setLink} activeFilter={activeFilter} setActiveFilter={setActiveFilter} /> :
-            <DesktopMenu link={link} setLink={setLink} activeFilter={activeFilter} setActiveFilter={setActiveFilter} />}
+            <DesktopMenu link={link} setLink={setLink} activeFilter={activeFilter} setActiveFilter={setActiveFilter} setGenre={setGenre} setInstrument={setInstrument}/>}
 
 
           {/* {console.log(data)} */}
@@ -137,8 +137,9 @@ export default function Discover() {
             <small >Results : {data.length}</small>
           </div>
 
-            {console.log(genre)}
-            {console.log(instrument)}
+            {/* {console.log(genre)} */}
+            {/* {console.log(instrument)} */}
+         
 
         </div>
         <div className={style.cardsContainer}>
