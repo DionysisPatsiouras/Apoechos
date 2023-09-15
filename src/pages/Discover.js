@@ -15,8 +15,8 @@ import filters_icon from '../media/icons/filters.svg'
 
 export default function Discover() {
 
-  const [activeFilter, setActiveFilter] = useState('Musicians')
-  const [link, setLink] = useState('musicians')
+  const [activeFilter, setActiveFilter] = useState('Everything')
+  const [link, setLink] = useState('everything')
   const [data, setData] = useState([])
   const [showFilters, setShowFilters] = useState(false)
 
@@ -86,7 +86,10 @@ export default function Discover() {
             <ul className={style.filterList}>
               <li><input type="checkbox" id="double_bass" onClick={() => setInstrument({ ...instrument, double_bass: !instrument.double_bass })} /> <label htmlFor='double_bass'>Double Bass</label></li>
               <li><input type="checkbox" id="classic_guitar" onClick={() => setInstrument({ ...instrument, classic_guitar: !instrument.classic_guitar })} /> <label htmlFor='classic_guitar'>Classic Guitar</label></li>
-              
+            </ul>
+            <h2>Location</h2>
+            <ul className={style.filterList}>
+              {/* add location filter here */}
             </ul>
           </div>
           : activeFilter === 'Everything' ?
@@ -97,17 +100,10 @@ export default function Discover() {
         }
         {/* Show/Hide filter */}
         <div>
-          {showFilters ?
-            <div className={style.showWindow} onClick={() => setShowFilters(!showFilters)}>
-              <img src={filters_icon} width={25} height={25} alt='filters' />
-              <p>Show Filters</p>
-            </div>
-            :
-            <div className={style.hideWindow} onClick={() => setShowFilters(!showFilters)}>
-              <img src={arrow} width={25} height={25} alt='filters' />
-              <p>Hide Filters</p>
-            </div>
-          }
+          <div className={showFilters ? style.showWindow : style.hideWindow} onClick={() => setShowFilters(!showFilters)}>
+            <img src={showFilters ? filters_icon : arrow} width={25} height={25} alt='filters' />
+            <p>{showFilters ? 'Show Filters' : 'Hide Filters'}</p>
+          </div>
         </div>
       </div>
 
@@ -119,8 +115,8 @@ export default function Discover() {
 
 
           {windowIsResponsive ?
-            <MobileMenu link={link} setLink={setLink} activeFilter={activeFilter} setActiveFilter={setActiveFilter} /> :
-            <DesktopMenu link={link} setLink={setLink} activeFilter={activeFilter} setActiveFilter={setActiveFilter} setGenre={setGenre} setInstrument={setInstrument}/>}
+            <MobileMenu link={link} setLink={setLink} activeFilter={activeFilter} setActiveFilter={setActiveFilter} setGenre={setGenre} setInstrument={setInstrument} /> :
+            <DesktopMenu link={link} setLink={setLink} activeFilter={activeFilter} setActiveFilter={setActiveFilter} setGenre={setGenre} setInstrument={setInstrument} />}
 
 
           {/* {console.log(data)} */}
@@ -137,21 +133,25 @@ export default function Discover() {
             <small >Results : {data.length}</small>
           </div>
 
-            {/* {console.log(genre)} */}
-            {/* {console.log(instrument)} */}
-         
+          {/* {console.log(genre)} */}
+          {/* {console.log(instrument)} */}
 
+       
         </div>
         <div className={style.cardsContainer}>
           {data
             //filters data when you type on search
-            .filter((i) => i.first_name?.toLowerCase().includes(search) || i.last_name?.toLowerCase().includes(search) || i.title?.toLowerCase().includes(search) || i.name?.toLowerCase().includes(search),)
+            .filter((i) => i.first_name?.toLowerCase().includes(search) || i.last_name?.toLowerCase().includes(search) || i.title?.toLowerCase().includes(search) || i.name?.toLowerCase().includes(search))
+            
             .filter((i) => genre.rock ? i.rock : allGenres)
+      
+            // .filter((i) =>  genre.rock ? i.rock : allGenres, console.log(typeof genre.rock))
+
             .filter((i) => genre.jazz ? i.jazz : allGenres)
             .filter((i) => genre.country ? i.country : allGenres)
             .filter((i2) => instrument.classic_guitar ? i2.classic_guitar : allInstruments)
             .filter((i2) => instrument.double_bass ? i2.double_bass : allInstruments)
-            
+
             //display all profiles
             .map((i) => (
               <div key={i.id + i.category}

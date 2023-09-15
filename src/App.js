@@ -31,6 +31,7 @@ export default function App() {
 
 
 
+
   return (
     <div className="App">
 
@@ -50,22 +51,24 @@ export default function App() {
               }}>
               <Header />
 
-              <Routes>
+              <div style={{'paddingTop' : '82px'}}>
+                <Routes>
 
-                <Route path="/" element={<HomePage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
-                <Route path="/discover" element={<Discover />} />
-                <Route path='/profiles/:category/:id/' element={<ViewProfile />} />
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/login" element={<LoginPage />} />
+                  <Route path="/register" element={<RegisterPage />} />
+                  <Route path="/discover" element={<Discover />} />
+                  <Route path='/profiles/:category/:id/' element={<ViewProfile />} />
 
-                <Route element={<PrivateRoutes />} >
-                  <Route path='/account' element={<Account />} />
-                  <Route path='/profiles' element={<Profiles />} />
-                  <Route path='/create/musician' element={<NewMusician />} />
-                </Route>
+                  <Route element={<PrivateRoutes />} >
+                    <Route path='/account' element={<Account />} />
+                    <Route path='/profiles' element={<Profiles />} />
+                    <Route path='/create/musician' element={<NewMusician />} />
+                  </Route>
 
 
-              </Routes>
+                </Routes>
+              </div>
             </SignatureColors.Provider>
           </AuthProvider>
         </BrowserRouter>

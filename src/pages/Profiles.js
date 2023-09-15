@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
+import axios from 'axios'
 
 import style from '../style/Pages/Profiles.module.css'
 import img from '../media/musician.png'
@@ -10,22 +11,49 @@ export default function Profiles() {
 
 
 
+
     let { user } = useContext(AuthContext)
+    const [IsMusician, setMusician] = useState(false)
+    const [hasBand, setBand] = useState(false)
+    const [hasStudio, setStudio] = useState(false)
+    const [hasStage, setStage] = useState(false)
+    const [hasStore, setStore] = useState(false)
 
 
-    const hasAllProfiles = user.hasMusicianProfile && user.hasBandProfile && user.hasStudioProfile && user.hasStageProfile && user.hasStoreProfile
-    const hasNoProfile = !user.hasMusicianProfile && !user.hasBandProfile && !user.hasStudioProfile && !user.hasStageProfile && !user.hasStoreProfile
+
+    useEffect(() => {
+        axios
+            .get('http://127.0.0.1:8000/users/' + user.user_id)
+            .then((response) =>
+                [
+                    setMusician(response.data.hasMusicianProfile),
+                    setBand(response.data.hasBandProfile),
+                    setStudio(response.data.hasStudioProfile),
+                    setStage(response.data.hasStageProfile),
+                    setStore(response.data.hasStoreProfile),
+                ]
+            )
+    }, [])
+
+
+
+
+
+
+    const hasAllProfiles = IsMusician && hasBand && hasStudio && hasStage && hasStore
+    const hasNoProfile = !IsMusician && !hasBand && !hasStudio && !hasStage && !hasStore
     const [newProfileWindow, setNewProfileWindow] = useState(false)
 
 
     return (
         <div>
-            <div className={style.existingProfiles}>
-                {user.hasMusicianProfile ? <div className={style.object}> <img className={style.profileImage} src={img} alt='img' /></div> : null}
-                {user.hasBandProfile ? <div className={style.object}><img className={style.profileImage} src={img2} alt='img' /></div> : null}
-                {user.hasStudioProfile ? <div className={style.object}><img className={style.profileImage} src={img} alt='img' /></div> : null}
-                {user.hasStageProfile ? <div className={style.object}><img className={style.profileImage} src={img2} alt='img' /></div> : null}
-                {user.hasStoreProfile ? <div className={style.object}><img className={style.profileImage} src={img} alt='img' /></div> : null}
+            {/* {console.log(state.current)} */}
+            <div className={style.existingProfiles} >
+                {IsMusician ? <div className={style.object} > <img className={style.profileImage} src={img} alt='img' /></div> : null}
+                {hasBand ? <div className={style.object}><img className={style.profileImage} src={img2} alt='img' /></div> : null}
+                {hasStudio ? <div className={style.object}><img className={style.profileImage} src={img} alt='img' /></div> : null}
+                {hasStage ? <div className={style.object}><img className={style.profileImage} src={img2} alt='img' /></div> : null}
+                {hasStore ? <div className={style.object}><img className={style.profileImage} src={img} alt='img' /></div> : null}
 
 
 

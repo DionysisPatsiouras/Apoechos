@@ -6,6 +6,8 @@
     padding: 30px
     z-index: 999
 
+    background-color: #ffffff
+
 .menu ul, .dropdown ul
     position: relative
     z-index: 88888
@@ -65,20 +67,18 @@
     .container
         padding: 0
         border: 1px solid linear-gradient(90deg, rgba(16,172,221,1) 0%, rgba(227,112,86,1) 100%)
+        position: fixed
+        width: 100%
 
-
-    // .menu img
-    //     display: none
 
     .logo
-
         display: block
-        padding: 0 17.5px 
+        padding: 0 17.5px
         transition: 3s
 
     .logo:hover
         cursor: pointer
-        transform: rotate(360deg) 
+        transform: rotate(360deg)
 
     .dropdown
         display: none
@@ -124,7 +124,7 @@
         border-radius: 4px
 
     .dropDownDesktop a svg
-        margin: 0 10px 0 0 
+        margin: 0 10px 0 0
 
     .dropDownDesktop a:hover
         background: #2C2A2B

@@ -32,6 +32,7 @@ export default function NewMusician2() {
 
 
 
+
   //status of every optional field
   const [optionalField, setOptionalField] = useState({
     bio: false,
@@ -73,7 +74,7 @@ export default function NewMusician2() {
       allInstrumentsAreFalse ? setInstrError('Choose at least 1 instrument') : setInstrError('')
       allGenresAreFalse ? setGenreError('Choose at least 1 genre') : setGenreError('')
 
-      
+
     } else {
 
       if (step === 2) {
@@ -85,32 +86,30 @@ export default function NewMusician2() {
         }
 
         console.log(data)
-        const formData = new FormData()
+        // const formData = new FormData()
 
-        formData.append('image', image)
+        // formData.append('image', image)
 
-        // axios.put('http://127.0.0.1:8000/users/' + user.user_id + '/', {
-        //   hasMusicianProfile: true,
-        //   //works if email and password are given
-        // })
-        //   .then(function (response) {
-        //     console.log(response);
-        //   })
-        //   .catch(function (error) {
-        //     console.log(error)
-        //   })
+        axios.put('http://127.0.0.1:8000/users/' + user.user_id + '/', {
+          hasMusicianProfile: true,
+        })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
 
 
 
         axios
-          .post(formData, 'http://127.0.0.1:8000/profiles/musicians/', {
-
-            // first_name: data.first_name,
-            last_name: data.last_name,
-
-
-            // for testing purposes only
-            first_name: 'testuser',
+          // .post(formData, 'http://127.0.0.1:8000/profiles/musicians/', {
+          .post( 'http://127.0.0.1:8000/profiles/musicians/', {
+            // first_name: user.first_name,
+            first_name: 'Dennis',
+            last_name: user.last_name,
+            // create an 'artistick name' row
+            // artisticName: data.artisticName,
 
             classic_guitar: data.instruments.classic_guitar, electric_guitar: data.instruments.electric_guitar, acoustic_guitar: data.instruments.acoustic_guitar, electric_bass: data.instruments.electric_bass, acoustic_bass: data.instruments.acoustic_bass, double_bass: data.instruments.double_bass, violin: data.instruments.violin, viola: data.instruments.viola, cello: data.instruments.cello, harp: data.instruments.harp, ukelele: data.instruments.ukelele,
             drums: data.instruments.drums, cajon: data.instruments.cajon, congos: data.instruments.congos, tambourine: data.instruments.tambourine,
@@ -122,7 +121,7 @@ export default function NewMusician2() {
             country: data.genres.country,
             bio: data.bio,
             websiteLink: data.websiteLink,
-            photo: formData,
+            // photo: formData,
             user: user.user_id
 
           })
@@ -166,7 +165,7 @@ export default function NewMusician2() {
               <img src={image} style={{ 'borderRadius': '200px', 'objectFit': 'cover' }} width={150} height={150} alt='profile' />
               <div className={style.uploadPhoto}>
 
-                {/* <input style={{ 'display': 'none' }} type="file" id="img" name="img" accept="image/*" onChange={onImageChange} ></input> */}
+                <input style={{ 'display': 'none' }} type="file" id="img" name="img" accept="image/*" onChange={onImageChange} ></input>
                 {/* <input style={{ 'display': 'none' }} type="file" id="img" name="img" accept="image/*" onChange={onImageChange} {...register("image", {required: false})}></input> */}
 
                 <input type="file" id="photo" className={style.artisticNameField} {...register("photo", { required: false })} onChange={onImageChange} />
@@ -182,8 +181,8 @@ export default function NewMusician2() {
               {useMyName ?
                 <p>{user.first_name + ' ' + user.last_name}</p> :
                 <>
-                  <input type="text" id="firstname" className={style.artisticNameField} {...register("first_name", { required: false })} placeholder={'Your artistic name *'} />
-                  <input type="text" id="lastname" className={style.artisticNameField} {...register("last_name", { required: false })} placeholder={'Last name'} />
+                  <input type="text" id="firstname" className={style.artisticNameField} {...register("first_name", { required: false })} placeholder={'Your artistic name *'} autoComplete='off' />
+                  {/* <input type="text" id="lastname" className={style.artisticNameField} {...register("last_name", { required: false })} placeholder={'Last name'} /> */}
                   OR
                 </>
               }
@@ -200,8 +199,8 @@ export default function NewMusician2() {
           {/* SELECT INSTRUMENT CATEGORY */}
           <div className={style.instrumentsSection}>
             <h5>Instruments</h5>
-            {instrError !== '' ? <p className={style.instrError}>{instrError}</p>: null}
-            
+            {instrError !== '' ? <p className={style.instrError}>{instrError}</p> : null}
+
             <ul className={style.categoryBoxes}>
               <li onClick={() => setCategory('Strings')} style={{ 'backgroundColor': category === 'Strings' ? '#5F69C6' : '#B4B3B2' }}><img src={require('../../media/icons/instruments/strings.svg').default} alt='strings' />Strings</li>
               <li onClick={() => setCategory('Wind')} style={{ 'backgroundColor': category === 'Wind' ? '#5F69C6' : '#B4B3B2' }}><img src={require('../../media/icons/instruments/wind.svg').default} alt='wind' />Wind</li>
@@ -225,7 +224,7 @@ export default function NewMusician2() {
           {/* DISPLAY GENRES  */}
           <div className={style.genresSection}>
             <h5>Genres</h5>
-            {genreError !== '' ? <p className={style.instrError}>{genreError}</p>: null}
+            {genreError !== '' ? <p className={style.instrError}>{genreError}</p> : null}
             <ul className={style.listItem} style={{ 'display': 'flex' }}><div className={style.columnList}>{data2.genres.map((i) => (<li key={i.pointer}><input type="checkbox" onClick={() => setGenreError('')} id={i.pointer}{...register("genres." + i.pointer, { required: false })} /><label htmlFor={i.pointer}>{i.title}</label></li>))}</div></ul></div>
         </div>
         :
@@ -238,7 +237,7 @@ export default function NewMusician2() {
                 <img style={{ 'transform': optionalField.bio ? 'rotate(180deg)' : 'rotate(0deg)' }} width={30} height={30} src={back_icon} alt='back' />
               </div>
             </div>
-            {optionalField.bio ? <textarea type="text" id="bio" className={style.bio} placeholder='A few words about you...'{...register("bio", { required: false })} /> : null}
+            {optionalField.bio ? <textarea type="text" id="bio" className={style.bio} placeholder='A few words about you...'{...register("bio", { required: false })} autoComplete='off' /> : null}
           </div>
 
           <div className={style.optionalField}>
