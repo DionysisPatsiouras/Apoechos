@@ -41,8 +41,6 @@ export default function Discover() {
 
 
 
-
-
   const allGenres = [genre.rock, genre.country, genre.jazz]
   const allInstruments = [instrument.double_bass, instrument.classic_guitar]
 
@@ -61,6 +59,18 @@ export default function Discover() {
   }, [activeFilter]);
 
 
+  const filteredData = data
+    //filters data when you type on search
+    .filter((i) => i.first_name?.toLowerCase().includes(search) || i.last_name?.toLowerCase().includes(search) || i.title?.toLowerCase().includes(search) || i.name?.toLowerCase().includes(search))
+
+    .filter((i) => genre.rock ? i.rock : allGenres)
+
+    // .filter((i) =>  genre.rock ? i.rock : allGenres, console.log(typeof genre.rock))
+
+    .filter((i) => genre.jazz ? i.jazz : allGenres)
+    .filter((i) => genre.country ? i.country : allGenres)
+    .filter((i2) => instrument.classic_guitar ? i2.classic_guitar : allInstruments)
+    .filter((i2) => instrument.double_bass ? i2.double_bass : allInstruments)
 
 
 
@@ -130,28 +140,18 @@ export default function Discover() {
               <input placeholder={'Find ' + activeFilter + '..'} onChange={searchChanged} style={{ 'backgroundColor': activeFilter === 'Everything' && windowIsResponsive ? color.everything : activeFilter === 'Musicians' && windowIsResponsive ? color.musician : activeFilter === 'Bands' && windowIsResponsive ? color.band : activeFilter === 'Music Studios' && windowIsResponsive ? color.studio : activeFilter === 'Live Stages' && windowIsResponsive ? color.stage : activeFilter === 'Music Stores' && windowIsResponsive ? color.store : '#ffffff' }} />
             </form>
             {/* need to change the length when user searches */}
-            <small >Results : {data.length}</small>
+            <small >Results : {filteredData.length}</small>
           </div>
 
           {/* {console.log(genre)} */}
           {/* {console.log(instrument)} */}
 
-       
+
         </div>
         <div className={style.cardsContainer}>
-          {data
-            //filters data when you type on search
-            .filter((i) => i.first_name?.toLowerCase().includes(search) || i.last_name?.toLowerCase().includes(search) || i.title?.toLowerCase().includes(search) || i.name?.toLowerCase().includes(search))
-            
-            .filter((i) => genre.rock ? i.rock : allGenres)
-      
-            // .filter((i) =>  genre.rock ? i.rock : allGenres, console.log(typeof genre.rock))
 
-            .filter((i) => genre.jazz ? i.jazz : allGenres)
-            .filter((i) => genre.country ? i.country : allGenres)
-            .filter((i2) => instrument.classic_guitar ? i2.classic_guitar : allInstruments)
-            .filter((i2) => instrument.double_bass ? i2.double_bass : allInstruments)
-
+          {filteredData
+          
             //display all profiles
             .map((i) => (
               <div key={i.id + i.category}
