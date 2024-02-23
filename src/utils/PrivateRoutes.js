@@ -11,6 +11,9 @@ const PrivateRoutes = ({ children, ...rest }) => {
         <div>
 
             {!user ? <Navigate to="/login" /> : <Outlet />}
+
+            {/* {user ? <Navigate to="/login" /> : <Outlet />} */}
+            
         </div>
     )
 }

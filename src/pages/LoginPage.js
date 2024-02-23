@@ -36,10 +36,10 @@ export default function LoginPage() {
 
                 <form className={style.fields} onSubmit={loginUser}>
                     <label htmlFor="email" >E-mail *</label>
-                    <input type="email" name="email" onChange={handleInput} />
+                    <input type="email" name="email" onChange={handleInput} value={'admin@mail.com'}/>
                     <p className={style.errorHandle}>{error.email}</p>
                     <label htmlFor="password" >Password *</label>
-                    <input type="password" name="password" onChange={handleInput} />
+                    <input type="password" name="password" onChange={handleInput} value={'123'}/>
                     <p className={style.errorHandle}>{error.password}</p>
                
                     <button>Log In</button>

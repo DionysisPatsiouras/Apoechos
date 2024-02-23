@@ -2,6 +2,7 @@ import React from 'react'
 import style from '../../style/Pages/Discover.module.css'
 
 export default function DesktopMenu(props) {
+
     return (
         <div className={style.desktopMenu}>
             <ul>
@@ -22,8 +23,8 @@ export default function DesktopMenu(props) {
 
                 <li
                     style={{
-                        'color': props.link === 'musicians' || props.activeFilter === 'Musicians' ? '#10ACDD' : '#AFAFAF',
-                        'borderBottom': props.link === 'musicians' || props.activeFilter === 'Musicians' ? '3px solid #10ACDD' : '3px solid transparent'
+                        'color': props.link === 'musicians' || props.activeFilter === 'Musicians' ? props.colors?.musician : '#AFAFAF',
+                        'borderBottom': props.link === 'musicians' || props.activeFilter === 'Musicians' ? `3px solid ${props.colors?.musician}`  : '3px solid transparent'
                     }}
                     onClick={() => props.setActiveFilter('Musicians')}
                     onTouchStart={() => props.setLink('musicians')}

@@ -52,7 +52,7 @@ export default function Profiles() {
     <div className={style.wrapper}>
       <div className={style.container}>
 
-        {console.log(state)}
+        {/* {console.log(state)} */}
 
 
         <h5>Create personal or business profile</h5>

@@ -20,19 +20,23 @@ export default function Profiles() {
     const [hasStore, setStore] = useState(false)
 
 
-
+    // SOS --- MUST CREATE /me CALL --- SOS
     useEffect(() => {
         axios
             .get('http://127.0.0.1:8000/users/' + user.user_id)
-            .then((response) =>
-                [
-                    setMusician(response.data.hasMusicianProfile),
-                    setBand(response.data.hasBandProfile),
-                    setStudio(response.data.hasStudioProfile),
-                    setStage(response.data.hasStageProfile),
-                    setStore(response.data.hasStoreProfile),
-                ]
-            )
+            .then((response) => {
+
+                // [
+                //     setMusician(response.data.hasMusicianProfile),
+                //     setBand(response.data.hasBandProfile),
+                //     setStudio(response.data.hasStudioProfile),
+                //     setStage(response.data.hasStageProfile),
+                //     setStore(response.data.hasStoreProfile),
+                // ],
+                console.log('res', response)
+            }
+
+            ).catch((err) => console.log('err', err))
     }, [])
 
 

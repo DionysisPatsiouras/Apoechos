@@ -12,6 +12,7 @@ import Profiles from "./pages/Profiles"
 import ViewProfile from "./pages/ViewProfile"
 import RegisterPage from "./pages/RegisterPage"
 import NewMusician from './pages/CreateProfile/NewMusician'
+import axios from 'axios'
 
 
 
@@ -25,10 +26,17 @@ export default function App() {
   const [width, setWidth] = useState(window.innerWidth);
   const responsive = width < 769
 
+  const [signatureColors, setSignatureColors] = useState([])
+
   useEffect(() => {
     window.addEventListener("resize", () => setWidth(window.innerWidth));
-  }, [])
 
+    axios
+      .get('http://127.0.0.1:8000/site_modules/signature_colors/')
+      .then((res) => setSignatureColors(res.data.sort((a, b) => a.id > b.id ? 1 : -1)))
+      .catch((error) => console.warn(error))
+
+  }, [])
 
 
 
@@ -40,18 +48,20 @@ export default function App() {
           <AuthProvider>
 
             {/* Declare signature colors */}
-            <SignatureColors.Provider value=
+            <SignatureColors.Provider
+              value=
               {{
                 everything: '#000000',
-                musician: '#10ACDD',
-                band: '#E37056',
-                studio: '#FF8514',
-                stage: '#E558C6',
-                store: '#12C59A'
-              }}>
+                musician: signatureColors[0]?.color,
+                band: signatureColors[1]?.color,
+                studio: signatureColors[2]?.color,
+                stage: signatureColors[3]?.color,
+                store: signatureColors[4]?.color
+              }}
+            >
               <Header />
 
-              <div style={{'paddingTop' : '82px'}}>
+              <div style={{ 'paddingTop': '82px' }}>
                 <Routes>
 
                   <Route path="/" element={<HomePage />} />

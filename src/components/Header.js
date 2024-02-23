@@ -47,7 +47,8 @@ export default function Header() {
 
 
     const windowIsResponsive = useContext(WindowSize)
-
+    console.log('user', user)
+    // console.log('mpikoto', localStorage.getItem('auth-token'))
     return (
 
         <div className={style.container}>
@@ -58,7 +59,7 @@ export default function Header() {
 
                 {windowIsResponsive ? <img src={menuIsOpen ? closeIcon : burgerMenuIcon} width={44} height={44} alt="menu" onClick={() => { setMenuIsOpen(!menuIsOpen); setAccountIsOpen(false) }} /> : null}
                 <ul style={{ 'left': menuIsOpen ? '0%' : '-200%' }}>
-                    <img className={style.logo} src={logo} width={60} height={60} alt='logo' onClick={() => navigate('/')}/>
+                    <img className={style.logo} src={logo} width={60} height={60} alt='logo' onClick={() => navigate('/')} />
                     <Link to="/" onClick={() => setMenuIsOpen(false)}>What's New</Link>
                     <Link to="/discover" onClick={() => setMenuIsOpen(false)}>Discover</Link>
                     <Link to="/mystudio" onClick={() => setMenuIsOpen(false)}>My Studio</Link>
@@ -78,15 +79,24 @@ export default function Header() {
                         <img src={user ? onlinePic : accountDark} width={41} height={41} alt="menu" style={{ 'borderRadius': '99px', 'border': accountIsOpen ? '3px solid #5F69C6' : '3px solid #ffffff' }} onClick={() => { setAccountIsOpen(!accountIsOpen); setMenuIsOpen(false) }} />
                         <ul className={style.dropdown} style={{ 'left': accountIsOpen ? '0' : '-200%' }}>
                             <ul className={style.accountMenu}>
+
                                 {user && !user.hasMusicianProfile && !user.hasBandProfile && !user.hasStoreProfile && !user.hasStageProfile && !user.StudioProfile ? <Link to='/profiles' onClick={() => setAccountIsOpen(false)} className={style.joinButton}>Join the community!</Link> : null}
-                                {user ? <Link to="/account" onClick={() => setAccountIsOpen(false)}><img src={accountDark} width={40} height={40} alt='Account' />Account</Link> : null}
-                                {user ? <Link to="/profile" onClick={() => setAccountIsOpen(false)}><img src={editIcon} width={40} height={40} alt='Edit' />Edit profile</Link> : null}
-                                {user ? <Link to="/notifications" onClick={() => setAccountIsOpen(false)}><img src={notificationsIcon} width={40} height={40} alt='Notifications' />Notifications</Link> : null}
-                                {user ? <Link to="/messages" onClick={() => setAccountIsOpen(false)}><img src={messagesIcon} width={40} height={40} alt='Messages' />Messages</Link> : null}
-                                {user ? <hr className={style.divider}></hr> : null}
-                                {user ? <Link to="/login" onClick={() => { setAccountIsOpen(false); logoutUser() }}><img src={logoutIcon} width={40} height={40} alt='Logout' />Logout</Link> : null}
-                                {user ? null : <Link to="/login" onClick={() => setAccountIsOpen(false)}>Login</Link>}
-                                {user ? null : <Link to="/register" onClick={() => setAccountIsOpen(false)}>Register</Link>}
+
+                                {user ?
+                                    <>
+                                        <Link to="/account" onClick={() => setAccountIsOpen(false)}><img src={accountDark} width={40} height={40} alt='Account' />Account</Link>
+                                        <Link to="/profile" onClick={() => setAccountIsOpen(false)}><img src={editIcon} width={40} height={40} alt='Edit' />Edit profile</Link>
+                                        <Link to="/notifications" onClick={() => setAccountIsOpen(false)}><img src={notificationsIcon} width={40} height={40} alt='Notifications' />Notifications</Link>
+                                        <Link to="/messages" onClick={() => setAccountIsOpen(false)}><img src={messagesIcon} width={40} height={40} alt='Messages' />Messages</Link>
+                                        <Link to="/login" onClick={() => { setAccountIsOpen(false); logoutUser() }}><img src={logoutIcon} width={40} height={40} alt='Logout' />Logout</Link>
+                                        <hr className={style.divider}></hr>
+                                    </>
+                                    :
+                                    <>
+                                        <Link to="/login" onClick={() => setAccountIsOpen(false)}>Login</Link>
+                                        <Link to="/register" onClick={() => setAccountIsOpen(false)}>Register</Link>
+                                    </>
+                                }
                             </ul>
                         </ul>
                     </>
@@ -95,13 +105,16 @@ export default function Header() {
                     <ul className={style.onlineMenu}>
 
                         {user && !user.hasMusicianProfile && !user.hasBandProfile && !user.hasStoreProfile && !user.hasStageProfile && !user.StudioProfile ? <Link to='/profiles' className={style.joinButton}>Join the community! </Link> : null}
-                        {user ? <img src={notificationsIcon} width={25} height={25} alt='Notifications' /> : null}
 
-                        {user ? <img src={messagesIcon} width={25} height={25} alt='Messages' /> : null}
-                        {user ? <img src={logo} width={40} height={40} alt='Account' style={{ 'padding': '0', 'borderRadius': '199px', 'border': dropdownIsOpen ? '3px solid #5F69C6' : '3px solid #ffffff' }} onClick={() => setDropDownIsOpen(!dropdownIsOpen)} /> : null}
+                        {user &&
+                            <>
+                                <img src={notificationsIcon} width={25} height={25} alt='Notifications' />
+                                <img src={messagesIcon} width={25} height={25} alt='Messages' />
+                                <img src={logo} width={40} height={40} alt='Account' style={{ 'padding': '0', 'borderRadius': '199px', 'border': dropdownIsOpen ? '3px solid #5F69C6' : '3px solid #ffffff' }} onClick={() => setDropDownIsOpen(!dropdownIsOpen)} />
+                            </>
+                        }
 
-
-                        {dropdownIsOpen ?
+                        {dropdownIsOpen &&
                             <ul className={style.dropDownDesktop} >
                                 <Link to="/profiles"
                                     onClick={() => { setAccountIsOpen(false); setDropDownIsOpen(false) }}
@@ -128,11 +141,9 @@ export default function Header() {
 
                                     Log Out</Link>
                             </ul>
-                            :
-                            null
                         }
 
-                        {user ? null :
+                        {!user &&
                             <ul className={style.accountMenu}>
                                 <Link to="/login" onClick={() => setAccountIsOpen(false)}>Login</Link>
                                 <Link to="/register" onClick={() => setAccountIsOpen(false)}>Register</Link>
