@@ -28,15 +28,15 @@ export default function App() {
 
   const [signatureColors, setSignatureColors] = useState([])
 
-  useEffect(() => {
-    window.addEventListener("resize", () => setWidth(window.innerWidth));
+  // useEffect(() => {
+  //   window.addEventListener("resize", () => setWidth(window.innerWidth));
 
-    axios
-      .get('http://127.0.0.1:8000/site_modules/signature_colors/')
-      .then((res) => setSignatureColors(res.data.sort((a, b) => a.id > b.id ? 1 : -1)))
-      .catch((error) => console.warn(error))
+  //   axios
+  //     .get('http://127.0.0.1:8000/site_modules/signature_colors/')
+  //     .then((res) => setSignatureColors(res.data.sort((a, b) => a.id > b.id ? 1 : -1)))
+  //     .catch((error) => console.warn(error))
 
-  }, [])
+  // }, [])
 
 
 

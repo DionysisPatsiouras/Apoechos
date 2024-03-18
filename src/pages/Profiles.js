@@ -33,7 +33,7 @@ export default function Profiles() {
                 //     setStage(response.data.hasStageProfile),
                 //     setStore(response.data.hasStoreProfile),
                 // ],
-                console.log('res', response)
+                // console.log('res', response)
             }
 
             ).catch((err) => console.log('err', err))

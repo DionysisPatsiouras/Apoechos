@@ -47,7 +47,7 @@ export default function Header() {
 
 
     const windowIsResponsive = useContext(WindowSize)
-    console.log('user', user)
+    // console.log('user', user)
     // console.log('mpikoto', localStorage.getItem('auth-token'))
     return (
 

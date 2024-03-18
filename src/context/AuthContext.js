@@ -12,7 +12,7 @@ export default AuthContext;
 export const AuthProvider = ({ children }) => {
 
     let [authTokens, setAuthTokens] = useState(() => localStorage.getItem('auth-token') ? JSON.parse(localStorage.getItem('auth-token')) : null)
-    
+
     let [user, setUser] = useState(() => localStorage.getItem('auth-token') ? jwt_decode(localStorage.getItem('auth-token')) : null)
 
     // let [authTokens, setAuthTokens] = useState(() => document.cookie('auth-tokens') ? JSON.parse(document.cookie('auth-tokens')) : null)
@@ -41,11 +41,21 @@ export const AuthProvider = ({ children }) => {
             email: e.target.email.value,
             password: e.target.password.value
         }
+        let config = {
+            headers: {'Authorization': `Bearer ${localStorage.getItem('auth-token')}`}
+        }
 
         // console.warn('submitted data', data2)
 
         await axios
-            .post('http://127.0.0.1:8000/api/token/', data2)
+            .post('http://127.0.0.1:8000/api/token/',
+                // {
+                //     headers: {
+                //         'Authorization': 'Bearer ' + localStorage.getItem('auth-token')
+                //     }
+                // },
+                // config,
+                data2)
             .then((res) => {
                 console.log('axios res', res)
 

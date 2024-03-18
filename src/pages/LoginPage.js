@@ -8,7 +8,7 @@ import style from '../style/Pages/LoginPage.module.css'
 export default function LoginPage() {
 
     let { loginUser, user, error } = useContext(AuthContext)
- 
+
 
     const [data, setData] = useState({
         email: '',
@@ -16,7 +16,7 @@ export default function LoginPage() {
     })
 
     const handleInput = (event) => {
-    
+
         error.email = ''
         error.password = ''
         setData({ ...data, [event.target.name]: event.target.value })
@@ -31,22 +31,26 @@ export default function LoginPage() {
             <Navigate to="/discover" />
             :
             <div className={style.container}>
-       
+
                 <h6 className={style.title}>Log In</h6>
 
                 <form className={style.fields} onSubmit={loginUser}>
                     <label htmlFor="email" >E-mail *</label>
-                    <input type="email" name="email" onChange={handleInput} value={'admin@mail.com'}/>
+                    <input type="email" name="email" onChange={handleInput}
+                        // value={'admin@mail.com'}
+                    />
                     <p className={style.errorHandle}>{error.email}</p>
                     <label htmlFor="password" >Password *</label>
-                    <input type="password" name="password" onChange={handleInput} value={'123'}/>
+                    <input type="password" name="password" onChange={handleInput}
+                        // value={'123'}
+                    />
                     <p className={style.errorHandle}>{error.password}</p>
-               
+
                     <button>Log In</button>
                 </form>
 
                 <br></br>
-                
+
                 {/* {console.log(data)} */}
 
                 <section>

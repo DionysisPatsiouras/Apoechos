@@ -48,17 +48,64 @@ export default function Discover() {
 
   useEffect(() => {
 
-    axios
-      .get(`http://127.0.0.1:8000/profiles/${link}`)
-      .then((res) =>
-      (
-        console.log('res', res?.data),
-        setData(res?.data)
-      ))
-      .catch((err) => console.log(err))
+    const config = {
+      headers: {
+        Authorization: `Bearer 123ds`,
+      }
+    }
+
+
+    // var config2 = {
+    //   method: 'get',
+    //   url: 'http://localhost:8000/user/',
+    //   headers: {
+    //     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwNzU4NTE2LCJpYXQiOjE3MTA3NDg1MTYsImp0aSI6IjI3YjgyZGY3NWFlNjQxODU5MjI1MjAwMzE0YTlmNDc0IiwidXNlcl9pZCI6IlVTRVIxNTcyMiIsImVtYWlsIjoiZGVubmlzQG1haWwuY29tIn0.q-pLtRdgh6oKGkIpefvyBjSfaucYf7vYttULE4tBijU',
+    //     'Accept': '*/*',
+    //     'Host': 'localhost:8000',
+    //     'Connection': 'keep-alive',
+    //     // ...data.getHeaders()
+    //   },
+    //   data: data
+    // };
+    // axios
+    //   .get(`http://127.0.0.1:8000/user/`, {
+    //     // headers,
+    //     config2,
+    //     // withCredentials: true,
+    //   }
+    //   )
+    //   .then((res) => (
+    //     console.log('res', res?.data),
+    //     setData(res?.data)
+    //   ))
+    //   .catch((err) => console.warn('AXIOS CATCH', err))
+
+    let token = localStorage.getItem('auth-token').slice(0, -1).slice(1);
+
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`)
+    // myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwNzU5MTcxLCJpYXQiOjE3MTA3NDkxNzEsImp0aSI6IjRjNDRjZmRmOTFlODRlOWViYmM3NzlmZTA2MzA1YTBmIiwidXNlcl9pZCI6IlVTRVIzNjUyODQzMzU3MzAiLCJlbWFpbCI6ImFkbWluQG1haWwuY29tIn0.51a3FnF4UlgUcwl36iDVcvw8iF0PLthuKCsNVgy7cf0");
+    myHeaders.append("Accept", "*/*");
+    myHeaders.append("Host", "localhost:8000");
+    myHeaders.append("Connection", "keep-alive");
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      // body: formdata,
+      redirect: 'follow'
+    };
+
+    fetch("http://localhost:8000/user/me", requestOptions)
+      .then(response => response.json())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+
+    
 
   }, [activeFilter]);
 
+  // console.log(data)
 
   const filtering = (data) => {
     return data?.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().includes(search) ||
