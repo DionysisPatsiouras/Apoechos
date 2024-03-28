@@ -2,6 +2,7 @@ from django.db import models
 from users.models import CustomUser
 import datetime 
 import random
+from genre.models import Genre
 
 def generate_pk():
     day = datetime.datetime.now().day
@@ -14,7 +15,7 @@ def generate_pk():
 
 class Musician(models.Model):
     
-    musicianId =  models.CharField(default=generate_pk, primary_key=True, max_length=255, unique=True)
+    musicianId = models.CharField(default=generate_pk, primary_key=True, max_length=255, unique=True)
 
     artistic_nickname = models.CharField(max_length=200, blank=False)
     city = models.CharField(max_length=100)
@@ -33,6 +34,11 @@ class Musician(models.Model):
 
 class City(models.Model):
     city = models.CharField(max_length=200, blank=False)
+
+class MusicianGenre(models.Model):
+
+    musicianId = models.ForeignKey(Musician, related_name='musicianId2', on_delete=models.CASCADE)
+    genreId = models.ForeignKey(Genre, related_name='id2', on_delete=models.CASCADE)
 
 
 # class Band(models.Model):

@@ -1,5 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
-import CSS from '../../css/Header/Header.module.css'
+import { Link } from 'react-router-dom'
 
 export default function VisitorMenu() {
 

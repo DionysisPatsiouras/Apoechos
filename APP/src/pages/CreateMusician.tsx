@@ -105,7 +105,7 @@ export default function CreateMusician() {
                     <div className={CSS.personal_info}>
 
                         <div className={CSS.group}>
-                            <img src='' width={20} height={20}
+                            <img src='' width={20} height={20} alt=''
                                 style={{ 'width': '20px', 'border': '1px solid grey', 'borderRadius': '100px', 'padding': '50px' }} />
                             <SvgIcon id={'upload-image'} />
                         </div>
