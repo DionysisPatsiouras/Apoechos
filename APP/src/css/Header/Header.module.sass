@@ -1,0 +1,97 @@
+*
+    padding: 0
+
+.container
+    border-bottom: 1px solid #DBDBDB
+
+.mobileMenu
+    padding: 20px 30px
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+
+.leftMenuContainer
+    position: absolute
+    top: 85px
+    transition: 1s
+    background-color: #ffffff
+    width: 100vw
+    height: 100vh
+
+.leftMenuContainer nav
+    // padding: 20px 0
+    text-align: left
+.leftMenuContainer nav ul
+    display: grid
+    font-size: 20px
+
+.leftMenuContainer nav ul a
+   padding: 20px 0 20px 30px
+   display: flex
+   align-items: center
+
+.leftMenuContainer nav ul a svg
+    width: 35px
+    margin: 0 20px 0 0
+
+.leftMenuContainer nav ul a:hover
+   background-color: #3E3E3E
+   color: #ffffff
+
+.leftMenuContainer nav ul a:hover svg
+    filter: brightness(10)
+
+
+
+// DESKTOP
+@media screen and ( min-width: 768px )
+
+    .desktopMenu
+        display: flex
+        justify-content: space-between
+        align-items: center
+        height: 54px
+
+    .desktopMenu ul a
+        padding: 17px
+
+    .desktopMenu ul a:hover
+        background-color: #3E3E3E
+        color: #ffffff
+
+    .loggedUserMenu
+        display: flex
+        align-items: center
+
+    .loggedUserMenu svg
+        cursor: pointer
+        margin: 0 10px 0 0
+
+    .account_dropdown
+        background-color: #F4F4F4
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px
+        position: absolute
+        top: 60px
+        right: 20px
+        cursor: pointer
+        border-radius: 4px
+        
+
+    .account_dropdown a
+        display: flex
+        align-items: center
+        padding: 0 10px
+
+    .account_dropdown svg
+        margin: 0 5px 0 0
+
+    .account_dropdown a:hover
+        color: #ffffff
+        background-color: #2C2A2B
+
+    .account_dropdown a:hover svg
+        filter: invert(1)
+
+
+
