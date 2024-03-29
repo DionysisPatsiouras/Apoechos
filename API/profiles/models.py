@@ -38,7 +38,7 @@ class City(models.Model):
 class MusicianGenre(models.Model):
 
     musicianId = models.ForeignKey(Musician, related_name='musicianId2', on_delete=models.CASCADE)
-    genreId = models.ForeignKey(Genre, related_name='id2', on_delete=models.CASCADE)
+    genreId = models.OneToOneField(Genre, related_name='id2', on_delete=models.CASCADE)
 
 
 # class Band(models.Model):

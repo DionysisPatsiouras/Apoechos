@@ -7,6 +7,8 @@ import axios from 'axios'
 import CSS from '../css/Login/Login.module.css'
 
 import { email_regex } from '../utils/Regex'
+import FormError from '../utils/FormError'
+
 
 
 
@@ -54,8 +56,8 @@ export default function Register() {
                 <form onSubmit={handleSubmit(onSubmit)} noValidate style={{ 'display': accountCreated ? 'none' : 'flex' }}>
 
                     {/* EMAIL */}
-                    <label htmlFor="email" className={CSS.fieldLabel}>E-mail *</label>
-                    <input className={CSS.inputs} type="email" id="email" 
+                    <label htmlFor="email" className={CSS.fieldLabel}>E-mail</label>
+                    <input className={CSS.inputs} type="email" id="email"
                         {...register("email", {
                             onChange: () => setEmailInUse(''),
                             pattern: {
@@ -69,20 +71,13 @@ export default function Register() {
                         <p className={'error_msg'}>{emailInUse}</p>
                     }
 
+                    <FormError value={errors?.email} />
 
-
-
-                    {/* @ts-ignore */}
-                    {errors?.email &&
-                        // @ts-ignore
-                        <p className={'error_msg'}>{errors?.email?.message}</p>
-
-                    }
 
 
 
                     {/* PASSWORD */}
-                    <label htmlFor="password" className={CSS.fieldLabel}>Κωδικός πρόσβασης *</label>
+                    <label htmlFor="password" className={CSS.fieldLabel}>Κωδικός πρόσβασης</label>
                     <input className={CSS.inputs} type="password" id="password"
                         {...register("password", {
                             required: "Υποχρεωτικό πεδίο",
@@ -93,18 +88,14 @@ export default function Register() {
                             }
                         })} />
 
-                    {/* @ts-ignore */}
-                    {errors?.password &&
-                        // @ts-ignore
-                        <p className={'error_msg'}>{errors?.password?.message}</p>
-                    }
+                    <FormError value={errors?.password} />
 
 
 
 
                     {/* REPEAT PASSWORD */}
-                    <label htmlFor="confirm_password" className={CSS.fieldLabel}>Επανάληψη κωδικού*</label>
-                    <input className={CSS.inputs} type="password" id="confirm_password" 
+                    <label htmlFor="confirm_password" className={CSS.fieldLabel}>Επανάληψη κωδικού</label>
+                    <input className={CSS.inputs} type="password" id="confirm_password"
                         {...register("confirm_password", {
                             required: 'Υποχρεωτικό πεδίο',
                             // check if passwords match
@@ -114,11 +105,8 @@ export default function Register() {
                                 }
                             }
                         })} />
-                    {/* @ts-ignore */}
-                    {errors?.confirm_password &&
-                        // @ts-ignore
-                        <p className={'error_msg'}>{errors?.confirm_password?.message}</p>
-                    }
+
+                    <FormError value={errors?.confirm_password} />
 
 
 

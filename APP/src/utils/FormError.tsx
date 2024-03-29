@@ -1,3 +1,7 @@
+// SYNTAX
+// 
+// <FormError value={my_value}/>
+
 export default function FormError(props:any){
     return(
         props?.value &&

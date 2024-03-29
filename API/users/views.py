@@ -59,7 +59,13 @@ def me(request):
 def updateMe(request):
     user = request.user
     serializer = UpdateUserSerializer(user, data=request.data, partial=True)
+
     if serializer.is_valid():
+
+        if(serializer.validated_data.get('password')):
+            password = serializer.validated_data.get('password')
+            serializer.validated_data['password']=make_password(password)
+            
         serializer.save()
 
         return JsonResponse({

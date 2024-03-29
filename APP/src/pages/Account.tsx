@@ -1,8 +1,12 @@
 import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import CSS from '../css/Account/Account.module.css'
+import axios from 'axios'
 
 import AuthContext from '../context/AuthContext'
+import FormError from '../utils/FormError'
+import UpdateEmail from '../components/Account/UpdateEmail'
+import { token, config } from '../utils/Token'
 
 export default function Account() {
 
@@ -11,6 +15,31 @@ export default function Account() {
     const { register, handleSubmit, formState, watch } = form
     const { errors } = formState
 
+    const updateUser = (data: any) => {
+
+        axios
+            .patch('http://127.0.0.1:8000/user/patch/', data, {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+            .then((response) => { console.log(response) })
+            .catch((error) => { console.warn(error) })
+
+    }
+
+    const updateEmail = (data:any) => {
+        updateUser(data)
+    }
+
+    const updatePassword = (data: any) => {
+        console.warn(data)
+
+        const finalData = {
+            password: data?.password
+        }
+
+        updateUser(finalData)
+
+    }
 
     return (
         <div className='space'>
@@ -18,20 +47,38 @@ export default function Account() {
             <div className='container'>
                 <h2>Ο Λογαριασμός μου</h2>
                 <hr className='divider'></hr>
-
-                <section className={CSS.box}>
-                    <h3>Αλλαγή email</h3>
-                    <input type='text' {...register('email')} defaultValue={userData?.email} />
-                    <button className='blue_btn'>Ενημέρωση</button>
-                </section>
-
+         
+                {/* not updating */}
+                <UpdateEmail defaultValue={userData?.email}/>
 
                 <hr className='divider'></hr>
                 <section className={CSS.box}>
-                    <h3>Αλλαγή κωδικού</h3>
-                    <input type='text' {...register('password')} placeholder='Νέος κωδικός' />
-                    <input type='text' {...register('pass2')} placeholder='Επανάληψη νέου κωδικού' />
-                    <button className='blue_btn'>Ενημέρωση</button>
+                    <form onSubmit={handleSubmit(updatePassword)} noValidate>
+
+
+                        <h3>Αλλαγή κωδικού</h3>
+                        <input type='password' id='password'
+                            placeholder='Νέος κωδικός'
+                            {...register('password', {
+                                required: 'Υποχρεωτικό πεδίο'
+                            })}
+                        />
+                        <FormError value={errors?.password} />
+
+                        <input className={CSS.inputs} type='password' id='confirm_password'
+                            {...register('confirm_password', {
+                                required: 'Υποχρεωτικό πεδίο',
+                                validate: (val) => {
+                                    if (watch('password') !== val) {
+                                        return 'Οι κωδικοί δεν ταιριάζουν'
+                                    }
+                                }
+                            })} />
+
+                        <FormError value={errors?.confirm_password} />
+
+                        <button className='blue_btn'>Ενημέρωση</button>
+                    </form>
                 </section>
 
 
@@ -43,6 +90,6 @@ export default function Account() {
                 </section>
             </div>
 
-        </div>
+        </div >
     )
 }
