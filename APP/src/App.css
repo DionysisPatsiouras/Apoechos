@@ -49,6 +49,11 @@ li {
   background-color: #C65F5F;
 }
 
+.disabled_btn {
+  cursor: not-allowed;
+  background-color: #949494;
+}
+
 .divider {
   border-top: 1px solid #DADADA;
   border-left: none;

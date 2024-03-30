@@ -39,6 +39,7 @@ export default function UpdatePassword() {
                 <FormError value={errors?.password} />
 
                 <input className={CSS.inputs} type='password' id='confirm_password'
+                    placeholder='Επανάληψη νέου κωδικού'
                     {...register('confirm_password', {
                         required: 'Υποχρεωτικό πεδίο',
                         validate: (val) => {
