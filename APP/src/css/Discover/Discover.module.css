@@ -1,0 +1,32 @@
+.profiles_menu {
+  display: flex;
+  cursor: pointer;
+}
+
+.search {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 60vw;
+}
+.search input {
+  background-color: #ffffff;
+  padding: 5px;
+}
+.search .left_section {
+  display: flex;
+  align-items: center;
+}
+
+.profile_tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 7px;
+}
+.profile_tab span {
+  margin: 5px 0 0 0;
+  width: 100px;
+  height: 2px;
+  background: red;
+}/*# sourceMappingURL=Discover.module.css.map */

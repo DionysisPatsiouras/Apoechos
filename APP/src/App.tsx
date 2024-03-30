@@ -14,6 +14,7 @@ import CreateMusician from './pages/CreateMusician'
 // context
 import { AuthProvider } from "./context/AuthContext"
 import { UserProvider } from './context/UserContext'
+import Discover from './pages/Discover'
 
 
 // utils
@@ -58,7 +59,7 @@ export default function App() {
                 {/* <Route path="/" element={<HomePage />} /> */}
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                {/* <Route path="/discover" element={<Discover />} /> */}
+                <Route path="/discover" element={<Discover />} />
                 {/* <Route path='/profiles/:category/:id/' element={<ViewProfile />} /> */}
                 <Route element={<PrivateRoutes />} >
                   <Route path='/account' element={<Account />} />
