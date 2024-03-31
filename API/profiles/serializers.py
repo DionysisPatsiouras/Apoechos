@@ -42,6 +42,12 @@ class MusicianSerializer(serializers.ModelSerializer):
     #     return musician_instance
 
 
+class StudioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Studio
+        fields = '__all__'
+
+
 class Cities(serializers.ModelSerializer):
 
     class Meta:

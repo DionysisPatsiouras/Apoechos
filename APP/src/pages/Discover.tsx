@@ -8,8 +8,8 @@ import { Colors } from '../App'
 import Tab from '../components/Discover/Tab'
 import SvgIcon from '../components/SvgIcon'
 import Card from '../components/Discover/Card'
-
 import { config } from '../utils/Token'
+
 export default function Discover() {
 
     const [data, setData] = useState<any>([])
@@ -38,6 +38,19 @@ export default function Discover() {
 
     const [activeTab, setActiveTab] = useState('Everything')
     const [onHover, setOnHover] = useState('')
+
+
+    const pickColor = (category: string) => {
+        switch (category) {
+            case 'musician':
+                return color?.musician
+
+            case 'studio':
+                return color?.studio
+            default:
+                break;
+        }
+    }
 
 
 
@@ -70,13 +83,16 @@ export default function Discover() {
                 <p>Αποτελέσματα:</p>
             </section>
 
-            {data?.map((item: any, index: number) => (
-                <Card
-                    key={index}
-                    artistic_nickname={item?.artistic_nickname}
-                    color={color?.musician}
-                />
-            ))}
+            <div className={CSS.all_cards}>
+                {data[0]?.everything?.map((item: any, index: number) => (
+                    <Card
+                        key={index}
+                        artistic_nickname={item?.artistic_nickname || item?.title}
+                        color={pickColor(item.category)}
+                    />
+                ))}
+            </div>
+
 
 
         </div>

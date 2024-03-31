@@ -12,13 +12,15 @@ const Card = forwardRef(function Card(props: any, ref) {
             className={CSS.card}
             style={{ 'backgroundColor': props.color }}>
 
+            {props?.color2}
+
             <div className={CSS.cardWhitePart}>
                 <img className={CSS.signatureIcon}
                     // style={{ 'marginRight': props.data.category === 'musician' ? '-18px' : '-5px', 'marginTop': props.data.category === 'musician' ? '-10px' : '-5px' }}
                     alt='Category Icon'
                 // src={require(`../media/icons/profiles/light/${props.data.category}.svg`)} 
                 />
-                
+
                 <div className={CSS.profileInfo}>
 
                     <img
