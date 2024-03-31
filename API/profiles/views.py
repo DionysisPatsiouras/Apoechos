@@ -125,19 +125,20 @@ def cities(request):
 # @permission_classes([IsAuthenticated])
 def all_profiles(request):
     musicians = Musician.objects.all()
-    bands = Band.objects.all()
-    studios = Studio.objects.all()
-    stages = Stage.objects.all()
-    stores = Store.objects.all()
+    # bands = Band.objects.all()
+    # studios = Studio.objects.all()
+    # stages = Stage.objects.all()
+    # stores = Store.objects.all()
     
 
     serializer1 = MusicianSerializer(musicians, many=True)
-    serializer2 = BandSerializer(bands, many=True)
-    serializer3 = StudioSerializer(studios, many=True)
-    serializer4 = StageSerializer(stages, many=True)
-    serializer5 = StoreSerializer(stores, many=True)
+    # serializer2 = BandSerializer(bands, many=True)
+    # serializer3 = StudioSerializer(studios, many=True)
+    # serializer4 = StageSerializer(stages, many=True)
+    # serializer5 = StoreSerializer(stores, many=True)
+    return Response(serializer1.data)
     
-    return Response(serializer1.data + serializer2.data + serializer3.data + serializer4.data + serializer5.data)
+    # return Response(serializer1.data + serializer2.data + serializer3.data + serializer4.data + serializer5.data)
 
 
 

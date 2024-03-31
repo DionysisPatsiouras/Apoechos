@@ -1,14 +1,27 @@
 import CSS from '../css/Discover/Discover.module.css'
+import axios from 'axios'
 
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { Colors } from '../App'
 
 // components
 import Tab from '../components/Discover/Tab'
 import SvgIcon from '../components/SvgIcon'
+import Card from '../components/Discover/Card'
 
+import { config } from '../utils/Token'
 export default function Discover() {
 
+    const [data, setData] = useState<any>([])
+
+
+    useEffect(() => {
+        axios
+            .get(`http://localhost:8000/profiles/everything/`, config)
+            .then((res) => { console.log(res.data); setData(res.data) })
+            .catch((err) => console.warn(err))
+
+    }, [])
 
     const color = useContext<any>(Colors)
     // console.warn(color)
@@ -25,6 +38,8 @@ export default function Discover() {
 
     const [activeTab, setActiveTab] = useState('Everything')
     const [onHover, setOnHover] = useState('')
+
+
 
     return (
         <div style={{ 'margin': '20px 0 0 20px' }}>
@@ -54,6 +69,15 @@ export default function Discover() {
 
                 <p>Αποτελέσματα:</p>
             </section>
+
+            {data?.map((item: any, index: number) => (
+                <Card
+                    key={index}
+                    artistic_nickname={item?.artistic_nickname}
+                    color={color?.musician}
+                />
+            ))}
+
 
         </div>
     )
