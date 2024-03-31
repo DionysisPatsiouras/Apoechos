@@ -8,11 +8,8 @@ const Card = forwardRef(function Card(props: any, ref) {
 
 
     return (
-        <div
-            className={CSS.card}
-            style={{ 'backgroundColor': props.color }}>
+        <div className={CSS.card} style={{ 'backgroundColor': props?.color }}>
 
-            {props?.color2}
 
             <div className={CSS.cardWhitePart}>
                 <img className={CSS.signatureIcon}

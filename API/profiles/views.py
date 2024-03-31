@@ -151,6 +151,13 @@ def all_profiles(request):
     # return Response(serializer1.data + serializer2.data + serializer3.data + serializer4.data + serializer5.data)
 
 
+@api_view(['GET'])
+def test(request):
+
+
+    test = MusicianGenre.objects.all()
+    serializer = MusGenres(test, many=True)
+    return Response(serializer.data)
 
 
 # MUSICIANS

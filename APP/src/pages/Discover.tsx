@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import { useState, useContext, useEffect } from 'react'
 import { Colors } from '../App'
+import SearchValidation from '../utils/SearchValidation'
 
 // components
 import Tab from '../components/Discover/Tab'
@@ -13,12 +14,15 @@ import { config } from '../utils/Token'
 export default function Discover() {
 
     const [data, setData] = useState<any>([])
+    const [search, setSearch] = useState<string>('')
+
+    const [selected, setSelected] = useState<any>([])
 
 
     useEffect(() => {
         axios
             .get(`http://localhost:8000/profiles/everything/`, config)
-            .then((res) => { console.log(res.data); setData(res.data) })
+            .then((res) => { console.log(res.data); setData(res.data); setSelected(res.data[0].everything) })
             .catch((err) => console.warn(err))
 
     }, [])
@@ -52,7 +56,16 @@ export default function Discover() {
         }
     }
 
+    console.log(selected)
+    const filteredData = selected
+    // const filteredData = data
+    //     // .filter(())
 
+    //     .filter((data: any) =>
+    //         SearchValidation(data?.artistic_nickname, search) || SearchValidation(data?.title, search)
+    //     )
+
+    // console.warn('filteredData', filteredData)
 
     return (
         <div style={{ 'margin': '20px 0 0 20px' }}>
@@ -65,7 +78,8 @@ export default function Discover() {
                         color={tab.color}
                         onMouseEnter={() => setOnHover(tab.label)}
                         onMouseLeave={() => setOnHover('')}
-                        onClick={() => setActiveTab(tab.label)}
+                        onClick={() => {setActiveTab(tab.label); setSelected(data[0].musicians)}}
+
                         activeTab={activeTab}
                         onHover={onHover}
                     />
@@ -76,22 +90,22 @@ export default function Discover() {
 
                 <div className={CSS.left_section}>
                     <SvgIcon id='search' />
-                    <input type='text' placeholder='Αναζήτηση...' />
+                    <input type='text' placeholder='Αναζήτηση...' onChange={(e) => setSearch(e.target.value)} />
                 </div>
 
-
+                {search}
                 <p>Αποτελέσματα:</p>
             </section>
 
-            <div className={CSS.all_cards}>
-                {data[0]?.everything?.map((item: any, index: number) => (
+            <section className={CSS.all_cards}>
+                {filteredData?.map((item: any, index: number) => (
                     <Card
                         key={index}
                         artistic_nickname={item?.artistic_nickname || item?.title}
                         color={pickColor(item.category)}
                     />
                 ))}
-            </div>
+            </section>
 
 
 

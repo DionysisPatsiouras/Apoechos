@@ -7,7 +7,7 @@ export default function Tab(props: any) {
             onMouseEnter={props?.onMouseEnter}
             onMouseLeave={props?.onMouseLeave}>
 
-            <li onClick={props?.onClick}>{props?.label}</li>
+            <li style={{'color' : props?.color}} onClick={props?.onClick}>{props?.label}</li>
 
             <span style={{
                 'background': props?.onHover === props?.label || props?.activeTab === props?.label ? props?.color : '#ffffff'

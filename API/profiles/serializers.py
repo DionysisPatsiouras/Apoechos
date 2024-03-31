@@ -21,6 +21,11 @@ from rest_framework.validators import UniqueValidator
 
 
 
+class MusGenres(serializers.ModelSerializer):
+    class Meta:
+        model = MusicianGenre
+        fields = '__all__'
+        
 
 class MusicianSerializer(serializers.ModelSerializer):
 
@@ -40,6 +45,8 @@ class MusicianSerializer(serializers.ModelSerializer):
     #     for genre in genres:
     #         Genre.objects.create(user=musician_instance,**genre)
     #     return musician_instance
+
+ 
 
 
 class StudioSerializer(serializers.ModelSerializer):
