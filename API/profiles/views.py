@@ -57,12 +57,14 @@ def patch_genre(request):
 
 # GET SPECIFIC MUSICIAN BY ID
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def musician_by_id(request, id):
     
     try:
         musician = Musician.objects.get(pk=id)
     except Profile.DoesNotExist:
         return Response(status = status.HTTP_404_NOT_FOUND)
+  
 
     
     if request.method == 'GET':
@@ -110,6 +112,44 @@ def genre_by_id(request, id):
 
 
 @api_view(['GET'])
+def test(request, id):
+
+    try:
+        musicianId = MusicianGenre.objects.get(pk=musicianId)
+    except Profile.DoesNotExist:
+        return Response(status = status.HTTP_404_NOT_FOUND)
+
+    test = MusicianGenre.objects.all()
+    # serializer = MusGenres(test)
+    serializer = MusGenres(test, many=True)
+
+    
+    try:
+        musician = MusicianGenre.objects.get(musicianId=id)
+    except Profile.DoesNotExist:
+        return Response(status = status.HTTP_404_NOT_FOUND)
+  
+
+    
+    if request.method == 'GET':
+        serializer = MusicianSerializer(musician)
+        return Response(serializer.data)
+
+    # return Response(
+
+    #     [serializer.data[0]['musicianId']] + 
+    #     [serializer.data[1]['musicianId']]
+
+    #     )
+
+    return Response(serializer.data)
+
+
+
+
+
+
+@api_view(['GET'])
 @permission_classes([])
 def cities(request):
     
@@ -151,13 +191,7 @@ def all_profiles(request):
     # return Response(serializer1.data + serializer2.data + serializer3.data + serializer4.data + serializer5.data)
 
 
-@api_view(['GET'])
-def test(request):
 
-
-    test = MusicianGenre.objects.all()
-    serializer = MusGenres(test, many=True)
-    return Response(serializer.data)
 
 
 # MUSICIANS

@@ -18,14 +18,24 @@ export default function Discover() {
 
     const [selected, setSelected] = useState<any>([])
 
+    const [activeTab, setActiveTab] = useState('Everything')
+    const [onHover, setOnHover] = useState('')
 
     useEffect(() => {
         axios
             .get(`http://localhost:8000/profiles/everything/`, config)
-            .then((res) => { console.log(res.data); setData(res.data); setSelected(res.data[0].everything) })
+            .then((res) => {
+                console.log(res.data);
+                setData(res.data);
+                setSelected(
+                    activeTab === 'Musicians' ? res.data[0].musicians :
+                        activeTab === 'Music Studio' ? res.data[0].studios :
+                            res.data[0].everything
+                )
+            })
             .catch((err) => console.warn(err))
 
-    }, [])
+    }, [activeTab])
 
     const color = useContext<any>(Colors)
     // console.warn(color)
@@ -40,8 +50,6 @@ export default function Discover() {
     ]
 
 
-    const [activeTab, setActiveTab] = useState('Everything')
-    const [onHover, setOnHover] = useState('')
 
 
     const pickColor = (category: string) => {
@@ -56,14 +64,15 @@ export default function Discover() {
         }
     }
 
-    console.log(selected)
+    // console.log(selected)
     const filteredData = selected
+       
     // const filteredData = data
     //     // .filter(())
 
-    //     .filter((data: any) =>
-    //         SearchValidation(data?.artistic_nickname, search) || SearchValidation(data?.title, search)
-    //     )
+        .filter((data: any) =>
+            SearchValidation(data?.artistic_nickname, search) || SearchValidation(data?.title, search)
+        )
 
     // console.warn('filteredData', filteredData)
 
@@ -78,7 +87,7 @@ export default function Discover() {
                         color={tab.color}
                         onMouseEnter={() => setOnHover(tab.label)}
                         onMouseLeave={() => setOnHover('')}
-                        onClick={() => {setActiveTab(tab.label); setSelected(data[0].musicians)}}
+                        onClick={() => { setActiveTab(tab.label); setSelected(data[0].musicians) }}
 
                         activeTab={activeTab}
                         onHover={onHover}
@@ -93,8 +102,8 @@ export default function Discover() {
                     <input type='text' placeholder='Αναζήτηση...' onChange={(e) => setSearch(e.target.value)} />
                 </div>
 
-                {search}
-                <p>Αποτελέσματα:</p>
+          
+                <p>Αποτελέσματα: {filteredData.length}</p>
             </section>
 
             <section className={CSS.all_cards}>

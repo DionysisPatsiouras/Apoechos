@@ -33,7 +33,7 @@ urlpatterns = [
     # By ID
     path('musician/<int:id>', views.musician_by_id),
 
-    path('test/', views.test),
+    path('test/<int:id>', views.test),
 
 
 # By ID

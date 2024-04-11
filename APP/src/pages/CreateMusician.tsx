@@ -39,13 +39,8 @@ export default function CreateMusician() {
             .patch('http://127.0.0.1:8000/user/patch/', data, {
                 headers: { Authorization: `Bearer ${token}` }
             })
-            .then((response) => {
-                console.log(response)
-            })
-            .catch((error) => {
-                console.log(error)
-
-            })
+            .then((response) => { console.log(response) })
+            .catch((error) => {  console.log(error)})
 
     }
 
@@ -63,8 +58,9 @@ export default function CreateMusician() {
             })
             .then((response) => {
                 console.log(response)
-                setProfileCreated(true)
                 patchMusicianId(response?.data?.musicianId)
+                setProfileCreated(true)
+                
             })
             .catch((error) => { console.log(error) })
         // console.warn(finalData)
