@@ -9,5 +9,5 @@ from rest_framework.routers import DefaultRouter
 
 urlpatterns = [
     path('', views.all_genres), 
-    path('musician/<int:id>', views.musician_genres)
+    # path('musician/<int:id>', views.musician_genres)
 ]

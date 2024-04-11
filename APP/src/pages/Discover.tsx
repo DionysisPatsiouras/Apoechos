@@ -28,8 +28,8 @@ export default function Discover() {
                 console.log(res.data[0]);
                 setData(res.data);
                 setSelected(
-                    activeTab === 'Musicians' ? res.data[0].musicians :
-                        activeTab === 'Music Studio' ? res.data[0].studios :
+                    activeTab === 'Musicians' ? res.data[0]?.musicians :
+                        activeTab === 'Music Studio' ? res.data[0]?.studios :
                             res.data[0].everything
                 )
             })

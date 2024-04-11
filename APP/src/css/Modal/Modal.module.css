@@ -1,0 +1,23 @@
+.container {
+  background-color: rgba(0, 0, 0, 0.7882352941);
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.container svg {
+  position: absolute;
+  float: right;
+  right: 50px;
+  top: 50px;
+}
+
+.imageContent {
+  display: flex;
+  justify-content: center;
+}
+.imageContent img {
+  height: 90vh;
+  margin: 25px 0 0 0;
+}/*# sourceMappingURL=Modal.module.css.map */

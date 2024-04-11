@@ -75,8 +75,8 @@ export default function SvgIcon(props: any) {
                     style={{ 'cursor': 'pointer' }}
                     onClick={props?.onClick}
                 >
-                    <rect y="28.7332" width="39.5789" height="5.05263" rx="2.52632" transform="rotate(-45 0 28.7332)" fill={color} />
-                    <rect x="3.85156" y="1" width="39.5789" height="5.05263" rx="2.52632" transform="rotate(45 3.85156 1)" fill={color} />
+                    <rect y="28.7332" width="39.5789" height="5.05263" rx="2.52632" transform="rotate(-45 0 28.7332)" fill={props?.color || color} />
+                    <rect x="3.85156" y="1" width="39.5789" height="5.05263" rx="2.52632" transform="rotate(45 3.85156 1)" fill={props?.color || color} />
                 </svg>
 
             }
