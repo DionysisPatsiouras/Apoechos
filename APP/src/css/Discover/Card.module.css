@@ -18,7 +18,7 @@
 
 .card h6 {
   color: #5F69C6;
-  font-size: 14px;
+  font-size: 1rem;
 }
 
 .signatureIcon {
@@ -35,6 +35,7 @@
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 4px;
+  border: 1px solid red;
 }
 
 .profileTitle {
@@ -52,4 +53,21 @@
 
 .seeProfileButton a {
   color: #ffffff;
+}
+
+.btn_section {
+  display: flex;
+  justify-content: flex-end;
+  margin: 37px 0 0 0;
+}
+.btn_section button {
+  width: auto;
+  height: auto;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+.location {
+  text-align: left;
+  margin: 5px 0 0 0;
 }/*# sourceMappingURL=Card.module.css.map */

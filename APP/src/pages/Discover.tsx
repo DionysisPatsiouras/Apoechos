@@ -25,7 +25,7 @@ export default function Discover() {
         axios
             .get(`http://localhost:8000/profiles/everything/`, config)
             .then((res) => {
-                console.log(res.data);
+                console.log(res.data[0]);
                 setData(res.data);
                 setSelected(
                     activeTab === 'Musicians' ? res.data[0].musicians :
@@ -108,10 +108,15 @@ export default function Discover() {
 
             <section className={CSS.all_cards}>
                 {filteredData?.map((item: any, index: number) => (
+                    
                     <Card
                         key={index}
+                        id={item?.musicianId || item?.studioId}
+                        category={item?.category}
+                        city={item?.city}
+                        photo={item?.photo}
                         artistic_nickname={item?.artistic_nickname || item?.title}
-                        color={pickColor(item.category)}
+                        color={pickColor(item?.category)}
                     />
                 ))}
             </section>

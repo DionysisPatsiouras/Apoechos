@@ -1,8 +1,9 @@
 import { forwardRef } from 'react'
 import { Link } from 'react-router-dom'
 
-import pic from '../media/musician.png'
 import CSS from '../../css/Discover/Card.module.css'
+import SvgIcon from '../SvgIcon'
+import img from '../../../src/img.png'
 
 const Card = forwardRef(function Card(props: any, ref) {
 
@@ -12,28 +13,37 @@ const Card = forwardRef(function Card(props: any, ref) {
 
 
             <div className={CSS.cardWhitePart}>
-                <img className={CSS.signatureIcon}
-                    // style={{ 'marginRight': props.data.category === 'musician' ? '-18px' : '-5px', 'marginTop': props.data.category === 'musician' ? '-10px' : '-5px' }}
-                    alt='Category Icon'
-                // src={require(`../media/icons/profiles/light/${props.data.category}.svg`)} 
-                />
+
+                <div className={CSS.signatureIcon}>
+                    <SvgIcon id={props?.category} color={'#ffffff'}
+                        style={{ 'margin': props?.category === 'musician' ? '-5px -6px 0 0' : null }} />
+                </div>
+
 
                 <div className={CSS.profileInfo}>
 
                     <img
-                        // src={props.data.photo != null ? `http://127.0.0.1:8000/${props.data.photo}` : pic}
+                        src={props.photo != null ? `http://127.0.0.1:8000/${props.photo}` : img}
                         width={84} height={84}
-                        alt='Profile' />
+                        alt='Profile imagec' />
 
                     <h6 className={CSS.profileTitle}>
                         {props?.artistic_nickname}</h6>
                 </div>
 
-                {/* <b>{props.data.city}</b> */}
+                <section className={CSS.location}>
+                    {props?.city}
+                </section>
 
-                {/* <Link to={`/profiles/${props.data.category}/${props.data.id}`} >
-                    <button className={css.seeProfileButton}>See profile</button>
-                </Link> */}
+
+
+                <div className={CSS.btn_section}>
+                    <Link to={`/profiles/${props?.category}/${props.id}`} >
+                        <button>Περισσότερα</button>
+                    </Link>
+                </div>
+
+
             </div>
 
         </div>
