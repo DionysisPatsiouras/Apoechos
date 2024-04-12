@@ -1,0 +1,11 @@
+.edit_form {
+  margin: 10px 0 0 0;
+}
+.edit_form input {
+  margin: 0 0 10px 0;
+  font-size: 1rem;
+}
+.edit_form button {
+  width: 250px;
+  font-size: 1rem;
+}/*# sourceMappingURL=EditMusician.module.css.map */

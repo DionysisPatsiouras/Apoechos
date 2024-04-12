@@ -13,7 +13,8 @@ export default function Musician(props: any) {
     const [editMode, setEditMode] = useState<boolean>(false)
 
 
-    console.log(props?.data)
+    // console.log(props?.data)
+
     return (
         <div className={CSS.container}>
 
