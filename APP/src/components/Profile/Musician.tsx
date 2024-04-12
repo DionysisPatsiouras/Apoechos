@@ -10,6 +10,7 @@ export default function Musician(props: any) {
     const [modal, setModal] = useState<boolean>(false)
 
 
+    console.log(props?.data)
     return (
         <div className={CSS.container}>
 
@@ -17,20 +18,28 @@ export default function Musician(props: any) {
                 <img src={props?.data?.photo} />
             </Modal>
 
-            <section className={CSS.header}>
+            <section className={CSS.personal_info}>
                 <img src={props?.data?.photo} width={150} height={150} onClick={() => setModal(!modal)} />
 
-                <div className={CSS.info}>
 
+                <div className={CSS.info}>
 
                     <strong> {props?.data?.artistic_nickname}</strong>
 
                     {user?.user_id === props?.data?.user &&
-
-
-                        <button>Επεξεργασία</button>
+                        <>
+                            <p>{props?.data?.bio}</p>
+                            <button>Επεξεργασία</button>
+                        </>
                     }
                 </div>
+            </section>
+
+
+            <hr></hr>
+            <section className={CSS.activity}>
+                activity
+
             </section>
 
 

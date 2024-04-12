@@ -2,14 +2,21 @@
     width: 80vw
     max-width: 1200px
     margin: 0 auto
+    display: flex
+    padding: 30px 0 0 0 
 
-.header
+    hr
+        height: 80vh
+        margin: 0 20px
+        
+
+.personal_info
 
     display: flex
     flex-direction: column
     align-items: center
-    padding: 40px 0 30px 0
-    border-bottom: 1px solid #DBDBDB
+    
+    
 
     img
         object-fit: cover
@@ -26,11 +33,7 @@
         width: 80vw
 
     .info
-        display: flex
-        flex-direction: column
-
-        margin: 0 0 0 10px
-        height: 150px
+        width: 250px
 
         button
             background-color: #5F69C6
@@ -42,14 +45,14 @@
 
 // DESKTOP
 @media screen and ( min-width: 768px )
-    .header
+    .personal_info
 
-        flex-direction: row
-        align-items: flex-start
+        // flex-direction: column
+        // align-items: flex-start
 
         img
-            width: 150px
-            height: 150px
+            width: 250px
+            height: 250px
 
         strong
             width: auto
