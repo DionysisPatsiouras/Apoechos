@@ -10,6 +10,8 @@ import Confirmation from '../components/Confirmation'
 import SvgIcon from '../components/SvgIcon'
 import FormError from '../utils/FormError'
 
+import { cities, all_categories, all_strings } from '../utils/MusicianUtils'
+
 // css
 import CSS from '../css/CreateMusician/CreateMusician.module.css'
 
@@ -22,8 +24,9 @@ export default function CreateMusician() {
     const { errors } = formState
 
     const [genres, setGenres] = useState<any>([])
-    const [cities, setCities] = useState<string[]>([])
     const [profileCreated, setProfileCreated] = useState<boolean>(false)
+    const [selection, setSelection] = useState<string>('strings')
+    const [current, setCurrent] = useState<any>(all_strings)
 
     let { userData }: any = useContext(AuthContext)
 
@@ -40,7 +43,7 @@ export default function CreateMusician() {
                 headers: { Authorization: `Bearer ${token}` }
             })
             .then((response) => { console.log(response) })
-            .catch((error) => {  console.log(error)})
+            .catch((error) => { console.log(error) })
 
     }
 
@@ -60,7 +63,7 @@ export default function CreateMusician() {
                 console.log(response)
                 patchMusicianId(response?.data?.musicianId)
                 setProfileCreated(true)
-                
+
             })
             .catch((error) => { console.log(error) })
         // console.warn(finalData)
@@ -70,14 +73,12 @@ export default function CreateMusician() {
     useEffect((): any => {
 
         axios
-            .get('http://localhost:8000/profiles/cities', config)
-            .then((res: any) => setCities(res.data))
-
-        axios
             .get('http://127.0.0.1:8000/genre/', config)
             .then((res) => { setGenres(res?.data) })
             .catch((err) => console.warn(err))
     }, [])
+
+    console.log(cities)
 
 
 
@@ -123,17 +124,41 @@ export default function CreateMusician() {
                             <select className={CSS.city_dropdown} {...register('city')}>
                                 {/* <option defaultValue='' disabled hidden>Επιλέξτε πόλη</option> */}
                                 {cities.map((city: any) => (
-                                    <option key={city?.id} value={city?.city}>{city?.city}</option>
+                                    // <option key={city?.id} value={city?.city}>{city?.city}</option>
+                                    <option key={city} value={city}>{city}</option>
                                 ))}
                             </select>
                         </div>
 
 
                     </div>
+
+
+                    <hr className='divider'></hr>
+                    <h2>Όργανα</h2>
+                    <ul className={CSS.genre_list}>
+                        <ul className={CSS.categories_list}>
+                            {all_categories.map((category: string) => (
+                                <li
+                                    onClick={() => setSelection(category)}
+                                    style={{ 'backgroundColor': selection === category ? '#5F69C6' : '#B4B3B2' }}>
+                                    <SvgIcon id={category} color={'#ffffff'} width={30} height={30} />
+                                </li>
+                            ))}
+                        </ul>
+
+
+                        {current.map((string: string) => (
+                            <div className={CSS.checkbox} key={string}>
+                                <input type='checkbox' id={string} />
+                                <label htmlFor={string}>{string}</label>
+                            </div>
+                        ))}
+                    </ul>
+
+
                     <hr className='divider'></hr>
                     <h2>Είδη</h2>
-
-
                     <ul className={CSS.genre_list}>
                         {genres
                             .map((genre: any) => (
