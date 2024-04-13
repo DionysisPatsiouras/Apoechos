@@ -25,7 +25,7 @@ export default function Discover() {
         axios
             .get(`http://localhost:8000/profiles/everything/`, config)
             .then((res) => {
-                console.log(res.data[0]);
+                // console.log(res.data[0]);
                 setData(res.data);
                 setSelected(
                     activeTab === 'Musicians' ? res.data[0]?.musicians :
@@ -76,50 +76,62 @@ export default function Discover() {
     // console.warn('filteredData', filteredData)
 
     return (
-        <div style={{ 'margin': '20px 0 0 20px' }}>
-            <ul className={CSS.profiles_menu}>
+        <div className={CSS.container}>
 
-                {tabs.map((tab: any, index: number) => (
-                    <Tab
-                        key={index}
-                        label={tab.label}
-                        color={tab.color}
-                        onMouseEnter={() => setOnHover(tab.label)}
-                        onMouseLeave={() => setOnHover('')}
-                        onClick={() => { setActiveTab(tab.label); setSelected(data[0].musicians) }}
+            <section className={CSS.filters}>
+                
+                <h3>Περιοχή</h3>
 
-                        activeTab={activeTab}
-                        onHover={onHover}
-                    />
-                ))}
-            </ul>
-
-            <section className={CSS.search}>
-
-                <div className={CSS.left_section}>
-                    <SvgIcon id='search' />
-                    <input type='text' placeholder='Αναζήτηση...' onChange={(e) => setSearch(e.target.value)} />
-                </div>
-
-
-                <p>Αποτελέσματα: {filteredData.length}</p>
             </section>
 
-            <section className={CSS.all_cards}>
-                {filteredData?.map((item: any, index: number) => (
 
-                    <Card
-                        key={index}
-                        id={item?.musicianId || item?.studioId}
-                        category={item?.category}
-                        city={item?.city}
-                        photo={item?.photo}
-                        artistic_nickname={item?.artistic_nickname || item?.title}
-                        color={pickColor(item?.category)}
-                    />
-                ))}
+            <section className={CSS.cards_container}>
+
+
+
+                <ul className={CSS.profiles_menu}>
+
+                    {tabs.map((tab: any, index: number) => (
+                        <Tab
+                            key={index}
+                            label={tab.label}
+                            color={tab.color}
+                            onMouseEnter={() => setOnHover(tab.label)}
+                            onMouseLeave={() => setOnHover('')}
+                            onClick={() => { setActiveTab(tab.label); setSelected(data[0].musicians) }}
+
+                            activeTab={activeTab}
+                            onHover={onHover}
+                        />
+                    ))}
+                </ul>
+
+                <section className={CSS.search}>
+
+                    <div className={CSS.left_section}>
+                        <SvgIcon id='search' />
+                        <input type='text' placeholder='Αναζήτηση...' onChange={(e) => setSearch(e.target.value)} />
+                    </div>
+
+
+                    <p>Αποτελέσματα: {filteredData.length}</p>
+                </section>
+
+                <section className={CSS.all_cards}>
+                    {filteredData?.map((item: any, index: number) => (
+
+                        <Card
+                            key={index}
+                            id={item?.musicianId || item?.studioId}
+                            category={item?.category}
+                            city={item?.city}
+                            photo={item?.photo}
+                            artistic_nickname={item?.artistic_nickname || item?.title}
+                            color={pickColor(item?.category)}
+                        />
+                    ))}
+                </section>
             </section>
-
 
 
         </div>
