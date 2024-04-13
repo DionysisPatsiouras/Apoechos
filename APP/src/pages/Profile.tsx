@@ -24,9 +24,9 @@ export default function Profile() {
 
         switch (category) {
             case 'musician':
-                return <Musician data={data} />
+                return <Musician  />
             case 'studio':
-                return <Studio data={data} />
+                return <Studio  />
 
             default:
                 break;

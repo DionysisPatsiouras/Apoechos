@@ -50,15 +50,14 @@ export default function Discover() {
     ]
 
 
-
-
     const pickColor = (category: string) => {
         switch (category) {
             case 'musician':
                 return color?.musician
-
             case 'studio':
                 return color?.studio
+            case 'store':
+                return color?.store
             default:
                 break;
         }
@@ -66,9 +65,9 @@ export default function Discover() {
 
     // console.log(selected)
     const filteredData = selected
-       
-    // const filteredData = data
-    //     // .filter(())
+
+        // const filteredData = data
+        //     // .filter(())
 
         .filter((data: any) =>
             SearchValidation(data?.artistic_nickname, search) || SearchValidation(data?.title, search)
@@ -102,13 +101,13 @@ export default function Discover() {
                     <input type='text' placeholder='Αναζήτηση...' onChange={(e) => setSearch(e.target.value)} />
                 </div>
 
-          
+
                 <p>Αποτελέσματα: {filteredData.length}</p>
             </section>
 
             <section className={CSS.all_cards}>
                 {filteredData?.map((item: any, index: number) => (
-                    
+
                     <Card
                         key={index}
                         id={item?.musicianId || item?.studioId}
