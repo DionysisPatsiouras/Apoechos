@@ -54,7 +54,7 @@ def updateMusician(request, id):
     try:
         musician = Musician.objects.get(pk=id)
     except Musician.DoesNotExist:
-        return JsonResponse({"message": "Musician Id not found"})
+        return JsonResponse({"message": "Musician not found"})
 
     serializer = MusicianSerializer(musician, data=request.data, partial=True)
 
