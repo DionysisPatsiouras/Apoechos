@@ -3,31 +3,33 @@ from django.urls import path
 from profiles import views
 
 from django.urls import path, include
-from profiles.views import MusicianViewset, StudioViewset
+
+# from profiles.views import MusicianViewset, StudioViewset
+# from profiles.views import MusicianViewset
 from rest_framework.routers import DefaultRouter
 
 
 # http://127.0.0.1:8000/profiles/musician/1
-router = DefaultRouter()
-router.register("musician", MusicianViewset)
-router.register("studio", StudioViewset)
+# router = DefaultRouter()
+# router.register("musician", MusicianViewset)
+# router.register("studio", StudioViewset)
 
 urlpatterns = [
-    path("", include(router.urls)),
+    # path("", include(router.urls)),
     path("everything/", views.all_profiles),
-    path("musicians/", views.musicians_list),
-    # All profiles
-    path("everything/", views.all_profiles),
-    path("bands/", views.bands_list),
-    # Musician CRUD
-    path("musicians/", views.musicians_list),
-    path("musicians/add/", views.post_musician),
-    path("musicians/patch/", views.updateMusician),
-    # By ID
-
+    # MUSICIAN
+    path("musicians/", views.all_musicians),
+    path("musicians/add/", views.add_musician),
+    path("musician/<str:id>/", views.musician_by_id),
+    
+    # path("musicians/patch/", views.updateMusician),
+    # Stores
+    path("stores/", views.all_stores),
+    path("stores/<str:id>/", views.store_by_id),
+    # Stages
+    path("stages/", views.all_stages),
+    path("stages/<int:id>/", views.stage_by_id),
+    # random
     path("test/<int:id>", views.test),
-    # By ID
     path("cities/", views.cities),
 ]
-
-

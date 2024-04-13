@@ -11,16 +11,52 @@ from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
 
 
-class MusicianViewset(viewsets.ModelViewSet):
-    queryset = Musician.objects.all()
-    serializer_class = MusicianSerializer
-    http_method_names = ["get"]
+# class MusicianViewset(viewsets.ModelViewSet):
+#     queryset = Musician.objects.all()
+#     serializer_class = MusicianSerializer
+#     http_method_names = ["get"]
 
 
-class StudioViewset(viewsets.ModelViewSet):
-    queryset = Studio.objects.all()
-    serializer_class = StudioSerializer
-    http_method_names = ["get"]
+# class StudioViewset(viewsets.ModelViewSet):
+#     queryset = Studio.objects.all()
+#     serializer_class = StudioSerializer
+#     http_method_names = ["get"]
+
+
+# /profiles/musicians/
+@api_view(["GET"])
+def all_musicians(request):
+
+    musicians = Musician.objects.all()
+    serializer = MusicianSerializer(musicians, many=True)
+    return Response(serializer.data)
+
+
+# /profiles/musicians/add/
+@api_view(["POST"])
+def add_musician(request):
+    serializer = MusicianSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# /profiles/musician/:id
+@api_view(["GET"])
+def musician_by_id(request, id):
+    try:
+        musician = Musician.objects.get(pk=id)
+    except Musician.DoesNotExist:
+        return Response(["error", "not exist"])
+
+    if request.method == "GET":
+        serializer = MusicianSerializer(musician)
+        return Response(serializer.data)
+
+
+
 
 
 # POST NEW GENRE
@@ -42,27 +78,6 @@ def post_genre(request):
     else:
         return Response(serializer.errors)
 
-
-# not working properly
-@api_view(["PATCH"])
-def patch_genre(request):
-
-    # user = Musician.objects.get(id=user_id)
-    serializer = GenreSerializer(request.user, data=request.data, partial=True)
-
-    if serializer.is_valid():
-        serializer.save()
-        return Response(
-            [
-                {
-                    "message": "Successfully Updated!",
-                    "status": 201,
-                    "data": serializer.data,
-                }
-            ]
-        )
-    else:
-        return Response(serializer.errors)
 
 
 # /user/update/
@@ -87,30 +102,6 @@ def updateMusician(request):
         return JsonResponse(
             {"message": "Bad request", "status": 400, "request": request.data}
         )
-
-
-@api_view(["POST"])
-def post_musician(request):
-
-    serializer = MusicianSerializer(data=request.data)
-
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data)
-    else:
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(["GET", "POST"])
-def bandById(request, id):
-    try:
-        band = Band.objects.get(pk=id)
-    except Profile.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == "GET":
-        serializer = BandSerializer(band)
-        return Response(serializer.data)
 
 
 @api_view(["GET"])
@@ -159,75 +150,64 @@ def test(request, id):
 @api_view(["GET"])
 @permission_classes([])
 def cities(request):
-
     cities = City.objects.all()
     serializer = Cities(cities, many=True)
     return Response(serializer.data)
 
 
+# profiles/everything/
 @api_view(["GET"])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def all_profiles(request):
     musicians = Musician.objects.all()
-    # bands = Band.objects.all()
     studios = Studio.objects.all()
-    # stages = Stage.objects.all()
-    # stores = Store.objects.all()
+    stores = Store.objects.all()
 
-    serializer1 = MusicianSerializer(musicians, many=True)
-    # serializer2 = BandSerializer(bands, many=True)
-    serializer3 = StudioSerializer(studios, many=True)
-    # serializer4 = StageSerializer(stages, many=True)
-    # serializer5 = StoreSerializer(stores, many=True)
-    # return Response(serializer1.data + serializer3.data)
+    musician_serializer = MusicianSerializer(musicians, many=True)
+    studio_serializer = StudioSerializer(studios, many=True)
+    store_serializer = StoreSerializer(stores, many=True)
 
     return Response(
         [
             {
                 "message": "OK",
                 "status": 200,
-                "length": len(serializer1.data + serializer3.data),
-                "everything": serializer1.data + serializer3.data,
-                "musicians": serializer1.data,
-                "studios": serializer3.data,
+                "length": len(
+                    musician_serializer.data
+                    + studio_serializer.data
+                    + store_serializer.data
+                ),
+                "everything": musician_serializer.data
+                + studio_serializer.data
+                + store_serializer.data,
+                "musicians": musician_serializer.data,
+                "studios": studio_serializer.data,
+                "stores": store_serializer.data,
             }
         ]
     )
 
-    # return Response(serializer1.data + serializer2.data + serializer3.data + serializer4.data + serializer5.data)
 
+# profiles/stores/
+@api_view(["GET"])
+def all_stores(request):
+    stores = Store.objects.all()
+    serializer = StoreSerializer(stores, many=True)
+    return Response(serializer.data)
 
-# MUSICIANS
-@api_view(["GET", "POST"])
-def musicians_list(request):
+# profiles/stores/:id/
+@api_view(["GET"])
+def store_by_id(request, id):
+
+    try:
+        storeId = Store.objects.get(pk=id)
+    except Store.DoesNotExist:
+        # return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response(["error", "not exist"])
 
     if request.method == "GET":
-        musicians = Musician.objects.all()
-        serializer = MusicianSerializer(musicians, many=True)
+        serializer = StoreSerializer(storeId)
         return Response(serializer.data)
-
-    if request.method == "POST":
-        serializer = MusicianSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-# BANDS
-@api_view(["GET", "POST"])
-def bands_list(request):
-    if request.method == "GET":
-        bands = Band.objects.all()
-        serializer = BandSerializer(bands, many=True)
-        return Response(serializer.data)
-
-    if request.method == "POST":
-        serializer = BandSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
 
 
 # STUDIOS
@@ -245,34 +225,22 @@ def studios_list(request):
             return Response(serializer.data)
 
 
-# STAGES
-@api_view(["GET", "POST"])
-def stages_list(request):
-    if request.method == "GET":
-        stages = Stage.objects.all()
-        serializer = StageSerializer(stages, many=True)
-        return Response(serializer.data)
-
-    if request.method == "POST":
-        serializer = StageSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
+@api_view(["GET"])
+def all_stages(request):
+    stages = Stage.objects.all()
+    serializer = StageSerializer(stages, many=True)
+    return Response(serializer.data)
 
 
-# STORES
-@api_view(["GET", "POST"])
-def stores_list(request):
+@api_view(["GET"])
+def stage_by_id(request, id):
+
+    try:
+        stageId = Stage.objects.get(pk=id)
+    except Stage.DoesNotExist:
+        # return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response(["error", "not exist"])
 
     if request.method == "GET":
-        stores = Store.objects.all()
-        serializer = StoreSerializer(stores, many=True)
+        serializer = StageSerializer(stageId)
         return Response(serializer.data)
-
-    if request.method == "POST":
-        serializer = StoreSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response("ERROR for Views.py", status=status.HTTP_400_BAD_REQUEST)

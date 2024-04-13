@@ -8,6 +8,8 @@ from genre.models import Genre
 admin.site.register(Musician)
 admin.site.register(MusicianGenre)
 admin.site.register(Studio)
+admin.site.register(Store)
+admin.site.register(Stage)
 
 
 admin.site.register(Genre)
