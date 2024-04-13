@@ -24,10 +24,9 @@ export default function Profile() {
 
         switch (category) {
             case 'musician':
-                return <Musician  />
+                return <Musician />
             case 'studio':
-                return <Studio  />
-
+                return <Studio />
             default:
                 break;
         }

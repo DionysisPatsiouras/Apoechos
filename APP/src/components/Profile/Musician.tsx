@@ -23,21 +23,25 @@ export default function Musician() {
     }, [])
 
 
-   
-    // console.log(musician)
-  
+
+    console.log(musician.photo)
+
 
     return (
         <div className={CSS.container}>
 
             <Modal open={modal} close={() => setModal(false)}>
-                <img src={musician?.photo} />
+                <img
+                    src={`http://127.0.0.1:8000/${musician?.photo}`}
+                />
+
+
             </Modal>
 
             <section className={CSS.personal_info}>
-                <img src={musician?.photo} width={150} height={150} onClick={() => setModal(!modal)} />
+                <img src={`http://127.0.0.1:8000/${musician?.photo}`} width={150} height={150} onClick={() => setModal(!modal)} />
 
-      
+
 
                 {editMode ?
                     <EditMusician data={musician} editMode={() => setEditMode(false)} />

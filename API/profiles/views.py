@@ -56,8 +56,36 @@ def musician_by_id(request, id):
         return Response(serializer.data)
 
 
+# profiles/musician/patch/:id/
+@api_view(["PATCH"])
+@permission_classes([IsAuthenticated])
+def updateMusician(request, id):
+    user = request.user
 
+    try:
+        musician = Musician.objects.get(pk=id)
+    except Musician.DoesNotExist:
+        return JsonResponse({"message": "Musician Id not found"})
 
+    serializer = UpdateMusicianSerializer(musician, data=request.data, partial=True)
+
+    if serializer.is_valid():
+
+        if user.id == musician.user_id:
+
+            serializer.save()
+        # return Response(serializer.data)
+            return Response({
+                "message" : "ok",
+                "yourId" : user.id,
+                "musicianid" : musician.user_id
+            })
+        else:
+            return Response({
+                "message" : "you are wrong user!",
+                "yourId" : user.id,
+                "musicianid" : musician.user_id
+            })
 
 # POST NEW GENRE
 @api_view(["POST"])
@@ -79,36 +107,11 @@ def post_genre(request):
         return Response(serializer.errors)
 
 
-
-# /user/update/
-# UPDATE MY PROFILE
-@api_view(["PATCH"])
-@permission_classes([IsAuthenticated])
-def updateMusician(request):
-
-    user = request.user
-    serializer = MusicianSerializer(user, data=request.data, partial=True)
-
-    if serializer.is_valid():
-
-        serializer.save()
-
-        return JsonResponse(
-            {"message": "Updated Successfully", "status": 200, "updated": request.data}
-        )
-    else:
-
-        # return Response(request.data)
-        return JsonResponse(
-            {"message": "Bad request", "status": 400, "request": request.data}
-        )
-
-
 @api_view(["GET"])
 def genre_by_id(request, id):
     try:
         genre = Genre.objects.get(pk=id)
-    except Profile.DoesNotExist:
+    except Genre.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == "GET":
@@ -121,7 +124,7 @@ def test(request, id):
 
     try:
         musicianId = MusicianGenre.objects.get(pk=musicianId)
-    except Profile.DoesNotExist:
+    except MusicianGenre.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     test = MusicianGenre.objects.all()
@@ -194,6 +197,7 @@ def all_stores(request):
     stores = Store.objects.all()
     serializer = StoreSerializer(stores, many=True)
     return Response(serializer.data)
+
 
 # profiles/stores/:id/
 @api_view(["GET"])

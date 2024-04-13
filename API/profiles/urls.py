@@ -21,6 +21,7 @@ urlpatterns = [
     path("musicians/", views.all_musicians),
     path("musicians/add/", views.add_musician),
     path("musician/<str:id>/", views.musician_by_id),
+    path("musician/patch/<str:id>/", views.updateMusician),
     
     # path("musicians/patch/", views.updateMusician),
     # Stores
@@ -33,3 +34,4 @@ urlpatterns = [
     path("test/<int:id>", views.test),
     path("cities/", views.cities),
 ]
+
