@@ -8,6 +8,7 @@ from .models import *
 
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
+from django.http import JsonResponse
 
 
 class MusicianViewset(viewsets.ModelViewSet):
@@ -64,8 +65,28 @@ def patch_genre(request):
         return Response(serializer.errors)
 
 
+# /user/update/
+# UPDATE MY PROFILE
+@api_view(["PATCH"])
+@permission_classes([IsAuthenticated])
+def updateMusician(request):
 
+    user = request.user
+    serializer = MusicianSerializer(user, data=request.data, partial=True)
 
+    if serializer.is_valid():
+
+        serializer.save()
+
+        return JsonResponse(
+            {"message": "Updated Successfully", "status": 200, "updated": request.data}
+        )
+    else:
+
+        # return Response(request.data)
+        return JsonResponse(
+            {"message": "Bad request", "status": 400, "request": request.data}
+        )
 
 
 @api_view(["POST"])

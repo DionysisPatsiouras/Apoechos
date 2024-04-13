@@ -22,6 +22,7 @@ urlpatterns = [
     # Musician CRUD
     path("musicians/", views.musicians_list),
     path("musicians/add/", views.post_musician),
+    path("musicians/patch/", views.updateMusician),
     # By ID
 
     path("test/<int:id>", views.test),
