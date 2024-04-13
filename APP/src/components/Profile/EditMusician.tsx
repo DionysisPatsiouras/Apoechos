@@ -31,7 +31,7 @@ export default function EditMusician(props: any) {
 
         <form onSubmit={handleSubmit(updateProfile)} className={CSS.edit_form}>
             <input
-                style={{ 'width': '218px' }}
+                
                 defaultValue={props?.data?.artistic_nickname}
                 {...register('artistic_nickname', {
                     required: 'Υποχρεωτικό πεδίο'
@@ -40,8 +40,8 @@ export default function EditMusician(props: any) {
             <FormError value={errors?.artistic_nickname} />
 
 
-            <input
-                style={{ 'width': '218px' }}
+            <textarea
+               
                 defaultValue={props?.data?.bio}
                 {...register('bio')}
             />

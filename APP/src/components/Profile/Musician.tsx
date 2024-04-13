@@ -14,7 +14,7 @@ export default function Musician() {
     const [editMode, setEditMode] = useState<boolean>(false)
     const [musician, setMusician] = useState<any>([])
     const [updateDOM, setUpdateDOM] = useState<boolean>(false)
-    
+
 
     let getId = window.location.pathname.replace('/profile/musician/', '')
 
@@ -44,15 +44,21 @@ export default function Musician() {
             <section className={CSS.personal_info}>
                 <img src={`http://127.0.0.1:8000/${musician?.photo}`} width={150} height={150} onClick={() => setModal(!modal)} />
 
+                {user?.user_id === musician?.user && !editMode &&
+                    <button
+                        className={CSS.edit_btn}
+                        onClick={() => setEditMode(!editMode)}>
+                        Επεξεργασία
+                    </button>}
 
 
                 {editMode ?
-                    <EditMusician data={musician} editMode={() => setEditMode(false)} updateDOM={() => setUpdateDOM(!updateDOM)}/>
+                    <EditMusician data={musician} editMode={() => setEditMode(false)} updateDOM={() => setUpdateDOM(!updateDOM)} />
                     :
                     <div className={CSS.info}>
                         <strong> {musician?.artistic_nickname}</strong>
-                        <p>{musician?.bio}</p>
-                        {user?.user_id === musician?.user && <button onClick={() => setEditMode(!editMode)}>Επεξεργασία</button>}
+                        <p className={CSS.bio}>{musician?.bio}</p>
+                        {/* {user?.user_id === musician?.user && <button onClick={() => setEditMode(!editMode)}>Επεξεργασία</button>} */}
                     </div>
                 }
             </section>

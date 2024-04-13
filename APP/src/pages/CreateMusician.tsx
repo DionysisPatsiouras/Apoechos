@@ -78,7 +78,7 @@ export default function CreateMusician() {
             .catch((err) => console.warn(err))
     }, [])
 
-    console.log(cities)
+
 
 
 
@@ -123,9 +123,9 @@ export default function CreateMusician() {
 
                             <select className={CSS.city_dropdown} {...register('city')}>
                                 {/* <option defaultValue='' disabled hidden>Επιλέξτε πόλη</option> */}
-                                {cities.map((city: any) => (
+                                {cities.map((city: any, index: number) => (
                                     // <option key={city?.id} value={city?.city}>{city?.city}</option>
-                                    <option key={city} value={city}>{city}</option>
+                                    <option key={index} value={city}>{city}</option>
                                 ))}
                             </select>
                         </div>
@@ -138,8 +138,9 @@ export default function CreateMusician() {
                     <h2>Όργανα</h2>
                     <ul className={CSS.genre_list}>
                         <ul className={CSS.categories_list}>
-                            {all_categories.map((category: string) => (
+                            {all_categories.map((category: string, index: number) => (
                                 <li
+                                    key={index}
                                     onClick={() => setSelection(category)}
                                     style={{ 'backgroundColor': selection === category ? '#5F69C6' : '#B4B3B2' }}>
                                     <SvgIcon id={category} color={'#ffffff'} width={30} height={30} />

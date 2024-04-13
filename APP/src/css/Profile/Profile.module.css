@@ -31,7 +31,7 @@
   width: 80vw;
 }
 .personal_info .info {
-  width: 250px;
+  width: 200px;
 }
 .personal_info .info button {
   background-color: #5F69C6;
@@ -41,19 +41,31 @@
   font-size: 1rem;
   margin: 20px auto 0 auto;
 }
+.personal_info .bio {
+  margin: 10px 0;
+}
+.personal_info .edit_btn {
+  width: 200px;
+  height: 40px;
+  font-size: 1rem;
+  background-color: #5F69C6;
+}
 
 @media screen and (min-width: 768px) {
   .personal_info img {
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
   }
   .personal_info strong {
     width: auto;
     margin: 0;
   }
+  .personal_info .info {
+    margin: 10px 0 0 0;
+  }
   .personal_info .info button {
     margin: auto 0 0 0;
-    width: auto;
+    width: 200px;
     height: auto;
   }
 }/*# sourceMappingURL=Profile.module.css.map */

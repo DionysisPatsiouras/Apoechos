@@ -11,10 +11,12 @@ import SvgIcon from '../components/SvgIcon'
 import Card from '../components/Discover/Card'
 import { config } from '../utils/Token'
 
+
 export default function Discover() {
 
     const [data, setData] = useState<any>([])
     const [search, setSearch] = useState<string>('')
+  
 
     const [selected, setSelected] = useState<any>([])
 
@@ -64,25 +66,25 @@ export default function Discover() {
     }
 
     // console.log(selected)
-    const filteredData = selected
-
-        // const filteredData = data
-        //     // .filter(())
-
-        .filter((data: any) =>
-            SearchValidation(data?.artistic_nickname, search) || SearchValidation(data?.title, search)
-        )
+    const filteredData =
+        selected
+            .filter((data: any) =>
+                SearchValidation(data?.artistic_nickname, search) || SearchValidation(data?.title, search)
+            )
 
     // console.warn('filteredData', filteredData)
+  
 
     return (
         <div className={CSS.container}>
 
             <section className={CSS.filters}>
-                
+
                 <h3>Περιοχή</h3>
+        
 
             </section>
+
 
 
             <section className={CSS.cards_container}>

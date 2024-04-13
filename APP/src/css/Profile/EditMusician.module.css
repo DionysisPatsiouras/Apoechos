@@ -4,8 +4,19 @@
 .edit_form input {
   margin: 0 0 10px 0;
   font-size: 1rem;
+  width: 169px;
 }
 .edit_form button {
-  width: 250px;
+  width: 200px;
   font-size: 1rem;
+  height: 40px;
+}
+.edit_form textarea {
+  width: 180px !important;
+  padding: 10px;
+  height: 80px;
+  resize: none;
+  border: none;
+  background-color: #efeeee;
+  border-radius: 4px;
 }/*# sourceMappingURL=EditMusician.module.css.map */
