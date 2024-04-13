@@ -11,22 +11,11 @@ from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
 
 
-# class MusicianViewset(viewsets.ModelViewSet):
-#     queryset = Musician.objects.all()
-#     serializer_class = MusicianSerializer
-#     http_method_names = ["get"]
-
-
-# class StudioViewset(viewsets.ModelViewSet):
-#     queryset = Studio.objects.all()
-#     serializer_class = StudioSerializer
-#     http_method_names = ["get"]
 
 
 # /profiles/musicians/
 @api_view(["GET"])
 def all_musicians(request):
-
     musicians = Musician.objects.all()
     serializer = MusicianSerializer(musicians, many=True)
     return Response(serializer.data)
@@ -67,25 +56,26 @@ def updateMusician(request, id):
     except Musician.DoesNotExist:
         return JsonResponse({"message": "Musician Id not found"})
 
-    serializer = UpdateMusicianSerializer(musician, data=request.data, partial=True)
+    serializer = MusicianSerializer(musician, data=request.data, partial=True)
 
     if serializer.is_valid():
-
         if user.id == musician.user_id:
-
             serializer.save()
-        # return Response(serializer.data)
-            return Response({
-                "message" : "ok",
-                "yourId" : user.id,
-                "musicianid" : musician.user_id
-            })
+            return Response(
+                {
+                    "message": "ok",
+                    "status": 200,
+                    "message": "Updated Successfully!",
+                    "updated entities": request.data,
+                }
+            )
         else:
-            return Response({
-                "message" : "you are wrong user!",
-                "yourId" : user.id,
-                "musicianid" : musician.user_id
-            })
+            return Response(
+                {
+                    "message": "You don't have permission",
+                }
+            )
+
 
 # POST NEW GENRE
 @api_view(["POST"])

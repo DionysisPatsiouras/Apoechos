@@ -46,13 +46,7 @@ class MusicianSerializer(serializers.ModelSerializer):
     #     return musician_instance
 
 
-class UpdateMusicianSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Musician
-        fields = "__all__"
-        # exclude = ("user_id",)
-        # fields = ['artistic_nickname', 'city' ]
-        
+
 
 
 class StudioSerializer(serializers.ModelSerializer):
