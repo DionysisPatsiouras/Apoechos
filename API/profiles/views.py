@@ -11,8 +11,6 @@ from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
 
 
-
-
 # /profiles/musicians/
 @api_view(["GET"])
 def all_musicians(request):
@@ -238,3 +236,15 @@ def stage_by_id(request, id):
     if request.method == "GET":
         serializer = StageSerializer(stageId)
         return Response(serializer.data)
+
+
+def mystats(request, id):
+
+    user = request.user
+
+    try:
+        musician = Musician.objects.get(pk=id)
+    except Musician.DoesNotExist:
+        return JsonResponse({"message": "Musician not found"})
+
+    serializer = MusicianSerializer(musician, data=request.data, partial=True)

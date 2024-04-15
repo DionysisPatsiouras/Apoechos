@@ -33,5 +33,7 @@ urlpatterns = [
     # random
     path("test/<int:id>", views.test),
     path("cities/", views.cities),
+
+    path("stats/<str:id>/", views.mystats)
 ]
 
