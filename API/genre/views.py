@@ -10,6 +10,7 @@ from .models import *
 # /genre/
 # GET ALL GENRES
 @api_view(['GET'])
+@permission_classes([])
 def all_genres(request):
     
     genres = Genre.objects.all()
@@ -18,6 +19,7 @@ def all_genres(request):
 
 
 @api_view(['GET'])
+
 def musician_genres(request, id):
     try:
         musician = Musician.objects.get(pk=id)

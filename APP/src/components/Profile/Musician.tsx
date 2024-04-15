@@ -27,7 +27,7 @@ export default function Musician() {
 
 
 
-
+    console.warn(musician)
 
 
     return (
@@ -67,7 +67,9 @@ export default function Musician() {
             <hr></hr>
             <section className={CSS.activity}>
                 activity
-
+                {musician?.genres?.map((genre:string) => (
+                    <div>{genre}</div>
+                ))}
             </section>
 
 

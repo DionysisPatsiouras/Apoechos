@@ -16,12 +16,17 @@ export default function Discover() {
 
     const [data, setData] = useState<any>([])
     const [search, setSearch] = useState<string>('')
-  
+
 
     const [selected, setSelected] = useState<any>([])
 
     const [activeTab, setActiveTab] = useState('Everything')
     const [onHover, setOnHover] = useState('')
+
+    const [filtered_genres, setFiltered_genres] = useState<string[]>([])
+
+    let all_genres = ['Rock', 'Metal', 'Stoner']
+
 
     useEffect(() => {
         axios
@@ -41,6 +46,7 @@ export default function Discover() {
 
     const color = useContext<any>(Colors)
     // console.warn(color)
+    console.warn(filtered_genres)
 
     let tabs: any = [
         { label: 'Everything', color: 'black' },
@@ -71,9 +77,23 @@ export default function Discover() {
             .filter((data: any) =>
                 SearchValidation(data?.artistic_nickname, search) || SearchValidation(data?.title, search)
             )
+            // .filter((data:any) =>
+            //     data
+            // )
 
-    // console.warn('filteredData', filteredData)
-  
+            console.warn(data)
+
+
+    const handleCheckBox = (event: any) => {
+        const { value, checked } = event.target;
+       
+        setFiltered_genres((prevCategories: any) =>
+            checked
+                ? [...prevCategories, value]
+                : prevCategories.filter((allGroups: any) => allGroups !== value)
+        );
+
+    };
 
     return (
         <div className={CSS.container}>
@@ -81,9 +101,25 @@ export default function Discover() {
             <section className={CSS.filters}>
 
                 <h3>Περιοχή</h3>
-        
+                <ul style={{ 'display': 'flex', 'flexDirection': 'column', 'alignItems': 'center' }}>
 
-            </section>
+
+                    {all_genres.map((genre: string) => (
+                        <div key={genre}>
+                            <label htmlFor={genre}>{genre}</label>
+                            <input
+                                id={genre}
+                                type='checkbox'
+                                value={genre}
+                                onChange={handleCheckBox}
+                                checked={filtered_genres.includes(genre)}
+
+                            />
+                        </div>
+                    ))}
+                </ul>
+
+            </section >
 
 
 

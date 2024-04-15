@@ -14,9 +14,14 @@ from django.http import JsonResponse
 # /profiles/musicians/
 @api_view(["GET"])
 def all_musicians(request):
+
     musicians = Musician.objects.all()
     serializer = MusicianSerializer(musicians, many=True)
-    return Response(serializer.data)
+
+
+    return Response(serializer.data)  
+
+
 
 
 # /profiles/musicians/add/
@@ -58,7 +63,7 @@ def musician_by_id(request, id):
             "websiteLink": serializer.data["websiteLink"],
             "photo": serializer.data["photo"],
             "category": serializer.data["category"],
-            "user": serializer.data["user"],
+            "user_id": serializer.data["user"],
             "genres": array,
         }
     )
@@ -246,5 +251,3 @@ def mystats(request, id):
             return Response(serializer.data)
         else:
             return Response([{"message": "You don't have permissions"}])
-
-
