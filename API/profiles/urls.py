@@ -30,10 +30,12 @@ urlpatterns = [
     # Stages
     path("stages/", views.all_stages),
     path("stages/<int:id>/", views.stage_by_id),
-    # random
-    path("test/<int:id>", views.test),
+  
     path("cities/", views.cities),
 
-    path("stats/<str:id>/", views.mystats)
+
+
+
+    
 ]
 

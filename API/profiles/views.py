@@ -33,14 +33,35 @@ def add_musician(request):
 # /profiles/musician/:id
 @api_view(["GET"])
 def musician_by_id(request, id):
+
+    array = []
+
     try:
         musician = Musician.objects.get(pk=id)
     except Musician.DoesNotExist:
         return Response(["error", "not exist"])
 
-    if request.method == "GET":
-        serializer = MusicianSerializer(musician)
-        return Response(serializer.data)
+    serializer = MusicianSerializer(musician)
+
+    genres = MusicianGenre.objects.filter(musicianId_id=id)
+    genreSerializer = MusGenres(genres, many=True)
+
+    for genre in range(len(genreSerializer.data)):
+        array.append(genreSerializer.data[genre]["genreId"])
+
+    return Response(
+        {
+            "musicianId": serializer.data["musicianId"],
+            "artistic_nickname": serializer.data["artistic_nickname"],
+            "city": serializer.data["city"],
+            "bio": serializer.data["bio"],
+            "websiteLink": serializer.data["websiteLink"],
+            "photo": serializer.data["photo"],
+            "category": serializer.data["category"],
+            "user": serializer.data["user"],
+            "genres": array,
+        }
+    )
 
 
 # profiles/musician/patch/:id/
@@ -105,37 +126,6 @@ def genre_by_id(request, id):
     if request.method == "GET":
         serializer = GenreSerializer(genre)
         return Response(serializer.data)
-
-
-@api_view(["GET"])
-def test(request, id):
-
-    try:
-        musicianId = MusicianGenre.objects.get(pk=musicianId)
-    except MusicianGenre.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    test = MusicianGenre.objects.all()
-    # serializer = MusGenres(test)
-    serializer = MusGenres(test, many=True)
-
-    try:
-        musician = MusicianGenre.objects.get(musicianId=id)
-    except Profile.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == "GET":
-        serializer = MusicianSerializer(musician)
-        return Response(serializer.data)
-
-    # return Response(
-
-    #     [serializer.data[0]['musicianId']] +
-    #     [serializer.data[1]['musicianId']]
-
-    #     )
-
-    return Response(serializer.data)
 
 
 @api_view(["GET"])
@@ -238,6 +228,7 @@ def stage_by_id(request, id):
         return Response(serializer.data)
 
 
+@api_view(["GET"])
 def mystats(request, id):
 
     user = request.user
@@ -248,3 +239,12 @@ def mystats(request, id):
         return JsonResponse({"message": "Musician not found"})
 
     serializer = MusicianSerializer(musician, data=request.data, partial=True)
+
+    if serializer.is_valid():
+
+        if user.id == serializer.data["user"]:
+            return Response(serializer.data)
+        else:
+            return Response([{"message": "You don't have permissions"}])
+
+
