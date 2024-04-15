@@ -47,7 +47,7 @@ def musician_by_id(request, id):
     genreSerializer = MusGenres(genres, many=True)
 
     for genre in range(len(genreSerializer.data)):
-        array.append(genreSerializer.data[genre]["genreId"])
+        array.append(genreSerializer.data[genre]["genreName"])
 
     return Response(
         {
