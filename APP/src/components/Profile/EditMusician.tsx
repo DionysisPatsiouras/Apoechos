@@ -1,8 +1,7 @@
 import { useForm } from 'react-hook-form'
 import CSS from '../../css/Profile/EditMusician.module.sass'
 import FormError from '../../utils/FormError'
-import axios from 'axios'
-import { config } from '../../utils/Token'
+
 import Call from '../../utils/Call'
 import { Routes } from '../../utils/Routes'
 
