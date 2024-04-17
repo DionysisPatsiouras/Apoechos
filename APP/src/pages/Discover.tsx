@@ -1,16 +1,16 @@
 import CSS from '../css/Discover/Discover.module.css'
-import axios from 'axios'
-
 import { useState, useContext, useEffect } from 'react'
 import { Colors } from '../App'
-import SearchValidation from '../utils/SearchValidation'
 
 // components
 import Tab from '../components/Discover/Tab'
 import SvgIcon from '../components/SvgIcon'
 import Card from '../components/Discover/Card'
-import { config } from '../utils/Token'
 
+// utils
+import Call from '../utils/Call'
+import { Routes } from '../utils/Routes'
+import SearchValidation from '../utils/SearchValidation'
 
 export default function Discover() {
 
@@ -25,28 +25,34 @@ export default function Discover() {
 
     const [filtered_genres, setFiltered_genres] = useState<string[]>([])
 
+    const musicians = new Call(Routes.profiles.everything, 'GET')
+
     let all_genres = ['Rock', 'Metal', 'Stoner']
 
 
     useEffect(() => {
-        axios
-            .get(`http://localhost:8000/profiles/everything/`, config)
+
+
+
+        musicians
+            .GET()
             .then((res) => {
-                // console.log(res.data[0]);
-                setData(res.data);
+                console.log(res)
+                setData(res[0]);
                 setSelected(
-                    activeTab === 'Musicians' ? res.data[0]?.musicians :
-                        activeTab === 'Music Studio' ? res.data[0]?.studios :
-                            res.data[0].everything
+                    activeTab === 'Musicians' ? res[0]?.musicians :
+                        activeTab === 'Music Studio' ? res[0]?.studios :
+                            res[0].everything
                 )
             })
             .catch((err) => console.warn(err))
+
 
     }, [activeTab])
 
     const color = useContext<any>(Colors)
     // console.warn(color)
-    console.warn(filtered_genres)
+    // console.warn(filtered_genres)
 
     let tabs: any = [
         { label: 'Everything', color: 'black' },
@@ -77,16 +83,12 @@ export default function Discover() {
             .filter((data: any) =>
                 SearchValidation(data?.artistic_nickname, search) || SearchValidation(data?.title, search)
             )
-            // .filter((data:any) =>
-            //     data
-            // )
 
-            console.warn(data)
 
 
     const handleCheckBox = (event: any) => {
         const { value, checked } = event.target;
-       
+
         setFiltered_genres((prevCategories: any) =>
             checked
                 ? [...prevCategories, value]

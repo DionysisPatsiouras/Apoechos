@@ -3,6 +3,8 @@ import CSS from '../../css/Profile/EditMusician.module.sass'
 import FormError from '../../utils/FormError'
 import axios from 'axios'
 import { config } from '../../utils/Token'
+import Call from '../../utils/Call'
+import { Routes } from '../../utils/Routes'
 
 export default function EditMusician(props: any) {
 
@@ -11,17 +13,20 @@ export default function EditMusician(props: any) {
     const { register, handleSubmit, formState, watch } = form
     const { errors } = formState
 
-    const updateProfile = (data: any) => {
-        // console.log(data)
 
-        axios
-            .patch(`http://127.0.0.1:8000/profiles/musician/patch/${props?.data?.musicianId}/`, data, config)
-            .then((res) => {
-                // console.log('res', res);
+
+    const updateProfile = (data: any) => {
+
+        const patchMusician = new Call(Routes.musician.patch(props?.data?.musicianId), 'PATCH', data)
+
+        patchMusician
+            .PATCH()
+            .then(() => {
                 props?.updateDOM();
                 props?.editMode()
             })
-            .catch((err) => console.warn('err', err))
+            .catch((err) => console.warn(err))
+
 
     }
 
@@ -31,7 +36,7 @@ export default function EditMusician(props: any) {
 
         <form onSubmit={handleSubmit(updateProfile)} className={CSS.edit_form}>
             <input
-                
+
                 defaultValue={props?.data?.artistic_nickname}
                 {...register('artistic_nickname', {
                     required: 'Υποχρεωτικό πεδίο'
@@ -41,7 +46,7 @@ export default function EditMusician(props: any) {
 
 
             <textarea
-               
+
                 defaultValue={props?.data?.bio}
                 {...register('bio')}
             />

@@ -10,7 +10,8 @@ import { email_regex } from '../utils/Regex'
 import FormError from '../utils/FormError'
 
 
-
+import { Routes } from '../utils/Routes'
+import Call from '../utils/Call'
 
 export default function Register() {
 
@@ -24,23 +25,25 @@ export default function Register() {
 
 
     const onSubmit = (data: any) => {
-        console.log('Form submitted', data)
-        axios
-            .post('http://127.0.0.1:8000/user/register/', {
-                email: data.email,
-                password: data.password
-            })
-            .then((response) => {
-                console.log(response)
+
+        const registerUser = new Call(Routes.auth.register, 'POST', data)
+
+        registerUser
+            .POST()
+            .then((res) => {
+                // console.log(res)
                 setAccountCreated(true)
                 setTimeout(() => {
-                    navigate("/login");
+                    navigate('/login');
                 }, 1500)
             })
-            .catch((error) => {
-                console.log(error)
-                setEmailInUse(error.response.data.email)
+            .catch((err) => {
+                console.log(err)
+                setEmailInUse(err.response.data.email)
             })
+
+        console.log('Form submitted', data)
+
     }
 
 
