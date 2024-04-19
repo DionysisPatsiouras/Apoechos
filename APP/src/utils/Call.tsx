@@ -39,7 +39,7 @@ export default class Call {
 
 
     public POST = async () => {
-        return await axios(this.post_config)
+        return await axios(this.config)
             .then(function (response) {
                 return response.data
             })

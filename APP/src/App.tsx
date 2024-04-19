@@ -11,6 +11,8 @@ import Register from '../src/pages/Register'
 import Account from './pages/Account'
 import Create from './pages/Create'
 import CreateMusician from './pages/CreateMusician'
+import CreateStudio from './pages/CreateStudio'
+
 // context
 import { AuthProvider } from "./context/AuthContext"
 import { UserProvider } from './context/UserContext'
@@ -18,11 +20,12 @@ import Discover from './pages/Discover'
 import Profile from './pages/Profile'
 
 
+
 // utils
 import PrivateRoutes from './utils/PrivateRoutes'
 
 export const WindowSize = createContext(null)
-export const Colors:any = createContext(null)
+export const Colors: any = createContext(null)
 
 export default function App() {
 
@@ -61,11 +64,12 @@ export default function App() {
                 <Route path="/register" element={<Register />} />
                 <Route path="/discover" element={<Discover />} />
                 <Route path='/profile/:category/:id/' element={<Profile />} />
-            
+
                 <Route element={<PrivateRoutes />} >
                   <Route path='/account' element={<Account />} />
                   <Route path='/create' element={<Create />} />
                   <Route path='/create/musician' element={<CreateMusician />} />
+                  <Route path='/create/studio' element={<CreateStudio />} />
                 </Route>
 
 

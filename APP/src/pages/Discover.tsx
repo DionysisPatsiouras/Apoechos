@@ -25,16 +25,14 @@ export default function Discover() {
 
     const [filtered_genres, setFiltered_genres] = useState<string[]>([])
 
-    const musicians = new Call(Routes.profiles.everything, 'GET')
+    const everything = new Call(Routes.profiles.everything, 'GET')
 
     let all_genres = ['Rock', 'Metal', 'Stoner']
 
 
     useEffect(() => {
 
-
-
-        musicians
+        everything
             .GET()
             .then((res) => {
                 console.log(res)

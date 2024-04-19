@@ -14,7 +14,12 @@ export const Routes = {
 
     musician: {
         id: (musician_id: string) =>`${url}/profiles/musician/${musician_id}`,
+        post: `${url}/profiles/musicians/add/`,
         patch: (musician_id: string) =>`${url}/profiles/musician/patch/${musician_id}/`,
+    },
+
+    studio: {
+        post: `${url}/profiles/studios/add/`,
     }
 
 
