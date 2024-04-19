@@ -152,6 +152,37 @@ def studio_by_id(request, id):
         }
     )
 
+# profiles/studios/patch/:id/
+@api_view(["PATCH"])
+@permission_classes([IsAuthenticated])
+def updateStudio(request, id):
+    user = request.user
+
+    try:
+        studio = Studio.objects.get(pk=id)
+    except Studio.DoesNotExist:
+        return JsonResponse({"message": "Studio not found"})
+
+    serializer = StudioSerializer(studio, data=request.data, partial=True)
+
+    if serializer.is_valid():
+        if user.id == studio.user_id:
+            serializer.save()
+            return Response(
+                {
+                    "message": "ok",
+                    "status": 200,
+                    "message": "Updated Successfully!",
+                    "updated entities": request.data,
+                }
+            )
+        else:
+            return Response(
+                {
+                    "message": "You don't have permission",
+                }
+            )
+
 
 # POST NEW GENRE
 @api_view(["POST"])

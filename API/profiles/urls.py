@@ -32,6 +32,7 @@ urlpatterns = [
     path("studios/", views.all_studios),
     path("studios/add/", views.add_studio),
     path("studios/<str:id>/", views.studio_by_id),
+    path("studios/patch/<str:id>/", views.updateStudio),
     # cities
     path("cities/", views.cities),
 ]
