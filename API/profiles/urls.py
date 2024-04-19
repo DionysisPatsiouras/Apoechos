@@ -15,27 +15,23 @@ from rest_framework.routers import DefaultRouter
 # router.register("studio", StudioViewset)
 
 urlpatterns = [
-    # path("", include(router.urls)),
+
     path("everything/", views.all_profiles),
     # MUSICIAN
     path("musicians/", views.all_musicians),
     path("musicians/add/", views.add_musician),
     path("musician/<str:id>/", views.musician_by_id),
     path("musician/patch/<str:id>/", views.updateMusician),
-    
-    # path("musicians/patch/", views.updateMusician),
     # Stores
     path("stores/", views.all_stores),
     path("stores/<str:id>/", views.store_by_id),
     # Stages
     path("stages/", views.all_stages),
     path("stages/<int:id>/", views.stage_by_id),
-  
+    # Studios
+    path("studios/", views.all_studios),
+    path("studios/add/", views.add_studio),
+    path("studios/<str:id>/", views.studio_by_id),
+    # cities
     path("cities/", views.cities),
-
-
-
-
-    
 ]
-

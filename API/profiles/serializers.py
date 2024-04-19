@@ -30,6 +30,7 @@ class MusicianSerializer(serializers.ModelSerializer):
 
     # genres = GenreSerializer()
 
+
     class Meta:
         model = Musician
         # choose which data will be includes in the API

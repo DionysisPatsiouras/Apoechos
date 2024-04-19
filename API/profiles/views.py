@@ -18,10 +18,7 @@ def all_musicians(request):
     musicians = Musician.objects.all()
     serializer = MusicianSerializer(musicians, many=True)
 
-
-    return Response(serializer.data)  
-
-
+    return Response(serializer.data)
 
 
 # /profiles/musicians/add/
@@ -30,7 +27,7 @@ def add_musician(request):
     serializer = MusicianSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
-        return Response(serializer.data)
+        return Response({"message": "Created", "status": 201, "data": serializer.data})
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -99,6 +96,61 @@ def updateMusician(request, id):
                     "message": "You don't have permission",
                 }
             )
+
+
+# /profiles/studios/
+@api_view(["GET"])
+def all_studios(request):
+
+    studios = Studio.objects.all()
+    serializer = StudioSerializer(studios, many=True)
+
+    return Response(serializer.data)
+
+
+# /profiles/studios/add/
+@api_view(["POST"])
+def add_studio(request):
+    serializer = StudioSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"message": "Created", "status": 201, "data": serializer.data})
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# /profiles/studios/:id
+@api_view(["GET"])
+def studio_by_id(request, id):
+
+    # array = []
+
+    try:
+        studio = Studio.objects.get(pk=id)
+    except Musician.DoesNotExist:
+        return Response(["error", "not exist"])
+
+    serializer = StudioSerializer(studio)
+
+    # genres = MusicianGenre.objects.filter(musicianId_id=id)
+    # genreSerializer = MusGenres(genres, many=True)
+
+    # for genre in range(len(genreSerializer.data)):
+    #     array.append(genreSerializer.data[genre]["genreName"])
+
+    return Response(
+        {
+            "studioId": serializer.data["studioId"],
+            "title": serializer.data["title"],
+            "city": serializer.data["city"],
+            "address": serializer.data["address"],
+            # "websiteLink": serializer.data["websiteLink"],
+            "photo": serializer.data["photo"],
+            "category": serializer.data["category"],
+            "user_id": serializer.data["user"],
+            # "genres": array,
+        }
+    )
 
 
 # POST NEW GENRE
