@@ -14,7 +14,7 @@ import SearchValidation from '../utils/SearchValidation'
 
 export default function Discover() {
 
-    const [data, setData] = useState<any>([])
+    // const [data, setData] = useState<any>([])
     const [search, setSearch] = useState<string>('')
 
 
@@ -22,7 +22,7 @@ export default function Discover() {
     const [all, setAll] = useState<any>([])
     const [allMusicians, setAllMusicians] = useState<any>([])
     const [allStudios, setAllStudios] = useState<any>([])
-    const [updateDOM, setUpdateDOM] = useState<boolean>(false)
+   
 
     const [activeTab, setActiveTab] = useState('Everything')
     const [onHover, setOnHover] = useState('')
@@ -39,28 +39,21 @@ export default function Discover() {
         everything
             .GET()
             .then((res) => {
-                console.log(res)
-                setData(res[0]);
+                // console.log(res)
+                // setData(res[0]);
                 setSelected(res[0].everything)
                 setAll(res[0].everything)
                 setAllMusicians(res[0].musicians)
                 setAllStudios(res[0].studios)
-                // setSelected(
-                //     activeTab === 'Musicians' ? res[0]?.musicians :
-                //         activeTab === 'Music Studio' ? res[0]?.studios :
-                //             res[0].everything
-                // )
+    
             })
             .catch((err) => console.warn(err))
 
 
-    }, [updateDOM])
+    }, [])
 
     const color = useContext<any>(Colors)
-    // console.warn(color)
-    // console.warn(filtered_genres)
-    // console.log(allStudios)
-    console.warn('selected', selected)
+    
 
     let tabs: any = [
         { label: 'Everything', color: 'black', action: () => { setSelected(all); setActiveTab('Everything') } },
