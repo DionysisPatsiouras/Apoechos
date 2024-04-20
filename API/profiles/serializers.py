@@ -26,27 +26,43 @@ class MusGenres(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class SongSerializer(serializers.ModelSerializer):
+    class Meta:
+      model = Song
+      fields = ('id', 'name')
+
 class MusicianSerializer(serializers.ModelSerializer):
 
-    # genres = GenreSerializer()
-
+    songs = SongSerializer(many=True)
 
     class Meta:
         model = Musician
-        # choose which data will be includes in the API
-        fields = "__all__"
+        # fields = "__all__"
+        fields = ('musicianId', 'bio', 'artistic_nickname', 'city', 'photo', 'websiteLink', 'category', 'user', 'songs')
+
         # exclude = ('user', )
         # fields = ['artistic_nickname', 'city' ]
 
-    # # create nested object
-    # def create(self, validated_data):
-    #     genres = validated_data.pop('genres')
-    #     musician_instance = Musician.objects.create(**validated_data)
-    #     for genre in genres:
-    #         Genre.objects.create(user=musician_instance,**genre)
-    #     return musician_instance
 
 
+class InstrumentsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Instrument
+        fields = "__all__"
+
+class MusicianInstrumentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MusicianInstrument
+        fields = "__all__"
+
+class TestSerializer(serializers.ModelSerializer):
+
+    musician = InstrumentsSerializer()
+
+    class Meta:
+        model = Musician
+        # fields = "__all__"
+        fields = ('musicianId', 'bio', 'musician')
 
 
 

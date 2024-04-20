@@ -83,6 +83,7 @@ export default function CreateStudio() {
     }, [])
 
 
+    let services = ['Πρόβες', 'Ηχογράφηση', 'Mix', 'Mastering', 'Με πλήρες εξοπλισμό', 'Live ηχογράφηση']
 
 
 
@@ -95,7 +96,7 @@ export default function CreateStudio() {
                 ok!
             </Confirmation>
 
-            {userData?.musicianId !== null && <Navigate to='/create' />}
+            {/* {userData?.musicianId !== null && <Navigate to='/create' />} */}
 
 
             <div className='container' style={{ 'display': profileCreated ? 'none' : 'block' }}>
@@ -150,15 +151,16 @@ export default function CreateStudio() {
 
 
                     <hr className='divider'></hr>
-                    <h2>Είδη</h2>
+                    <h2>Υπηρεσίες</h2>
                     <ul className={CSS.genre_list}>
-                        {genres
-                            .map((genre: any) => (
-                                <div className={CSS.checkbox} key={genre?.id}>
-                                    <input type='checkbox' id={genre?.id} />
-                                    <label htmlFor={genre?.id}>{genre?.genre}</label>
+                        {services
+                            .map((service: any) => (
+                                <div className={CSS.checkbox} key={service}>
+                                    <input type='checkbox' id={service} />
+                                    <label htmlFor={service}>{service}</label>
                                 </div>
                             ))}
+
 
                     </ul>
 

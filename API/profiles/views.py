@@ -51,19 +51,20 @@ def musician_by_id(request, id):
     for genre in range(len(genreSerializer.data)):
         array.append(genreSerializer.data[genre]["genreName"])
 
-    return Response(
-        {
-            "musicianId": serializer.data["musicianId"],
-            "artistic_nickname": serializer.data["artistic_nickname"],
-            "city": serializer.data["city"],
-            "bio": serializer.data["bio"],
-            "websiteLink": serializer.data["websiteLink"],
-            "photo": serializer.data["photo"],
-            "category": serializer.data["category"],
-            "user_id": serializer.data["user"],
-            "genres": array,
-        }
-    )
+    return Response(serializer.data)
+    # return Response(
+    #     {
+    #         "musicianId": serializer.data["musicianId"],
+    #         "artistic_nickname": serializer.data["artistic_nickname"],
+    #         "city": serializer.data["city"],
+    #         "bio": serializer.data["bio"],
+    #         "websiteLink": serializer.data["websiteLink"],
+    #         "photo": serializer.data["photo"],
+    #         "category": serializer.data["category"],
+    #         "user_id": serializer.data["user"],
+    #         "genres": array,
+    #     }
+    # )
 
 
 # profiles/musician/patch/:id/
@@ -334,3 +335,5 @@ def mystats(request, id):
             return Response(serializer.data)
         else:
             return Response([{"message": "You don't have permissions"}])
+
+

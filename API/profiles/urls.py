@@ -1,18 +1,9 @@
 from django.contrib import admin
 from django.urls import path
 from profiles import views
-
 from django.urls import path, include
-
-# from profiles.views import MusicianViewset, StudioViewset
-# from profiles.views import MusicianViewset
 from rest_framework.routers import DefaultRouter
 
-
-# http://127.0.0.1:8000/profiles/musician/1
-# router = DefaultRouter()
-# router.register("musician", MusicianViewset)
-# router.register("studio", StudioViewset)
 
 urlpatterns = [
 
@@ -31,8 +22,9 @@ urlpatterns = [
     # Studios
     path("studios/", views.all_studios),
     path("studios/add/", views.add_studio),
-    path("studios/<str:id>/", views.studio_by_id),
-    path("studios/patch/<str:id>/", views.updateStudio),
+    path("studio/<str:id>/", views.studio_by_id),
+    path("studio/patch/<str:id>/", views.updateStudio),
     # cities
     path("cities/", views.cities),
+
 ]

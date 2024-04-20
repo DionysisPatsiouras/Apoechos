@@ -40,16 +40,16 @@ export default function CreateMusician() {
             musicianId: id
         }
 
-        axios
-            .patch('http://127.0.0.1:8000/user/patch/', data, {
-                headers: { Authorization: `Bearer ${token}` }
-            })
-            .then((response) => { setLoading(false); console.log(response) })
+        let updateUser = new Call(Routes.user.patch, 'PATCH', data)
+
+        updateUser
+            .PATCH()
+            .then((res) => console.log(res))
             .catch((error) => { console.log(error) })
 
     }
 
-    const onSubmit = (data: any) => {
+    const onSubmit = async (data: any) => {
         console.log(data)
         const finalData = {
             ...data,
@@ -57,36 +57,20 @@ export default function CreateMusician() {
         }
         const addMusician = new Call(Routes.musician.post, 'POST', finalData)
 
-
-
-        // axios
-        //     .post('http://127.0.0.1:8000/profiles/musicians/add/', finalData, {
-        //         headers: { Authorization: `Bearer ${token}` }
-        //     })
-        //     .then((response) => {
-        //         console.log(response)
-        //         patchMusicianId(response?.data?.musicianId)
-        //         setProfileCreated(true)
-
-        //     })
-        //     .catch((error) => { console.log(error) })
-        // console.warn(finalData)
-
+    
         // must create async function here to catch the 'loading' variable
+
         addMusician
             .POST()
             .then((res) => {
-                // console.log(res)
+                console.log(res)
                 patchMusicianId(res?.data?.musicianId)
                 setLoading(false)
                 setProfileCreated(true)
 
 
             })
-            .catch((err) => {
-                console.log(err)
-
-            })
+            .catch((err) => { console.warn(err) })
 
     }
 

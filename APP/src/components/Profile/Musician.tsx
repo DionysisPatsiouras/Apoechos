@@ -5,6 +5,7 @@ import Modal from '../Modal'
 import EditMusician from './EditMusician'
 import { Routes } from '../../utils/Routes'
 import Call from '../../utils/Call'
+import Activity from './Activity'
 
 export default function Musician() {
 
@@ -38,10 +39,7 @@ export default function Musician() {
         <div className={CSS.container}>
 
             <Modal open={modal} close={() => setModal(false)}>
-                <img
-                    src={`http://127.0.0.1:8000/${musician?.photo}`}
-                />
-
+                <img src={`http://127.0.0.1:8000/${musician?.photo}`} />
 
             </Modal>
 
@@ -69,13 +67,8 @@ export default function Musician() {
 
 
             <hr></hr>
-            <section className={CSS.activity}>
-                activity
-                {musician?.genres?.map((genre: string) => (
-                    <div key={genre}>{genre}</div>
-                ))}
-            </section>
-
+      
+            <Activity />
 
 
         </div>

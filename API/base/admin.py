@@ -12,5 +12,9 @@ admin.site.register(Store)
 admin.site.register(Stage)
 
 
+
 admin.site.register(Genre)
 admin.site.register(City)
+admin.site.register(Instrument)
+admin.site.register(MusicianInstrument)
+admin.site.register(Song)
