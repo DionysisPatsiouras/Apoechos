@@ -14,7 +14,10 @@ export default function Profile() {
     useEffect(() => {
         axios
             .get('http://localhost:8000/profiles/' + url, config)
-            .then((res) => {setData(res?.data); console.log(res)})
+            .then((res) => {
+                setData(res?.data);
+                // console.log(res)
+            })
             .catch((err) => console.warn(err))
 
     }, [])
@@ -33,7 +36,7 @@ export default function Profile() {
     }
 
 
-    console.log(data)
+    // console.log(data)
 
 
     return (

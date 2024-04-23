@@ -2,14 +2,9 @@ import { useContext, useState } from 'react'
 import { Navigate, Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import AuthContext from '../context/AuthContext'
-import axios from 'axios'
-
 import CSS from '../css/Login/Login.module.css'
-
 import { email_regex } from '../utils/Regex'
 import FormError from '../utils/FormError'
-
-
 import { Routes } from '../utils/Routes'
 import Call from '../utils/Call'
 

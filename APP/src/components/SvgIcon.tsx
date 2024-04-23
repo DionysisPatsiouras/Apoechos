@@ -6,7 +6,7 @@
 
 // burger, close, account, notifications, messages, logout
 // musician, studio, band, stage, store, upload-image, add
-// search
+// search, location, add_person, new_release
 // keys, strings, vocals, woodwind, percussion
 
 
@@ -19,6 +19,38 @@ export default function SvgIcon(props: any) {
 
         <>
 
+
+            {props.id === 'new_release' &&
+
+                <svg
+                    width={props?.width || '24'}
+                    height={props?.height || '24'}
+                    viewBox="0 -960 960 960"
+                >
+                    <path fill={props?.color || color} d="M400-240q50 0 85-35t35-85v-280h120v-80H460v256q-14-8-29-12t-31-4q-50 0-85 35t-35 85q0 50 35 85t85 35Zm80 160q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z" />
+                </svg>
+            }
+
+            {props?.id === 'add_person' &&
+
+                <svg
+                    width={props?.width || '22'}
+                    height={props?.height || '22'}
+                    viewBox="0 -960 960 960">
+                    <path fill={props?.color || color} d="M720-400v-120H600v-80h120v-120h80v120h120v80H800v120h-80Zm-360-80q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Z" />
+                </svg>
+
+            }
+
+            {props?.id === 'location' &&
+                <svg
+                    width={props?.width || '24'}
+                    height={props?.height || '24'}
+                    viewBox="0 -960 960 960"
+                >
+                    <path fill={props?.color || color} d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 400Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Z" />
+                </svg>
+            }
 
             {props?.id === 'percussion' &&
 

@@ -1,6 +1,15 @@
-export default function Activity() {
+import NewPost from "./NewPost"
 
+export default function Activity(props: any) {
+
+    // console.warn(props)
     return (
-        <section>activity component</section>
+        <section>
+
+            {props?.canEdit && <NewPost />}
+
+           
+
+        </section>
     )
 }
