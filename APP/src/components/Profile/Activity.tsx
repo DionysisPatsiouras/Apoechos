@@ -8,7 +8,7 @@ export default function Activity(props: any) {
 
             {props?.canEdit && <NewPost />}
 
-           
+            <h3>Προηγούμενες δημοσίευσεις</h3>
 
         </section>
     )
