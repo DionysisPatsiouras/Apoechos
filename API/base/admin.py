@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from profiles.models import *
 from genre.models import Genre
+from posts.models import *
 
 
 
@@ -18,3 +19,4 @@ admin.site.register(City)
 admin.site.register(Instrument)
 admin.site.register(MusicianInstrument)
 admin.site.register(Song)
+admin.site.register(Post)

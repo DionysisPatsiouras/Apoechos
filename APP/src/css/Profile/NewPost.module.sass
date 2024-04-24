@@ -20,7 +20,7 @@
 
 
 textarea
-    width: 500px
+    width: 100%
     resize: none
     height: 120px
     padding: 19px
@@ -31,9 +31,9 @@ textarea
 .bottom_section
     display: flex
     align-items: center
-    width: 537px
+    width: 100%
     justify-content: space-between
-    margin: -55px 0 0 0
+    margin: 20px 0 0 0
 
     p
         margin:0 0 0 20px
@@ -49,3 +49,13 @@ textarea
 h3
     font-size: 15px
     font-weight: 400
+
+
+@media screen and ( min-width: 768px )
+
+    textarea
+        width: 500px
+
+    .bottom_section
+        width: 537px
+        margin: -55px 0 0 0
