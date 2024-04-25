@@ -1,6 +1,9 @@
 from django.db import models
 import datetime 
 import random
+from django.utils import timezone
+
+
 def generate_pk():
     day = datetime.datetime.now().day
     minute = datetime.datetime.now().minute
@@ -20,17 +23,13 @@ class Post(models.Model):
         default=generate_pk, primary_key=True, max_length=255, unique=True
     )
 
-    # profile_id = models.ForeignKey(
-    #      related_name="profileId", on_delete=models.CASCADE
-    # )
-
     profile_id = models.CharField(max_length=150, blank=False)
 
     body = models.CharField(max_length=150, blank=False)
     category = models.CharField(max_length=40, blank=False)
-    created_at = models.DateTimeField()
-    updated_at = models.DateTimeField()
-    deleted_at = models.DateTimeField()
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(blank=True, null=True)
+    deleted_at = models.DateTimeField(blank=True, null=True)
     is_deleted = models.BooleanField(default=False)
     is_pinned = models.BooleanField(default=False)
 

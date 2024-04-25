@@ -6,11 +6,7 @@ from django.urls import path, include
 
 
 urlpatterns = [
-
-    # path("everything/", views.all_profiles),
-    # MUSICIAN
-
-    path("all/", views.all_posts)
-
-
+    path('all_posts/', views.all_posts),
+    path('add/', views.add_post),
+    path('<str:id>/', views.post_by_id)
 ]
