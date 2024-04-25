@@ -3,6 +3,7 @@ import Call from "../../utils/Call"
 import { Routes } from "../../utils/Routes"
 import { useEffect, useState } from "react"
 import CSS from '../../css/Post/Post.module.css'
+import SvgIcon from "../SvgIcon"
 
 export default function Activity(props: any) {
 
@@ -25,8 +26,12 @@ export default function Activity(props: any) {
         <section>
 
             {props?.canEdit && <NewPost />}
+            <br></br>
+            <br></br>
 
             <h3>Προηγούμενες δημοσίευσεις</h3>
+            <br></br>
+
             {
                 posts && posts.map((post: any, index: number) => (
                     <section key={index} className={CSS.post_card}>
@@ -34,15 +39,18 @@ export default function Activity(props: any) {
                             <img src={`http://127.0.0.1:8000/${props?.profile?.photo}`} width={100} />
                             <div className={CSS.content}>
                                 <h3>{props?.profile?.artistic_nickname}</h3>
-                                <p className={CSS.category}>{post?.category}</p>
-                                <p>{post?.body}</p>
+                                <p className={CSS.category}>{`"${post?.category}"`}</p>
+                                <p className={CSS.body}>{post?.body}</p>
+                                <p className={CSS.date}>{post?.created_at}</p>
                             </div>
-
+                            {props?.canEdit &&
+                                <SvgIcon id={'expand'} />
+                            }
 
                         </div>
 
 
-                        
+
                     </section>
                 ))
             }
