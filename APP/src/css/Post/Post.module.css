@@ -1,0 +1,29 @@
+.post_card {
+  background-color: #ffffff;
+  padding: 19px;
+  border: none;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1px 2px 11px;
+  margin: 0 0 15px 0;
+}
+.post_card img {
+  border-radius: 200px;
+  width: 80px;
+  height: 80px;
+}
+.post_card h3 {
+  color: #5F69C6;
+  font-size: 20px;
+}
+
+.content {
+  padding: 0 0 0 10px;
+}
+
+.category {
+  color: #848484;
+}
+
+.top {
+  display: flex;
+}/*# sourceMappingURL=Post.module.css.map */

@@ -25,6 +25,10 @@ export const Routes = {
     studio: {
         id: (studio_id: string) => `${url}/profiles/studio/${studio_id}`,
         post: `${url}/profiles/studios/add/`,
+    },
+
+    posts: {
+        profile_id : (profile_id:string) => `${url}/posts/${profile_id}`,
     }
 
 

@@ -80,8 +80,8 @@ export default function Musician() {
 
 
             <hr></hr>
-
-            <Activity canEdit={musician.user === user?.user_id ? true : false} />
+                
+            <Activity canEdit={musician.user === user?.user_id ? true : false} profile={musician}/>
 
 
         </div>
