@@ -64,6 +64,7 @@ export default function App() {
                 <Route path="/register" element={<Register />} />
                 <Route path="/discover" element={<Discover />} />
                 <Route path='/profile/:category/:id/' element={<Profile />} />
+                <Route path='/profile/:id/' element={<Profile />} />
 
                 <Route element={<PrivateRoutes />} >
                   <Route path='/account' element={<Account />} />

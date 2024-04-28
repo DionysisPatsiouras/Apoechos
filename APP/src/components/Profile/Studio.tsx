@@ -6,47 +6,53 @@ import EditMusician from './EditMusician'
 import { Routes } from '../../utils/Routes'
 import Call from '../../utils/Call'
 import Activity from './Activity'
+import SvgIcon from '../SvgIcon'
 
-export default function Studio() {
+export default function Musician() {
 
     let { user }: any = useContext(AuthContext)
 
     const [modal, setModal] = useState<boolean>(false)
     const [editMode, setEditMode] = useState<boolean>(false)
-    const [studio, setStudio] = useState<any>([])
+    const [musician, setMusician] = useState<any>([])
     const [updateDOM, setUpdateDOM] = useState<boolean>(false)
 
 
+    
 
     let getId = window.location.pathname.replace('/profile/studio/', '')
-    const studio_by_id = new Call(Routes.studio.id(getId), 'GET')
+    
+    const musician_by_id = new Call(Routes.studio.id(getId), 'GET')
 
     useEffect(() => {
 
-        studio_by_id
+        musician_by_id
             .GET()
-            .then((res) => { setStudio(res); console.warn(res) })
+            .then((res) => {setMusician(res); console.log(res)})
             .catch((err) => console.warn(err))
 
     }, [updateDOM])
 
 
 
-    console.warn(studio)
+    // console.warn(musician)
     // console.log('user', user)
 
     return (
         <div className={CSS.container}>
 
-            <Modal open={modal} close={() => setModal(false)}>
-                <img src={`http://127.0.0.1:8000/${studio?.photo}`} />
+            <Modal open={modal} close={() => setModal(false)} closeButton={true}>
+                <img src={`http://127.0.0.1:8000/${musician?.photo}`} />
+            </Modal>
 
+            <Modal open={editMode} close={() => setModal(false)}>
+                <EditMusician data={musician} close={() => { setEditMode(false); setModal(false); setUpdateDOM(!updateDOM) }} />
             </Modal>
 
             <section className={CSS.personal_info}>
-                <img src={`http://127.0.0.1:8000/${studio?.photo}`} width={150} height={150} onClick={() => setModal(!modal)} />
+                <img src={`http://127.0.0.1:8000/${musician?.photo}`} width={150} height={150} onClick={() => setModal(!modal)} />
 
-                {user?.user_id === studio?.user_id && !editMode &&
+                {user?.user_id === musician?.user && !editMode &&
                     <button
                         className={CSS.edit_btn}
                         onClick={() => setEditMode(!editMode)}>
@@ -54,21 +60,35 @@ export default function Studio() {
                     </button>}
 
 
-                {editMode ?
-                    <EditMusician data={studio} editMode={() => setEditMode(false)} updateDOM={() => setUpdateDOM(!updateDOM)} />
-                    :
-                    <div className={CSS.info}>
-                        <strong> {studio?.title}</strong>
-                        <p className={CSS.bio}>{studio?.city}<br></br> {studio?.address}</p>
-                        {/* {user?.user_id === musician?.user && <button onClick={() => setEditMode(!editMode)}>Επεξεργασία</button>} */}
-                    </div>
-                }
+
+                <div className={CSS.info}>
+                    <strong> {musician?.artistic_nickname}</strong>
+
+                    <ul className={CSS.characteristics}>
+                        <li><SvgIcon id='location' />{musician?.city}</li>
+
+                        <li>
+                            <SvgIcon id='location' />
+                            {musician?.songs?.map((song: any, index: number) => (
+                                <div key={index}>
+                                    <div>{`${song?.name},`} </div>
+
+                                </div>
+                            ))}
+                        </li>
+                    </ul>
+                    <p className={CSS.bio}>{musician?.bio}</p>
+                </div>
+
             </section>
 
 
             <hr></hr>
 
-            <Activity />
+            <Activity
+                canEdit={musician.user_id === user?.user_id ? true : false}
+                profile={musician} 
+                />
 
 
         </div>

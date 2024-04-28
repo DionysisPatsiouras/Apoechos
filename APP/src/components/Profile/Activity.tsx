@@ -66,6 +66,7 @@ export default function Activity(props: any) {
                                 {props?.canEdit &&
                                     <SvgIcon id={'expand'} width={20} height={20} />
                                 }
+                              
 
                             </div>
 

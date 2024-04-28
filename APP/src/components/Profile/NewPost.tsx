@@ -8,9 +8,7 @@ import { Routes } from '../../utils/Routes'
 
 
 
-interface FormInputs {
-    post: string
-}
+
 
 export default function NewPost(props: any) {
 
@@ -27,9 +25,9 @@ export default function NewPost(props: any) {
     let limit = 150
     const [post, setPost] = useState<string>('')
 
-    const form = useForm<FormInputs>()
+    const form = useForm()
     const { register, handleSubmit, formState, resetField } = form
-    const { errors } = formState
+    // const { errors } = formState
 
 
     const onSubmit = (data: any) => {
@@ -40,21 +38,25 @@ export default function NewPost(props: any) {
             body: post,
             profile_id: props?.profile_id
         }
-
+        // console.warn(finalData)
 
 
         const new_post = new Call(Routes.posts.add, 'POST', finalData)
 
         new_post
             .POST()
-            .then(() => { props?.updateDOM(); resetField('post'); setWordCount(0) })
+            .then(() => {
+                props?.updateDOM();
+                resetField('post');
+                setWordCount(0);
+                setPost('')
+            })
             .catch((err) => console.warn(err))
 
-        // console.warn(finalData)
+
 
     }
 
-    // console.log(props)
 
 
     return (
