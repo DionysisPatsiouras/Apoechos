@@ -3,7 +3,16 @@ import { useState, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import AuthContext from '../../context/AuthContext'
 import SvgIcon from '../SvgIcon'
-export default function NewPost() {
+import Call from '../../utils/Call'
+import { Routes } from '../../utils/Routes'
+
+
+
+interface FormInputs {
+    post: string
+}
+
+export default function NewPost(props: any) {
 
     const [wordCount, setWordCount] = useState<number>(0)
     let { user }: any = useContext(AuthContext)
@@ -18,22 +27,34 @@ export default function NewPost() {
     let limit = 150
     const [post, setPost] = useState<string>('')
 
-    const form = useForm()
-    const { register, handleSubmit, formState } = form
+    const form = useForm<FormInputs>()
+    const { register, handleSubmit, formState, resetField } = form
     const { errors } = formState
 
+
     const onSubmit = (data: any) => {
-        console.warn(data)
+
 
         const finalData = {
-            label: label,
+            category: label,
             body: post,
-            user: user?.user_id
+            profile_id: props?.profile_id
         }
 
-        console.warn(finalData)
+
+
+        const new_post = new Call(Routes.posts.add, 'POST', finalData)
+
+        new_post
+            .POST()
+            .then(() => { props?.updateDOM(); resetField('post'); setWordCount(0) })
+            .catch((err) => console.warn(err))
+
+        // console.warn(finalData)
 
     }
+
+    // console.log(props)
 
 
     return (
@@ -54,7 +75,7 @@ export default function NewPost() {
                                 backgroundColor: label === item.title ? '#5F69C6' : '#ffffff',
                                 color: label === item.title ? '#ffffff' : '#000000',
                             }}>
-                            <SvgIcon id={item?.icon} color={label === item.title ? '#ffffff' : '#000000'}  />
+                            <SvgIcon id={item?.icon} color={label === item.title ? '#ffffff' : '#000000'} />
                             {item.title}
 
                         </button>

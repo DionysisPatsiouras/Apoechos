@@ -18,6 +18,7 @@ export default function Musician() {
     const [updateDOM, setUpdateDOM] = useState<boolean>(false)
 
 
+    
 
     let getId = window.location.pathname.replace('/profile/musician/', '')
     const musician_by_id = new Call(Routes.musician.id(getId), 'GET')
@@ -43,9 +44,8 @@ export default function Musician() {
                 <img src={`http://127.0.0.1:8000/${musician?.photo}`} />
             </Modal>
 
-            <Modal open={editMode} close={() => setModal(false)} >
-                {/* dsada */}
-                <EditMusician />
+            <Modal open={editMode} close={() => setModal(false)}>
+                <EditMusician data={musician} close={() => { setEditMode(false); setModal(false); setUpdateDOM(!updateDOM) }} />
             </Modal>
 
             <section className={CSS.personal_info}>
@@ -58,35 +58,36 @@ export default function Musician() {
                         Επεξεργασία
                     </button>}
 
-{/* 
-                {editMode ?
-                    <EditMusician data={musician} editMode={() => setEditMode(false)} updateDOM={() => setUpdateDOM(!updateDOM)} />
-                    :
-                    <div className={CSS.info}>
-                        <strong> {musician?.artistic_nickname}</strong>
 
-                        <ul className={CSS.characteristics}>
-                            <li><SvgIcon id='location' />{musician?.city}</li>
 
-                            <li>
-                                <SvgIcon id='location' />
-                                {musician?.songs?.map((song: any, index: number) => (
-                                    <div key={index}>
-                                        <div>{`${song?.name},`} </div>
+                <div className={CSS.info}>
+                    <strong> {musician?.artistic_nickname}</strong>
 
-                                    </div>
-                                ))}
-                            </li>
-                        </ul>
-                        <p className={CSS.bio}>{musician?.bio}</p>
-                    </div>
-                } */}
+                    <ul className={CSS.characteristics}>
+                        <li><SvgIcon id='location' />{musician?.city}</li>
+
+                        <li>
+                            <SvgIcon id='location' />
+                            {musician?.songs?.map((song: any, index: number) => (
+                                <div key={index}>
+                                    <div>{`${song?.name},`} </div>
+
+                                </div>
+                            ))}
+                        </li>
+                    </ul>
+                    <p className={CSS.bio}>{musician?.bio}</p>
+                </div>
+
             </section>
 
 
             <hr></hr>
 
-            <Activity canEdit={musician.user === user?.user_id ? true : false} profile={musician} />
+            <Activity
+                canEdit={musician.user === user?.user_id ? true : false}
+                profile={musician} 
+                />
 
 
         </div>

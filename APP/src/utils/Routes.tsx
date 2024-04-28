@@ -28,6 +28,7 @@ export const Routes = {
     },
 
     posts: {
+        add: `${url}/posts/add/`,
         profile_id : (profile_id:string) => `${url}/posts/${profile_id}`,
     }
 
