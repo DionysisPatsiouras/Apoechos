@@ -36,15 +36,29 @@ export default function Activity(props: any) {
                 posts && posts.map((post: any, index: number) => (
                     <section key={index} className={CSS.post_card}>
                         <div className={CSS.top}>
-                            <img src={`http://127.0.0.1:8000/${props?.profile?.photo}`} width={100} />
-                            <div className={CSS.content}>
-                                <h3>{props?.profile?.artistic_nickname}</h3>
-                                <p className={CSS.category}>{`"${post?.category}"`}</p>
-                                <p className={CSS.body}>{post?.body}</p>
-                                <p className={CSS.date}>{post?.created_at}</p>
+                            <div style={{ display: 'flex' }}>
+                                <img src={`http://127.0.0.1:8000/${props?.profile?.photo}`} width={100} />
+                                <div className={CSS.content}>
+                                    <h3>{props?.profile?.artistic_nickname}</h3>
+                                    <p className={CSS.category}>{`"${post?.category}"`}</p>
+                                    <p className={CSS.body}>{post?.body}</p>
+                          
+                                    <p className={CSS.date}>
+                                        {new Date(post.created_at)
+                                            .toLocaleDateString("el-GR", {
+                                                year: "numeric",
+                                                month: "long",
+                                                day: "numeric",
+                                                hour: "numeric",
+                                                minute: "numeric"
+                                            })}
+
+                                    </p>
+
+                                </div>
                             </div>
                             {props?.canEdit &&
-                                <SvgIcon id={'expand'} />
+                                <SvgIcon id={'expand'} width={20} height={20} />
                             }
 
                         </div>

@@ -39,8 +39,13 @@ export default function Musician() {
     return (
         <div className={CSS.container}>
 
-            <Modal open={modal} close={() => setModal(false)} closeButton={false}>
+            <Modal open={modal} close={() => setModal(false)} closeButton={true}>
                 <img src={`http://127.0.0.1:8000/${musician?.photo}`} />
+            </Modal>
+
+            <Modal open={editMode} close={() => setModal(false)} >
+                {/* dsada */}
+                <EditMusician />
             </Modal>
 
             <section className={CSS.personal_info}>
@@ -53,7 +58,7 @@ export default function Musician() {
                         Επεξεργασία
                     </button>}
 
-
+{/* 
                 {editMode ?
                     <EditMusician data={musician} editMode={() => setEditMode(false)} updateDOM={() => setUpdateDOM(!updateDOM)} />
                     :
@@ -75,13 +80,13 @@ export default function Musician() {
                         </ul>
                         <p className={CSS.bio}>{musician?.bio}</p>
                     </div>
-                }
+                } */}
             </section>
 
 
             <hr></hr>
-                
-            <Activity canEdit={musician.user === user?.user_id ? true : false} profile={musician}/>
+
+            <Activity canEdit={musician.user === user?.user_id ? true : false} profile={musician} />
 
 
         </div>

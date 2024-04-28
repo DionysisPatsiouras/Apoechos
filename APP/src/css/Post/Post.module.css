@@ -5,8 +5,10 @@
   border-radius: 4px;
   box-shadow: rgba(0, 0, 0, 0.15) 1px 2px 11px;
   margin: 0 0 15px 0;
+  width: auto;
 }
 .post_card img {
+  display: none;
   border-radius: 200px;
   width: 80px;
   height: 80px;
@@ -17,8 +19,6 @@
   font-size: 20px;
 }
 .post_card svg {
-  position: absolute;
-  margin-left: 484px;
   cursor: pointer;
 }
 
@@ -33,14 +33,32 @@
 
 .body {
   color: #000000;
+  max-width: 350px;
 }
 
 .top {
   display: flex;
+  justify-content: space-between;
 }
 
 .date {
   color: #BDBDBD;
   font-size: 15px;
   margin: 17px 0 0 0;
+}
+
+hr {
+  height: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .post_card {
+    width: auto;
+  }
+  .post_card img {
+    display: block;
+  }
+  .body {
+    max-width: 350px;
+  }
 }/*# sourceMappingURL=Post.module.css.map */

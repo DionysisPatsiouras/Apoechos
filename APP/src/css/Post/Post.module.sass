@@ -5,8 +5,10 @@
     border-radius: 4px
     box-shadow: rgba(0, 0, 0, 0.15) 1px 2px 11px
     margin: 0 0 15px 0
+    width: auto
 
     img
+        display: none
         border-radius: 200px
         width: 80px
         height: 80px
@@ -14,14 +16,12 @@
     h3
         color: #5F69C6
         font-weight: 600
-        font-size: 20px 
+        font-size: 20px
 
     svg
-        position: absolute
-        margin-left: 484px
+        // position: absolute
+        // margin-left: 484px
         cursor: pointer
-
-    
 
 .content
     padding: 0 0 0 10px
@@ -32,11 +32,28 @@
 
 .body
     color: #000000
+    max-width: 350px
 
 .top
     display: flex
+    justify-content: space-between
 
 .date
     color: #BDBDBD
     font-size: 15px
     margin: 17px 0 0 0
+
+hr
+    height: 0
+
+@media screen and ( min-width: 768px )
+
+    .post_card
+        width: auto
+        // max-width: 450px
+
+        img
+            display: block
+
+    .body
+        max-width: 350px
