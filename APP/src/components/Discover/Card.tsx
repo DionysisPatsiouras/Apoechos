@@ -38,7 +38,8 @@ const Card = forwardRef(function Card(props: any, ref) {
 
 
                 <div className={CSS.btn_section}>
-                    <Link to={`/profile/${props?.category}/${props.id}`} >
+                    {/* <Link to={`/profile/${props?.category}/${props.id}`} > */}
+                    <Link to={`/profile/${props.id}`} >
                         <button>Περισσότερα</button>
                     </Link>
                 </div>

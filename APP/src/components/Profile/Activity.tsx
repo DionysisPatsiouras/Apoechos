@@ -11,8 +11,7 @@ export default function Activity(props: any) {
     const [posts, setPosts] = useState<any>([])
     const [updateDOM, setUpdateDOM] = useState<boolean>(false)
 
-    let getId = window.location.pathname.replace('/profile/musician/', '')
-    const posts_by_id = new Call(Routes.posts.profile_id(getId), 'GET')
+    const posts_by_id = new Call(Routes.posts.profile_id(props?.profile), 'GET')
 
     useEffect(() => {
 
@@ -20,22 +19,22 @@ export default function Activity(props: any) {
             .GET()
             .then((res) => setPosts(res))
             .catch((err) => console.warn(err))
-    }, [updateDOM])
+    }, [updateDOM, props])
+
+
 
     return (
         <section>
 
             {props?.canEdit &&
                 <NewPost
-                    profile_id={props?.profile?.musicianId}
+                    profile_id={props?.profile}
                     updateDOM={() => setUpdateDOM(!updateDOM)}
                 />}
-            <br></br>
-            <br></br>
 
-            <h3>Προηγούμενες δημοσίευσεις</h3>
-            <br></br>
 
+
+            {posts.length > 0 && <h3 style={{ margin: '35px 0 15px 0' }}> {`Προηγούμενες δημοσίευσεις (${posts?.length})`}</h3>}
             {
                 posts && posts
                     .sort((a: any, b: any) => new Date(b.created_at) > new Date(a.created_at) ? 1 : -1)
@@ -43,7 +42,7 @@ export default function Activity(props: any) {
                         <section key={index} className={CSS.post_card}>
                             <div className={CSS.top}>
                                 <div style={{ display: 'flex' }}>
-                                    <img src={`http://127.0.0.1:8000/${props?.profile?.photo}`} width={100} />
+                                    <img src={`http://127.0.0.1:8000/${props?.photo}`} width={100} />
                                     <div className={CSS.content}>
                                         <h3>{props?.profile?.artistic_nickname}</h3>
                                         <p className={CSS.category}>{`"${post?.category}"`}</p>
@@ -66,7 +65,7 @@ export default function Activity(props: any) {
                                 {props?.canEdit &&
                                     <SvgIcon id={'expand'} width={20} height={20} />
                                 }
-                              
+
 
                             </div>
 

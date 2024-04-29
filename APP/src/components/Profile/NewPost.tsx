@@ -13,7 +13,7 @@ import { Routes } from '../../utils/Routes'
 export default function NewPost(props: any) {
 
     const [wordCount, setWordCount] = useState<number>(0)
-    let { user }: any = useContext(AuthContext)
+    // let { user }: any = useContext(AuthContext)
 
     let labels = [
         { title: 'Ψάχνω νέα μέλη', icon: 'add_person' },
@@ -30,7 +30,7 @@ export default function NewPost(props: any) {
     // const { errors } = formState
 
 
-    const onSubmit = (data: any) => {
+    const onSubmit = () => {
 
 
         const finalData = {
@@ -62,12 +62,21 @@ export default function NewPost(props: any) {
     return (
         <>
 
-            <h3>Νέα δημοσίευση - Επιλέξτε θέμα:</h3>
+
             <form onSubmit={handleSubmit(onSubmit)} noValidate>
 
                 <div className={CSS.labels}>
+                    <h3>Νέα δημοσίευση - Επιλέξτε θέμα:</h3>
+                    <select onChange={(e) => setLabel(e.target.value)}>
+                        {labels.map((item: any, index: number) =>
+                            <option
+                                key={index}>
+                                {item.title}
+                            </option>
+                        )}
+                    </select>
 
-                    {labels.map((item: any, index: number) =>
+                    {/* {labels.map((item: any, index: number) =>
                         <button
 
                             key={index}
@@ -81,7 +90,7 @@ export default function NewPost(props: any) {
                             {item.title}
 
                         </button>
-                    )}
+                    )} */}
 
 
 

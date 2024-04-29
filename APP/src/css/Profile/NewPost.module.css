@@ -1,12 +1,12 @@
 .labels {
   display: flex;
-  width: 530px;
-  margin: 0 0 18px 0;
+  width: 100%;
+  margin: 10px 0 18px 0;
 }
 .labels button {
   width: 160px;
   font-size: 15px;
-  margin: 10px 15px 0 0;
+  margin: 0 15px 0 0;
   box-shadow: rgba(0, 0, 0, 0.15) 1px 2px 11px;
   background-color: #ffffff;
   color: #000000;
@@ -20,6 +20,7 @@
 
 textarea {
   width: 100%;
+  width: -webkit-fill-available;
   resize: none;
   height: 120px;
   padding: 19px;
@@ -33,7 +34,7 @@ textarea {
   align-items: center;
   width: 100%;
   justify-content: space-between;
-  margin: 20px 0 0 0;
+  margin: -50px 0 0 0;
 }
 .bottom_section p {
   margin: 0 0 0 20px;
@@ -52,6 +53,9 @@ h3 {
 }
 
 @media screen and (min-width: 768px) {
+  .labels {
+    width: 530px;
+  }
   textarea {
     width: 500px;
   }

@@ -133,25 +133,21 @@ def studio_by_id(request, id):
 
     serializer = StudioSerializer(studio)
 
-    # genres = MusicianGenre.objects.filter(musicianId_id=id)
-    # genreSerializer = MusGenres(genres, many=True)
 
-    # for genre in range(len(genreSerializer.data)):
-    #     array.append(genreSerializer.data[genre]["genreName"])
-
-    return Response(
-        {
-            "studioId": serializer.data["studioId"],
-            "title": serializer.data["title"],
-            "city": serializer.data["city"],
-            "address": serializer.data["address"],
-            # "websiteLink": serializer.data["websiteLink"],
-            "photo": serializer.data["photo"],
-            "category": serializer.data["category"],
-            "user_id": serializer.data["user"],
-            # "genres": array,
-        }
-    )
+    return Response(serializer.data)
+    # return Response(
+    #     {
+    #         "studioId": serializer.data["studioId"],
+    #         "title": serializer.data["title"],
+    #         "city": serializer.data["city"],
+    #         "address": serializer.data["address"],
+    #         # "websiteLink": serializer.data["websiteLink"],
+    #         "photo": serializer.data["photo"],
+    #         "category": serializer.data["category"],
+    #         "user_id": serializer.data["user"],
+    #         # "genres": array,
+    #     }
+    # )
 
 # profiles/studios/patch/:id/
 @api_view(["PATCH"])
