@@ -14,7 +14,7 @@ export default function Profile() {
     const [data, setData] = useState<any>([])
     const [modal, setModal] = useState<boolean>(false)
     let { user }: any = useContext(AuthContext)
-    let [updateDOM, setUpdateDOM] = useState<boolean>(false)
+    // let [updateDOM, setUpdateDOM] = useState<boolean>(false)
     let [editMode, setEditMode] = useState<boolean>(false)
 
     let profile_id = window.location.pathname.replace('/profile/', '')
@@ -37,7 +37,7 @@ export default function Profile() {
             .GET()
             .then((res: any) => { setData(res); console.log(res) })
 
-    }, [updateDOM])
+    }, [])
 
 
 
@@ -49,7 +49,7 @@ export default function Profile() {
         <div className={CSS.container}>
 
             <Modal open={modal} close={() => setModal(false)} closeButton={true}>
-                <img src={`http://127.0.0.1:8000/${data?.photo}`} />
+                <img src={`http://127.0.0.1:8000/${data?.photo}`} alt='profile_photo' />
             </Modal>
 
             <Modal open={editMode} close={() => setModal(false)}>
@@ -58,7 +58,7 @@ export default function Profile() {
             </Modal>
 
             <section className={CSS.personal_info}>
-                <img src={`http://127.0.0.1:8000/${data?.photo}`} width={150} height={150} onClick={() => setModal(!modal)} />
+                <img src={`http://127.0.0.1:8000/${data?.photo}`} alt='profile_photo' width={150} height={150} onClick={() => setModal(!modal)} />
 
                 {user?.user_id === data?.user && !editMode &&
                     <button

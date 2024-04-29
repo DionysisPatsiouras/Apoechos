@@ -52,15 +52,19 @@ h3 {
   font-weight: 400;
 }
 
+.new_post_form {
+  align-items: flex-start;
+}
+
 @media screen and (min-width: 768px) {
+  .new_post_form textarea {
+    width: 450px;
+  }
   .labels {
     width: 530px;
   }
-  textarea {
-    width: 500px;
-  }
   .bottom_section {
-    width: 537px;
+    width: 490px;
     margin: -55px 0 0 0;
   }
 }/*# sourceMappingURL=NewPost.module.css.map */

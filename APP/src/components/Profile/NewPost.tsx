@@ -1,8 +1,8 @@
 import CSS from '../../css/Profile/NewPost.module.css'
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import AuthContext from '../../context/AuthContext'
-import SvgIcon from '../SvgIcon'
+// import AuthContext from '../../context/AuthContext'
+// import SvgIcon from '../SvgIcon'
 import Call from '../../utils/Call'
 import { Routes } from '../../utils/Routes'
 
@@ -26,7 +26,7 @@ export default function NewPost(props: any) {
     const [post, setPost] = useState<string>('')
 
     const form = useForm()
-    const { register, handleSubmit, formState, resetField } = form
+    const { register, handleSubmit, resetField } = form
     // const { errors } = formState
 
 
@@ -63,7 +63,7 @@ export default function NewPost(props: any) {
         <>
 
 
-            <form onSubmit={handleSubmit(onSubmit)} noValidate>
+            <form onSubmit={handleSubmit(onSubmit)} noValidate className={CSS.new_post_form}>
 
                 <div className={CSS.labels}>
                     <h3>Νέα δημοσίευση - Επιλέξτε θέμα:</h3>
@@ -75,25 +75,6 @@ export default function NewPost(props: any) {
                             </option>
                         )}
                     </select>
-
-                    {/* {labels.map((item: any, index: number) =>
-                        <button
-
-                            key={index}
-                            type='button'
-                            onClick={() => setLabel(item.title)}
-                            style={{
-                                backgroundColor: label === item.title ? '#5F69C6' : '#ffffff',
-                                color: label === item.title ? '#ffffff' : '#000000',
-                            }}>
-                            <SvgIcon id={item?.icon} color={label === item.title ? '#ffffff' : '#000000'} />
-                            {item.title}
-
-                        </button>
-                    )} */}
-
-
-
                 </div>
 
 
