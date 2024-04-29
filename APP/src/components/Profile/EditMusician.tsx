@@ -57,7 +57,7 @@ export default function EditMusician(props: any) {
 
                 {tab === 1 &&
 
-                    <div>
+                    <div className={CSS.info_stats}>
 
                         <input
                             defaultValue={props?.data?.artistic_nickname}
