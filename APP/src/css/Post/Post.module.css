@@ -56,6 +56,8 @@ hr {
     width: 450px;
   }
   .post_card img {
+    -o-object-fit: cover;
+       object-fit: cover;
     display: block;
   }
   .body {
