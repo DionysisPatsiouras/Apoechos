@@ -6,8 +6,9 @@
 
 // burger, close, account, notifications, messages, logout
 // musician, studio, band, stage, store, upload-image, add
-// search, location, add_person, new_release, expand
-// keys, strings, vocals, woodwind, percussion
+// search, location, add_person, new_release, expand, edit
+// keys, strings, vocals, woodwind, percussion, delete
+// pinned
 
 
 
@@ -19,10 +20,47 @@ export default function SvgIcon(props: any) {
 
         <>
 
+            {props?.id === 'pinned' &&
+                <svg
+                    width={props?.width || '24'}
+                    height={props?.height || '24'}
+                    onClick={props?.onClick}
+                    viewBox="0 -960 960 960"
+                >
+                    <path fill={props?.color || color} d="M480-269 314-169q-11 7-23 6t-21-8q-9-7-14-17.5t-2-23.5l44-189-147-127q-10-9-12.5-20.5T140-571q4-11 12-18t22-9l194-17 75-178q5-12 15.5-18t21.5-6q11 0 21.5 6t15.5 18l75 178 194 17q14 2 22 9t12 18q4 11 1.5 22.5T809-528L662-401l44 189q3 13-2 23.5T690-171q-9 7-21 8t-23-6L480-269Z" />
+                </svg>
+            }
+
+            {props?.id === 'edit' &&
+
+                <svg
+                    width={props?.width || '24'}
+                    height={props?.height || '24'}
+                    onClick={props?.onClick}
+                    viewBox="0 -960 960 960"
+                >
+                    <path fill={props?.color || color} d="M160-120q-17 0-28.5-11.5T120-160v-97q0-16 6-30.5t17-25.5l505-504q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L313-143q-11 11-25.5 17t-30.5 6h-97Zm544-528 56-56-56-56-56 56 56 56Z" />
+                </svg>
+
+            }
+
+            {props?.id === 'delete' &&
+
+                <svg
+                    width={props?.width || '24'}
+                    height={props?.height || '24'}
+                    onClick={props?.onClick}
+                    viewBox="0 -960 960 960"
+                >
+                    <path fill={props?.color || color} d="M280-120q-33 0-56.5-23.5T200-200v-520q-17 0-28.5-11.5T160-760q0-17 11.5-28.5T200-800h160q0-17 11.5-28.5T400-840h160q17 0 28.5 11.5T600-800h160q17 0 28.5 11.5T800-760q0 17-11.5 28.5T760-720v520q0 33-23.5 56.5T680-120H280Zm120-160q17 0 28.5-11.5T440-320v-280q0-17-11.5-28.5T400-640q-17 0-28.5 11.5T360-600v280q0 17 11.5 28.5T400-280Zm160 0q17 0 28.5-11.5T600-320v-280q0-17-11.5-28.5T560-640q-17 0-28.5 11.5T520-600v280q0 17 11.5 28.5T560-280Z" />
+                </svg>
+            }
+
             {props?.id === 'expand' &&
                 <svg
                     width={props?.width || '24'}
                     height={props?.height || '24'}
+                    onClick={props?.onClick}
                     viewBox="0 -960 960 960"
                 >
                     <path fill={props?.color || color} d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z" />

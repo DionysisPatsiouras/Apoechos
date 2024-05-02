@@ -44,8 +44,6 @@ export default function Profile() {
 
 
 
-
-
     return (
         <div className={CSS.container}>
 
@@ -98,8 +96,8 @@ export default function Profile() {
 
             <Activity
                 canEdit={data.user === user?.user_id ? true : false}
-                profile={data?.musicianId || data?.studioId}
                 photo={data?.photo}
+                data={data}
             />
 
 

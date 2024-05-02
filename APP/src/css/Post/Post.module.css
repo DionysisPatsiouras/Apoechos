@@ -51,6 +51,19 @@ hr {
   height: 0;
 }
 
+.edit_menu {
+  margin: 0 0 0 5px;
+}
+.edit_menu li {
+  display: flex;
+  margin: 0 0 5px 0;
+  padding: 2px;
+  background-color: #ffffff;
+  box-shadow: rgba(0, 0, 0, 0.15) 1px 2px 11px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
 @media screen and (min-width: 768px) {
   .post_card {
     width: 450px;

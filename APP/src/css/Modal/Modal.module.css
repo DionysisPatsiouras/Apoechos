@@ -2,7 +2,7 @@
   background-color: rgba(0, 0, 0, 0.7882352941);
   height: 100vh;
   width: 100%;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
 }
@@ -20,4 +20,41 @@
 .imageContent img {
   height: 90vh;
   margin: 25px 0 0 0;
+}
+
+.content {
+  margin: 10vh 0 0 0;
+  background-color: #ffffff;
+  width: 500px;
+  border-radius: 4px;
+  padding: 0 0 20px 0;
+}
+
+.topBar {
+  padding: 20px 50px;
+  background-color: #F5F5F5;
+  font-size: 1rem;
+  border-radius: 4px 4px 0 0;
+}
+
+.button_section {
+  display: flex;
+  justify-content: center;
+}
+.button_section button {
+  font-size: 16px;
+  margin: 20px 5px 0 0;
+  width: 150px;
+}
+
+.body {
+  display: flex;
+  justify-content: center;
+  transform: scale(0.8);
+}
+.body img {
+  margin: 0;
+}
+.body svg {
+  position: static;
 }/*# sourceMappingURL=Modal.module.css.map */
