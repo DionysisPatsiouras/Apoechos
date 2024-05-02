@@ -30,6 +30,7 @@ export const Routes = {
     posts: {
         add: `${url}/posts/add/`,
         profile_id : (profile_id:string) => `${url}/posts/${profile_id}`,
+        post_id: (post_id:string) => `${url}/posts/post/${post_id}/`
     }
 
 

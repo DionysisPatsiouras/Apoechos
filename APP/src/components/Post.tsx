@@ -5,6 +5,8 @@ import SvgIcon from './SvgIcon'
 import Modal from './Modal'
 import Confirmation from './Modal/Confirmation'
 import { full_date } from '../utils/Shortcuts'
+import { Routes } from '../utils/Routes'
+import Call from '../utils/Call'
 
 // props -> data, canEdit, photo
 
@@ -14,16 +16,30 @@ const Post = forwardRef(function Post(props: any, ref: any) {
     const [edit, setEdit] = useState<boolean>(false)
     const [modal, setModal] = useState<boolean>(false)
 
-    // console.log(props)
+  
 
-    const pinPost = () => {
-        alert('okkk')
+    const pinPost = (post_id: string) => {
+        const data = {
+            is_pinned: post?.is_pinned ? false : true
+        }
+        let patchPost = new Call(Routes.posts.post_id(post_id), 'PATCH', data)
+
+        patchPost.PATCH()
+            .then((res) =>
+            // console.log(res)
+            {
+                props?.updateDOM();
+                setEdit(false);
+                setModal(false)
+            }
+            )
+            .catch((err) => console.warn(err))
+
     }
 
 
     const PostView = (with_edit_icon: boolean) =>
         <section className={CSS.post_card}>
-
             <div className={CSS.top}>
                 <div style={{ display: 'flex' }}>
 
@@ -56,7 +72,7 @@ const Post = forwardRef(function Post(props: any, ref: any) {
 
                 <Confirmation
                     cancel={() => setModal(false)}
-                    confirm={pinPost}
+                    confirm={() => pinPost(post?.post_id)}
                     icon={'delete'}
                     text={
                         `Είστε σίγουρος πως θέλετε να καρφιτσώσετε την παρακάτω δημοσιεύση;

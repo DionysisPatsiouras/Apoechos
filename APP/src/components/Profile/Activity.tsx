@@ -47,6 +47,7 @@ export default function Activity(props: any) {
             {pinnedPosts.length > 0 && <h3 style={{ margin: '35px 0 15px 0' }}> {`Καρφιτσωμένες δημοσίευσεις (${pinnedPosts?.length})`}</h3>}
             {pinnedPosts.map((post: any, index: number) => (
                 <Post
+                    updateDOM={() => setUpdateDOM(!updateDOM)}
                     key={index}
                     data={post}
                     canEdit={props?.canEdit}
@@ -58,6 +59,7 @@ export default function Activity(props: any) {
             {unpinnedPosts.length > 0 && <h3 style={{ margin: '35px 0 15px 0' }}> {`Προηγούμενες δημοσίευσεις (${unpinnedPosts?.length})`}</h3>}
             {unpinnedPosts.map((post: any, index: number) => (
                 <Post
+                    updateDOM={() => setUpdateDOM(!updateDOM)}
                     key={index}
                     data={post}
                     canEdit={props?.canEdit}

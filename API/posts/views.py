@@ -53,7 +53,7 @@ def post_by_id(request, id):
     except Post.DoesNotExist:
         return Response(["error", "not exist"])
 
-    # serializer = PostSerializer(post)
+   
     serializer = PatchPostSerializer(post, data=request.data, partial=True)
     if serializer.is_valid():
         serializer.save()
