@@ -53,7 +53,7 @@ export default function Activity(props: any) {
                     key={index}
                     data={post}
                     canEdit={props?.canEdit}
-                    profile={props?.data?.artistic_nickname}
+                    profile={props?.data?.artistic_nickname || props?.data?.title}
                     photo={`http://127.0.0.1:8000/${props?.photo}`} />
             ))}
 
@@ -65,7 +65,7 @@ export default function Activity(props: any) {
                     key={index}
                     data={post}
                     canEdit={props?.canEdit}
-                    profile={props?.data?.artistic_nickname}
+                    profile={props?.data?.artistic_nickname || props?.data?.title}
                     photo={`http://127.0.0.1:8000/${props?.photo}`} />
             ))}
 

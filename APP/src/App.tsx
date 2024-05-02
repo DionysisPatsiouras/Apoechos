@@ -7,6 +7,7 @@ import Header from './components/Header/Header'
 
 // pages
 import Login from '../src/pages/Login'
+import News from './pages/News'
 import Register from '../src/pages/Register'
 import Account from './pages/Account'
 import Create from './pages/Create'
@@ -60,9 +61,11 @@ export default function App() {
               <Header />
 
               <Routes>
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/discover" element={<Discover />} />
+
+                <Route path='/login' element={<Login />} />
+                <Route path='/register' element={<Register />} />
+                <Route path='/' element={<News />} />
+                <Route path='/discover' element={<Discover />} />
                 <Route path='/profile/:category/:id/' element={<Profile />} />
                 <Route path='/profile/:id/' element={<Profile />} />
 
