@@ -29,10 +29,12 @@ export default function Activity(props: any) {
 
     const unpinnedPosts = posts && posts
         .filter((post: any) => !post?.is_pinned)
+        .filter((post:any) => !post?.is_deleted)
         .sort((a: any, b: any) => new Date(b.created_at) > new Date(a.created_at) ? 1 : -1)
 
     const pinnedPosts = posts && posts
         .filter((post: any) => post?.is_pinned)
+        .filter((post:any) => !post?.is_deleted)
         .sort((a: any, b: any) => new Date(b.created_at) > new Date(a.created_at) ? 1 : -1)
 
     return (

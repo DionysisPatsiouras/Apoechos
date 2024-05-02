@@ -14,12 +14,12 @@ const Post = forwardRef(function Post(props: any, ref: any) {
 
     let post = props?.data
     const [edit, setEdit] = useState<boolean>(false)
+    const [deletePost, setDelete] = useState<boolean>(false)
     const [modal, setModal] = useState<boolean>(false)
-
-  
 
     const pinPost = (post_id: string) => {
         const data = {
+            updated_at: new Date(),
             is_pinned: post?.is_pinned ? false : true
         }
         let patchPost = new Call(Routes.posts.post_id(post_id), 'PATCH', data)
@@ -37,6 +37,24 @@ const Post = forwardRef(function Post(props: any, ref: any) {
 
     }
 
+    const delete_post = (post_id: string) => {
+        const data = {
+            deleted_at: new Date(),
+            is_deleted: true
+        }
+        let patchPost = new Call(Routes.posts.post_id(post_id), 'PATCH', data)
+
+        patchPost.PATCH()
+            .then((res) =>
+            // console.log(res)
+            {
+                props?.updateDOM();
+                setEdit(false);
+                setModal(false)
+            }
+            )
+            .catch((err) => console.warn(err))
+    }
 
     const PostView = (with_edit_icon: boolean) =>
         <section className={CSS.post_card}>
@@ -72,11 +90,14 @@ const Post = forwardRef(function Post(props: any, ref: any) {
 
                 <Confirmation
                     cancel={() => setModal(false)}
-                    confirm={() => pinPost(post?.post_id)}
+                    confirm={() => deletePost ? delete_post(post?.post_id) : pinPost(post?.post_id)}
                     icon={'delete'}
                     text={
-                        `Είστε σίγουρος πως θέλετε να καρφιτσώσετε την παρακάτω δημοσιεύση;
-                    Μπορείτε να αναιρέσετε αυτή την ενέργεια οποιαδήποτε στιγμη.`
+                        deletePost ? `Είστε σίγουρος πως θέλετε να διαγράψετε την παρακάτω δημοσιεύση;
+                        ΠΡΟΣΟΧΗ!
+                Δεν θα μπορέσετε να αναιρέσετε αυτή την ενέργεια` :
+                            `Είστε σίγουρος πως θέλετε να καρφιτσώσετε την παρακάτω δημοσιεύση;
+                Μπορείτε να αναιρέσετε αυτή την ενέργεια οποιαδήποτε στιγμη.`
                     }
                     body={PostView(false)}
                 />
@@ -89,7 +110,7 @@ const Post = forwardRef(function Post(props: any, ref: any) {
             <ul className={CSS.edit_menu} style={{ display: edit ? 'block' : 'none' }}>
                 <li><SvgIcon id={'edit'} /></li>
                 <li onClick={() => { setModal(true); setEdit(false) }}><SvgIcon id={post?.is_pinned ? 'pinned' : 'pinned'} /></li>
-                <li><SvgIcon id={'delete'} /></li>
+                <li onClick={() => { setModal(true); setEdit(false); setDelete(true) }} ><SvgIcon id={'delete'} /></li>
             </ul>
         </div>
     );
