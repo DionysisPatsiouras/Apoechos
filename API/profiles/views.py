@@ -46,10 +46,10 @@ def musician_by_id(request, id):
     serializer = MusicianSerializer(musician)
 
     genres = MusicianGenre.objects.filter(musicianId_id=id)
-    genreSerializer = MusGenres(genres, many=True)
+    # genreSerializer = MusGenres(genres, many=True)
 
-    for genre in range(len(genreSerializer.data)):
-        array.append(genreSerializer.data[genre]["genreName"])
+    # for genre in range(len(genreSerializer.data)):
+    #     array.append(genreSerializer.data[genre]["genreName"])
 
     return Response(serializer.data)
     # return Response(
@@ -333,3 +333,10 @@ def mystats(request, id):
             return Response([{"message": "You don't have permissions"}])
 
 
+@api_view(["GET"])
+def test(request):
+    obj = MusInst.objects.all()
+
+    serializer = MusInstSerializer(obj, many=True)
+
+    return Response(serializer.data)

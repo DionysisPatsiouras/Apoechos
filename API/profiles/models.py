@@ -44,19 +44,6 @@ def generate_store_pk():
     return "STORE" + id
 
 
-# def generate_instrument_pk():
-#     day = datetime.datetime.now().day
-#     minute = datetime.datetime.now().minute
-#     second = datetime.datetime.now().second
-#     randomNumber = random.randrange(1, 500)
-#     id = (
-#         str(day * randomNumber)
-#         + str(minute * second * randomNumber)
-#         + str(randomNumber * 2)
-#     )
-#     return "INSTR" + id
-
-
 class Musician(models.Model):
 
     musicianId = models.CharField(
@@ -76,10 +63,6 @@ class Musician(models.Model):
 
     def __str__(self):
         return self.user.email
-
-
-class City(models.Model):
-    city = models.CharField(max_length=200, blank=False)
 
 
 class MusicianGenre(models.Model):
@@ -161,22 +144,32 @@ class Store(models.Model):
         return self.title
 
 
-class Instrument(models.Model):
 
-    name = models.CharField(max_length=200)
+
+class Song(models.Model):
+    name = models.CharField(max_length=255)
+    musician = models.ForeignKey(
+        Musician, related_name="songs", on_delete=models.CASCADE
+    )
+
+    def __str__(self):
+        return self.name
+
+class Instrument(models.Model):
+    name = models.CharField(max_length=255)
+    musician = models.ForeignKey(
+        Musician, related_name="instruments", on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return self.name
 
 
-class MusicianInstrument(models.Model):
-
-    instrument = models.ForeignKey(Instrument,related_name='instrument', on_delete=models.CASCADE)
-    musician = models.ForeignKey(Musician, related_name='musician', on_delete=models.CASCADE)
-
-class Song(models.Model):
-  name = models.CharField(max_length=255)
-  musician = models.ForeignKey(Musician, related_name="songs", on_delete=models.CASCADE)
-  
-  def __str__(self):
-    return self.name
+# FOR TESTING
+class MusInst(models.Model):
+    musician = models.ForeignKey(
+        Musician, related_name="skata", on_delete=models.CASCADE
+    )
+    # instrument = models.ForeignKey(
+    #     Instrument, related_name="instrument", on_delete=models.CASCADE
+    # )

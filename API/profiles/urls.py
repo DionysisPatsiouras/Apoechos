@@ -25,6 +25,6 @@ urlpatterns = [
     path("studio/<str:id>/", views.studio_by_id),
     path("studio/patch/<str:id>/", views.updateStudio),
     # cities
-    path("cities/", views.cities),
+    path("test/", views.test),
 
 ]

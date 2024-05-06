@@ -15,8 +15,7 @@ admin.site.register(Stage)
 
 
 admin.site.register(Genre)
-admin.site.register(City)
 admin.site.register(Instrument)
-admin.site.register(MusicianInstrument)
 admin.site.register(Song)
 admin.site.register(Post)
+admin.site.register(MusInst)
