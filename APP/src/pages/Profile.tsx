@@ -9,6 +9,7 @@ import AuthContext from '../context/AuthContext'
 import SvgIcon from '../components/SvgIcon'
 import Activity from '../components/Profile/Activity'
 import EditMusician from '../components/Profile/EditMusician'
+import NewEvent from '../components/Profile/NewEvent'
 
 export default function Profile() {
 
@@ -17,6 +18,8 @@ export default function Profile() {
     let { user }: any = useContext(AuthContext)
     let [updateDOM, setUpdateDOM] = useState<boolean>(false)
     let [editMode, setEditMode] = useState<boolean>(false)
+    let [newEvent, setNewEvent] = useState<boolean>(false)
+    let [tab, setTab] = useState<string>('posts')
 
     let profile_id = window.location.pathname.replace('/profile/', '')
 
@@ -36,7 +39,11 @@ export default function Profile() {
 
         newCall
             .GET()
-            .then((res: any) => { setData(res); console.log(res) })
+            .then((res: any) => {
+                setData(res);
+                // console.log(res)
+
+            })
 
     }, [updateDOM])
 
@@ -51,10 +58,18 @@ export default function Profile() {
                 <img src={`http://127.0.0.1:8000/${data?.photo}`} alt='profile_photo' />
             </Modal>
 
-            <Modal open={editMode} close={() => setModal(false)}>
+            <Modal
+                open={editMode}
+                close={() => { setEditMode(false); setUpdateDOM(!updateDOM) }}
+                withContainer={true}
+                title={'Επεξεργασία'}>
                 {data?.category === 'musician' &&
-                    <EditMusician data={data} close={() => { setEditMode(false); setModal(false); setUpdateDOM(!updateDOM) }} />
+                    <EditMusician data={data} close={() => { setEditMode(false); setUpdateDOM(!updateDOM) }} />
                 }
+            </Modal>
+
+            <Modal open={newEvent} close={() => setNewEvent(false)} withContainer={true} title={'Δημιουργία νέου event'}>
+                <NewEvent />
 
             </Modal>
 
@@ -94,11 +109,27 @@ export default function Profile() {
 
             <hr></hr>
 
-            <Activity
-                canEdit={data.user === user?.user_id ? true : false}
-                photo={data?.photo}
-                data={data}
-            />
+            <section className={CSS.right_section}>
+
+
+                <ul className={CSS.wall_list}>
+                    <li className={tab === 'posts' ? CSS.active : undefined} onClick={() => setTab('posts')}>Δημοσιεύσεις</li>
+                    <li className={tab === 'events' ? CSS.active : undefined} onClick={() => setTab('events')}>Events</li>
+                </ul>
+
+                <div>
+                    {tab === 'posts' &&
+                        <Activity
+                            canEdit={data.user === user?.user_id ? true : false}
+                            photo={data?.photo}
+                            data={data}
+                        />
+                    }
+                </div>
+
+
+            </section>
+
 
 
         </div>

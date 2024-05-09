@@ -29,12 +29,12 @@ export default function Activity(props: any) {
 
     const unpinnedPosts = posts && posts
         .filter((post: any) => !post?.is_pinned)
-        .filter((post:any) => !post?.is_deleted)
+        .filter((post: any) => !post?.is_deleted)
         .sort((a: any, b: any) => new Date(b.created_at) > new Date(a.created_at) ? 1 : -1)
 
     const pinnedPosts = posts && posts
         .filter((post: any) => post?.is_pinned)
-        .filter((post:any) => !post?.is_deleted)
+        .filter((post: any) => !post?.is_deleted)
         .sort((a: any, b: any) => new Date(b.created_at) > new Date(a.created_at) ? 1 : -1)
 
     return (
@@ -44,7 +44,11 @@ export default function Activity(props: any) {
                 <NewPost
                     profile_id={profile}
                     updateDOM={() => setUpdateDOM(!updateDOM)}
-                />}
+                />
+                
+            }
+
+
 
             {pinnedPosts.length > 0 && <h3 style={{ margin: '35px 0 15px 0' }}> {`Καρφιτσωμένες δημοσίευσεις (${pinnedPosts?.length})`}</h3>}
             {pinnedPosts.map((post: any, index: number) => (

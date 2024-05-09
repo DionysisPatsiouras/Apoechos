@@ -36,7 +36,7 @@ export default function EditMusician(props: any) {
 
 
     return (
-        <section className={CSS.container}>
+        <section>
 
             <ul className={CSS.tabs}>
                 <li className={tab === 1 ? CSS.active_tab : CSS.tab} onClick={() => setTab(1)}>
