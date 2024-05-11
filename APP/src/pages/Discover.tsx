@@ -22,7 +22,7 @@ export default function Discover() {
     const [all, setAll] = useState<any>([])
     const [allMusicians, setAllMusicians] = useState<any>([])
     const [allStudios, setAllStudios] = useState<any>([])
-   
+
 
     const [activeTab, setActiveTab] = useState('Everything')
     const [onHover, setOnHover] = useState('')
@@ -45,7 +45,7 @@ export default function Discover() {
                 setAll(res[0].everything)
                 setAllMusicians(res[0].musicians)
                 setAllStudios(res[0].studios)
-    
+
             })
             .catch((err) => console.warn(err))
 
@@ -53,7 +53,7 @@ export default function Discover() {
     }, [])
 
     const color = useContext<any>(Colors)
-    
+    console.log(selected)
 
     let tabs: any = [
         { label: 'Everything', color: 'black', action: () => { setSelected(all); setActiveTab('Everything') } },
@@ -85,7 +85,8 @@ export default function Discover() {
     //     for (let index = 0; index < 1000; index++) {
     //         // const element = array[index];
 
-    //         return value?.songs?.[index]?.name === value2
+           
+    //         return value?.instruments?.[index]?.name === value2
 
     //     }
     // }
@@ -96,10 +97,10 @@ export default function Discover() {
             .filter((data: any) =>
                 SearchValidation(data?.artistic_nickname, search) || SearchValidation(data?.title, search)
             )
-    // .filter((data: any) =>
-    //     // data?.songs?.[0]?.name === 'Jazz'
-    //     loop(data, 'Jazz') 
-    // )
+            // .filter((data: any) =>
+            //     loop(data, 'Τσέλο')
+            // )
+            
 
 
 

@@ -91,12 +91,9 @@ export default function Profile() {
                         <li>
                             <div> <SvgIcon id='location' /> </div>
                             <div> {data?.city} </div>
-
                         </li>
                         <li>
                             <div>
-
-
                                 <SvgIcon id='keys' />
                             </div>
                             <div>
