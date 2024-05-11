@@ -35,6 +35,7 @@ export default function CreateMusician() {
     const [loading, setLoading] = useState<boolean>(false)
     const [array, setArray] = useState<any[]>([])
 
+    const [uploadedFile, setUploadedFile] = useState<any>()
 
     const add_instruments = (musician: string) => {
 
@@ -71,6 +72,7 @@ export default function CreateMusician() {
 
     const onSubmit = async (data: any) => {
         // console.log(data)
+
         const finalData = {
             ...data,
             user: userData.id
@@ -142,9 +144,20 @@ export default function CreateMusician() {
                     <div className={CSS.personal_info}>
 
                         <div className={CSS.group}>
-                            <img src='' width={20} height={20} alt=''
-                                style={{ 'width': '20px', 'border': '1px solid grey', 'borderRadius': '100px', 'padding': '50px' }} />
-                            <SvgIcon id={'upload-image'} />
+                            <img src={uploadedFile} width={20} height={20} alt=''
+                                style={{ width: '150px', height: '150px', border: '1px solid grey', borderRadius: '100px', objectFit: 'cover' }} />
+                            <label htmlFor='picture'>  <SvgIcon id={'upload-image'} /></label>
+
+
+
+                            <input
+                                {...register('file')}
+                                type="file"
+                                id="picture"
+                                onChange={(file: any) => setUploadedFile(URL.createObjectURL(file.target.files[0]))}
+                                style={{ position: 'absolute', top: '-20000px' }}
+                            />
+
                         </div>
 
 
@@ -230,7 +243,7 @@ export default function CreateMusician() {
 
 
 
-                    <div className={CSS.buttonSection}>Text here...
+                    <div className={CSS.buttonSection}>...
                         <button>Δημιουργία</button>
                     </div>
                 </form>
