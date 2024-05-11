@@ -10,7 +10,7 @@ import Confirmation from '../components/Confirmation'
 import SvgIcon from '../components/SvgIcon'
 import FormError from '../utils/FormError'
 
-import { cities, all_categories, all_strings } from '../utils/MusicianUtils'
+import { cities, all_categories, strings } from '../utils/MusicianUtils'
 import { Routes } from '../utils/Routes'
 import Call from '../utils/Call'
 // css
@@ -27,7 +27,7 @@ export default function CreateStudio() {
     const [genres, setGenres] = useState<any>([])
     const [profileCreated, setProfileCreated] = useState<boolean>(false)
     const [selection, setSelection] = useState<string>('strings')
-    const [current, setCurrent] = useState<any>(all_strings)
+    const [current, setCurrent] = useState<any>(strings)
 
     let { userData }: any = useContext(AuthContext)
 

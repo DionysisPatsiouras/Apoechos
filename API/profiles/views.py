@@ -6,12 +6,12 @@ from users import serializers
 from .serializers import *
 from .models import *
 
+from musician.models import *
+from musician.serializers import *
+
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
-
-
-
 
 
 # /profiles/studios/
@@ -48,7 +48,6 @@ def studio_by_id(request, id):
 
     serializer = StudioSerializer(studio)
 
-
     return Response(serializer.data)
     # return Response(
     #     {
@@ -63,6 +62,7 @@ def studio_by_id(request, id):
     #         # "genres": array,
     #     }
     # )
+
 
 # profiles/studios/patch/:id/
 @api_view(["PATCH"])
@@ -116,8 +116,6 @@ def post_genre(request):
         return Response(serializer.errors)
 
 
-
-
 @api_view(["GET"])
 @permission_classes([])
 def cities(request):
@@ -130,11 +128,11 @@ def cities(request):
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def all_profiles(request):
-    # musicians = Musician.objects.all()
+    musicians = Musician.objects.all()
     studios = Studio.objects.all()
     stores = Store.objects.all()
 
-    # musician_serializer = MusicianSerializer(musicians, many=True)
+    musician_serializer = MusicianSerializer(musicians, many=True)
     studio_serializer = StudioSerializer(studios, many=True)
     store_serializer = StoreSerializer(stores, many=True)
 
@@ -144,15 +142,14 @@ def all_profiles(request):
                 "message": "OK",
                 "status": 200,
                 "length": len(
-                    # musician_serializer.data
-                    studio_serializer.data
+                    musician_serializer.data
+                    + studio_serializer.data
                     + store_serializer.data
                 ),
-                "everything": 
-                # musician_serializer.data
-                studio_serializer.data
+                "everything": musician_serializer.data
+                + studio_serializer.data
                 + store_serializer.data,
-                # "musicians": musician_serializer.data,
+                "musicians": musician_serializer.data,
                 "studios": studio_serializer.data,
                 "stores": store_serializer.data,
             }
@@ -218,12 +215,10 @@ def stage_by_id(request, id):
         return Response(serializer.data)
 
 
-
-
 @api_view(["POST"])
 def add_instrument(request):
 
-    serializer = AddInstrumentSerializer(data=request.data)    
+    serializer = AddInstrumentSerializer(data=request.data)
 
     if serializer.is_valid():
         serializer.save()

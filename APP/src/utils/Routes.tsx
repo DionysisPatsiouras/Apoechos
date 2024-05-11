@@ -17,9 +17,9 @@ export const Routes = {
     },
 
     musician: {
-        id: (musician_id: string) => `${url}/profiles/musician/${musician_id}`,
-        post: `${url}/profiles/musicians/add/`,
-        patch: (musician_id: string) => `${url}/profiles/musician/patch/${musician_id}/`,
+        id: (musician_id: string) => `${url}/musician/${musician_id}`,
+        post: `${url}/musician/new/`,
+        patch: (musician_id: string) => `${url}/musician/patch/${musician_id}/`,
     },
 
     studio: {
@@ -35,7 +35,7 @@ export const Routes = {
     },
 
     instruments: {
-        add: `${url}/profiles/add_instruments/`,
+        add: `${url}/musician/instrument/add/`,
     }
 
 
