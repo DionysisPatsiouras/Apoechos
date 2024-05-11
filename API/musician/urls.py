@@ -10,4 +10,6 @@ urlpatterns = [
     path("new/", views.new_musician),  # /musician/new/
     path("<str:id>/", views.musician_by_id),  # /musician/:id/
     path("patch/<str:id>/", views.update_musician), # /musician/patch/:id/
+
+    path("instrument/add/", views.add_instrument) # /musician/instrument/add/
 ]
