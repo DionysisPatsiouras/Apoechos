@@ -33,7 +33,15 @@ export default function CreateMusician() {
     let { userData }: any = useContext(AuthContext)
 
     const [loading, setLoading] = useState<boolean>(false)
+    const [array, setArray] = useState<any[]>([])
 
+
+    const add = () => {
+        let add_inst = new Call(Routes.instruments.add, 'POST', array)
+
+        add_inst.POST()
+        .then((res) => console.log(res))
+    }
     const patchMusicianId = (id: string) => {
 
         let data = {
@@ -50,14 +58,15 @@ export default function CreateMusician() {
     }
 
     const onSubmit = async (data: any) => {
-        console.log(data)
+        // console.log(data)
         const finalData = {
             ...data,
             user: userData.id
         }
         const addMusician = new Call(Routes.musician.post, 'POST', finalData)
 
-    
+        console.warn('submitted', finalData)
+
         // must create async function here to catch the 'loading' variable
 
         addMusician
@@ -84,8 +93,21 @@ export default function CreateMusician() {
     }, [])
 
 
+    const handleCheckBox = (event: any) => {
+    
+        const { value, checked } = event.target;
+
+        setArray((prevCategories: any) =>
+            checked
+                ? [...prevCategories, value]
+                : prevCategories.filter((allGroups: any) => allGroups !== value)
+        );
+
+    };
 
 
+
+    // console.log(array)
 
     return (
         <div className='space'>
@@ -127,9 +149,7 @@ export default function CreateMusician() {
                             <label>Περιοχή</label>
 
                             <select className={CSS.city_dropdown} {...register('city')}>
-                                {/* <option defaultValue='' disabled hidden>Επιλέξτε πόλη</option> */}
                                 {cities.map((city: any, index: number) => (
-                                    // <option key={city?.id} value={city?.city}>{city?.city}</option>
                                     <option key={index} value={city}>{city}</option>
                                 ))}
                             </select>
@@ -146,6 +166,7 @@ export default function CreateMusician() {
                             {all_categories.map((category: string, index: number) => (
                                 <li
                                     key={index}
+
                                     onClick={() => setSelection(category)}
                                     style={{ 'backgroundColor': selection === category ? '#5F69C6' : '#B4B3B2' }}>
                                     <SvgIcon id={category} color={'#ffffff'} width={30} height={30} />
@@ -156,7 +177,15 @@ export default function CreateMusician() {
 
                         {current.map((string: string) => (
                             <div className={CSS.checkbox} key={string}>
-                                <input type='checkbox' id={string} />
+                                <input
+                                    {...register('instruments')}
+                                    id={string}
+                                    type='checkbox'
+                                    value={string}
+                                    onChange={handleCheckBox}
+                                    checked={array.includes(string)}
+                                    
+                                />
                                 <label htmlFor={string}>{string}</label>
                             </div>
                         ))}

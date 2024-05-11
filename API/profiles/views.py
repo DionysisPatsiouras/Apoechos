@@ -11,92 +11,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
 
 
-# /profiles/musicians/
-@api_view(["GET"])
-def all_musicians(request):
 
-    musicians = Musician.objects.all()
-    serializer = MusicianSerializer(musicians, many=True)
-
-    return Response(serializer.data)
-
-
-# /profiles/musicians/add/
-@api_view(["POST"])
-def add_musician(request):
-    serializer = MusicianSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response({"message": "Created", "status": 201, "data": serializer.data})
-    else:
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-# /profiles/musician/:id
-@api_view(["GET"])
-def musician_by_id(request, id):
-
-    array = []
-
-    try:
-        musician = Musician.objects.get(pk=id)
-    except Musician.DoesNotExist:
-        return Response(["error", "not exist"])
-
-    serializer = MusicianSerializer(musician)
-
-    genres = MusicianGenre.objects.filter(musicianId_id=id)
-    # genreSerializer = MusGenres(genres, many=True)
-
-    # for genre in range(len(genreSerializer.data)):
-    #     array.append(genreSerializer.data[genre]["genreName"])
-
-    return Response(serializer.data)
-    # return Response(
-    #     {
-    #         "musicianId": serializer.data["musicianId"],
-    #         "artistic_nickname": serializer.data["artistic_nickname"],
-    #         "city": serializer.data["city"],
-    #         "bio": serializer.data["bio"],
-    #         "websiteLink": serializer.data["websiteLink"],
-    #         "photo": serializer.data["photo"],
-    #         "category": serializer.data["category"],
-    #         "user_id": serializer.data["user"],
-    #         "genres": array,
-    #     }
-    # )
-
-
-# profiles/musician/patch/:id/
-@api_view(["PATCH"])
-@permission_classes([IsAuthenticated])
-def updateMusician(request, id):
-    user = request.user
-
-    try:
-        musician = Musician.objects.get(pk=id)
-    except Musician.DoesNotExist:
-        return JsonResponse({"message": "Musician not found"})
-
-    serializer = MusicianSerializer(musician, data=request.data, partial=True)
-
-    if serializer.is_valid():
-        if user.id == musician.user_id:
-            serializer.save()
-            return Response(
-                {
-                    "message": "ok",
-                    "status": 200,
-                    "message": "Updated Successfully!",
-                    "updated entities": request.data,
-                }
-            )
-        else:
-            return Response(
-                {
-                    "message": "You don't have permission",
-                }
-            )
 
 
 # /profiles/studios/
@@ -201,16 +116,6 @@ def post_genre(request):
         return Response(serializer.errors)
 
 
-@api_view(["GET"])
-def genre_by_id(request, id):
-    try:
-        genre = Genre.objects.get(pk=id)
-    except Genre.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == "GET":
-        serializer = GenreSerializer(genre)
-        return Response(serializer.data)
 
 
 @api_view(["GET"])
@@ -225,11 +130,11 @@ def cities(request):
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def all_profiles(request):
-    musicians = Musician.objects.all()
+    # musicians = Musician.objects.all()
     studios = Studio.objects.all()
     stores = Store.objects.all()
 
-    musician_serializer = MusicianSerializer(musicians, many=True)
+    # musician_serializer = MusicianSerializer(musicians, many=True)
     studio_serializer = StudioSerializer(studios, many=True)
     store_serializer = StoreSerializer(stores, many=True)
 
@@ -239,14 +144,15 @@ def all_profiles(request):
                 "message": "OK",
                 "status": 200,
                 "length": len(
-                    musician_serializer.data
-                    + studio_serializer.data
+                    # musician_serializer.data
+                    studio_serializer.data
                     + store_serializer.data
                 ),
-                "everything": musician_serializer.data
-                + studio_serializer.data
+                "everything": 
+                # musician_serializer.data
+                studio_serializer.data
                 + store_serializer.data,
-                "musicians": musician_serializer.data,
+                # "musicians": musician_serializer.data,
                 "studios": studio_serializer.data,
                 "stores": store_serializer.data,
             }
@@ -305,7 +211,6 @@ def stage_by_id(request, id):
     try:
         stageId = Stage.objects.get(pk=id)
     except Stage.DoesNotExist:
-        # return Response(status=status.HTTP_404_NOT_FOUND)
         return Response(["error", "not exist"])
 
     if request.method == "GET":
@@ -313,30 +218,15 @@ def stage_by_id(request, id):
         return Response(serializer.data)
 
 
-@api_view(["GET"])
-def mystats(request, id):
 
-    user = request.user
 
-    try:
-        musician = Musician.objects.get(pk=id)
-    except Musician.DoesNotExist:
-        return JsonResponse({"message": "Musician not found"})
+@api_view(["POST"])
+def add_instrument(request):
 
-    serializer = MusicianSerializer(musician, data=request.data, partial=True)
+    serializer = AddInstrumentSerializer(data=request.data)    
 
     if serializer.is_valid():
-
-        if user.id == serializer.data["user"]:
-            return Response(serializer.data)
-        else:
-            return Response([{"message": "You don't have permissions"}])
-
-
-@api_view(["GET"])
-def test(request):
-    obj = MusInst.objects.all()
-
-    serializer = MusInstSerializer(obj, many=True)
-
-    return Response(serializer.data)
+        serializer.save()
+        return Response({"message": "Created", "status": 201, "data": serializer.data})
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

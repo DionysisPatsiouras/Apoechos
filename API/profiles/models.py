@@ -5,7 +5,8 @@ import random
 from genre.models import Genre
 
 
-def generate_pk():
+
+def generate_pk_service():
     day = datetime.datetime.now().day
     minute = datetime.datetime.now().minute
     second = datetime.datetime.now().second
@@ -15,7 +16,7 @@ def generate_pk():
         + str(minute * second * randomNumber)
         + str(randomNumber * 2)
     )
-    return "MUSICIAN" + id
+    return "SERVICE" + id
 
 
 def generate_studio_pk():
@@ -44,34 +45,8 @@ def generate_store_pk():
     return "STORE" + id
 
 
-class Musician(models.Model):
-
-    musicianId = models.CharField(
-        default=generate_pk, primary_key=True, max_length=255, unique=True
-    )
-
-    artistic_nickname = models.CharField(max_length=200, blank=False)
-    city = models.CharField(max_length=100)
-    bio = models.TextField(blank=True)
-    websiteLink = models.URLField(blank=True, max_length=100)
-    photo = models.ImageField(null=True, blank=True, upload_to="images/")
-
-    user = models.OneToOneField(
-        CustomUser, on_delete=models.CASCADE, null=False, blank=False
-    )
-    category = models.CharField(max_length=50, default="musician")
-
-    def __str__(self):
-        return self.user.email
 
 
-class MusicianGenre(models.Model):
-
-    musicianId = models.ForeignKey(
-        Musician, related_name="musicianId2", on_delete=models.CASCADE
-    )
-    genreId = models.OneToOneField(Genre, related_name="id2", on_delete=models.CASCADE)
-    genreName = models.CharField(max_length=50, default="")
 
 
 # class Band(models.Model):
@@ -112,6 +87,10 @@ class Studio(models.Model):
         return self.title
 
 
+
+
+
+
 class Stage(models.Model):
 
     title = models.CharField(max_length=200)
@@ -146,30 +125,6 @@ class Store(models.Model):
 
 
 
-class Song(models.Model):
-    name = models.CharField(max_length=255)
-    musician = models.ForeignKey(
-        Musician, related_name="songs", on_delete=models.CASCADE
-    )
-
-    def __str__(self):
-        return self.name
-
-class Instrument(models.Model):
-    name = models.CharField(max_length=255)
-    musician = models.ForeignKey(
-        Musician, related_name="instruments", on_delete=models.CASCADE
-    )
-
-    def __str__(self):
-        return self.name
 
 
-# FOR TESTING
-class MusInst(models.Model):
-    musician = models.ForeignKey(
-        Musician, related_name="skata", on_delete=models.CASCADE
-    )
-    # instrument = models.ForeignKey(
-    #     Instrument, related_name="instrument", on_delete=models.CASCADE
-    # )
+
