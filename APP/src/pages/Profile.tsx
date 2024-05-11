@@ -36,18 +36,18 @@ export default function Profile() {
             'GET'
         )
 
-
         newCall
             .GET()
             .then((res: any) => {
                 setData(res);
                 // console.log(res)
-
             })
+            .catch((err) => console.warn(err))
 
     }, [updateDOM])
 
 
+    console.log(data)
 
 
 
@@ -70,7 +70,6 @@ export default function Profile() {
 
             <Modal open={newEvent} close={() => setNewEvent(false)} withContainer={true} title={'Δημιουργία νέου event'}>
                 <NewEvent />
-
             </Modal>
 
             <section className={CSS.personal_info}>
@@ -89,7 +88,27 @@ export default function Profile() {
                     <strong> {data?.artistic_nickname}</strong>
 
                     <ul className={CSS.characteristics}>
-                        <li><SvgIcon id='location' />{data?.city}</li>
+                        <li>
+                            <div> <SvgIcon id='location' /> </div>
+                            <div> {data?.city} </div>
+
+                        </li>
+                        <li>
+                            <div>
+
+
+                                <SvgIcon id='keys' />
+                            </div>
+                            <div>
+                                {data?.instruments?.map((item: any, index: number) => (
+                                    <div key={index}>
+                                        {item?.name}
+                                        {index !== data?.instruments?.length - 1 && ','}
+                                    </div>
+
+                                ))}
+                            </div>
+                        </li>
                         {/* 
                         <li>
                             <SvgIcon id='location' />

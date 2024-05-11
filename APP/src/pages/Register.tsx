@@ -24,7 +24,7 @@ export default function Register() {
         const registerUser = new Call(Routes.auth.register, 'POST', data)
 
         registerUser
-            .POST()
+            .POST_NO_TOKEN()
             .then((res) => {
                 // console.log(res)
                 setAccountCreated(true)

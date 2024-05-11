@@ -22,7 +22,6 @@ export default class Call {
             method: `${type}`,
             url: this.url,
             data: data,
-
         }
     }
 
@@ -40,6 +39,16 @@ export default class Call {
 
     public POST = async () => {
         return await axios(this.config)
+            .then(function (response) {
+                return response.data
+            })
+            .catch(function (error) {
+                throw error
+            })
+    }
+
+    public POST_NO_TOKEN = async () => {
+        return await axios(this.post_config)
             .then(function (response) {
                 return response.data
             })
