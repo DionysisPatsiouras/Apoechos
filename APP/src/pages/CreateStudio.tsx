@@ -9,10 +9,10 @@ import AuthContext from '../context/AuthContext'
 import Confirmation from '../components/Confirmation'
 import SvgIcon from '../components/SvgIcon'
 import FormError from '../utils/FormError'
-
-import { cities, all_categories, strings } from '../utils/MusicianUtils'
 import { Routes } from '../utils/Routes'
 import Call from '../utils/Call'
+import { cities, all_categories, strings, woodwind, percussion, vocals, keys } from '../utils/MusicianUtils'
+
 // css
 import CSS from '../css/CreateMusician/CreateMusician.module.css'
 
@@ -24,68 +24,99 @@ export default function CreateStudio() {
     const { register, handleSubmit, formState } = form
     const { errors } = formState
 
-    const [genres, setGenres] = useState<any>([])
     const [profileCreated, setProfileCreated] = useState<boolean>(false)
-    const [selection, setSelection] = useState<string>('strings')
-    const [current, setCurrent] = useState<any>(strings)
+
+
 
     let { userData }: any = useContext(AuthContext)
 
 
+    const [array, setArray] = useState<any[]>([])
 
-    const patchMusicianId = (id: string) => {
+    const [uploadedFile, setUploadedFile] = useState<any>()
+
+    let services = ['Πρόβες', 'Ηχογραφήσεις', 'Mix', 'Mastering', 'Ηχογράφηση Πρόβας', 'Με πλήρες εξοπλισμό', 'Live Ηχογράφηση']
+
+
+
+    const add_services = (musician: string) => {
+
+
+        for (let index = 0; index < array.length; index++) {
+
+            let finalData = {
+                name: array[index],
+                musician: musician
+            }
+
+            let add_inst = new Call(Routes.instruments.add, 'POST', finalData)
+            add_inst
+                .POST()
+                .then((res) => console.log(res))
+                .catch((err) => console.warn(err))
+        }
+
+    }
+    const patchStudioId = (id: string) => {
 
         let data = {
             musicianId: id
         }
 
-        axios
-            .patch('http://127.0.0.1:8000/user/patch/', data, {
-                headers: { Authorization: `Bearer ${token}` }
-            })
-            .then((response) => { console.log(response) })
+        let updateUser = new Call(Routes.user.patch, 'PATCH', data)
+
+        updateUser
+            .PATCH()
+            .then((res) => console.log(res))
             .catch((error) => { console.log(error) })
 
     }
 
-    const onSubmit = (data: any) => {
-        console.log(data)
+    const onSubmit = async (data: any) => {
+        // console.log(data)
+
         const finalData = {
             ...data,
             user: userData.id
         }
-        const addStudio = new Call(Routes.studio.post, 'POST', finalData)
+        const addMusician = new Call(Routes.musician.post, 'POST', finalData)
 
-        addStudio
+        // console.warn('submitted', finalData)
+
+        // must create async function here to catch the 'loading' variable
+
+        addMusician
             .POST()
             .then((res) => {
                 // console.log(res)
-                // patchMusicianId(res?.data?.musicianId)
-                // setLoading(false)
+                patchStudioId(res?.data?.musicianId)
+                add_services(res?.data?.musicianId)
                 setProfileCreated(true)
 
 
             })
-            .catch((err) => {
-                console.log(err)
-
-            })
+            .catch((err) => { console.warn(err) })
 
     }
 
 
-    useEffect((): any => {
-
-        axios
-            .get('http://127.0.0.1:8000/genre/', config)
-            .then((res) => { setGenres(res?.data) })
-            .catch((err) => console.warn(err))
-    }, [])
 
 
-    let services = ['Πρόβες', 'Ηχογράφηση', 'Mix', 'Mastering', 'Με πλήρες εξοπλισμό', 'Live ηχογράφηση']
+    const handleCheckBox = (event: any) => {
+
+        const { value, checked } = event.target;
+
+        setArray((prevCategories: any) =>
+            checked
+                ? [...prevCategories, value]
+                : prevCategories.filter((allGroups: any) => allGroups !== value)
+        );
+
+    };
 
 
+
+    // console.log(array)
 
     return (
         <div className='space'>
@@ -96,7 +127,7 @@ export default function CreateStudio() {
                 ok!
             </Confirmation>
 
-            {/* {userData?.musicianId !== null && <Navigate to='/create' />} */}
+            {userData?.musicianId !== null && <Navigate to='/create' />}
 
 
             <div className='container' style={{ 'display': profileCreated ? 'none' : 'block' }}>
@@ -107,9 +138,19 @@ export default function CreateStudio() {
                     <div className={CSS.personal_info}>
 
                         <div className={CSS.group}>
-                            <img src='' width={20} height={20} alt=''
-                                style={{ 'width': '20px', 'border': '1px solid grey', 'borderRadius': '100px', 'padding': '50px' }} />
-                            <SvgIcon id={'upload-image'} />
+                            <img src={uploadedFile} width={20} height={20} alt=''
+                                style={{ width: '150px', height: '150px', border: '1px solid grey', borderRadius: '100px', objectFit: 'cover' }} />
+                            <label htmlFor='picture'>  <SvgIcon id={'upload-image'} /></label>
+
+
+                            <input
+                                {...register('file')}
+                                type="file"
+                                id="picture"
+                                onChange={(file: any) => setUploadedFile(URL.createObjectURL(file.target.files[0]))}
+                                style={{ position: 'absolute', top: '-20000px' }}
+                            />
+
                         </div>
 
 
@@ -117,57 +158,71 @@ export default function CreateStudio() {
                             <label>Τίτλος</label>
                             <input
                                 type='text'
-                                {...register('title', {
-                                    required: 'Αυτό το πεδίο είναι υποχρεωτικό'
+                                {...register('artistic_nickname', {
+                                    required: 'Αυτό το πεδίο είναι υποχρεωτικό',
+                                    minLength : {
+                                        value: 3,
+                                        message : 'Απαιτούνται τουλάχιστον 3 χαρακτήρες'
+                                    }
                                 })}
                             />
-                            <FormError value={errors?.title} />
+                            <FormError value={errors?.artistic_nickname} />
 
 
-                            <label>Πόλη</label>
+                            <label>Περιοχή</label>
+
                             <select className={CSS.city_dropdown} {...register('city')}>
                                 {cities.map((city: any, index: number) => (
                                     <option key={index} value={city}>{city}</option>
                                 ))}
                             </select>
-
-
                             <label>Διεύθυνση</label>
                             <input
                                 type='text'
                                 {...register('address', {
-                                    required: 'Αυτό το πεδίο είναι υποχρεωτικό'
+                                    required: 'Αυτό το πεδίο είναι υποχρεωτικό',
+                                    minLength : {
+                                        value: 3,
+                                        message : 'Απαιτούνται τουλάχιστον 3 χαρακτήρες'
+                                    }
                                 })}
                             />
                             <FormError value={errors?.address} />
+
                         </div>
 
 
                     </div>
 
 
-
-
-
-
                     <hr className='divider'></hr>
                     <h2>Υπηρεσίες</h2>
-                    <ul className={CSS.genre_list}>
-                        {services
-                            .map((service: any) => (
-                                <div className={CSS.checkbox} key={service}>
-                                    <input type='checkbox' id={service} />
-                                    <label htmlFor={service}>{service}</label>
-                                </div>
-                            ))}
+
+         
+
+                    <div className={CSS.checkboxes_section}>
+                        {services.map((string: string) => (
+                            <div className={CSS.checkbox} key={string}>
+                                <input
+                                    {...register('services')}
+                                    id={string}
+                                    type='checkbox'
+                                    value={string}
+                                    onChange={handleCheckBox}
+                                    checked={array.includes(string)}
+
+                                />
+                                <label htmlFor={string}>{string}</label>
+                            </div>
+                        ))}
+
+                    </div>
 
 
-                    </ul>
 
 
-
-                    <div className={CSS.buttonSection}>Text here...
-                        <button>Επόμενο</button>
+                    <div className={CSS.buttonSection}>...
+                        <button>Δημιουργία</button>
                     </div>
                 </form>
 
