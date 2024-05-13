@@ -36,3 +36,14 @@ class Studio(models.Model):
 
     def __str__(self):
         return self.title
+
+    
+
+class Service(models.Model):
+    name = models.CharField(max_length=255)
+    studio = models.ForeignKey(
+        Studio, related_name="services", on_delete=models.CASCADE
+    )
+
+    def __str__(self):
+        return self.name

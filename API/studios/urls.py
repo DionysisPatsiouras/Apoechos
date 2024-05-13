@@ -10,4 +10,6 @@ urlpatterns = [
     path("new/", views.new_studio),  # /studio/new/
     path("<str:id>/", views.studio_by_id),  # /studio/:id/
     path("patch/<str:id>/", views.update_studio),  # /studio/patch/:id/
+
+    path("service/add/", views.add_service),  # /studio/service/add/
 ]

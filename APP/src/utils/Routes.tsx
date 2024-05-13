@@ -23,8 +23,8 @@ export const Routes = {
     },
 
     studio: {
-        id: (studio_id: string) => `${url}/profiles/studio/${studio_id}`,
-        post: `${url}/profiles/studios/add/`,
+        id: (studio_id: string) => `${url}/studio/${studio_id}`,
+        post: `${url}/studio/new/`,
     },
 
     posts: {
@@ -36,6 +36,10 @@ export const Routes = {
 
     instruments: {
         add: `${url}/musician/instrument/add/`,
+    },
+
+    services: {
+        add: `${url}/studio/service/add/`,
     }
 
 

@@ -1,8 +1,7 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import axios from 'axios'
-import { token, config } from '../utils/Token'
+
 import AuthContext from '../context/AuthContext'
 
 // components
@@ -11,7 +10,7 @@ import SvgIcon from '../components/SvgIcon'
 import FormError from '../utils/FormError'
 import { Routes } from '../utils/Routes'
 import Call from '../utils/Call'
-import { cities, all_categories, strings, woodwind, percussion, vocals, keys } from '../utils/MusicianUtils'
+import { cities } from '../utils/MusicianUtils'
 
 // css
 import CSS from '../css/CreateMusician/CreateMusician.module.css'
@@ -39,38 +38,37 @@ export default function CreateStudio() {
 
 
 
-    const add_services = (musician: string) => {
-
+    const add_services = (studio: string) => {
 
         for (let index = 0; index < array.length; index++) {
 
             let finalData = {
                 name: array[index],
-                musician: musician
+                studio: studio
             }
 
-            let add_inst = new Call(Routes.instruments.add, 'POST', finalData)
+            let add_inst = new Call(Routes.services.add, 'POST', finalData)
             add_inst
                 .POST()
                 .then((res) => console.log(res))
                 .catch((err) => console.warn(err))
         }
-
     }
-    const patchStudioId = (id: string) => {
 
-        let data = {
-            musicianId: id
-        }
+    // const patchStudioId = (id: string) => {
 
-        let updateUser = new Call(Routes.user.patch, 'PATCH', data)
+    //     let data = {
+    //         studioId: id
+    //     }
 
-        updateUser
-            .PATCH()
-            .then((res) => console.log(res))
-            .catch((error) => { console.log(error) })
+    //     let updateUser = new Call(Routes.user.patch, 'PATCH', data)
 
-    }
+    //     updateUser
+    //         .PATCH()
+    //         .then((res) => console.log(res))
+    //         .catch((error) => { console.log(error) })
+
+    // }
 
     const onSubmit = async (data: any) => {
         // console.log(data)
@@ -79,21 +77,19 @@ export default function CreateStudio() {
             ...data,
             user: userData.id
         }
-        const addMusician = new Call(Routes.musician.post, 'POST', finalData)
+        const addStudio = new Call(Routes.studio.post, 'POST', finalData)
 
-        // console.warn('submitted', finalData)
+        console.warn('submitted', finalData)
 
         // must create async function here to catch the 'loading' variable
 
-        addMusician
+        addStudio
             .POST()
             .then((res) => {
                 // console.log(res)
-                patchStudioId(res?.data?.musicianId)
-                add_services(res?.data?.musicianId)
+                // patchStudioId(res?.data?.musicianId)
+                add_services(res?.data?.studioId)
                 setProfileCreated(true)
-
-
             })
             .catch((err) => { console.warn(err) })
 
@@ -127,7 +123,7 @@ export default function CreateStudio() {
                 ok!
             </Confirmation>
 
-            {userData?.musicianId !== null && <Navigate to='/create' />}
+            {/* {userData?.studioId !== null && <Navigate to='/create' />} */}
 
 
             <div className='container' style={{ 'display': profileCreated ? 'none' : 'block' }}>
@@ -158,7 +154,7 @@ export default function CreateStudio() {
                             <label>Τίτλος</label>
                             <input
                                 type='text'
-                                {...register('artistic_nickname', {
+                                {...register('title', {
                                     required: 'Αυτό το πεδίο είναι υποχρεωτικό',
                                     minLength : {
                                         value: 3,
@@ -197,9 +193,6 @@ export default function CreateStudio() {
 
                     <hr className='divider'></hr>
                     <h2>Υπηρεσίες</h2>
-
-         
-
                     <div className={CSS.checkboxes_section}>
                         {services.map((string: string) => (
                             <div className={CSS.checkbox} key={string}>

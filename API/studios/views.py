@@ -79,3 +79,15 @@ def update_studio(request, id):
                     "message": "You don't have permission",
                 }
             )
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def add_service(request):
+
+    serializer = AddServicesSerializers(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"message": "Created", "status": 201, "data": serializer.data})
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

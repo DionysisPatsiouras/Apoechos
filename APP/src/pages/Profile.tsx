@@ -90,7 +90,7 @@ export default function Profile() {
                     <ul className={CSS.characteristics}>
                         <li>
                             <div> <SvgIcon id='location' /> </div>
-                            <div> {data?.city} </div>
+                            <div> {data?.city} <br></br> {data?.address}</div>
                         </li>
                         <li>
                             <div>
@@ -106,16 +106,7 @@ export default function Profile() {
                                 ))}
                             </div>
                         </li>
-                        {/* 
-                        <li>
-                            <SvgIcon id='location' />
-                            {data?.songs?.map((song: any, index: number) => (
-                                <div key={index}>
-                                    <div>{`${song?.name},`} </div>
-
-                                </div>
-                            ))}
-                        </li> */}
+ 
                     </ul>
                     <p className={CSS.bio}>{data?.bio}</p>
                 </div>

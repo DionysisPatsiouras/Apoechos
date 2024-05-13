@@ -8,7 +8,7 @@ from studios.models import *
 
 
 
-admin.site.register(Studio)
+
 admin.site.register(Store)
 admin.site.register(Stage)
 
@@ -18,3 +18,5 @@ admin.site.register(Post)
 admin.site.register(Musician)
 admin.site.register(Instrument)
 
+admin.site.register(Studio)
+admin.site.register(Service)

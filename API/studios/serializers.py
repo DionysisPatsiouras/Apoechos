@@ -3,19 +3,19 @@ from .models import *
 
 
 
-# class AddInstrumentSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Instrument
-#         fields = "__all__"
+class AddServicesSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Service
+        fields = "__all__"
        
-# class InstrumentSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Instrument
-#         fields = ("name", )
+class ServicesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Service
+        fields = ("name", )
 
 class StudioSerializer(serializers.ModelSerializer):
 
-    # services = ServicesSerializer(many=True)
+    services = ServicesSerializer(many=True)
 
     class Meta:
         model = Studio
