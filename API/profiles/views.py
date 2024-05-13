@@ -15,85 +15,73 @@ from django.http import JsonResponse
 
 
 # /profiles/studios/
-@api_view(["GET"])
-def all_studios(request):
+# @api_view(["GET"])
+# def all_studios(request):
 
-    studios = Studio.objects.all()
-    serializer = StudioSerializer(studios, many=True)
+#     studios = Studio.objects.all()
+#     serializer = StudioSerializer(studios, many=True)
 
-    return Response(serializer.data)
+#     return Response(serializer.data)
 
 
 # /profiles/studios/add/
-@api_view(["POST"])
-def add_studio(request):
-    serializer = StudioSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response({"message": "Created", "status": 201, "data": serializer.data})
-    else:
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+# @api_view(["POST"])
+# def add_studio(request):
+#     serializer = StudioSerializer(data=request.data)
+#     if serializer.is_valid():
+#         serializer.save()
+#         return Response({"message": "Created", "status": 201, "data": serializer.data})
+#     else:
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 # /profiles/studios/:id
-@api_view(["GET"])
-def studio_by_id(request, id):
+# @api_view(["GET"])
+# def studio_by_id(request, id):
 
-    # array = []
+#     # array = []
 
-    try:
-        studio = Studio.objects.get(pk=id)
-    except Musician.DoesNotExist:
-        return Response(["error", "not exist"])
+#     try:
+#         studio = Studio.objects.get(pk=id)
+#     except Musician.DoesNotExist:
+#         return Response(["error", "not exist"])
 
-    serializer = StudioSerializer(studio)
+#     serializer = StudioSerializer(studio)
 
-    return Response(serializer.data)
-    # return Response(
-    #     {
-    #         "studioId": serializer.data["studioId"],
-    #         "title": serializer.data["title"],
-    #         "city": serializer.data["city"],
-    #         "address": serializer.data["address"],
-    #         # "websiteLink": serializer.data["websiteLink"],
-    #         "photo": serializer.data["photo"],
-    #         "category": serializer.data["category"],
-    #         "user_id": serializer.data["user"],
-    #         # "genres": array,
-    #     }
-    # )
+#     return Response(serializer.data)
+
 
 
 # profiles/studios/patch/:id/
-@api_view(["PATCH"])
-@permission_classes([IsAuthenticated])
-def updateStudio(request, id):
-    user = request.user
+# @api_view(["PATCH"])
+# @permission_classes([IsAuthenticated])
+# def updateStudio(request, id):
+#     user = request.user
 
-    try:
-        studio = Studio.objects.get(pk=id)
-    except Studio.DoesNotExist:
-        return JsonResponse({"message": "Studio not found"})
+#     try:
+#         studio = Studio.objects.get(pk=id)
+#     except Studio.DoesNotExist:
+#         return JsonResponse({"message": "Studio not found"})
 
-    serializer = StudioSerializer(studio, data=request.data, partial=True)
+#     serializer = StudioSerializer(studio, data=request.data, partial=True)
 
-    if serializer.is_valid():
-        if user.id == studio.user_id:
-            serializer.save()
-            return Response(
-                {
-                    "message": "ok",
-                    "status": 200,
-                    "message": "Updated Successfully!",
-                    "updated entities": request.data,
-                }
-            )
-        else:
-            return Response(
-                {
-                    "message": "You don't have permission",
-                }
-            )
+#     if serializer.is_valid():
+#         if user.id == studio.user_id:
+#             serializer.save()
+#             return Response(
+#                 {
+#                     "message": "ok",
+#                     "status": 200,
+#                     "message": "Updated Successfully!",
+#                     "updated entities": request.data,
+#                 }
+#             )
+#         else:
+#             return Response(
+#                 {
+#                     "message": "You don't have permission",
+#                 }
+#             )
 
 
 # POST NEW GENRE
@@ -143,14 +131,14 @@ def all_profiles(request):
                 "status": 200,
                 "length": len(
                     musician_serializer.data
-                    + studio_serializer.data
+                    # + studio_serializer.data
                     + store_serializer.data
                 ),
                 "everything": musician_serializer.data
-                + studio_serializer.data
+                # + studio_serializer.data
                 + store_serializer.data,
                 "musicians": musician_serializer.data,
-                "studios": studio_serializer.data,
+                # "studios": studio_serializer.data,
                 "stores": store_serializer.data,
             }
         ]
@@ -181,18 +169,18 @@ def store_by_id(request, id):
 
 
 # STUDIOS
-@api_view(["GET", "POST"])
-def studios_list(request):
-    if request.method == "GET":
-        studios = Studio.objects.all()
-        serializer = StudioSerializer(studios, many=True)
-        return Response(serializer.data)
+# @api_view(["GET", "POST"])
+# def studios_list(request):
+#     if request.method == "GET":
+#         studios = Studio.objects.all()
+#         serializer = StudioSerializer(studios, many=True)
+#         return Response(serializer.data)
 
-    if request.method == "POST":
-        serializer = StudioSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
+#     if request.method == "POST":
+#         serializer = StudioSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
 
 
 @api_view(["GET"])

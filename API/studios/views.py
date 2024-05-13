@@ -1,26 +1,33 @@
 from django.shortcuts import render
+from profile import Profile
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
+from users import serializers
 from .serializers import *
 from .models import *
+
+
+from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
+# from django.http import JsonResponse
 
-# /musician/
+
+# /studio/
 @api_view(["GET"])
-def all_musicians(request):
+def all_studios(request):
 
-    musicians = Musician.objects.all()
-    serializer = MusicianSerializer(musicians, many=True)
+    studios = Studio.objects.all()
+    serializer = StudioSerializer(studios, many=True)
 
     return Response(serializer.data)
 
 
-# /musician/new/
+# /studio/new/
 @api_view(["POST"])
-def new_musician(request):
-    serializer = New_Musician_Serializer(data=request.data)
+def new_studio(request):
+    serializer = New_Studio_Serializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response({"message": "Created", "status": 201, "data": serializer.data})
@@ -28,35 +35,35 @@ def new_musician(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# /musician/<str:id>/
+# /studio/<str:id>/
 @api_view(["GET"])
-def musician_by_id(request, id):
+def studio_by_id(request, id):
 
     try:
-        musician = Musician.objects.get(pk=id)
-    except Musician.DoesNotExist:
+        studio = Studio.objects.get(pk=id)
+    except Studio.DoesNotExist:
         return Response(["error", "not exist"])
 
-    serializer = MusicianSerializer(musician)
+    serializer = StudioSerializer(studio)
 
     return Response(serializer.data)
 
 
-# /musician/patch/:id/
+# /studio/patch/:id/
 @api_view(["PATCH"])
 @permission_classes([IsAuthenticated])
-def update_musician(request, id):
+def update_studio(request, id):
     user = request.user
 
     try:
-        musician = Musician.objects.get(pk=id)
-    except Musician.DoesNotExist:
-        return Response({"message": "Musician not found!"})
+        studio = Studio.objects.get(pk=id)
+    except Studio.DoesNotExist:
+        return Response({"message": "Studio not found!"})
 
-    serializer = MusicianSerializer(musician, data=request.data, partial=True)
+    serializer = StudioSerializer(studio, data=request.data, partial=True)
 
     if serializer.is_valid():
-        if user.id == musician.user_id:
+        if user.id == studio.user_id:
             serializer.save()
             return Response(
                 {
@@ -72,15 +79,3 @@ def update_musician(request, id):
                     "message": "You don't have permission",
                 }
             )
-
-
-@api_view(["POST"])
-@permission_classes([IsAuthenticated])
-def add_instrument(request):
-
-    serializer = AddInstrumentSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response({"message": "Created", "status": 201, "data": serializer.data})
-    else:
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

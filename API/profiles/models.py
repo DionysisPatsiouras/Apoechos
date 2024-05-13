@@ -19,19 +19,6 @@ def generate_pk_service():
     return "SERVICE" + id
 
 
-def generate_studio_pk():
-    day = datetime.datetime.now().day
-    minute = datetime.datetime.now().minute
-    second = datetime.datetime.now().second
-    randomNumber = random.randrange(1, 500)
-    id = (
-        str(day * randomNumber)
-        + str(minute * second * randomNumber)
-        + str(randomNumber * 2)
-    )
-    return "STUDIO" + id
-
-
 def generate_store_pk():
     day = datetime.datetime.now().day
     minute = datetime.datetime.now().minute
@@ -60,31 +47,6 @@ def generate_store_pk():
 #     def __str__(self):
 #         return self.name
 
-
-class Studio(models.Model):
-
-    studioId = models.CharField(
-        default=generate_studio_pk, primary_key=True, max_length=255, unique=True
-    )
-
-    title = models.CharField(max_length=200)
-    city = models.CharField(max_length=200, blank=False, null=False)
-    address = models.CharField(max_length=200, blank=False, null=False)
-
-    user = models.OneToOneField(
-        CustomUser, on_delete=models.CASCADE, null=False, blank=False
-    )
-
-    # recordings = models.BooleanField(default=False)
-    # rehearsals = models.BooleanField(default=False)
-    # mixing = models.BooleanField(default=False)
-    # mastering = models.BooleanField(default=False)
-
-    photo = models.ImageField(null=True, blank=True, upload_to="images/")
-    category = models.CharField(max_length=50, default="studio")
-
-    def __str__(self):
-        return self.title
 
 
 

@@ -4,6 +4,7 @@ from profiles.models import *
 from genre.models import Genre
 from posts.models import *
 from musician.models import *
+from studios.models import *
 
 
 
