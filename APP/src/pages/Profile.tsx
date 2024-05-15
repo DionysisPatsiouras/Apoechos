@@ -53,6 +53,7 @@ export default function Profile() {
 
     return (
         <div className={CSS.container}>
+            <p onClick={() => setNewEvent(true)}>new event</p>
 
             <Modal open={modal} close={() => setModal(false)} closeButton={true}>
                 <img src={`http://127.0.0.1:8000/${data?.photo}`} alt='profile_photo' />
