@@ -4,12 +4,12 @@ from profiles.models import *
 from posts.models import *
 from musician.models import *
 from studios.models import *
+from store.models import *
 from event.models import *
 
 
 
 admin.site.register(Store)
-admin.site.register(Stage)
 
 admin.site.register(Post)
 

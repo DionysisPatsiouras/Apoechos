@@ -7,6 +7,7 @@ export default class Call {
     private url: string
     private config: { method: string; url: string, data: any, headers: any }
     private post_config: { method: string; url: string, data: any }
+    private post_photo: { method: string; url: string, data: any, headers: any, withCredentials: any, cache: any }
 
 
     constructor(url: string, type: any, data: any = {}) {
@@ -22,6 +23,19 @@ export default class Call {
             method: `${type}`,
             url: this.url,
             data: data,
+        }
+
+        this.post_photo = {
+            method: `${type}`,
+            url: this.url,
+            data: data,
+            withCredentials: true,
+            cache: 'force-cache',
+            headers: {
+                Authorization: `Bearer ${this.token}`,
+                Accept: '*/*',
+                'Content-Type': 'multipart/form-data',
+            }
         }
     }
 
@@ -56,8 +70,17 @@ export default class Call {
                 throw error
             })
     }
+    public POST_MEDIA = async () => {
+        return await axios(this.post_photo)
+            .then(function (response) {
+                return response.data
+            })
+            .catch(function (error) {
+                throw error
+            })
+    }
 
-    
+
     public PATCH = async () => {
         return await axios(this.config)
             .then(function (response) {

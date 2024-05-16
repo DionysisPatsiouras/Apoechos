@@ -32,13 +32,18 @@ export default function Profile() {
                 :
                 window.location.pathname.includes('STUDIO') ?
                     Routes.studio.id(profile_id)
-                    : '/',
+                    :
+                    window.location.pathname.includes('STORE') ?
+                        Routes.store.id(profile_id)
+
+                        : '/',
             'GET'
         )
 
         newCall
             .GET()
             .then((res: any) => {
+                console.log(res)
                 setData(res);
                 // console.log(res)
             })
@@ -86,7 +91,7 @@ export default function Profile() {
 
 
                 <div className={CSS.info}>
-                    <strong> {data?.artistic_nickname}</strong>
+                    <strong> {data?.artistic_nickname || data?.title}</strong>
 
                     <ul className={CSS.characteristics}>
                         <li>
@@ -107,7 +112,7 @@ export default function Profile() {
                                 ))}
                             </div>
                         </li>
- 
+
                     </ul>
                     <p className={CSS.bio}>{data?.bio}</p>
                 </div>

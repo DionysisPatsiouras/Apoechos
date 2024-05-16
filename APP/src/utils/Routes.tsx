@@ -27,6 +27,10 @@ export const Routes = {
         post: `${url}/studio/new/`,
     },
 
+    store: {
+        id: (store_id: string) => `${url}/store/${store_id}`,
+    },
+
     posts: {
         all: `${url}/posts/all_posts/`,
         add: `${url}/posts/add/`,

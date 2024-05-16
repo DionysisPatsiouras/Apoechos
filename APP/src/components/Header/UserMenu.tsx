@@ -34,7 +34,7 @@ export default function UserMenu(props: any) {
                 <Link to="/">What's New</Link>
                 <Link to="/discover">Discover</Link>
                 <Link to="/mystudio">My Studio</Link>
-                <Link to="/upcoming-events">Upcoming Events</Link>
+                {/* <Link to="/upcoming-events">Upcoming Events</Link> */}
                 <Link to="learn-more">Learn More</Link>
             </ul>
 

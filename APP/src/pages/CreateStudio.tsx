@@ -15,9 +15,13 @@ import { cities } from '../utils/MusicianUtils'
 // css
 import CSS from '../css/CreateMusician/CreateMusician.module.css'
 
+import axios from 'axios'
+
 
 
 export default function CreateStudio() {
+
+    let { userData }: any = useContext(AuthContext)
 
     const form = useForm()
     const { register, handleSubmit, formState } = form
@@ -26,12 +30,7 @@ export default function CreateStudio() {
     const [profileCreated, setProfileCreated] = useState<boolean>(false)
 
 
-
-    let { userData }: any = useContext(AuthContext)
-
-
     const [array, setArray] = useState<any[]>([])
-
     const [uploadedFile, setUploadedFile] = useState<any>()
 
     let services = ['Πρόβες', 'Ηχογραφήσεις', 'Mix', 'Mastering', 'Ηχογράφηση Πρόβας', 'Με πλήρες εξοπλισμό', 'Live Ηχογράφηση']
@@ -50,8 +49,8 @@ export default function CreateStudio() {
             let add_inst = new Call(Routes.services.add, 'POST', finalData)
             add_inst
                 .POST()
-                .then((res) => console.log(res))
-                .catch((err) => console.warn(err))
+                .then((res:any) => console.log(res))
+                .catch((err:any) => console.warn(err))
         }
     }
 
@@ -71,20 +70,22 @@ export default function CreateStudio() {
     // }
 
     const onSubmit = async (data: any) => {
-        // console.log(data)
+     
+
+        let formData = new FormData()
+        formData.append('file', data?.file?.[0])
 
         const finalData = {
             ...data,
-            user: userData.id
+            user: userData.id,
+            photo: data?.file?.[0]
         }
-        const addStudio = new Call(Routes.studio.post, 'POST', finalData)
 
-        console.warn('submitted', finalData)
 
         // must create async function here to catch the 'loading' variable
-
+        const addStudio = new Call(Routes.studio.post, 'POST', finalData)
         addStudio
-            .POST()
+            .POST_MEDIA()
             .then((res) => {
                 // console.log(res)
                 // patchStudioId(res?.data?.musicianId)
@@ -156,9 +157,9 @@ export default function CreateStudio() {
                                 type='text'
                                 {...register('title', {
                                     required: 'Αυτό το πεδίο είναι υποχρεωτικό',
-                                    minLength : {
+                                    minLength: {
                                         value: 3,
-                                        message : 'Απαιτούνται τουλάχιστον 3 χαρακτήρες'
+                                        message: 'Απαιτούνται τουλάχιστον 3 χαρακτήρες'
                                     }
                                 })}
                             />
@@ -177,9 +178,9 @@ export default function CreateStudio() {
                                 type='text'
                                 {...register('address', {
                                     required: 'Αυτό το πεδίο είναι υποχρεωτικό',
-                                    minLength : {
+                                    minLength: {
                                         value: 3,
-                                        message : 'Απαιτούνται τουλάχιστον 3 χαρακτήρες'
+                                        message: 'Απαιτούνται τουλάχιστον 3 χαρακτήρες'
                                     }
                                 })}
                             />

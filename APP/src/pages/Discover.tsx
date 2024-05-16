@@ -22,6 +22,7 @@ export default function Discover() {
     const [all, setAll] = useState<any>([])
     const [allMusicians, setAllMusicians] = useState<any>([])
     const [allStudios, setAllStudios] = useState<any>([])
+    const [allStores, setAllStores] = useState<any>([])
 
 
     const [activeTab, setActiveTab] = useState('Everything')
@@ -41,10 +42,11 @@ export default function Discover() {
             .then((res) => {
                 // console.log(res)
                 // setData(res[0]);
-                setSelected(res[0].everything)
-                setAll(res[0].everything)
-                setAllMusicians(res[0].musicians)
-                setAllStudios(res[0].studios)
+                setSelected(res?.[0]?.everything)
+                setAll(res?.[0]?.everything)
+                setAllMusicians(res?.[0]?.musicians)
+                setAllStudios(res?.[0]?.studios)
+                setAllStores(res?.[0]?.stores)
 
             })
             .catch((err) => console.warn(err))
@@ -53,14 +55,14 @@ export default function Discover() {
     }, [])
 
     const color = useContext<any>(Colors)
-    console.log(selected)
+    // console.log(selected)
 
     let tabs: any = [
         { label: 'Everything', color: 'black', action: () => { setSelected(all); setActiveTab('Everything') } },
         { label: 'Musicians', color: color?.musician, action: () => { setSelected(allMusicians); setActiveTab('Musicians') } },
         { label: 'Bands', color: color?.band, action: () => { setSelected(allMusicians); setActiveTab('Bands') } },
         { label: 'Music Studio', color: color?.studio, action: () => { setSelected(allStudios); setActiveTab('Music Studio') } },
-        { label: 'Music Stores', color: color?.store, action: () => { setSelected(allMusicians); setActiveTab('Music Stores') } },
+        { label: 'Music Stores', color: color?.store, action: () => { setSelected(allStores); setActiveTab('Music Stores') } },
         { label: 'Live Stages', color: color?.stage, action: () => { setSelected(allMusicians); setActiveTab('Live Stages') } }
     ]
 
@@ -182,7 +184,7 @@ export default function Discover() {
 
                         <Card
                             key={index}
-                            id={item?.musicianId || item?.studioId}
+                            id={item?.musicianId || item?.studioId || item?.storeId}
                             category={item?.category}
                             city={item?.city}
                             photo={item?.photo}

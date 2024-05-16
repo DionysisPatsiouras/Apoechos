@@ -7,9 +7,12 @@ from .serializers import *
 from .models import *
 
 from musician.models import *
-from musician.serializers import *
 from studios.models import *
+from store.models import *
+
+from musician.serializers import *
 from studios.serializers import *
+from store.serializers import *
 
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
