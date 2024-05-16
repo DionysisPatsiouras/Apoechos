@@ -57,8 +57,8 @@ INSTALLED_APPS = [
     'profiles',
     'musician',
     'studios',
-    'genre',
     'posts',
+    'event'
 ]
 
 

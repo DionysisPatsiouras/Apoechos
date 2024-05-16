@@ -1,8 +1,7 @@
 from django.db import models
+from django.utils import timezone
 import datetime 
 import random
-from django.utils import timezone
-
 
 def generate_pk():
     day = datetime.datetime.now().day
@@ -14,24 +13,27 @@ def generate_pk():
         + str(minute * second * randomNumber)
         + str(randomNumber * 2)
     )
-    return "POST" + id
+    return "EVENT" + id
 
 
-class Post(models.Model):
 
-    post_id = models.CharField(
+class Event(models.Model):
+
+    eventId = models.CharField(
         default=generate_pk, primary_key=True, max_length=255, unique=True
     )
-
-    profile_id = models.CharField(max_length=150, blank=False)
-
-    body = models.CharField(max_length=150, blank=False)
-    category = models.CharField(max_length=40, blank=False)
+    title = models.CharField(max_length=200, blank=True, null=True)
+    description = models.TextField(blank=False)  
+    date = models.DateTimeField(blank=False, null=False)
+    location = models.CharField(max_length=100, blank=False) 
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(blank=True, null=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
     is_deleted = models.BooleanField(default=False)
-    is_pinned = models.BooleanField(default=False)
+    photo = models.ImageField(null=True, blank=True, upload_to="images/")
+
+    created_by = models.CharField(max_length=200, blank=False) 
+
 
     def __str__(self):
-        return self.post_id
+        return self.eventId

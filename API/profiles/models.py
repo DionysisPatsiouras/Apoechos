@@ -2,7 +2,6 @@ from django.db import models
 from users.models import CustomUser
 import datetime
 import random
-from genre.models import Genre
 
 
 

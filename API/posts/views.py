@@ -57,23 +57,6 @@ def post_by_id(request, id):
     serializer = PatchPostSerializer(post, data=request.data, partial=True)
     if serializer.is_valid():
         serializer.save()
-        # if user.id == musician.user_id:
-        #     serializer.save()
-        #     return Response(
-        #         {
-        #             "message": "ok",
-        #             "status": 200,
-        #             "message": "Updated Successfully!",
-        #             "updated entities": request.data,
-        #         }
-        #     )
-        # else:
-        #     return Response(
-        #         {
-        #             "message": "You don't have permission",
-        #         }
-        #     )
-
     return Response(serializer.data)
 
 

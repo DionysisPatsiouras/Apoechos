@@ -26,9 +26,9 @@ urlpatterns = [
     path('api/', include('base.api.urls')),
     path('profiles/', include('profiles.urls')),
     path('user/', include('users.urls')),
-    path('genre/', include('genre.urls')),
     path('posts/', include('posts.urls')),
     path('musician/', include('musician.urls')),
-    path('studio/', include('studios.urls'))
+    path('studio/', include('studios.urls')),
+    path('event/', include('event.urls'))
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
