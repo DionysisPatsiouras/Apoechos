@@ -24,6 +24,7 @@ import Profile from './pages/Profile'
 
 // utils
 import PrivateRoutes from './utils/PrivateRoutes'
+import CreateStore from './pages/CreateStore'
 
 export const WindowSize = createContext(null)
 export const Colors: any = createContext(null)
@@ -74,6 +75,7 @@ export default function App() {
                   <Route path='/create' element={<Create />} />
                   <Route path='/create/musician' element={<CreateMusician />} />
                   <Route path='/create/studio' element={<CreateStudio />} />
+                  <Route path='/create/store' element={<CreateStore />} />
                 </Route>
 
 

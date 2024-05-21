@@ -1,8 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import axios from 'axios'
-import { token, config } from '../utils/Token'
 import AuthContext from '../context/AuthContext'
 
 // components
@@ -24,7 +22,7 @@ export default function CreateMusician() {
     const { register, handleSubmit, formState } = form
     const { errors } = formState
 
-    const [genres, setGenres] = useState<any>([])
+
     const [profileCreated, setProfileCreated] = useState<boolean>(false)
 
     const [selection, setSelection] = useState<string>('strings')
@@ -73,9 +71,14 @@ export default function CreateMusician() {
     const onSubmit = async (data: any) => {
         // console.log(data)
 
+        let formData = new FormData()
+        formData.append('file', data?.file?.[0])
+
+
         const finalData = {
             ...data,
-            user: userData.id
+            user: userData.id,
+            photo: data?.file?.[0]
         }
         const addMusician = new Call(Routes.musician.post, 'POST', finalData)
 
@@ -84,7 +87,7 @@ export default function CreateMusician() {
         // must create async function here to catch the 'loading' variable
 
         addMusician
-            .POST()
+            .POST_MEDIA()
             .then((res) => {
                 // console.log(res)
                 patchMusicianId(res?.data?.musicianId)
@@ -98,14 +101,6 @@ export default function CreateMusician() {
 
     }
 
-
-    useEffect((): any => {
-
-        axios
-            .get('http://127.0.0.1:8000/genre/', config)
-            .then((res) => { setGenres(res?.data) })
-            .catch((err) => console.warn(err))
-    }, [])
 
 
     const handleCheckBox = (event: any) => {
@@ -144,12 +139,13 @@ export default function CreateMusician() {
                     <div className={CSS.personal_info}>
 
                         <div className={CSS.group}>
-                            <img src={uploadedFile} width={20} height={20} alt=''
-                                style={{ width: '150px', height: '150px', border: '1px solid grey', borderRadius: '100px', objectFit: 'cover' }} />
-                            <label htmlFor='picture'>  <SvgIcon id={'upload-image'} /></label>
-
-
-
+                            <label htmlFor='picture'>
+                                <img src={uploadedFile} width={20} height={20} alt=''
+                                    style={{ width: '150px', height: '150px', border: '1px solid grey', borderRadius: '100px', objectFit: 'cover' }} />
+                                <p style={{ display: 'flex', justifyContent: 'space-around' }}>
+                                    <SvgIcon id={'upload-image'} />
+                                    Μεταφόρτωση</p>
+                            </label>
                             <input
                                 {...register('file')}
                                 type="file"
@@ -251,9 +247,9 @@ export default function CreateMusician() {
 
 
 
-            </div>
+            </div >
 
 
-        </div>
+        </div >
     )
 }

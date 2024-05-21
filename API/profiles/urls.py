@@ -13,8 +13,8 @@ urlpatterns = [
     # path("stores/", views.all_stores),
     # path("stores/<str:id>/", views.store_by_id),
     # Stages
-    path("stages/", views.all_stages),
-    path("stages/<int:id>/", views.stage_by_id),
+    # path("stages/", views.all_stages),
+    # path("stages/<int:id>/", views.stage_by_id),
     # Studios
     # path("studios/", views.all_studios),
     # path("studios/add/", views.add_studio),

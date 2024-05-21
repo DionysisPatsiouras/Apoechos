@@ -9,10 +9,12 @@ from .models import *
 from musician.models import *
 from studios.models import *
 from store.models import *
+from stage.models import *
 
 from musician.serializers import *
 from studios.serializers import *
 from store.serializers import *
+from stage.serializers import *
 
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
@@ -55,10 +57,12 @@ def all_profiles(request):
     musicians = Musician.objects.all()
     studios = Studio.objects.all()
     stores = Store.objects.all()
+    stages = Stage.objects.all()
 
     musician_serializer = MusicianSerializer(musicians, many=True)
     studio_serializer = StudioSerializer(studios, many=True)
     store_serializer = StoreSerializer(stores, many=True)
+    stage_serializer = StageSerializer(stages, many=True)
 
     return Response(
         [
@@ -69,74 +73,25 @@ def all_profiles(request):
                     musician_serializer.data
                     + studio_serializer.data
                     + store_serializer.data
+                    + stage_serializer.data
                 ),
                 "everything": musician_serializer.data
                 + studio_serializer.data
-                + store_serializer.data,
+                + store_serializer.data
+                + stage_serializer.data,
                 "musicians": musician_serializer.data,
                 "studios": studio_serializer.data,
                 "stores": store_serializer.data,
+                "stage": stage_serializer.data,
             }
         ]
     )
 
 
-# profiles/stores/
-@api_view(["GET"])
-def all_stores(request):
-    stores = Store.objects.all()
-    serializer = StoreSerializer(stores, many=True)
-    return Response(serializer.data)
 
 
-# profiles/stores/:id/
-@api_view(["GET"])
-def store_by_id(request, id):
-
-    try:
-        storeId = Store.objects.get(pk=id)
-    except Store.DoesNotExist:
-        # return Response(status=status.HTTP_404_NOT_FOUND)
-        return Response(["error", "not exist"])
-
-    if request.method == "GET":
-        serializer = StoreSerializer(storeId)
-        return Response(serializer.data)
 
 
-# STUDIOS
-# @api_view(["GET", "POST"])
-# def studios_list(request):
-#     if request.method == "GET":
-#         studios = Studio.objects.all()
-#         serializer = StudioSerializer(studios, many=True)
-#         return Response(serializer.data)
-
-#     if request.method == "POST":
-#         serializer = StudioSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-
-
-@api_view(["GET"])
-def all_stages(request):
-    stages = Stage.objects.all()
-    serializer = StageSerializer(stages, many=True)
-    return Response(serializer.data)
-
-
-@api_view(["GET"])
-def stage_by_id(request, id):
-
-    try:
-        stageId = Stage.objects.get(pk=id)
-    except Stage.DoesNotExist:
-        return Response(["error", "not exist"])
-
-    if request.method == "GET":
-        serializer = StageSerializer(stageId)
-        return Response(serializer.data)
 
 
 @api_view(["POST"])

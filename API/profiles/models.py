@@ -38,22 +38,3 @@ def generate_pk_service():
 
 
 
-
-
-class Stage(models.Model):
-
-    title = models.CharField(max_length=200)
-    city = models.CharField(max_length=200, blank=False, null=False)
-    address = models.CharField(max_length=200, blank=False, null=False)
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    category = models.CharField(max_length=50, default="stage")
-    photo = models.ImageField(null=True, blank=True, upload_to="images/")
-
-    def __str__(self):
-        return self.title
-
-
-
-
-
-

@@ -23,6 +23,7 @@ export default function Discover() {
     const [allMusicians, setAllMusicians] = useState<any>([])
     const [allStudios, setAllStudios] = useState<any>([])
     const [allStores, setAllStores] = useState<any>([])
+    const [allStages, setAllStages] = useState<any>([])
 
 
     const [activeTab, setActiveTab] = useState('Everything')
@@ -40,13 +41,14 @@ export default function Discover() {
         everything
             .GET()
             .then((res) => {
-                // console.log(res)
+                console.log(res)
                 // setData(res[0]);
                 setSelected(res?.[0]?.everything)
                 setAll(res?.[0]?.everything)
                 setAllMusicians(res?.[0]?.musicians)
                 setAllStudios(res?.[0]?.studios)
                 setAllStores(res?.[0]?.stores)
+                setAllStages(res?.[0]?.stage)
 
             })
             .catch((err) => console.warn(err))
@@ -63,7 +65,7 @@ export default function Discover() {
         { label: 'Bands', color: color?.band, action: () => { setSelected(allMusicians); setActiveTab('Bands') } },
         { label: 'Music Studio', color: color?.studio, action: () => { setSelected(allStudios); setActiveTab('Music Studio') } },
         { label: 'Music Stores', color: color?.store, action: () => { setSelected(allStores); setActiveTab('Music Stores') } },
-        { label: 'Live Stages', color: color?.stage, action: () => { setSelected(allMusicians); setActiveTab('Live Stages') } }
+        { label: 'Live Stages', color: color?.stage, action: () => { setSelected(allStages); setActiveTab('Live Stages') } }
     ]
 
 
@@ -75,6 +77,8 @@ export default function Discover() {
                 return color?.studio
             case 'store':
                 return color?.store
+            case 'stage':
+                return color?.stage
             default:
                 break;
         }
@@ -87,7 +91,7 @@ export default function Discover() {
     //     for (let index = 0; index < 1000; index++) {
     //         // const element = array[index];
 
-           
+
     //         return value?.instruments?.[index]?.name === value2
 
     //     }
@@ -95,14 +99,15 @@ export default function Discover() {
 
 
     const filteredData =
-        selected
-            .filter((data: any) =>
-                SearchValidation(data?.artistic_nickname, search) || SearchValidation(data?.title, search)
-            )
-            // .filter((data: any) =>
-            //     loop(data, 'Τσέλο')
-            // )
-            
+      
+    selected
+        // .filter((data: any) =>
+        //     SearchValidation(data?.artistic_nickname, search) || SearchValidation(data?.title, search)
+        // )
+    // .filter((data: any) =>
+    //     loop(data, 'Τσέλο')
+    // )
+
 
 
 
