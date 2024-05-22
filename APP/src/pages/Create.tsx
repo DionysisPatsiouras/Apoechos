@@ -26,6 +26,7 @@ export default function Create() {
 
 
 
+    // console.log(userData)
 
     return (
         <div className='space'>
@@ -42,10 +43,6 @@ export default function Create() {
                 <div style={{ 'padding': '35px' }}>
 
 
-                    {/* <div className={CSS.desktopTitles}>
-                        <p>Profile Type</p>
-                        <p>Benefits</p>
-                    </div> */}
 
                     {userData?.musicianId === null &&
                         <Profile
@@ -55,28 +52,35 @@ export default function Create() {
                         />
                     }
 
+
                     <Profile
                         id={'band'} color={color.band}
                         active={active} setActive={() => setActive('Band')}
                         label={'Band'} description={'Promote your band'}
                     />
+                    {userData?.studioId === null &&
+                        <Profile
+                            id={'studio'} color={color.studio}
+                            active={active} setActive={() => setActive('Studio')}
+                            label={'Studio'} description={'Promote your business'}
+                        />
+                    }
 
-                    <Profile
-                        id={'studio'} color={color.studio}
-                        active={active} setActive={() => setActive('Studio')}
-                        label={'Studio'} description={'Promote your business'}
-                    />
+                    {userData?.stageId === null &&
+                        <Profile
+                            id={'stage'} color={color.stage}
+                            active={active} setActive={() => setActive('Stage')}
+                            label={'Stage'} description={'Organize events'}
+                        />
+                    }
 
-                    <Profile
-                        id={'stage'} color={color.stage}
-                        active={active} setActive={() => setActive('Stage')}
-                        label={'Stage'} description={'Organize events'}
-                    />
-                    <Profile
-                        id={'store'} color={color.store}
-                        active={active} setActive={() => setActive('Store')}
-                        label={'Store'} description={'Increase your sales'}
-                    />
+                    {userData?.storeId === null &&
+                        <Profile
+                            id={'store'} color={color.store}
+                            active={active} setActive={() => setActive('Store')}
+                            label={'Store'} description={'Increase your sales'}
+                        />
+                    }
                 </div>
 
                 <div className={CSS.buttonSection}>Text here...

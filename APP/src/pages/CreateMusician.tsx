@@ -14,6 +14,7 @@ import { cities, all_categories, strings, woodwind, percussion, vocals, keys } f
 // css
 import CSS from '../css/CreateMusician/CreateMusician.module.css'
 
+import { patchUser } from '../utils/functions/patchUser'
 
 
 export default function CreateMusician() {
@@ -53,27 +54,13 @@ export default function CreateMusician() {
         }
 
     }
-    const patchMusicianId = (id: string) => {
-
-        let data = {
-            musicianId: id
-        }
-
-        let updateUser = new Call(Routes.user.patch, 'PATCH', data)
-
-        updateUser
-            .PATCH()
-            .then((res) => console.log(res))
-            .catch((error) => { console.log(error) })
-
-    }
+ 
 
     const onSubmit = async (data: any) => {
         // console.log(data)
 
         let formData = new FormData()
         formData.append('file', data?.file?.[0])
-
 
         const finalData = {
             ...data,
@@ -90,12 +77,10 @@ export default function CreateMusician() {
             .POST_MEDIA()
             .then((res) => {
                 // console.log(res)
-                patchMusicianId(res?.data?.musicianId)
+                patchUser('musicianId', res?.data?.musicianId)
                 add_instruments(res?.data?.musicianId)
                 setLoading(false)
                 setProfileCreated(true)
-
-
             })
             .catch((err) => { console.warn(err) })
 

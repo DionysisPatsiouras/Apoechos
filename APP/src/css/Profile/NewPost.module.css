@@ -20,7 +20,7 @@
 
 textarea {
   width: 100%;
-  width: -webkit-fill-available;
+  box-sizing: border-box;
   resize: none;
   height: 120px;
   padding: 19px;
@@ -57,11 +57,7 @@ h3 {
 }
 
 @media screen and (min-width: 768px) {
-  .new_post_form textarea {
-    width: 450px;
-  }
   .bottom_section {
-    width: 490px;
     margin: -55px 0 0 0;
   }
 }/*# sourceMappingURL=NewPost.module.css.map */

@@ -78,20 +78,23 @@ export default function NewPost(props: any) {
                 </div>
 
 
+                <div style={{margin: '0 0 20px 0', width : '100%'}}>
 
-                <textarea placeholder='Γράψτε κάτι...' {...register('post')}
-                    onChange={(e) => {
-                        setPost(e.target.value);
-                        setWordCount(e.target.value.length)
-                    }}>
 
-                </textarea>
+                    <textarea placeholder='Γράψτε κάτι...' {...register('post')}
+                        onChange={(e) => {
+                            setPost(e.target.value);
+                            setWordCount(e.target.value.length)
+                        }}>
 
-                <div className={CSS.bottom_section}>
-                    <p>{wordCount}/{limit}</p>
-                    <button>Δημοσίευση</button>
+                    </textarea>
+
+                    <div className={CSS.bottom_section}>
+                        <p>{wordCount}/{limit}</p>
+                        <button>Δημοσίευση</button>
+                    </div>
+
                 </div>
-
 
             </form>
         </>

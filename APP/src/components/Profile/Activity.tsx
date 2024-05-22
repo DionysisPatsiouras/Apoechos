@@ -40,17 +40,17 @@ export default function Activity(props: any) {
     return (
         <section>
 
-            {props?.canEdit &&
+            {/* {props?.canEdit &&
                 <NewPost
                     profile_id={profile}
                     updateDOM={() => setUpdateDOM(!updateDOM)}
                 />
                 
-            }
+            } */}
 
 
 
-            {pinnedPosts.length > 0 && <h3 style={{ margin: '35px 0 15px 0' }}> {`Καρφιτσωμένες δημοσίευσεις (${pinnedPosts?.length})`}</h3>}
+            {pinnedPosts.length > 0 && <h3 style={{ margin: '35px 0 15px 0' }}> {`Καρφιτσωμένες δημοσιεύσεις (${pinnedPosts?.length})`}</h3>}
             {pinnedPosts.map((post: any, index: number) => (
                 <Post
                     updateDOM={() => setUpdateDOM(!updateDOM)}
@@ -62,7 +62,7 @@ export default function Activity(props: any) {
             ))}
 
 
-            {unpinnedPosts.length > 0 && <h3 style={{ margin: '35px 0 15px 0' }}> {`Προηγούμενες δημοσίευσεις (${unpinnedPosts?.length})`}</h3>}
+            {unpinnedPosts.length > 0 && <h3 style={{ margin: '35px 0 15px 0' }}> {`Προηγούμενες δημοσιεύσεις (${unpinnedPosts?.length})`}</h3>}
             {unpinnedPosts.map((post: any, index: number) => (
                 <Post
                     updateDOM={() => setUpdateDOM(!updateDOM)}

@@ -10,6 +10,7 @@ import SvgIcon from '../components/SvgIcon'
 import Activity from '../components/Profile/Activity'
 import EditMusician from '../components/Profile/EditMusician'
 import NewEvent from '../components/Profile/NewEvent'
+import NewPost from '../components/Profile/NewPost'
 
 export default function Profile() {
 
@@ -18,8 +19,10 @@ export default function Profile() {
     let { user }: any = useContext(AuthContext)
     let [updateDOM, setUpdateDOM] = useState<boolean>(false)
     let [editMode, setEditMode] = useState<boolean>(false)
-    let [newEvent, setNewEvent] = useState<boolean>(false)
+    // let [newEvent, setNewEvent] = useState<boolean>(false)
     let [tab, setTab] = useState<string>('posts')
+
+    let [createNew, setCreateNew] = useState<boolean>(false)
 
     let profile_id = window.location.pathname.replace('/profile/', '')
 
@@ -58,7 +61,6 @@ export default function Profile() {
 
     return (
         <div className={CSS.container}>
-            <p onClick={() => setNewEvent(true)}>new event</p>
 
             <Modal open={modal} close={() => setModal(false)} closeButton={true}>
                 <img src={`http://127.0.0.1:8000/${data?.photo}`} alt='profile_photo' />
@@ -74,8 +76,17 @@ export default function Profile() {
                 }
             </Modal>
 
-            <Modal open={newEvent} close={() => setNewEvent(false)} withContainer={true} title={'Δημιουργία νέου event'}>
-                <NewEvent />
+            <Modal
+                open={createNew}
+                close={() => setCreateNew(false)}
+                withContainer={true}
+                title={
+                    tab === 'posts' ? 'Νέα δημοσίευση' :
+                    'Δημιουργία νέου event'
+                }>
+                {tab === 'posts' && <NewPost />}
+                {tab === 'events' && <NewEvent />}
+
             </Modal>
 
             <section className={CSS.personal_info}>
@@ -130,14 +141,27 @@ export default function Profile() {
                     <li className={tab === 'events' ? CSS.active : undefined} onClick={() => setTab('events')}>Events</li>
                 </ul>
 
+
                 <div>
                     {tab === 'posts' &&
-                        <Activity
-                            canEdit={data.user === user?.user_id ? true : false}
-                            photo={data?.photo}
-                            data={data}
-                        />
+                        <>
+
+                            <Activity
+                                canEdit={data.user === user?.user_id ? true : false}
+                                photo={data?.photo}
+                                data={data}
+                            />
+
+                            <button onClick={() => setCreateNew(true)}>new post</button>
+                        </>
                     }
+
+                    {tab === 'events' &&
+
+                        <p onClick={() => setCreateNew(true)}>new event</p>
+
+                    }
+
                 </div>
 
 

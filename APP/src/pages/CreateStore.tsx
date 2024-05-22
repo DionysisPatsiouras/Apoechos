@@ -9,7 +9,8 @@ import SvgIcon from '../components/SvgIcon'
 import FormError from '../utils/FormError'
 import { Routes } from '../utils/Routes'
 import Call from '../utils/Call'
-import { cities, all_categories, strings, woodwind, percussion, vocals, keys } from '../utils/MusicianUtils'
+import { cities } from '../utils/MusicianUtils'
+import { patchUser } from '../utils/functions/patchUser'
 
 // css
 import CSS from '../css/CreateMusician/CreateMusician.module.css'
@@ -55,7 +56,8 @@ export default function CreateStore() {
         addStore
             .POST_MEDIA()
             .then((res) => {
-                // console.log(res)
+                // console.log(res?.data?.storeId)
+                patchUser('storeId', res?.data?.storeId)
                 setProfileCreated(true)
             })
             .catch((err) => { console.warn(err) })

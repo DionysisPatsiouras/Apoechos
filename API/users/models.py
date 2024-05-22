@@ -8,8 +8,6 @@ import random
 from .managers import CustomUserManager
 
 
-
-
 def generate_pk():
     day = datetime.datetime.now().day
     minute = datetime.datetime.now().minute
@@ -28,11 +26,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(default=timezone.now)
 
     musicianId = models.CharField(max_length=255, null=True)
-    # hasBandProfile = models.BooleanField(default=False)
-    # storeId = models.BooleanField(max_length=255, null=True)
-    # stageId = models.BooleanField(max_length=255, null=True)
-    # studioId = models.BooleanField(max_length=255, null=True)
-
+    studioId = models.CharField(max_length=255, null=True)
+    storeId = models.CharField(max_length=255, null=True)
+    stageId = models.CharField(max_length=255, null=True)
 
 
     USERNAME_FIELD = "email"

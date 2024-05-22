@@ -21,17 +21,26 @@
         height: 90vh
         margin: 25px 0 0 0
 
+.content header, .content
+    width: 60vw
+    max-width: 800px
+
 .content
     margin: 10vh auto
     background-color: #ffffff
-    width: 500px
     border-radius: 4px
+
+    // width: 60vw
+    // max-width: 800px
+    height: auto
+    max-height: 80vh
 
     header
         display: flex
         justify-content: space-between
         padding: 20px
         border-bottom: 1px solid #DCDCDC
+        box-sizing: border-box
     svg
         position: static
         float: unset
@@ -51,9 +60,13 @@
         width: 150px
 .body
     height: auto
-    max-height: 70vh
-    overflow-y: scroll
+    overflow-y: auto
+    padding: 30px
 
+    height: auto
+    max-height: 58vh
+    
+   
 
     img
         margin: 0

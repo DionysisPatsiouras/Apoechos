@@ -14,8 +14,8 @@ import { cities } from '../utils/MusicianUtils'
 
 // css
 import CSS from '../css/CreateMusician/CreateMusician.module.css'
+import { patchUser } from '../utils/functions/patchUser'
 
-import axios from 'axios'
 
 
 
@@ -54,20 +54,7 @@ export default function CreateStudio() {
         }
     }
 
-    // const patchStudioId = (id: string) => {
 
-    //     let data = {
-    //         studioId: id
-    //     }
-
-    //     let updateUser = new Call(Routes.user.patch, 'PATCH', data)
-
-    //     updateUser
-    //         .PATCH()
-    //         .then((res) => console.log(res))
-    //         .catch((error) => { console.log(error) })
-
-    // }
 
     const onSubmit = async (data: any) => {
      
@@ -88,7 +75,7 @@ export default function CreateStudio() {
             .POST_MEDIA()
             .then((res) => {
                 // console.log(res)
-                // patchStudioId(res?.data?.musicianId)
+                patchUser('studioId', res?.data?.studioId)
                 add_services(res?.data?.studioId)
                 setProfileCreated(true)
             })

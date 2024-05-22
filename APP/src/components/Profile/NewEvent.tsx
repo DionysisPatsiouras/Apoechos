@@ -37,7 +37,7 @@ const NewEvent = forwardRef(function NewEvent(props: any, ref: any) {
                 />
 
 
-                <div>
+                <div style={{width: '100%'}}>
                     <label>Βασικές πληροφορίες</label>
                     <input type='text' placeholder='Τίτλος' {...register('title')} />
                     <div style={{ display: 'flex' }}>

@@ -1,6 +1,5 @@
 .new_event_form {
   text-align: left;
-  padding: 30px;
   display: block !important;
 }
 .new_event_form input {
@@ -21,4 +20,6 @@
   background-color: #EFEEEE;
   box-shadow: none;
   margin-top: 9px;
+  width: 100%;
+  box-sizing: border-box;
 }/*# sourceMappingURL=NewEvent.module.css.map */
