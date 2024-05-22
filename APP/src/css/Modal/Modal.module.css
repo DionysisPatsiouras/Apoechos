@@ -23,8 +23,7 @@
 }
 
 .content header, .content {
-  width: 60vw;
-  max-width: 800px;
+  width: 600px;
 }
 
 .content {
@@ -75,4 +74,10 @@
 }
 .body svg {
   position: static;
+}
+
+@media screen and (max-width: 768px) {
+  .content header, .content {
+    width: 80vw;
+  }
 }/*# sourceMappingURL=Modal.module.css.map */
