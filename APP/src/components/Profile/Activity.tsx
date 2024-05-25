@@ -1,78 +1,85 @@
-import { useEffect, useState } from "react"
 
-import Call from "../../utils/Call"
-import { Routes } from "../../utils/Routes"
+import { useState, useContext } from 'react'
 
-import Post from '../Post'
+import Modal from '../Modal'
+import CSS from '../../css/Profile/Profile.module.sass'
+import AuthContext from '../../context/AuthContext'
+import All_Posts from './All_Posts'
+import NewEvent from './NewEvent'
 import NewPost from './NewPost'
+
 
 export default function Activity(props: any) {
 
+    let { user }: any = useContext(AuthContext)
 
-    const [posts, setPosts] = useState<any>([])
-    const [updateDOM, setUpdateDOM] = useState<boolean>(false)
+    let [tab, setTab] = useState<string>('posts')
 
-    let profile = props?.data?.musicianId || props?.data?.studioId
-
-    const posts_by_id = new Call(Routes.posts.profile_id(profile), 'GET')
+    let [createNew, setCreateNew] = useState<boolean>(false)
 
 
-    useEffect(() => {
-
-        posts_by_id
-            .GET()
-            .then((res) => setPosts(res))
-            .catch((err) => console.warn(err))
-    }, [updateDOM, props])
-
-
-
-    const unpinnedPosts = posts && posts
-        .filter((post: any) => !post?.is_pinned)
-        .filter((post: any) => !post?.is_deleted)
-        .sort((a: any, b: any) => new Date(b.created_at) > new Date(a.created_at) ? 1 : -1)
-
-    const pinnedPosts = posts && posts
-        .filter((post: any) => post?.is_pinned)
-        .filter((post: any) => !post?.is_deleted)
-        .sort((a: any, b: any) => new Date(b.created_at) > new Date(a.created_at) ? 1 : -1)
+    let data = props?.data
+    // console.log(data)
+    // console.log(props)
 
     return (
-        <section>
-
-            {/* {props?.canEdit &&
-                <NewPost
-                    profile_id={profile}
-                    updateDOM={() => setUpdateDOM(!updateDOM)}
-                />
-                
-            } */}
 
 
-
-            {pinnedPosts.length > 0 && <h3 style={{ margin: '35px 0 15px 0' }}> {`Καρφιτσωμένες δημοσιεύσεις (${pinnedPosts?.length})`}</h3>}
-            {pinnedPosts.map((post: any, index: number) => (
-                <Post
-                    updateDOM={() => setUpdateDOM(!updateDOM)}
-                    key={index}
-                    data={post}
-                    canEdit={props?.canEdit}
-                    profile={props?.data?.artistic_nickname || props?.data?.title}
-                    photo={`http://127.0.0.1:8000/${props?.photo}`} />
-            ))}
+        <section >
 
 
-            {unpinnedPosts.length > 0 && <h3 style={{ margin: '35px 0 15px 0' }}> {`Προηγούμενες δημοσιεύσεις (${unpinnedPosts?.length})`}</h3>}
-            {unpinnedPosts.map((post: any, index: number) => (
-                <Post
-                    updateDOM={() => setUpdateDOM(!updateDOM)}
-                    key={index}
-                    data={post}
-                    canEdit={props?.canEdit}
-                    profile={props?.data?.artistic_nickname || props?.data?.title}
-                    photo={`http://127.0.0.1:8000/${props?.photo}`} />
-            ))}
+            <Modal
+                open={createNew}
+                close={() => setCreateNew(false)}
+                withContainer={true}
+                title={
+                    tab === 'posts' ? 'Νέα δημοσίευση' :
+                        'Δημιουργία νέου event'
+                }>
+                {tab === 'posts' && <NewPost category={data?.category}
+                    close={() => setCreateNew(false)}
+
+                    profile_id={data?.musicianId || data?.studioId || data?.storeId || data?.stageId || data?.bandId} />}
+                {tab === 'events' && <NewEvent />}
+
+            </Modal>
+
+            <ul className={CSS.wall_list}>
+
+                <li className={tab === 'posts' ? CSS.active : undefined} onClick={() => setTab('posts')}>posts</li>
+                {data?.category === 'musician' &&
+                    <li className={tab === 'events' ? CSS.active : undefined} onClick={() => setTab('events')}>Events</li>}
+            </ul>
+
+
+
+            {tab === 'posts' &&
+                <>
+                    <All_Posts
+                        canEdit={data.user === user?.user_id ? true : false}
+                        photo={data?.photo}
+                        data={data}
+                    />
+
+                    <button onClick={() => setCreateNew(true)}>new post</button>
+                </>
+            }
+            {
+
+                tab === 'events' &&
+
+                <p onClick={() => setCreateNew(true)}>new event</p>
+
+
+            }
+
+
+
 
         </section>
+
+
+
+
     )
 }

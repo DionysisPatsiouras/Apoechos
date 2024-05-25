@@ -12,10 +12,10 @@
   margin: 0 20px;
 }
 
-.right_section {
-  width: 550px;
-  overflow-y: scroll;
-  height: 80vh;
+.signature {
+  width: 200px;
+  height: 200px;
+  margin: 0 0 -200px 0;
 }
 
 .wall_list {

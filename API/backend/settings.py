@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'studios',
     'store',
     'stage',
+    'band',
     'posts',
     'event'
 ]

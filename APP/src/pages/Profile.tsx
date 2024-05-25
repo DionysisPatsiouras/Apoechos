@@ -3,14 +3,14 @@ import { useEffect, useState, useContext } from 'react'
 
 import { Routes } from '../utils/Routes'
 import Call from '../utils/Call'
-import Modal from '../components/Modal'
 import CSS from '../css/Profile/Profile.module.sass'
 import AuthContext from '../context/AuthContext'
-import SvgIcon from '../components/SvgIcon'
-import Activity from '../components/Profile/Activity'
+import Modal from '../components/Modal'
 import EditMusician from '../components/Profile/EditMusician'
-import NewEvent from '../components/Profile/NewEvent'
-import NewPost from '../components/Profile/NewPost'
+import Activity from '../components/Profile/Activity'
+import Characteristics from '../components/Profile/Characteristics'
+import { Colors } from '../App'
+import SvgIcon from '../components/SvgIcon'
 
 export default function Profile() {
 
@@ -18,13 +18,12 @@ export default function Profile() {
     const [modal, setModal] = useState<boolean>(false)
     let { user }: any = useContext(AuthContext)
     let [updateDOM, setUpdateDOM] = useState<boolean>(false)
-    let [editMode, setEditMode] = useState<boolean>(false)
-    // let [newEvent, setNewEvent] = useState<boolean>(false)
-    let [tab, setTab] = useState<string>('posts')
 
-    let [createNew, setCreateNew] = useState<boolean>(false)
+    let [editMode, setEditMode] = useState<boolean>(false)
 
     let profile_id = window.location.pathname.replace('/profile/', '')
+
+    const color = useContext<any>(Colors)
 
 
     useEffect(() => {
@@ -38,7 +37,6 @@ export default function Profile() {
                     :
                     window.location.pathname.includes('STORE') ?
                         Routes.store.id(profile_id)
-
                         : '/',
             'GET'
         )
@@ -55,9 +53,19 @@ export default function Profile() {
     }, [updateDOM])
 
 
-    console.log(data)
+    // console.log(data)
 
 
+    const check_category = (category: string) => {
+
+        switch (category) {
+            case 'musician':
+                return <EditMusician data={data} close={() => { setEditMode(false); setUpdateDOM(!updateDOM) }} />
+
+            default:
+                break;
+        }
+    }
 
     return (
         <div className={CSS.container}>
@@ -71,102 +79,38 @@ export default function Profile() {
                 close={() => { setEditMode(false); setUpdateDOM(!updateDOM) }}
                 withContainer={true}
                 title={'Επεξεργασία'}>
-                {data?.category === 'musician' &&
-                    <EditMusician data={data} close={() => { setEditMode(false); setUpdateDOM(!updateDOM) }} />
-                }
+                {check_category(data?.category)}
             </Modal>
 
-            <Modal
-                open={createNew}
-                close={() => setCreateNew(false)}
-                withContainer={true}
-                title={
-                    tab === 'posts' ? 'Νέα δημοσίευση' :
-                    'Δημιουργία νέου event'
-                }>
-                {tab === 'posts' && <NewPost />}
-                {tab === 'events' && <NewEvent />}
 
-            </Modal>
 
             <section className={CSS.personal_info}>
-                <img src={`http://127.0.0.1:8000/${data?.photo}`} alt='profile_photo' width={150} height={150} onClick={() => setModal(!modal)} />
 
-                {user?.user_id === data?.user && !editMode &&
-                    <button
-                        className={CSS.edit_btn}
-                        onClick={() => setEditMode(!editMode)}>
-                        Επεξεργασία
-                    </button>}
-
-
-
-                <div className={CSS.info}>
-                    <strong> {data?.artistic_nickname || data?.title}</strong>
-
-                    <ul className={CSS.characteristics}>
-                        <li>
-                            <div> <SvgIcon id='location' /> </div>
-                            <div> {data?.city} <br></br> {data?.address}</div>
-                        </li>
-                        <li>
-                            <div>
-                                <SvgIcon id='keys' />
-                            </div>
-                            <div>
-                                {data?.instruments?.map((item: any, index: number) => (
-                                    <div key={index}>
-                                        {item?.name}
-                                        {index !== data?.instruments?.length - 1 && ','}
-                                    </div>
-
-                                ))}
-                            </div>
-                        </li>
-
-                    </ul>
-                    <p className={CSS.bio}>{data?.bio}</p>
+                <div className={CSS.signature} style={{ backgroundColor: color?.[data?.category] }}>
+                    <SvgIcon id={data?.category} style={{margin: '5px  0 0 172px'}} color={'#fff'}/>
                 </div>
 
-            </section>
+                <img
+                    style={{ borderRadius: '0  100px 0 0' }}
+                    src={`http://127.0.0.1:8000/${data?.photo}`}
+                    alt='profile_photo'
+                    width={150}
+                    height={150}
+                    onClick={() => setModal(!modal)} />
 
+                <Characteristics
+                    data={data}
+                    canEdit={user?.user_id === data?.user ? true : false}
+                    onClick={() => setEditMode(!editMode)}
+                />
+
+            </section>
 
             <hr></hr>
 
             <section className={CSS.right_section}>
-
-
-                <ul className={CSS.wall_list}>
-                    <li className={tab === 'posts' ? CSS.active : undefined} onClick={() => setTab('posts')}>Δημοσιεύσεις</li>
-                    <li className={tab === 'events' ? CSS.active : undefined} onClick={() => setTab('events')}>Events</li>
-                </ul>
-
-
-                <div>
-                    {tab === 'posts' &&
-                        <>
-
-                            <Activity
-                                canEdit={data.user === user?.user_id ? true : false}
-                                photo={data?.photo}
-                                data={data}
-                            />
-
-                            <button onClick={() => setCreateNew(true)}>new post</button>
-                        </>
-                    }
-
-                    {tab === 'events' &&
-
-                        <p onClick={() => setCreateNew(true)}>new event</p>
-
-                    }
-
-                </div>
-
-
+                <Activity data={data} />
             </section>
-
 
 
         </div>

@@ -42,7 +42,7 @@ def studio_by_id(request, id):
     try:
         studio = Studio.objects.get(pk=id)
     except Studio.DoesNotExist:
-        return Response(["error", "not exist"])
+        return Response({"message": "Studio not exist", "status": 404})
 
     serializer = StudioSerializer(studio)
 

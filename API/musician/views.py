@@ -35,7 +35,7 @@ def musician_by_id(request, id):
     try:
         musician = Musician.objects.get(pk=id)
     except Musician.DoesNotExist:
-        return Response(["error", "not exist"])
+        return Response({"message": "Musician not exist", "status": 404})
 
     serializer = MusicianSerializer(musician)
 

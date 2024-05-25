@@ -30,6 +30,7 @@ export default function NewPost(props: any) {
     // const { errors } = formState
 
 
+
     const onSubmit = () => {
 
 
@@ -46,7 +47,7 @@ export default function NewPost(props: any) {
         new_post
             .POST()
             .then(() => {
-                props?.updateDOM();
+                props?.close()
                 resetField('post');
                 setWordCount(0);
                 setPost('')

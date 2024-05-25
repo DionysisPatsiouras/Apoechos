@@ -35,7 +35,8 @@ def store_by_id(request, id):
     try:
         store = Store.objects.get(pk=id)
     except Store.DoesNotExist:
-        return Response(["error", "not exist"])
+
+        return Response({"message": "Store not exist", "status": 404})
 
     serializer = StoreSerializer(store)
 
@@ -72,5 +73,3 @@ def store_by_id(request, id):
 #                     "message": "You don't have permission",
 #                 }
 #             )
-
-

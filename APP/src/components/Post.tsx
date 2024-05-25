@@ -83,7 +83,7 @@ const Post = forwardRef(function Post(props: any, ref: any) {
         </section>
 
     return (
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: 'flex', marginLeft: '7px' }}>
 
 
             <Modal open={modal} close={() => setEdit(false)}>
@@ -107,11 +107,16 @@ const Post = forwardRef(function Post(props: any, ref: any) {
             {PostView(props?.canEdit ? true : false)}
 
 
-            <ul className={CSS.edit_menu} style={{ display: edit ? 'block' : 'none' }}>
-                <li><SvgIcon id={'edit'} /></li>
-                <li onClick={() => { setModal(true); setEdit(false) }}><SvgIcon id={post?.is_pinned ? 'pinned' : 'pinned'} /></li>
-                <li onClick={() => { setModal(true); setEdit(false); setDelete(true) }} ><SvgIcon id={'delete'} /></li>
-            </ul>
+            {edit &&
+
+
+
+                <ul className={CSS.edit_menu} >
+                    <li><SvgIcon id={'edit'} /></li>
+                    <li onClick={() => { setModal(true); setEdit(false) }}><SvgIcon id={post?.is_pinned ? 'pinned' : 'pinned'} /></li>
+                    <li onClick={() => { setModal(true); setEdit(false); setDelete(true) }} ><SvgIcon id={'delete'} /></li>
+                </ul>
+            }
         </div>
     );
 });

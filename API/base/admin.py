@@ -7,6 +7,7 @@ from studios.models import *
 from store.models import *
 from stage.models import *
 from event.models import *
+from band.models import *
 
 
 
@@ -21,3 +22,5 @@ admin.site.register(Instrument)
 admin.site.register(Studio)
 admin.site.register(Service)
 admin.site.register(Event)
+
+admin.site.register(Band)

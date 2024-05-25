@@ -36,7 +36,7 @@ export default function EditMusician(props: any) {
 
 
     return (
-        <section>
+        <section style={{margin: '-30px'}}>
 
             <ul className={CSS.tabs}>
                 <li className={tab === 1 ? CSS.active_tab : CSS.tab} onClick={() => setTab(1)}>
@@ -48,7 +48,7 @@ export default function EditMusician(props: any) {
                     Είδη
                 </li>
                 <li className={tab === 3 ? CSS.active_tab : CSS.tab} onClick={() => setTab(3)}>
-                    <SvgIcon id='account' color={tab === 3 ? '#fff' : '#000'} width={20} height={20} />
+                    <SvgIcon id='keys' color={tab === 3 ? '#fff' : '#000'} width={20} height={20} />
                     Όργανα
                 </li>
             </ul>
