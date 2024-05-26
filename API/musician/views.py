@@ -84,3 +84,13 @@ def add_instrument(request):
         return Response({"message": "Created", "status": 201, "data": serializer.data})
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["DELETE"])
+@permission_classes([IsAuthenticated])
+def delete_instrument(request, id):
+
+    instrument = Instrument.objects.get(pk=id)
+    instrument.delete()
+    return Response({"message": "Instrument deleted"})
+

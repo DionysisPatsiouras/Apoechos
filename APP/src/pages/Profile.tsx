@@ -37,7 +37,10 @@ export default function Profile() {
                     :
                     window.location.pathname.includes('STORE') ?
                         Routes.store.id(profile_id)
-                        : '/',
+                        :
+                        window.location.pathname.includes('STAGE') ?
+                            Routes.stage.id(profile_id)
+                            : '/',
             'GET'
         )
 
@@ -87,7 +90,7 @@ export default function Profile() {
             <section className={CSS.personal_info}>
 
                 <div className={CSS.signature} style={{ backgroundColor: color?.[data?.category] }}>
-                    <SvgIcon id={data?.category} style={{margin: '5px  0 0 172px'}} color={'#fff'}/>
+                    <SvgIcon id={data?.category} style={{ margin: '5px  0 0 172px' }} color={'#fff'} />
                 </div>
 
                 <img

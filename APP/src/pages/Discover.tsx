@@ -189,7 +189,7 @@ export default function Discover() {
 
                         <Card
                             key={index}
-                            id={item?.musicianId || item?.studioId || item?.storeId}
+                            id={item?.musicianId || item?.studioId || item?.storeId || item?.stageId || item?.bandId}
                             category={item?.category}
                             city={item?.city}
                             photo={item?.photo}

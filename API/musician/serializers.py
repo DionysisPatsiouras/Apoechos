@@ -1,17 +1,17 @@
 from rest_framework import serializers
 from .models import *
 
-
-
 class AddInstrumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Instrument
         fields = "__all__"
-       
+
+
 class InstrumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Instrument
-        fields = ("name", )
+        fields = ("name",)
+
 
 class MusicianSerializer(serializers.ModelSerializer):
 
