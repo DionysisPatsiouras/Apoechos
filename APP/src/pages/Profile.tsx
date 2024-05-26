@@ -47,7 +47,7 @@ export default function Profile() {
         newCall
             .GET()
             .then((res: any) => {
-                console.log(res)
+                // console.log(res)
                 setData(res);
                 // console.log(res)
             })

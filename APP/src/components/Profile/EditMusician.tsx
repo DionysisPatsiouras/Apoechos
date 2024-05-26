@@ -14,12 +14,29 @@ export default function EditMusician(props: any) {
     const { register, handleSubmit, formState, watch } = form
     const { errors } = formState
 
+    const inst = ['Κιθάρα', 'Μπάσο', 'Drums', 'Flaouto', 'Guitar', 'Bass',]
+
+
+    const x = (e: any) => {
+
+        console.log(e)
+        for (let index = 0; index < musicianInstruments.length; index++) {
+            const element = musicianInstruments[index];
+            return e !== element
+
+        }
+    }
+
+
+
+    const [musicianInstruments, setMusiciansInstruments] = useState<any>(props?.data?.instruments.map((item: any) => item.name))
+    const [newInst, setNewInst] = useState<any>(inst.filter((h: any) => x(h)))
 
     const [tab, setTab] = useState<number>(1)
 
 
+    // console.log(props)
     const updateProfile = (data: any) => {
-
 
         const patchMusician = new Call(Routes.musician.patch(props?.data?.musicianId), 'PATCH', data)
 
@@ -30,13 +47,24 @@ export default function EditMusician(props: any) {
             })
             .catch((err) => console.warn(err))
 
+    }
 
+
+    const addInstruments = (e: any) => {
+        setMusiciansInstruments([...musicianInstruments, e]);
+        setNewInst((prev: any) => prev.filter((value: any) => value !== e))
+    }
+
+    const removeInstruments = (e: any) => {
+        setNewInst([...newInst, e]);
+        setMusiciansInstruments((prev: any) => prev.filter((value: any) => value !== e))
     }
 
 
 
+
     return (
-        <section style={{margin: '-30px'}}>
+        <section style={{ margin: '-30px' }}>
 
             <ul className={CSS.tabs}>
                 <li className={tab === 1 ? CSS.active_tab : CSS.tab} onClick={() => setTab(1)}>
@@ -73,11 +101,36 @@ export default function EditMusician(props: any) {
                             ))}
                         </select>
                         <textarea
-
                             defaultValue={props?.data?.bio}
                             {...register('bio')}
                         />
                     </div>
+                }
+
+
+                {tab === 3 &&
+                    <div style={{ display: 'flex', justifyContent: 'space-around', width: '100%' }}>
+
+                        <div>
+                            {musicianInstruments
+
+                                .map((item: any, index: number) => (
+                                    <div key={index} onClick={() => removeInstruments(item)}> - {item}</div>
+                                ))}
+                        </div>
+
+                        <div>
+                            {newInst
+                                // .filter((i: any) => x(i))
+                                // .filter((i:any) => i !== musicianInstruments[0])
+                                .map((item: any, index: number) => (
+                                    <div key={index} onClick={() => addInstruments(item)}> + {item}</div>
+                                ))}
+                        </div>
+
+
+                    </div>
+
                 }
                 <div className={CSS.bottom_section}>
 
