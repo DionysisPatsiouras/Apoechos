@@ -21,11 +21,14 @@ export default function Characteristics(props: any) {
 
 
             {props?.canEdit &&
-                <button
-                    className={CSS.edit_btn}
+                <div className='items-inline'
+                    style={{ margin: '10px 0', border: '2px solid #5f69c6', padding: '10px', borderRadius: '4px', cursor: 'pointer' }}
                     onClick={props?.onClick}>
-                    Επεξεργασία
-                </button>}
+                    <SvgIcon id='settings' style={{ margin: '0 5px 0 0' }} />
+                    <span>Επεξεργασία</span>
+                </div>
+           
+            }
 
             <strong> {data?.artistic_nickname || data?.title}</strong>
 
@@ -39,8 +42,9 @@ export default function Characteristics(props: any) {
                 {array !== null &&
 
                     <li>
-                        <SvgIcon id={icon} />
-                        <div>
+
+                        <SvgIcon id={icon} style={{ minWidth: '24px', minHeight: '24px' }} />
+                        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
 
                             {data?.[array]?.map((i: any, index: number) => (
                                 <div key={index} style={{ margin: '0 3px 0 0' }}>

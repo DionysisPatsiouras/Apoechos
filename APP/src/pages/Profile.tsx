@@ -1,16 +1,28 @@
 
 import { useEffect, useState, useContext } from 'react'
+import img from '../utils/img/default_img.png'
 
+// css
+import CSS from '../css/Profile/Profile.module.sass'
+
+// context
+import AuthContext from '../context/AuthContext'
+import { Colors } from '../App'
+
+// utils
 import { Routes } from '../utils/Routes'
 import Call from '../utils/Call'
-import CSS from '../css/Profile/Profile.module.sass'
-import AuthContext from '../context/AuthContext'
+
+// components
 import Modal from '../components/Modal'
-import EditMusician from '../components/Profile/EditMusician'
-import Activity from '../components/Profile/Activity'
-import Characteristics from '../components/Profile/Characteristics'
-import { Colors } from '../App'
 import SvgIcon from '../components/SvgIcon'
+import Activity from '../components/Profile/Activity'
+import EditMusician from '../components/Profile/EditMusician'
+import Characteristics from '../components/Profile/Characteristics'
+
+
+
+
 
 export default function Profile() {
 
@@ -46,17 +58,13 @@ export default function Profile() {
 
         newCall
             .GET()
-            .then((res: any) => {
-                // console.log(res)
-                setData(res);
-                // console.log(res)
-            })
+            .then((res: any) => { setData(res) })
             .catch((err) => console.warn(err))
 
     }, [updateDOM])
 
 
-    // console.log(data)
+    // console.warn(data)
 
 
     const check_category = (category: string) => {
@@ -71,10 +79,15 @@ export default function Profile() {
     }
 
     return (
+
+
+
         <div className={CSS.container}>
 
+
+
             <Modal open={modal} close={() => setModal(false)} closeButton={true}>
-                <img src={`http://127.0.0.1:8000/${data?.photo}`} alt='profile_photo' />
+                <img src={img || `http://127.0.0.1:8000/${data?.photo}`} alt='profile_photo' />
             </Modal>
 
             <Modal
@@ -93,10 +106,11 @@ export default function Profile() {
                     <SvgIcon id={data?.category} style={{ margin: '5px  0 0 172px' }} color={'#fff'} />
                 </div>
 
+
                 <img
-                    style={{ borderRadius: '0  100px 0 0' }}
-                    src={`http://127.0.0.1:8000/${data?.photo}`}
+                    src={data?.photo !== null ? `http://127.0.0.1:8000/${data.photo}` : img}
                     alt='profile_photo'
+                    className={CSS.profile_photo}
                     width={150}
                     height={150}
                     onClick={() => setModal(!modal)} />
@@ -112,10 +126,18 @@ export default function Profile() {
             <hr></hr>
 
             <section className={CSS.right_section}>
-                <Activity data={data} />
+                <Activity
+                    photo={data?.photo}
+                    category={data?.category}
+                    canEdit={data.user === user?.user_id ? true : false}
+                    profile_name={data?.artistic_nickname || data?.title}
+                    profile_id={data?.musicianId || data?.studioId || data?.storeId || data?.stageId || data?.bandId}
+
+                />
             </section>
 
 
         </div>
+
     )
 }

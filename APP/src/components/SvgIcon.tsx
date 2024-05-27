@@ -8,7 +8,7 @@
 // musician, studio, band, stage, store, upload-image, add
 // search, location, add_person, new_release, expand, edit
 // keys, strings, vocals, woodwind, percussion, delete
-// pinned
+// pinned, insert, remove, settings
 
 
 
@@ -20,11 +20,53 @@ export default function SvgIcon(props: any) {
 
         <>
 
+            {props?.id === 'settings' &&
+                <svg
+                    width={props?.width || '24'}
+                    height={props?.height || '24'}
+                    onClick={props?.onClick}
+                    style={props?.style}
+                    viewBox="0 -960 960 960"
+                    fill="#5f6368">
+                    <path fill={props?.color || color} d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm112-260q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Z" />
+                </svg>
+
+            }
+
+            {props?.id === 'remove' &&
+
+                <svg
+                    width={props?.width || '24'}
+                    height={props?.height || '24'}
+                    onClick={props?.onClick}
+                    style={props?.style}
+                    viewBox="0 -960 960 960"
+                    fill="#5f6368">
+                    <path fill={props?.color || color} d="M320-440h320q17 0 28.5-11.5T680-480q0-17-11.5-28.5T640-520H320q-17 0-28.5 11.5T280-480q0 17 11.5 28.5T320-440ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z" />
+                </svg>
+
+            }
+
+            {props?.id === 'insert' &&
+                <svg
+                    width={props?.width || '24'}
+                    height={props?.height || '24'}
+                    onClick={props?.onClick}
+                    style={props?.style}
+
+                    viewBox="0 -960 960 960"
+                    fill="#5f6368">
+                    <path fill={props?.color || color} d="M440-440v120q0 17 11.5 28.5T480-280q17 0 28.5-11.5T520-320v-120h120q17 0 28.5-11.5T680-480q0-17-11.5-28.5T640-520H520v-120q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640v120H320q-17 0-28.5 11.5T280-480q0 17 11.5 28.5T320-440h120Zm40 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z" />
+                </svg>
+            }
+
             {props?.id === 'pinned' &&
                 <svg
                     width={props?.width || '24'}
                     height={props?.height || '24'}
                     onClick={props?.onClick}
+                    style={props?.style}
+
                     viewBox="0 -960 960 960"
                 >
                     <path fill={props?.color || color} d="M480-269 314-169q-11 7-23 6t-21-8q-9-7-14-17.5t-2-23.5l44-189-147-127q-10-9-12.5-20.5T140-571q4-11 12-18t22-9l194-17 75-178q5-12 15.5-18t21.5-6q11 0 21.5 6t15.5 18l75 178 194 17q14 2 22 9t12 18q4 11 1.5 22.5T809-528L662-401l44 189q3 13-2 23.5T690-171q-9 7-21 8t-23-6L480-269Z" />
@@ -37,6 +79,8 @@ export default function SvgIcon(props: any) {
                     width={props?.width || '24'}
                     height={props?.height || '24'}
                     onClick={props?.onClick}
+                    style={props?.style}
+
                     viewBox="0 -960 960 960"
                 >
                     <path fill={props?.color || color} d="M160-120q-17 0-28.5-11.5T120-160v-97q0-16 6-30.5t17-25.5l505-504q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L313-143q-11 11-25.5 17t-30.5 6h-97Zm544-528 56-56-56-56-56 56 56 56Z" />
@@ -50,6 +94,8 @@ export default function SvgIcon(props: any) {
                     width={props?.width || '24'}
                     height={props?.height || '24'}
                     onClick={props?.onClick}
+                    style={props?.style}
+
                     viewBox="0 -960 960 960"
                 >
                     <path fill={props?.color || color} d="M280-120q-33 0-56.5-23.5T200-200v-520q-17 0-28.5-11.5T160-760q0-17 11.5-28.5T200-800h160q0-17 11.5-28.5T400-840h160q17 0 28.5 11.5T600-800h160q17 0 28.5 11.5T800-760q0 17-11.5 28.5T760-720v520q0 33-23.5 56.5T680-120H280Zm120-160q17 0 28.5-11.5T440-320v-280q0-17-11.5-28.5T400-640q-17 0-28.5 11.5T360-600v280q0 17 11.5 28.5T400-280Zm160 0q17 0 28.5-11.5T600-320v-280q0-17-11.5-28.5T560-640q-17 0-28.5 11.5T520-600v280q0 17 11.5 28.5T560-280Z" />
@@ -61,6 +107,8 @@ export default function SvgIcon(props: any) {
                     width={props?.width || '24'}
                     height={props?.height || '24'}
                     onClick={props?.onClick}
+                    style={props?.style}
+
                     viewBox="0 -960 960 960"
                 >
                     <path fill={props?.color || color} d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z" />
@@ -72,6 +120,8 @@ export default function SvgIcon(props: any) {
                 <svg
                     width={props?.width || '24'}
                     height={props?.height || '24'}
+                    style={props?.style}
+
                     viewBox="0 -960 960 960"
                 >
                     <path fill={props?.color || color} d="M400-240q50 0 85-35t35-85v-280h120v-80H460v256q-14-8-29-12t-31-4q-50 0-85 35t-35 85q0 50 35 85t85 35Zm80 160q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z" />
@@ -83,6 +133,8 @@ export default function SvgIcon(props: any) {
                 <svg
                     width={props?.width || '22'}
                     height={props?.height || '22'}
+                    style={props?.style}
+
                     viewBox="0 -960 960 960">
                     <path fill={props?.color || color} d="M720-400v-120H600v-80h120v-120h80v120h120v80H800v120h-80Zm-360-80q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Z" />
                 </svg>
@@ -93,6 +145,8 @@ export default function SvgIcon(props: any) {
                 <svg
                     width={props?.width || '24'}
                     height={props?.height || '24'}
+                    style={props?.style}
+
                     viewBox="0 -960 960 960"
                 >
                     <path fill={props?.color || color} d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 400Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Z" />
@@ -104,6 +158,8 @@ export default function SvgIcon(props: any) {
                 <svg
                     width={props?.width || '22'}
                     height={props?.height || '22'}
+                    style={props?.style}
+
                     onClick={props?.onClick}
                     viewBox="0 0 22 22" >
                     <path fill={props?.color || color} d="M7.19363 8.01612C6.90995 7.97019 6.63477 7.91901 6.36914 7.86328L9.07583 14.9723L10.4343 8.30113C9.27881 8.27651 8.1841 8.17717 7.19363 8.01612Z" />
@@ -118,7 +174,10 @@ export default function SvgIcon(props: any) {
                 <svg
                     width={props?.width || '20'}
                     height={props?.height || '20'}
+
                     onClick={props?.onClick}
+                    style={props?.style}
+
                     viewBox="0 0 20 20" >
                     <g clipPath="url(#clip0_1326_1025)">
                         <path d="M19.7944 3.44128L19.885 3.1881C19.4243 2.79179 19.6232 2.25671 19.6232 2.25671L18.2283 1.41468L18.0909 1.57201C17.7077 1.347 17.2595 1.03497 16.7803 0.600851C15.3934 -0.655753 13.4624 0.083948 12.1743 2.58277C11.8572 3.19812 11.2148 4.39277 10.4273 5.84196L9.9533 5.5904L9.21394 6.98321L9.67327 7.2273C9.4972 7.55017 9.31768 7.8791 9.13542 8.21251L8.61357 7.93538L7.87421 9.32829L8.37801 9.59576C8.16835 9.97833 7.95861 10.3609 7.75058 10.7398L7.21209 10.4539L6.47273 11.8467L6.99193 12.1223C5.48445 14.8638 4.25042 17.0995 4.25042 17.0995C4.25042 17.0995 4.0027 17.6963 3.6311 17.5183C3.25976 17.3402 3.0618 17.1832 3.6311 16.457C4.20067 15.7313 6.04971 13.6095 6.01668 9.28241C6.01668 9.28241 5.95092 8.77989 7.00725 7.94247L0.342522 8.6406C0.342522 8.6406 1.18989 8.9712 1.69104 9.42213C2.28813 9.95909 3.04486 11.9069 1.32789 14.2795C-0.388943 16.6526 -0.256784 18.1045 1.55918 19.2207C3.37523 20.3377 5.95057 20.4214 6.87505 18.3557C7.79961 16.2896 14.0728 2.08021 14.0728 2.08021C14.0728 2.08021 14.568 0.432931 16.5492 1.4661L17.6674 2.05712L17.5101 2.23772L19.7944 3.44128Z" fill="white" />
@@ -139,6 +198,8 @@ export default function SvgIcon(props: any) {
                     height={props?.height || '24'}
                     viewBox="0 0 22 22"
                     onClick={props?.onClick}
+                    style={props?.style}
+
                 >
                     <path fill={props?.color || color} d="M14.7212 0C16.5923 0 18.1086 1.51667 18.1086 3.38745C18.1086 5.25818 16.5923 6.77469 14.7212 6.77469C12.8507 6.77469 11.334 5.25818 11.334 3.38745C11.3339 1.51667 12.8507 0 14.7212 0Z" />
                     <path fill={props?.color || color} d="M7.39032 12.7589C7.67286 12.7589 7.92357 12.6316 8.09571 12.4341L13.7974 7.18385C12.6657 6.90926 11.7261 6.14126 11.2199 5.12109L6.71556 11.117C6.54955 11.3488 6.45117 11.5509 6.45117 11.8193C6.45117 12.338 6.87213 12.7589 7.39032 12.7589Z" />
@@ -153,6 +214,8 @@ export default function SvgIcon(props: any) {
                     width={props?.width || '24'}
                     height={props?.height || '24'}
                     onClick={props?.onClick}
+                    style={props?.style}
+
                     viewBox="0 -960 960 960"
 
                 ><path fill={props?.color || color} d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h130v-180h-10q-17 0-28.5-11.5T280-420v-340h-80v560Zm430 0h130v-560h-80v340q0 17-11.5 28.5T640-380h-10v180Zm-240 0h180v-180h-10q-17 0-28.5-11.5T520-420v-340h-80v340q0 17-11.5 28.5T400-380h-10v180Z" />
@@ -167,6 +230,8 @@ export default function SvgIcon(props: any) {
                     height={props?.height || '24'}
                     viewBox="0 -960 960 960"
                     onClick={props?.onClick}
+                    style={props?.style}
+
                 >
                     <path fill={props?.color || color} d="M380-320q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l224 224q11 11 11 28t-11 28q-11 11-28 11t-28-11L532-372q-30 24-69 38t-83 14Zm0-80q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
                 </svg>
@@ -178,6 +243,8 @@ export default function SvgIcon(props: any) {
                     width={props?.width || '30'}
                     height={props?.height || '30'}
                     onClick={props?.onClick}
+                    style={props?.style}
+
                     viewBox="0 -960 960 960">
                     <path fill={props?.color || color} d="M440-440H240q-17 0-28.5-11.5T200-480q0-17 11.5-28.5T240-520h200v-200q0-17 11.5-28.5T480-760q17 0 28.5 11.5T520-720v200h200q17 0 28.5 11.5T760-480q0 17-11.5 28.5T720-440H520v200q0 17-11.5 28.5T480-200q-17 0-28.5-11.5T440-240v-200Z" />
                 </svg>
@@ -189,6 +256,8 @@ export default function SvgIcon(props: any) {
                     width={props?.width || '24'}
                     height={props?.height || '24'}
                     onClick={props?.onClick}
+                    style={props?.style}
+
                     viewBox="0 -960 960 960">
                     <path fill={props?.color || color} d="M800-680q-17 0-28.5-11.5T760-720v-40h-40q-17 0-28.5-11.5T680-800q0-17 11.5-28.5T720-840h40v-40q0-17 11.5-28.5T800-920q17 0 28.5 11.5T840-880v40h40q17 0 28.5 11.5T920-800q0 17-11.5 28.5T880-760h-40v40q0 17-11.5 28.5T800-680ZM440-260q75 0 127.5-52.5T620-440q0-75-52.5-127.5T440-620q-75 0-127.5 52.5T260-440q0 75 52.5 127.5T440-260Zm0-80q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM120-120q-33 0-56.5-23.5T40-200v-480q0-33 23.5-56.5T120-760h126l50-54q11-12 26.5-19t32.5-7h205q17 0 28.5 11.5T600-800v60q0 25 17.5 42.5T660-680h20v20q0 25 17.5 42.5T740-600h60q17 0 28.5 11.5T840-560v360q0 33-23.5 56.5T760-120H120Z" />
                 </svg>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import CSS from '../../css/Discover/Card.module.css'
 import SvgIcon from '../SvgIcon'
-import img from '../../../src/img.png'
+import img from '../../utils/img/default_img.png'
 
 const Card = forwardRef(function Card(props: any, ref) {
 
@@ -38,7 +38,6 @@ const Card = forwardRef(function Card(props: any, ref) {
 
 
                 <div className={CSS.btn_section}>
-                    {/* <Link to={`/profile/${props?.category}/${props.id}`} > */}
                     <Link to={`/profile/${props.id}`} >
                         <button>Περισσότερα</button>
                     </Link>

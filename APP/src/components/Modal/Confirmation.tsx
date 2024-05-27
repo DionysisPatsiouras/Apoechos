@@ -1,4 +1,3 @@
-
 import { forwardRef } from 'react'
 import CSS from '../../css/Modal/Modal.module.sass'
 
@@ -10,11 +9,10 @@ const Confirmation = forwardRef(function Confirmation(props: any, ref: any) {
     return (
         <section className={CSS.content}>
             <div className={CSS.topBar}>
-                {/* <SvgIcon id={'keys'} /> */}
                 {props?.text}
             </div>
 
-            <div className={CSS.body}>
+            <div className={CSS.body} style={{ display: 'flex', justifyContent: 'center' }}>
                 {props?.body}
             </div>
 

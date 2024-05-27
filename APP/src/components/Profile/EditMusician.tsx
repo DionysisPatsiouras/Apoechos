@@ -14,28 +14,19 @@ export default function EditMusician(props: any) {
     const { register, handleSubmit, formState, watch } = form
     const { errors } = formState
 
-    const inst = ['Κιθάρα', 'Μπάσο', 'Drums', 'Flaouto', 'Guitar', 'Bass',]
-
-
-    const x = (e: any) => {
-
-        console.log(e)
-        for (let index = 0; index < musicianInstruments.length; index++) {
-            const element = musicianInstruments[index];
-            return e !== element
-
-        }
-    }
+    const inst = ['Κιθάρα', 'Μπάσο', 'Drums', 'Φλάουτο', 'Λαούτο', 'Βιολί', 'Τσέλο']
 
 
 
-    const [musicianInstruments, setMusiciansInstruments] = useState<any>(props?.data?.instruments.map((item: any) => item.name))
-    const [newInst, setNewInst] = useState<any>(inst.filter((h: any) => x(h)))
+    const [current_inst, setCurrentInst] = useState<any>(props?.data?.instruments.map((item: any) => item.name))
+    const [missing_inst, setMissingInst] = useState<any>(inst.filter((i: any) => !current_inst.includes(i)))
+    const [addedInstruments, setAddedInstruments] = useState<any[]>([])
 
     const [tab, setTab] = useState<number>(1)
 
 
-    // console.log(props)
+
+
     const updateProfile = (data: any) => {
 
         const patchMusician = new Call(Routes.musician.patch(props?.data?.musicianId), 'PATCH', data)
@@ -50,14 +41,44 @@ export default function EditMusician(props: any) {
     }
 
 
+    const add_new_instruments = () => {
+
+        for (let index = 0; index < addedInstruments.length; index++) {
+
+            let finalData = {
+                name: addedInstruments[index],
+                musician: props?.data?.musicianId
+            }
+
+            let add_inst = new Call(Routes.instruments.add, 'POST', finalData)
+            add_inst
+                .POST()
+                .then((res) => {
+                    console.log(res);
+                    setAddedInstruments([])
+                    for (let index = 0; index < addedInstruments.length; index++) {
+                        const element = addedInstruments[index];
+                        setCurrentInst([...current_inst, element])
+
+                    }
+                })
+                .catch((err) => console.warn(err))
+        }
+
+    }
+
+
+
+
     const addInstruments = (e: any) => {
-        setMusiciansInstruments([...musicianInstruments, e]);
-        setNewInst((prev: any) => prev.filter((value: any) => value !== e))
+        setAddedInstruments([...addedInstruments, e]);
+        setMissingInst((prev: any) => prev.filter((value: any) => value !== e))
     }
 
     const removeInstruments = (e: any) => {
-        setNewInst([...newInst, e]);
-        setMusiciansInstruments((prev: any) => prev.filter((value: any) => value !== e))
+        setMissingInst([...missing_inst, e]);
+        setCurrentInst((prev: any) => prev.filter((value: any) => value !== e))
+        setAddedInstruments((prev: any) => prev.filter((value: any) => value !== e))
     }
 
 
@@ -87,6 +108,19 @@ export default function EditMusician(props: any) {
 
                     <div className={CSS.info_stats}>
 
+                        <div className='items-inline' style={{gap: '25px'}}>
+
+                            <img src={`http://127.0.0.1:8000/${props?.data?.photo}`} width={200}
+                                style={{ height: '218px', objectFit: 'cover', margin: '0 0 20px 0' }} />
+
+                            <div>
+                                <button><SvgIcon id='close'/>Ανέβασμα</button>
+                                <button style={{background : '#C65F5F'}}>Κατάργηση</button>
+                            </div>
+
+                        </div>
+                        
+
                         <input
                             defaultValue={props?.data?.artistic_nickname}
                             {...register('artistic_nickname', {
@@ -105,6 +139,7 @@ export default function EditMusician(props: any) {
                             {...register('bio')}
                         />
                     </div>
+
                 }
 
 
@@ -112,20 +147,37 @@ export default function EditMusician(props: any) {
                     <div style={{ display: 'flex', justifyContent: 'space-around', width: '100%' }}>
 
                         <div>
-                            {musicianInstruments
+
+                            {current_inst
+                                .map((item: any, index: number) => (
+                                    <div key={index} className={'items-inline'} onClick={() => removeInstruments(item)}>
+                                        <SvgIcon id='remove' /> {item}
+                                    </div>
+                                ))}
+
+
+                            {addedInstruments
 
                                 .map((item: any, index: number) => (
-                                    <div key={index} onClick={() => removeInstruments(item)}> - {item}</div>
+                                    <div key={index} className={'items-inline'} onClick={() => removeInstruments(item)}>
+                                        <SvgIcon id='remove' />  {item}
+                                    </div>
                                 ))}
                         </div>
 
                         <div>
-                            {newInst
-                                // .filter((i: any) => x(i))
-                                // .filter((i:any) => i !== musicianInstruments[0])
+
+                            {missing_inst
+                                .filter((i: any) => !current_inst.includes(i))
+                                // .filter((i: any) => !addedInstruments.includes(i))
                                 .map((item: any, index: number) => (
-                                    <div key={index} onClick={() => addInstruments(item)}> + {item}</div>
+                                    <div key={index} className={'items-inline'} onClick={() => addInstruments(item)}>
+                                        <SvgIcon id='insert' /> {item}</div>
                                 ))}
+
+
+
+                            <button onClick={add_new_instruments}>add them</button>
                         </div>
 
 
