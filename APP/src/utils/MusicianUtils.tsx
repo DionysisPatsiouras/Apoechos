@@ -73,3 +73,13 @@ export const vocals = [
     'Σοπράνο',
 
 ]
+
+export const genres = [
+    'Rock',
+    'Metal',
+    'Punk',
+    'Rock & Roll',
+    'Country',
+    'Jazz',
+    'Pop',
+]

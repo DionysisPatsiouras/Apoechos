@@ -9,7 +9,7 @@ import SvgIcon from '../components/SvgIcon'
 import FormError from '../utils/FormError'
 import { Routes } from '../utils/Routes'
 import Call from '../utils/Call'
-import { cities, all_categories, strings, woodwind, percussion, vocals, keys } from '../utils/MusicianUtils'
+import { cities, all_categories, strings, woodwind, percussion, vocals, keys, genres } from '../utils/MusicianUtils'
 
 // css
 import CSS from '../css/CreateMusician/CreateMusician.module.css'
@@ -33,11 +33,12 @@ export default function CreateMusician() {
 
     const [loading, setLoading] = useState<boolean>(false)
     const [array, setArray] = useState<any[]>([])
+    const [genre_array, set_genre_array] = useState<any[]>([])
+    const [instruments_are_empty, setInstAreEmpty] = useState<boolean>(false)
 
     const [uploadedFile, setUploadedFile] = useState<any>()
 
     const add_instruments = (musician: string) => {
-
 
         for (let index = 0; index < array.length; index++) {
 
@@ -54,35 +55,64 @@ export default function CreateMusician() {
         }
 
     }
- 
+
+    const add_genres = (musician: string) => {
+
+        for (let index = 0; index < genre_array.length; index++) {
+
+            let finalData = {
+                name: genre_array[index],
+                musician: musician
+            }
+
+            let add_genre = new Call(Routes.genres.add, 'POST', finalData)
+            add_genre
+                .POST()
+                .then((res) => console.log(res))
+                .catch((err) => console.warn(err))
+        }
+
+    }
+
 
     const onSubmit = async (data: any) => {
+
+        
+        data?.instruments.length === 0 || !data?.instruments ? setInstAreEmpty(true) : setInstAreEmpty(false)
+
+        if (data?.instruments.length === 0 || !data?.instruments) {
+            setInstAreEmpty(true)
+        } else {
+            setInstAreEmpty(false)
+
+            let formData = new FormData()
+            formData.append('file', data?.file?.[0])
+
+            const finalData = {
+                ...data,
+                user: userData.id,
+                photo: data?.file?.[0]
+            }
+            const addMusician = new Call(Routes.musician.post, 'POST', finalData)
+
+            // console.warn('submitted', finalData)
+
+
+            addMusician
+                .POST_MEDIA()
+                .then((res) => {
+                    // console.log(res)
+                    patchUser('musicianId', res?.data?.musicianId)
+                    add_instruments(res?.data?.musicianId)
+                    add_genres(res?.data?.musicianId)
+                    setLoading(false)
+                    setProfileCreated(true)
+                })
+                .catch((err) => { console.warn(err) })
+        }
         // console.log(data)
 
-        let formData = new FormData()
-        formData.append('file', data?.file?.[0])
 
-        const finalData = {
-            ...data,
-            user: userData.id,
-            photo: data?.file?.[0]
-        }
-        const addMusician = new Call(Routes.musician.post, 'POST', finalData)
-
-        // console.warn('submitted', finalData)
-
-        // must create async function here to catch the 'loading' variable
-
-        addMusician
-            .POST_MEDIA()
-            .then((res) => {
-                // console.log(res)
-                patchUser('musicianId', res?.data?.musicianId)
-                add_instruments(res?.data?.musicianId)
-                setLoading(false)
-                setProfileCreated(true)
-            })
-            .catch((err) => { console.warn(err) })
 
     }
 
@@ -93,6 +123,17 @@ export default function CreateMusician() {
         const { value, checked } = event.target;
 
         setArray((prevCategories: any) =>
+            checked
+                ? [...prevCategories, value]
+                : prevCategories.filter((allGroups: any) => allGroups !== value)
+        );
+
+    };
+    const handleCheckBoxGenre = (event: any) => {
+
+        const { value, checked } = event.target;
+
+        set_genre_array((prevCategories: any) =>
             checked
                 ? [...prevCategories, value]
                 : prevCategories.filter((allGroups: any) => allGroups !== value)
@@ -200,7 +241,6 @@ export default function CreateMusician() {
                                     value={string}
                                     onChange={handleCheckBox}
                                     checked={array.includes(string)}
-
                                 />
                                 <label htmlFor={string}>{string}</label>
                             </div>
@@ -208,19 +248,29 @@ export default function CreateMusician() {
 
                     </div>
 
+                    {instruments_are_empty && <p>Συμπληρώστε τουλάχιστον 1 όργανο</p>}
 
-                    {/* <hr className='divider'></hr>
+
+                    <hr className='divider'></hr>
                     <h2>Είδη</h2>
-                    <ul className={CSS.genre_list}>
-                        {genres
-                            .map((genre: any) => (
-                                <div className={CSS.checkbox} key={genre?.id}>
-                                    <input type='checkbox' id={genre?.id} />
-                                    <label htmlFor={genre?.id}>{genre?.genre}</label>
-                                </div>
-                            ))}
+                 
 
-                    </ul> */}
+                    <div className={CSS.checkboxes_section}>
+                        {genres.map((genre: string) => (
+                            <div className={CSS.checkbox} key={genre}>
+                                <input
+                                    {...register('genres')}
+                                    id={genre}
+                                    type='checkbox'
+                                    value={genre}
+                                    onChange={handleCheckBoxGenre}
+                                    checked={genre_array.includes(genre)}
+                                />
+                                <label htmlFor={genre}>{genre}</label>
+                            </div>
+                        ))}
+
+                    </div>
 
 
 

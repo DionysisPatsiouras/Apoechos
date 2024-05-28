@@ -93,7 +93,7 @@ export default function EditMusician(props: any) {
                     Στοιχεία
                 </li>
                 <li className={tab === 2 ? CSS.active_tab : CSS.tab} onClick={() => setTab(2)}>
-                    <SvgIcon id='account' color={tab === 2 ? '#fff' : '#000'} width={20} height={20} />
+                    <SvgIcon id='genres' color={tab === 2 ? '#fff' : '#000'} width={20} height={20} />
                     Είδη
                 </li>
                 <li className={tab === 3 ? CSS.active_tab : CSS.tab} onClick={() => setTab(3)}>

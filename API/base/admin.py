@@ -10,17 +10,24 @@ from event.models import *
 from band.models import *
 
 
-
-admin.site.register(Stage)
-admin.site.register(Store)
-
-admin.site.register(Post)
-
+# Musician
 admin.site.register(Musician)
 admin.site.register(Instrument)
+admin.site.register(Genre)
 
+# Studio
 admin.site.register(Studio)
 admin.site.register(Service)
-admin.site.register(Event)
 
+# Stage
+admin.site.register(Stage)
+
+# Store
+admin.site.register(Store)
+
+# Band
 admin.site.register(Band)
+
+
+admin.site.register(Post)
+admin.site.register(Event)

@@ -11,5 +11,9 @@ urlpatterns = [
     path("patch/<str:id>/", views.update_musician), # /musician/patch/:id/
 
     path("instrument/add/", views.add_instrument), # /musician/instrument/add/
-    path("instrument/delete/<int:id>/", views.delete_instrument) # /musician/instrument/delete/
+    path("instrument/delete/<int:id>/", views.delete_instrument), # /musician/instrument/delete/
+
+    path("genre/add/", views.add_genre) # /musician/genre/add/
+    # NEED TO ADD GENRE DELETE
+
 ]

@@ -31,6 +31,7 @@ urlpatterns = [
     path('studio/', include('studios.urls')),
     path('store/', include('store.urls')),
     path('stage/', include('stage.urls')),
-    path('event/', include('event.urls'))
+    path('event/', include('event.urls')),
+    path('band/', include('band.urls'))
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

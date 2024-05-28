@@ -44,3 +44,12 @@ class Instrument(models.Model):
 
     def __str__(self):
         return self.name
+
+class Genre(models.Model):
+    name = models.CharField(max_length=255)
+    musician = models.ForeignKey(
+        Musician, related_name="genres", on_delete=models.CASCADE
+    )
+
+    def __str__(self):
+        return self.name

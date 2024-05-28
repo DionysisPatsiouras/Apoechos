@@ -24,6 +24,7 @@ export default function Discover() {
     const [allStudios, setAllStudios] = useState<any>([])
     const [allStores, setAllStores] = useState<any>([])
     const [allStages, setAllStages] = useState<any>([])
+    const [allBands, setAllBands] = useState<any>([])
 
 
     const [activeTab, setActiveTab] = useState('Everything')
@@ -41,14 +42,15 @@ export default function Discover() {
         everything
             .GET()
             .then((res) => {
-                console.log(res)
+                // console.log(res)
                 // setData(res[0]);
                 setSelected(res?.[0]?.everything)
                 setAll(res?.[0]?.everything)
                 setAllMusicians(res?.[0]?.musicians)
                 setAllStudios(res?.[0]?.studios)
                 setAllStores(res?.[0]?.stores)
-                setAllStages(res?.[0]?.stage)
+                setAllStages(res?.[0]?.stages)
+                setAllBands(res?.[0]?.bands)
 
             })
             .catch((err) => console.warn(err))
@@ -57,12 +59,12 @@ export default function Discover() {
     }, [])
 
     const color = useContext<any>(Colors)
-    // console.log(selected)
+
 
     let tabs: any = [
         { label: 'Everything', color: 'black', action: () => { setSelected(all); setActiveTab('Everything') } },
         { label: 'Musicians', color: color?.musician, action: () => { setSelected(allMusicians); setActiveTab('Musicians') } },
-        { label: 'Bands', color: color?.band, action: () => { setSelected(allMusicians); setActiveTab('Bands') } },
+        { label: 'Bands', color: color?.band, action: () => { setSelected(allBands); setActiveTab('Bands') } },
         { label: 'Music Studio', color: color?.studio, action: () => { setSelected(allStudios); setActiveTab('Music Studio') } },
         { label: 'Music Stores', color: color?.store, action: () => { setSelected(allStores); setActiveTab('Music Stores') } },
         { label: 'Live Stages', color: color?.stage, action: () => { setSelected(allStages); setActiveTab('Live Stages') } }
@@ -79,6 +81,8 @@ export default function Discover() {
                 return color?.store
             case 'stage':
                 return color?.stage
+            case 'band':
+                return color?.band
             default:
                 break;
         }
@@ -98,11 +102,9 @@ export default function Discover() {
     // }
 
 
-    const filteredData =
-      
-    selected
+    const filteredData = selected
         // .filter((data: any) =>
-        //     SearchValidation(data?.artistic_nickname, search) || SearchValidation(data?.title, search)
+        //     SearchValidation(data?.artistic_nickname, search) || SearchValidation(data?.title, search) || SearchValidation(data?.name, search)
         // )
     // .filter((data: any) =>
     //     loop(data, 'Τσέλο')
@@ -181,7 +183,7 @@ export default function Discover() {
                     </div>
 
 
-                    <p>Αποτελέσματα: {filteredData.length}</p>
+                    <p>Αποτελέσματα: {filteredData?.length}</p>
                 </section>
 
                 <section className={CSS.all_cards}>
@@ -193,7 +195,7 @@ export default function Discover() {
                             category={item?.category}
                             city={item?.city}
                             photo={item?.photo}
-                            artistic_nickname={item?.artistic_nickname || item?.title}
+                            artistic_nickname={item?.artistic_nickname || item?.title || item?.name}
                             color={pickColor(item?.category)}
                         />
                     ))}

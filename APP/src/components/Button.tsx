@@ -7,7 +7,7 @@ import SvgIcon from './SvgIcon'
 
 const Button = forwardRef(function Button(props: any, ref: any) {
     return (
-        <button>
+        <button style={{backgroundColor: props?.color}}>
             <SvgIcon id={props?.icon}/>
             {props?.label}
         </button>

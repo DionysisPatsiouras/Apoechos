@@ -4,6 +4,8 @@ import SvgIcon from '../SvgIcon'
 export default function Characteristics(props: any) {
 
     let data = props?.data
+
+    let icon_color = '#414141'
     // console.warn(data)
 
     let array: any =
@@ -24,17 +26,17 @@ export default function Characteristics(props: any) {
                 <div className='items-inline'
                     style={{ margin: '10px 0', border: '2px solid #5f69c6', padding: '10px', borderRadius: '4px', cursor: 'pointer' }}
                     onClick={props?.onClick}>
-                    <SvgIcon id='settings' style={{ margin: '0 5px 0 0' }} />
+                    <SvgIcon id='settings' style={{ margin: '0 5px 0 0' }} color={icon_color} />
                     <span>Επεξεργασία</span>
                 </div>
-           
+
             }
 
             <strong> {data?.artistic_nickname || data?.title}</strong>
 
             <ul className={CSS.characteristics}>
                 <li>
-                    <div> <SvgIcon id='location' /> </div>
+                    <div> <SvgIcon id='location' color={icon_color} /> </div>
                     <div> {data?.city} <br></br> {data?.address}</div>
                 </li>
 
@@ -42,8 +44,7 @@ export default function Characteristics(props: any) {
                 {array !== null &&
 
                     <li>
-
-                        <SvgIcon id={icon} style={{ minWidth: '24px', minHeight: '24px' }} />
+                        <SvgIcon id={icon} style={{ minWidth: '24px', minHeight: '24px' }} color={icon_color} />
                         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
 
                             {data?.[array]?.map((i: any, index: number) => (
@@ -57,6 +58,22 @@ export default function Characteristics(props: any) {
                     </li>
                 }
 
+
+                {data?.category === 'musician' &&
+                    <li>
+                        <SvgIcon id='genres' style={{ minWidth: '24px', minHeight: '24px' }} color={icon_color} />
+                        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+
+                            {data?.genres?.map((i: any, index: number) => (
+                                <div key={index} style={{ margin: '0 3px 0 0' }}>
+                                    {i?.name}
+                                    {index !== data?.['genres']?.length - 1 && ','}
+                                </div>
+                            ))}
+                        </div>
+
+                    </li>
+                }
 
             </ul>
 

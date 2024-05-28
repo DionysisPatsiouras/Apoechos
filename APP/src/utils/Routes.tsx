@@ -47,6 +47,9 @@ export const Routes = {
     instruments: {
         add: `${url}/musician/instrument/add/`,
     },
+    genres: {
+        add: `${url}/musician/genre/add/`,
+    },
 
     services: {
         add: `${url}/studio/service/add/`,
