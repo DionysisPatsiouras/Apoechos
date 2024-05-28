@@ -33,6 +33,8 @@ export default function CreateStudio() {
     const [array, setArray] = useState<any[]>([])
     const [uploadedFile, setUploadedFile] = useState<any>()
 
+    const [array_is_empty, set_array_is_empty] = useState<boolean>()
+
     let services = ['Πρόβες', 'Ηχογραφήσεις', 'Mix', 'Mastering', 'Ηχογράφηση Πρόβας', 'Με πλήρες εξοπλισμό', 'Live Ηχογράφηση']
 
 
@@ -49,37 +51,42 @@ export default function CreateStudio() {
             let add_inst = new Call(Routes.services.add, 'POST', finalData)
             add_inst
                 .POST()
-                .then((res:any) => console.log(res))
-                .catch((err:any) => console.warn(err))
+                .then((res: any) => console.log(res))
+                .catch((err: any) => console.warn(err))
         }
     }
 
 
 
     const onSubmit = async (data: any) => {
-     
 
-        let formData = new FormData()
-        formData.append('file', data?.file?.[0])
+        if (array.length === 0 || !array) {
 
-        const finalData = {
-            ...data,
-            user: userData.id,
-            photo: data?.file?.[0]
+            set_array_is_empty(true)
+        } else {
+            set_array_is_empty(false)
+
+            let formData = new FormData()
+            formData.append('file', data?.file?.[0])
+
+            const finalData = {
+                ...data,
+                user: userData.id,
+                photo: data?.file?.[0]
+            }
+
+            const addStudio = new Call(Routes.studio.post, 'POST', finalData)
+            addStudio
+                .POST_MEDIA()
+                .then((res) => {
+                    // console.log(res)
+                    patchUser('studioId', res?.data?.studioId)
+                    add_services(res?.data?.studioId)
+                    setProfileCreated(true)
+                })
+                .catch((err) => { console.warn(err) })
+
         }
-
-
-        // must create async function here to catch the 'loading' variable
-        const addStudio = new Call(Routes.studio.post, 'POST', finalData)
-        addStudio
-            .POST_MEDIA()
-            .then((res) => {
-                // console.log(res)
-                patchUser('studioId', res?.data?.studioId)
-                add_services(res?.data?.studioId)
-                setProfileCreated(true)
-            })
-            .catch((err) => { console.warn(err) })
 
     }
 
@@ -150,7 +157,7 @@ export default function CreateStudio() {
                                     }
                                 })}
                             />
-                            <FormError value={errors?.artistic_nickname} />
+                            <FormError value={errors?.title} />
 
 
                             <label>Περιοχή</label>
@@ -199,6 +206,7 @@ export default function CreateStudio() {
 
                     </div>
 
+                    {array_is_empty && <p>Συμπληρώστε τουλάχιστον 1 υπηρεσία</p>}
 
 
 

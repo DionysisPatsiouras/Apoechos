@@ -108,18 +108,18 @@ export default function EditMusician(props: any) {
 
                     <div className={CSS.info_stats}>
 
-                        <div className='items-inline' style={{gap: '25px'}}>
+                        <div className='items-inline' style={{ gap: '25px', alignItems: 'flex-start' }}>
 
                             <img src={`http://127.0.0.1:8000/${props?.data?.photo}`} width={200}
                                 style={{ height: '218px', objectFit: 'cover', margin: '0 0 20px 0' }} />
 
-                            <div>
-                                <button><SvgIcon id='close'/>Ανέβασμα</button>
-                                <button style={{background : '#C65F5F'}}>Κατάργηση</button>
+                            <div className={CSS.updateImage}>
+                                <button ><SvgIcon id={'upload-image'} color='#fff' />Ανέβασμα</button>
+                                <button style={{ background: '#C65F5F' }}><SvgIcon id={'close'} color='#fff' width={20}/>Κατάργηση</button>
                             </div>
 
                         </div>
-                        
+
 
                         <input
                             defaultValue={props?.data?.artistic_nickname}

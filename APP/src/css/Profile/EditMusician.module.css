@@ -51,6 +51,7 @@
   margin: 10px 0;
   height: 40px;
   padding: 0 0 0 10px;
+  width: 100%;
 }
 
 .bottom_section {
@@ -72,6 +73,13 @@
   display: flex;
   flex-direction: column;
   width: 70%;
+}
+
+.updateImage button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
 }
 
 @media screen and (min-width: 768px) {

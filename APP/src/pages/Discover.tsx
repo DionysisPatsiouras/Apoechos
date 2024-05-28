@@ -103,9 +103,9 @@ export default function Discover() {
 
 
     const filteredData = selected
-        // .filter((data: any) =>
-        //     SearchValidation(data?.artistic_nickname, search) || SearchValidation(data?.title, search) || SearchValidation(data?.name, search)
-        // )
+        .filter((data: any) =>
+            SearchValidation(data?.artistic_nickname, search) || SearchValidation(data?.title, search) || SearchValidation(data?.name, search)
+        )
     // .filter((data: any) =>
     //     loop(data, 'Τσέλο')
     // )

@@ -23,27 +23,22 @@ export default function CreateMusician() {
     const { register, handleSubmit, formState } = form
     const { errors } = formState
 
-
     const [profileCreated, setProfileCreated] = useState<boolean>(false)
-
     const [selection, setSelection] = useState<string>('strings')
     const [current, setCurrent] = useState<any>(strings)
 
     let { userData }: any = useContext(AuthContext)
 
-    const [loading, setLoading] = useState<boolean>(false)
-    const [array, setArray] = useState<any[]>([])
-    const [genre_array, set_genre_array] = useState<any[]>([])
-    const [instruments_are_empty, setInstAreEmpty] = useState<boolean>(false)
-
+    const [instrumentArray, setInstrumentArray] = useState<any[]>([])
+    const [genreArray, setGenreArray] = useState<any[]>([])
     const [uploadedFile, setUploadedFile] = useState<any>()
 
     const add_instruments = (musician: string) => {
 
-        for (let index = 0; index < array.length; index++) {
+        for (let index = 0; index < instrumentArray.length; index++) {
 
             let finalData = {
-                name: array[index],
+                name: instrumentArray[index],
                 musician: musician
             }
 
@@ -58,10 +53,10 @@ export default function CreateMusician() {
 
     const add_genres = (musician: string) => {
 
-        for (let index = 0; index < genre_array.length; index++) {
+        for (let index = 0; index < genreArray.length; index++) {
 
             let finalData = {
-                name: genre_array[index],
+                name: genreArray[index],
                 musician: musician
             }
 
@@ -77,69 +72,46 @@ export default function CreateMusician() {
 
     const onSubmit = async (data: any) => {
 
-        
-        data?.instruments.length === 0 || !data?.instruments ? setInstAreEmpty(true) : setInstAreEmpty(false)
 
-        if (data?.instruments.length === 0 || !data?.instruments) {
-            setInstAreEmpty(true)
-        } else {
-            setInstAreEmpty(false)
+        let formData = new FormData()
+        formData.append('file', data?.file?.[0])
 
-            let formData = new FormData()
-            formData.append('file', data?.file?.[0])
-
-            const finalData = {
-                ...data,
-                user: userData.id,
-                photo: data?.file?.[0]
-            }
-            const addMusician = new Call(Routes.musician.post, 'POST', finalData)
-
-            // console.warn('submitted', finalData)
-
-
-            addMusician
-                .POST_MEDIA()
-                .then((res) => {
-                    // console.log(res)
-                    patchUser('musicianId', res?.data?.musicianId)
-                    add_instruments(res?.data?.musicianId)
-                    add_genres(res?.data?.musicianId)
-                    setLoading(false)
-                    setProfileCreated(true)
-                })
-                .catch((err) => { console.warn(err) })
+        const finalData = {
+            ...data,
+            user: userData.id,
+            photo: data?.file?.[0]
         }
-        // console.log(data)
+        const addMusician = new Call(Routes.musician.post, 'POST', finalData)
+
+        // console.warn('submitted', finalData)
 
 
+        addMusician
+            .POST_MEDIA()
+            .then((res) => {
+                patchUser('musicianId', res?.data?.musicianId)
+                add_instruments(res?.data?.musicianId)
+                add_genres(res?.data?.musicianId)
+                setProfileCreated(true)
+            })
+            .catch((err) => { console.warn(err) })
+    }
+  
+
+
+
+    const handleCheckBox = (state: any, event: any) => {
+
+        const { value, checked } = event.target;
+
+        state((prevCategories: any) =>
+            checked
+                ? [...prevCategories, value]
+                : prevCategories.filter((allGroups: any) => allGroups !== value)
+        );
 
     }
 
-
-
-    const handleCheckBox = (event: any) => {
-
-        const { value, checked } = event.target;
-
-        setArray((prevCategories: any) =>
-            checked
-                ? [...prevCategories, value]
-                : prevCategories.filter((allGroups: any) => allGroups !== value)
-        );
-
-    };
-    const handleCheckBoxGenre = (event: any) => {
-
-        const { value, checked } = event.target;
-
-        set_genre_array((prevCategories: any) =>
-            checked
-                ? [...prevCategories, value]
-                : prevCategories.filter((allGroups: any) => allGroups !== value)
-        );
-
-    };
 
 
 
@@ -164,7 +136,7 @@ export default function CreateMusician() {
 
                     <div className={CSS.personal_info}>
 
-                        <div className={CSS.group}>
+                        <div className={CSS.group} style={{ cursor: 'pointer' }}>
                             <label htmlFor='picture'>
                                 <img src={uploadedFile} width={20} height={20} alt=''
                                     style={{ width: '150px', height: '150px', border: '1px solid grey', borderRadius: '100px', objectFit: 'cover' }} />
@@ -235,12 +207,15 @@ export default function CreateMusician() {
                         {current.map((string: string) => (
                             <div className={CSS.checkbox} key={string}>
                                 <input
-                                    {...register('instruments')}
+                                    {...register('instruments', {
+                                        required: 'Επιλέξτε τουλάχιστον 1 όργανο'
+                                    }
+                                    )}
                                     id={string}
                                     type='checkbox'
                                     value={string}
-                                    onChange={handleCheckBox}
-                                    checked={array.includes(string)}
+                                    onChange={(event) => handleCheckBox(setInstrumentArray, event)}
+                                    checked={instrumentArray.includes(string)}
                                 />
                                 <label htmlFor={string}>{string}</label>
                             </div>
@@ -248,23 +223,27 @@ export default function CreateMusician() {
 
                     </div>
 
-                    {instruments_are_empty && <p>Συμπληρώστε τουλάχιστον 1 όργανο</p>}
+                    <FormError value={errors?.instruments} />
+
 
 
                     <hr className='divider'></hr>
                     <h2>Είδη</h2>
-                 
+
 
                     <div className={CSS.checkboxes_section}>
                         {genres.map((genre: string) => (
                             <div className={CSS.checkbox} key={genre}>
                                 <input
-                                    {...register('genres')}
+                                    {...register('genres', {
+                                        required: 'Επιλέξτε τουλάχιστον 1 είδος'
+                                    })}
                                     id={genre}
                                     type='checkbox'
                                     value={genre}
-                                    onChange={handleCheckBoxGenre}
-                                    checked={genre_array.includes(genre)}
+                                    // onChange={handleCheckBoxGenre}
+                                    onChange={(event) => handleCheckBox(setGenreArray, event)}
+                                    checked={genreArray.includes(genre)}
                                 />
                                 <label htmlFor={genre}>{genre}</label>
                             </div>
@@ -272,6 +251,7 @@ export default function CreateMusician() {
 
                     </div>
 
+                    <FormError value={errors?.genres} />
 
 
                     <div className={CSS.buttonSection}>...
@@ -286,5 +266,8 @@ export default function CreateMusician() {
 
 
         </div >
+
+
     )
+
 }
