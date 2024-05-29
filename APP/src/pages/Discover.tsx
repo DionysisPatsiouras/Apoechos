@@ -1,6 +1,5 @@
 import CSS from '../css/Discover/Discover.module.css'
-import { useState, useContext, useEffect } from 'react'
-import { Colors } from '../App'
+import { useState, useContext } from 'react'
 
 // components
 import Tab from '../components/Discover/Tab'
@@ -8,85 +7,21 @@ import SvgIcon from '../components/SvgIcon'
 import Card from '../components/Discover/Card'
 
 // utils
-import Call from '../utils/Call'
-import { Routes } from '../utils/Routes'
 import SearchValidation from '../utils/SearchValidation'
+import { cities } from '../utils/MusicianUtils'
+
+import DiscoverContext from '../context/DiscoverContext'
 
 export default function Discover() {
 
-    // const [data, setData] = useState<any>([])
+
+    let { selected, activeTab, tabs, color}: any = useContext(DiscoverContext)
+
     const [search, setSearch] = useState<string>('')
-
-
-    const [selected, setSelected] = useState<any>([])
-    const [all, setAll] = useState<any>([])
-    const [allMusicians, setAllMusicians] = useState<any>([])
-    const [allStudios, setAllStudios] = useState<any>([])
-    const [allStores, setAllStores] = useState<any>([])
-    const [allStages, setAllStages] = useState<any>([])
-    const [allBands, setAllBands] = useState<any>([])
-
-
-    const [activeTab, setActiveTab] = useState('Everything')
+    const [citySearch, setCitySearch] = useState<string>('')
     const [onHover, setOnHover] = useState('')
 
-    const [filtered_genres, setFiltered_genres] = useState<string[]>([])
-
-    const everything = new Call(Routes.profiles.everything, 'GET')
-
-    let all_genres = ['Rock', 'Metal', 'Stoner']
-
-
-    useEffect(() => {
-
-        everything
-            .GET()
-            .then((res) => {
-                // console.log(res)
-                // setData(res[0]);
-                setSelected(res?.[0]?.everything)
-                setAll(res?.[0]?.everything)
-                setAllMusicians(res?.[0]?.musicians)
-                setAllStudios(res?.[0]?.studios)
-                setAllStores(res?.[0]?.stores)
-                setAllStages(res?.[0]?.stages)
-                setAllBands(res?.[0]?.bands)
-
-            })
-            .catch((err) => console.warn(err))
-
-
-    }, [])
-
-    const color = useContext<any>(Colors)
-
-
-    let tabs: any = [
-        { label: 'Everything', color: 'black', action: () => { setSelected(all); setActiveTab('Everything') } },
-        { label: 'Musicians', color: color?.musician, action: () => { setSelected(allMusicians); setActiveTab('Musicians') } },
-        { label: 'Bands', color: color?.band, action: () => { setSelected(allBands); setActiveTab('Bands') } },
-        { label: 'Music Studio', color: color?.studio, action: () => { setSelected(allStudios); setActiveTab('Music Studio') } },
-        { label: 'Music Stores', color: color?.store, action: () => { setSelected(allStores); setActiveTab('Music Stores') } },
-        { label: 'Live Stages', color: color?.stage, action: () => { setSelected(allStages); setActiveTab('Live Stages') } }
-    ]
-
-
-    const pickColor = (category: string) => {
-        switch (category) {
-            case 'musician':
-                return color?.musician
-            case 'studio':
-                return color?.studio
-            case 'store':
-                return color?.store
-            case 'stage':
-                return color?.stage
-            case 'band':
-                return color?.band
-            default:
-                break;
-        }
-    }
+    const [filtered_cities, setFilteredCities] = useState<any[]>([])
 
 
 
@@ -94,71 +29,68 @@ export default function Discover() {
     // const loop = (value: any, value2: any) => {
     //     for (let index = 0; index < 1000; index++) {
     //         // const element = array[index];
-
-
     //         return value?.instruments?.[index]?.name === value2
-
     //     }
     // }
 
 
+
+
+
     const filteredData = selected
         .filter((data: any) =>
-            SearchValidation(data?.artistic_nickname, search) || SearchValidation(data?.title, search) || SearchValidation(data?.name, search)
+            SearchValidation(data?.artistic_nickname, search) ||
+            SearchValidation(data?.title, search) ||
+            SearchValidation(data?.name, search)
         )
-    // .filter((data: any) =>
-    //     loop(data, 'Τσέλο')
-    // )
+        .filter((location: any) => filtered_cities.length === 0 ? !filtered_cities.includes(cities) : filtered_cities.includes(location?.city))
 
 
 
 
-    const handleCheckBox = (event: any) => {
+    const handleCities = (event: any) => {
         const { value, checked } = event.target;
 
-        setFiltered_genres((prevCategories: any) =>
+        setFilteredCities((prevCategories: any) =>
             checked
                 ? [...prevCategories, value]
                 : prevCategories.filter((allGroups: any) => allGroups !== value)
-        );
+        )
+    }
 
-    };
+
 
     return (
         <div className={CSS.container}>
 
             <section className={CSS.filters}>
 
+                <p className={CSS.filter_title}>Περιοχή</p>
+                <ul className={CSS.filters_list}>
+                    <input type='search' placeholder='Αναζήτηση...' onChange={(e) => setCitySearch(e.target.value)} />
 
-                <h3>Περιοχή</h3>
-                <ul style={{ 'display': 'flex', 'flexDirection': 'column', 'alignItems': 'center' }}>
-
-
-                    {all_genres.map((genre: string) => (
-                        <div key={genre}>
-                            <label htmlFor={genre}>{genre}</label>
-                            <input
-                                id={genre}
-                                type='checkbox'
-                                value={genre}
-                                onChange={handleCheckBox}
-                                checked={filtered_genres.includes(genre)}
-
-                            />
-                        </div>
-                    ))}
+                    {cities
+                        .filter((city: string) => SearchValidation(city, citySearch))
+                        .map((city: string) => (
+                            <li key={city}>
+                                <input
+                                    id={city}
+                                    type='checkbox'
+                                    value={city}
+                                    onChange={handleCities}
+                                    checked={filtered_cities.includes(city)}
+                                />
+                                <label htmlFor={city}>{city}</label>
+                            </li>
+                        ))}
                 </ul>
-
-            </section >
+            </section>
 
 
 
             <section className={CSS.cards_container}>
 
-
-
                 <ul className={CSS.profiles_menu}>
-
                     {tabs.map((tab: any, index: number) => (
                         <Tab
                             key={index}
@@ -166,9 +98,7 @@ export default function Discover() {
                             color={tab.color}
                             onMouseEnter={() => setOnHover(tab.label)}
                             onMouseLeave={() => setOnHover('')}
-
                             onClick={tab.action}
-
                             activeTab={activeTab}
                             onHover={onHover}
                         />
@@ -188,7 +118,6 @@ export default function Discover() {
 
                 <section className={CSS.all_cards}>
                     {filteredData?.map((item: any, index: number) => (
-
                         <Card
                             key={index}
                             id={item?.musicianId || item?.studioId || item?.storeId || item?.stageId || item?.bandId}
@@ -196,13 +125,13 @@ export default function Discover() {
                             city={item?.city}
                             photo={item?.photo}
                             artistic_nickname={item?.artistic_nickname || item?.title || item?.name}
-                            color={pickColor(item?.category)}
+                            color={color?.[item?.category]}
                         />
                     ))}
                 </section>
             </section>
 
 
-        </div>
+        </div >
     )
 }

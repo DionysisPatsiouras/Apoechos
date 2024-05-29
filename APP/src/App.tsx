@@ -16,6 +16,7 @@ import CreateStudio from './pages/CreateStudio'
 
 // context
 import { AuthProvider } from "./context/AuthContext"
+import { DiscoverProvider } from './context/DiscoverContext'
 import Discover from './pages/Discover'
 import Profile from './pages/Profile'
 
@@ -55,32 +56,36 @@ export default function App() {
       <WindowSize.Provider value={responsive}>
         <BrowserRouter>
           <AuthProvider>
-           
-              <Colors.Provider value={colors}>
 
-                <Header />
+            <Colors.Provider value={colors}>
 
-                <Routes>
+              <Header />
 
-                  <Route path='/login' element={<Login />} />
-                  <Route path='/register' element={<Register />} />
-                  <Route path='/' element={<News />} />
-                  <Route path='/discover' element={<Discover />} />
-                  <Route path='/profile/:category/:id/' element={<Profile />} />
-                  <Route path='/profile/:id/' element={<Profile />} />
+              <Routes>
 
-                  <Route element={<PrivateRoutes />} >
-                    <Route path='/account' element={<Account />} />
-                    <Route path='/create' element={<Create />} />
-                    <Route path='/create/musician' element={<CreateMusician />} />
-                    <Route path='/create/studio' element={<CreateStudio />} />
-                    <Route path='/create/store' element={<CreateStore />} />
-                  </Route>
+                <Route path='/login' element={<Login />} />
+                <Route path='/register' element={<Register />} />
+                <Route path='/' element={<News />} />
 
 
-                </Routes>
-              </Colors.Provider>
-         
+                <Route path='/discover' element={<DiscoverProvider><Discover /></DiscoverProvider>} />
+
+
+                {/* <Route path='/profile/:category/:id/' element={<Profile />} /> */}
+                <Route path='/profile/:id/' element={<Profile />} />
+
+                <Route element={<PrivateRoutes />} >
+                  <Route path='/account' element={<Account />} />
+                  <Route path='/create' element={<Create />} />
+                  <Route path='/create/musician' element={<CreateMusician />} />
+                  <Route path='/create/studio' element={<CreateStudio />} />
+                  <Route path='/create/store' element={<CreateStore />} />
+                </Route>
+
+
+              </Routes>
+            </Colors.Provider>
+
           </AuthProvider>
         </BrowserRouter>
       </WindowSize.Provider>

@@ -241,7 +241,6 @@ export default function CreateMusician() {
                                     id={genre}
                                     type='checkbox'
                                     value={genre}
-                                    // onChange={handleCheckBoxGenre}
                                     onChange={(event) => handleCheckBox(setGenreArray, event)}
                                     checked={genreArray.includes(genre)}
                                 />

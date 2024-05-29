@@ -87,7 +87,7 @@ export default function Profile() {
 
 
             <Modal open={modal} close={() => setModal(false)} closeButton={true}>
-                <img src={img || `http://127.0.0.1:8000/${data?.photo}`} alt='profile_photo' />
+                <img src={`http://127.0.0.1:8000/${data?.photo}` || img} alt='profile_photo' />
             </Modal>
 
             <Modal
