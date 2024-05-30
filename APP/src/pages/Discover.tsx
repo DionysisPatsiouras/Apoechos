@@ -92,12 +92,13 @@ export default function Discover() {
 
                     {filteredData?.map((item: any, index: number) => (
                         <Card
+                            data={item}
                             key={index}
                             id={item?.musicianId || item?.studioId || item?.storeId || item?.stageId || item?.bandId}
                             category={item?.category}
                             city={item?.city}
                             photo={item?.photo}
-                            artistic_nickname={item?.artistic_nickname || item?.title || item?.name}
+                            name={item?.artistic_nickname || item?.title || item?.name}
                             color={color?.[item?.category]}
                         />
                     ))

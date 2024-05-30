@@ -7,6 +7,7 @@ import img from '../../utils/img/default_img.png'
 
 const Card = forwardRef(function Card(props: any, ref) {
 
+    console.warn(props?.data)
 
     return (
         <div className={CSS.card} style={{ 'backgroundColor': props?.color }}>
@@ -27,14 +28,15 @@ const Card = forwardRef(function Card(props: any, ref) {
                         width={84} height={84}
                         alt='Profile image' />
 
-                    <h6 className={CSS.profileTitle}>
-                        {props?.artistic_nickname}</h6>
+
+                    <h6 className={CSS.profileTitle}>{props?.name}</h6>
+
+
                 </div>
 
                 <section className={CSS.location}>
                     {props?.city}
                 </section>
-
 
 
                 <div className={CSS.btn_section}>
