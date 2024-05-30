@@ -9,7 +9,8 @@ import SvgIcon from '../components/SvgIcon'
 import FormError from '../utils/FormError'
 import { Routes } from '../utils/Routes'
 import Call from '../utils/Call'
-import { cities, all_categories, strings, woodwind, percussion, vocals, keys, genres } from '../utils/MusicianUtils'
+import { all_categories, strings, woodwind, percussion, vocals, keys, genres } from '../utils/MusicianUtils'
+import { cities } from '../utils/Lists'
 
 // css
 import CSS from '../css/CreateMusician/CreateMusician.module.css'
@@ -96,7 +97,7 @@ export default function CreateMusician() {
             })
             .catch((err) => { console.warn(err) })
     }
-  
+
 
 
 

@@ -10,11 +10,13 @@ import SvgIcon from '../components/SvgIcon'
 import FormError from '../utils/FormError'
 import { Routes } from '../utils/Routes'
 import Call from '../utils/Call'
-import { cities } from '../utils/MusicianUtils'
+// import { cities } from '../utils/MusicianUtils'
+import { cities } from '../utils/Lists'
 
 // css
 import CSS from '../css/CreateMusician/CreateMusician.module.css'
 import { patchUser } from '../utils/functions/patchUser'
+import { studio_services } from '../utils/Lists'
 
 
 
@@ -35,7 +37,7 @@ export default function CreateStudio() {
 
     const [array_is_empty, set_array_is_empty] = useState<boolean>()
 
-    let services = ['Πρόβες', 'Ηχογραφήσεις', 'Mix', 'Mastering', 'Ηχογράφηση Πρόβας', 'Με πλήρες εξοπλισμό', 'Live Ηχογράφηση']
+    // let services = ['Πρόβες', 'Ηχογραφήσεις', 'Mix', 'Mastering', 'Ηχογράφηση Πρόβας', 'Με πλήρες εξοπλισμό', 'Live Ηχογράφηση']
 
 
 
@@ -189,7 +191,7 @@ export default function CreateStudio() {
                     <hr className='divider'></hr>
                     <h2>Υπηρεσίες</h2>
                     <div className={CSS.checkboxes_section}>
-                        {services.map((string: string) => (
+                        {studio_services.map((string: string) => (
                             <div className={CSS.checkbox} key={string}>
                                 <input
                                     {...register('services')}

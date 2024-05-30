@@ -4,7 +4,8 @@ import { Routes } from '../utils/Routes'
 
 import { Colors } from '../App'
 import SearchValidation from '../utils/SearchValidation'
-import { cities, genres } from '../utils/MusicianUtils'
+import { genres } from '../utils/MusicianUtils'
+import { cities, studio_services } from '../utils/Lists'
 const DiscoverContext = createContext({})
 
 
@@ -19,9 +20,11 @@ export const DiscoverProvider = ({ children }: any) => {
     const [search, setSearch] = useState<string>('')
     const [citySearch, setCitySearch] = useState<string>('')
     const [genreSearch, setGenreSearch] = useState<string>('')
+    const [studio_services_search, setStudioServicesSearch] = useState<string>('')
     const [onHover, setOnHover] = useState('')
     const [filtered_cities, setFilteredCities] = useState<any[]>([])
     const [filtered_genres, setFilteredGenres] = useState<any[]>([])
+    const [filtered_studio_services, setFilteredStudioServices] = useState<any[]>([])
 
 
 
@@ -57,7 +60,26 @@ export const DiscoverProvider = ({ children }: any) => {
             .catch((err: any) => console.warn(err))
     }, [])
 
-    // console.log(allMusicians)
+    // console.log(filtered_studio_services)
+
+
+    const filters = [
+        {
+            id: 'Everything', label: 'Περιοχή', data: cities,
+            setSearch: setCitySearch, search: citySearch,
+            filtered: filtered_cities, setFilters: setFilteredCities,
+        },
+        {
+            id: 'Musicians', label: 'Είδη', data: genres,
+            setSearch: setGenreSearch, search: genreSearch,
+            filtered: filtered_genres, setFilters: setFilteredGenres,
+        },
+        {
+            id: 'Music Studio', label: 'Υπηρεσίες', data: studio_services,
+            setSearch: setStudioServicesSearch, search: studio_services_search,
+            filtered: filtered_studio_services, setFilters: setFilteredStudioServices
+        }
+    ]
 
 
     let tabs: any = [
@@ -69,9 +91,16 @@ export const DiscoverProvider = ({ children }: any) => {
         { label: 'Live Stages', color: color?.stage, action: () => { setSelected(allStages); setActiveTab('Live Stages') } }
     ]
 
-    const basicFiltering = selected
-        .filter((profile: any) => SearchValidation(profile?.artistic_nickname, search) || SearchValidation(profile?.title, search) || SearchValidation(profile?.name, search))
-        .filter((profile: any) => filtered_cities.length === 0 ? !filtered_cities.includes(cities) : filtered_cities.includes(profile?.city))
+    const basicFiltering =
+        selected
+            .filter((profile: any) =>
+                SearchValidation(profile?.artistic_nickname, search) ||
+                SearchValidation(profile?.title, search) ||
+                SearchValidation(profile?.name, search))
+
+            .filter((profile: any) =>
+                filtered_cities.length === 0 ? !filtered_cities.includes(cities) : filtered_cities.includes(profile?.city))
+
 
     const filteredData =
         activeTab === 'Musicians' ?
@@ -79,7 +108,13 @@ export const DiscoverProvider = ({ children }: any) => {
                 .filter((profile: any) =>
                     profile?.genres?.some((genre: any) =>
                         filtered_genres.length === 0 ? !filtered_genres.includes(genres) : filtered_genres.includes(genre?.name)))
-            : basicFiltering
+
+            : activeTab === 'Music Studio' ?
+                basicFiltering
+                    .filter((profile: any) =>
+                        profile?.services?.some((service: any) =>
+                            filtered_studio_services.length === 0 ? !filtered_studio_services.includes(studio_services) : filtered_studio_services.includes(service?.name)))
+                : basicFiltering
 
 
 
@@ -96,35 +131,16 @@ export const DiscoverProvider = ({ children }: any) => {
 
 
     let contextData = {
-
-        selected: selected,
         activeTab: activeTab,
         tabs: tabs,
         color: color,
-        search: search,
-        citySearch: citySearch,
-        onHover: onHover,
-        filtered_cities: filtered_cities,
-        setFilteredCities: setFilteredCities,
-        setOnHover: setOnHover,
-        setSearch: setSearch,
-        setCitySearch: setCitySearch,
-        setSelected: setSelected,
         filteredData: filteredData,
-
-
-        genreSearch: genreSearch,
-        setGenreSearch: setGenreSearch,
-        filtered_genres: filtered_genres,
-        setFilteredGenres: setFilteredGenres,
-
-
+        setSearch: setSearch,
+        onHover: onHover,
+        setOnHover: setOnHover,
         handle_checkbox: handle_checkbox,
-
-
+        filters: filters
     }
-
-
 
 
 

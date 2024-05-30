@@ -9,7 +9,7 @@ import SvgIcon from '../components/SvgIcon'
 import FormError from '../utils/FormError'
 import { Routes } from '../utils/Routes'
 import Call from '../utils/Call'
-import { cities } from '../utils/MusicianUtils'
+import { cities } from '../utils/Lists'
 import { patchUser } from '../utils/functions/patchUser'
 
 // css

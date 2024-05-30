@@ -5,7 +5,7 @@ import Call from '../../utils/Call'
 import { Routes } from '../../utils/Routes'
 import { useState } from 'react'
 import SvgIcon from '../SvgIcon'
-import { cities } from '../../utils/MusicianUtils'
+import { cities } from '../../utils/Lists'
 
 export default function EditMusician(props: any) {
 
