@@ -25,7 +25,7 @@ export const DiscoverProvider = ({ children }: any) => {
     const [filtered_cities, setFilteredCities] = useState<any[]>([])
     const [filtered_genres, setFilteredGenres] = useState<any[]>([])
     const [filtered_studio_services, setFilteredStudioServices] = useState<any[]>([])
-
+    const [activeTab, setActiveTab] = useState('Everything')
 
 
     const [selected, setSelected] = useState<any>([])
@@ -36,7 +36,7 @@ export const DiscoverProvider = ({ children }: any) => {
     const [allStages, setAllStages] = useState<any>([])
     const [allBands, setAllBands] = useState<any>([])
 
-    const [activeTab, setActiveTab] = useState('Everything')
+  
 
 
     const call_profiles = new Call(Routes.profiles.everything, 'GET')
@@ -60,7 +60,6 @@ export const DiscoverProvider = ({ children }: any) => {
             .catch((err: any) => console.warn(err))
     }, [])
 
-    // console.log(filtered_studio_services)
 
 
     const filters = [

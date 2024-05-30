@@ -29,9 +29,9 @@ export default function Discover() {
 
 
 
-                {filters.map((item: any) => (
+                {filters.map((item: any, index: number) => (
 
-                    <div style={{ display: activeTab === item.id || item?.id === 'Everything' ? 'block' : 'none' }}>
+                    <div key={index} style={{ display: activeTab === item.id || item?.id === 'Everything' ? 'block' : 'none' }}>
                         <p className={CSS.filter_title}>{item.label}</p>
                         <div className='items-inline' style={{ padding: '0 0 0 20px' }}>
                             <SvgIcon id='search' color='#C8C8C8' />
