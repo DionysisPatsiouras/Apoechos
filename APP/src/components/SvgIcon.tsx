@@ -8,7 +8,7 @@
 // musician, studio, band, stage, store, upload-image, add
 // search, location, add_person, new_release, expand, edit
 // keys, strings, vocals, woodwind, percussion, delete
-// pinned, insert, remove, settings
+// pinned, insert, remove, settings, genres
 
 
 
