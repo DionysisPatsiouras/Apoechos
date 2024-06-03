@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
+from django.db.models import Q
 
 # /posts/all_posts
 @api_view(["GET"])
@@ -19,7 +20,7 @@ def all_posts(request):
 # /posts/add
 @api_view(["POST"])
 def add_post(request):
-    serializer = PostSerializer(data=request.data)
+    serializer = NewPostSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response({"message": "Created", "status": 201, "data": serializer.data})
@@ -32,7 +33,7 @@ def add_post(request):
 def post_by_profile_id(request, id):
 
     try:
-        post = Post.objects.all().filter(profile_id=id)
+        post = Post.objects.filter(Q(musician=id) | Q(studio=id))
     except Post.DoesNotExist:
         return Response(["error", "not exist"])
 

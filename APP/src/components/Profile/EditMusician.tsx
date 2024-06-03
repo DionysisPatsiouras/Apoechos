@@ -1,10 +1,16 @@
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+
+// CSS
 import CSS from '../../css/Profile/EditMusician.module.sass'
+
+// local components
 import FormError from '../../utils/FormError'
+import SvgIcon from '../SvgIcon'
+
+// utils
 import Call from '../../utils/Call'
 import { Routes } from '../../utils/Routes'
-import { useState } from 'react'
-import SvgIcon from '../SvgIcon'
 import { cities } from '../../utils/Lists'
 
 export default function EditMusician(props: any) {
@@ -25,19 +31,12 @@ export default function EditMusician(props: any) {
     const [tab, setTab] = useState<number>(1)
 
 
-
-
     const updateProfile = (data: any) => {
-
         const patchMusician = new Call(Routes.musician.patch(props?.data?.musicianId), 'PATCH', data)
-
         patchMusician
             .PATCH()
-            .then(() => {
-                props?.close()
-            })
+            .then(() => { props?.close() })
             .catch((err) => console.warn(err))
-
     }
 
 
@@ -115,13 +114,14 @@ export default function EditMusician(props: any) {
 
                             <div className={CSS.updateImage}>
                                 <button ><SvgIcon id={'upload-image'} color='#fff' />Ανέβασμα</button>
-                                <button style={{ background: '#C65F5F' }}><SvgIcon id={'close'} color='#fff' width={20}/>Κατάργηση</button>
+                                <button style={{ background: '#C65F5F' }}><SvgIcon id={'close'} color='#fff' width={20} />Κατάργηση</button>
                             </div>
 
                         </div>
 
 
                         <input
+                            placeholder='Όνομα'
                             defaultValue={props?.data?.artistic_nickname}
                             {...register('artistic_nickname', {
                                 required: 'Υποχρεωτικό πεδίο'
@@ -135,6 +135,7 @@ export default function EditMusician(props: any) {
                             ))}
                         </select>
                         <textarea
+                            placeholder='Λίγα λόγια για εσάς..'
                             defaultValue={props?.data?.bio}
                             {...register('bio')}
                         />
@@ -148,6 +149,7 @@ export default function EditMusician(props: any) {
 
                         <div>
 
+                            uυπαρχουν τωρα
                             {current_inst
                                 .map((item: any, index: number) => (
                                     <div key={index} className={'items-inline'} onClick={() => removeInstruments(item)}>
@@ -155,7 +157,7 @@ export default function EditMusician(props: any) {
                                     </div>
                                 ))}
 
-
+                            προστεθηκαν τωρα
                             {addedInstruments
 
                                 .map((item: any, index: number) => (

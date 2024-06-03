@@ -1,7 +1,9 @@
 from django.db import models
-import datetime 
+import datetime
 import random
 from django.utils import timezone
+from musician.models import Musician
+from studios.models import Studio
 
 
 def generate_pk():
@@ -23,7 +25,21 @@ class Post(models.Model):
         default=generate_pk, primary_key=True, max_length=255, unique=True
     )
 
-    profile_id = models.CharField(max_length=150, blank=False)
+    musician = models.ForeignKey(
+        Musician,
+        related_name="musician",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
+
+    studio = models.ForeignKey(
+        Studio,
+        related_name="studio",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
 
     body = models.CharField(max_length=150, blank=False)
     category = models.CharField(max_length=40, blank=False)
