@@ -44,3 +44,10 @@ class New_Musician_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Musician
         fields = "__all__"
+
+class Musician_Posts_Serializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Musician
+        fields = ("musicianId", "artistic_nickname", "photo", )
+        

@@ -27,3 +27,11 @@ class New_Studio_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Studio
         fields = "__all__"
+
+
+class Studio_Posts_Serializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Studio
+        fields = ("studioId", "title", "photo", )
+        

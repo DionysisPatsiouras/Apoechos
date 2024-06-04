@@ -15,8 +15,8 @@ class NewPostSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
 
-    musician = New_Musician_Serializer(many=False)
-    studio = New_Studio_Serializer(many=False)
+    musician = Musician_Posts_Serializer(many=False)
+    studio = Studio_Posts_Serializer(many=False)
 
     class Meta:
         model = Post
