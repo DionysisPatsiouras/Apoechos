@@ -4,6 +4,7 @@ import random
 from django.utils import timezone
 from musician.models import Musician
 from studios.models import Studio
+from store.models import Store
 
 
 def generate_pk():
@@ -36,6 +37,13 @@ class Post(models.Model):
     studio = models.ForeignKey(
         Studio,
         related_name="studio",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
+    store = models.ForeignKey(
+        Store,
+        related_name="store",
         on_delete=models.CASCADE,
         null=True,
         blank=True,

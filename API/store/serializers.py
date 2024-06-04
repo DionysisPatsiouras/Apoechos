@@ -27,3 +27,11 @@ class New_Store_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Store
         fields = "__all__"
+
+
+class Store_Posts_Serializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Store
+        fields = ("storeId", "title", "photo", )
+        

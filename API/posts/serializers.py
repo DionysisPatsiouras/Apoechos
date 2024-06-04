@@ -1,10 +1,9 @@
 from rest_framework import serializers
 from .models import *
-from musician.serializers import *
-from musician.models import *
 
-from studios.serializers import *
-from studios.models import *
+from musician.serializers import Musician_Posts_Serializer
+from studios.serializers import Studio_Posts_Serializer
+from store.serializers import Store_Posts_Serializer
 
 
 class NewPostSerializer(serializers.ModelSerializer):
@@ -17,6 +16,7 @@ class PostSerializer(serializers.ModelSerializer):
 
     musician = Musician_Posts_Serializer(many=False)
     studio = Studio_Posts_Serializer(many=False)
+    store = Store_Posts_Serializer(many=False)
 
     class Meta:
         model = Post
