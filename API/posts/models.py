@@ -5,6 +5,7 @@ from django.utils import timezone
 from musician.models import Musician
 from studios.models import Studio
 from store.models import Store
+from stage.models import Stage
 
 
 def generate_pk():
@@ -44,6 +45,13 @@ class Post(models.Model):
     store = models.ForeignKey(
         Store,
         related_name="store",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
+    stage = models.ForeignKey(
+        Stage,
+        related_name="stage",
         on_delete=models.CASCADE,
         null=True,
         blank=True,

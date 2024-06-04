@@ -26,3 +26,10 @@ class New_Stage_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Stage
         fields = "__all__"
+
+
+class Stage_Posts_Serializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Stage
+        fields = ("stageId", "title", "photo", )
