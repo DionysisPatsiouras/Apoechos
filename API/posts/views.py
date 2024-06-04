@@ -33,7 +33,7 @@ def add_post(request):
 def post_by_profile_id(request, id):
 
     try:
-        post = Post.objects.filter(Q(musician=id) | Q(studio=id))
+        post = Post.objects.filter(Q(musician=id) | Q(studio=id) | Q(store=id) | Q(stage=id))
     except Post.DoesNotExist:
         return Response(["error", "not exist"])
 

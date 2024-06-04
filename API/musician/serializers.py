@@ -49,5 +49,5 @@ class Musician_Posts_Serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Musician
-        fields = ("musicianId", "artistic_nickname", "photo", )
+        fields = ("musicianId", "artistic_nickname", "photo", "category", )
         

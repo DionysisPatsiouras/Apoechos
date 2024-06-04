@@ -14,6 +14,9 @@ import UpdatePost from './UpdatePost'
 const Post = forwardRef(function Post(props: any, ref: any) {
 
     let post = props?.data
+    let profile_photo = props?.data?.musician?.photo || props?.data?.studio?.photo || props?.data?.store?.photo || props?.data?.stage?.photo
+    let profile_category = props?.data?.musician?.category || props?.data?.studio?.category || props?.data?.store?.category || props?.data?.stage?.category
+
     const [edit, setEdit] = useState<boolean>(false)
     const [deletePost, setDelete] = useState<boolean>(false)
     const [modal, setModal] = useState<boolean>(false)
@@ -57,16 +60,16 @@ const Post = forwardRef(function Post(props: any, ref: any) {
             )
             .catch((err) => console.warn(err))
     }
-
+    // console.warn(post)
 
     const PostView = (with_edit_icon: boolean) =>
         <section className={CSS.post_card}>
             <div className={CSS.top}>
                 <div style={{ display: 'flex' }}>
-                    <img src={props?.photo} width={100} alt='profile_image' />
+                    <img src={`http://127.0.0.1:8000/${profile_photo}`} width={100} alt='profile_image' />
                     <div className={CSS.content}>
                         <h3 style={{ display: 'flex', alignItems: 'center' }}>
-                            {props?.profile}
+                            {post.musician?.artistic_nickname}
                             {post?.is_pinned && <SvgIcon id={'pinned'} color='#D2A35B' />}
                         </h3>
                         <p className={CSS.category}>{`"${post?.category}"`}</p>
@@ -78,11 +81,10 @@ const Post = forwardRef(function Post(props: any, ref: any) {
             </div>
         </section>
 
-// console.log(props)
 
 
     return (
-        <div style={{ display: 'flex', marginLeft: '7px' }}>
+        <div style={{ display: 'flex' }}>
 
 
             <Modal
@@ -91,11 +93,11 @@ const Post = forwardRef(function Post(props: any, ref: any) {
                 withContainer={true}
                 title={'Επεξεργασία δημοσίευσης'}>
                 <UpdatePost
-                    category={props?.category}
+                    category={profile_category}
                     body={post?.body}
                     value={post.category}
                     post_id={props?.data?.post_id}
-                    close={() => {setPatchPost(false); props?.updateDOM()}}
+                    close={() => { setPatchPost(false); props?.updateDOM() }}
                 />
             </Modal>
 
@@ -126,9 +128,9 @@ const Post = forwardRef(function Post(props: any, ref: any) {
                 <li onClick={() => { setEdit(false); setPatchPost(true) }}>
                     <SvgIcon id={'edit'} color='#5F69C6' />
                 </li>
-                <li onClick={() => { setModal(true); setEdit(false) }}>
+                {/* <li onClick={() => { setModal(true); setEdit(false) }}>
                     <SvgIcon id={post?.is_pinned ? 'pinned' : 'pinned'} color={post?.is_pinned ? '#000' : '#D2A35B'} />
-                </li>
+                </li> */}
                 <li onClick={() => { setModal(true); setEdit(false); setDelete(true) }} >
                     <SvgIcon id={'delete'} color='#C65F5F' />
                 </li>

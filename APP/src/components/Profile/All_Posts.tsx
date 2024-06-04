@@ -5,6 +5,8 @@ import { Routes } from "../../utils/Routes"
 
 import Post from '../Post'
 
+
+// NOT IN USE
 export default function All_Posts(props: any) {
 
 
@@ -23,6 +25,7 @@ export default function All_Posts(props: any) {
         posts_by_id
             .GET()
             .then((res) => {
+                // console.warn(res)
                 setPosts(res);
             })
             .catch((err) => console.warn(err))

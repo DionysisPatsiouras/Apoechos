@@ -21,9 +21,6 @@ import EditMusician from '../components/Profile/EditMusician'
 import Characteristics from '../components/Profile/Characteristics'
 
 
-
-
-
 export default function Profile() {
 
     const [data, setData] = useState<any>([])
@@ -64,9 +61,11 @@ export default function Profile() {
     }, [updateDOM])
 
 
-    // console.warn(data)
+    
 
+    let profileId = data?.musicianId || data?.studioId || data?.storeId || data?.stageId
 
+    // console.warn(finalId)
     const check_category = (category: string) => {
 
         switch (category) {
@@ -127,12 +126,9 @@ export default function Profile() {
 
             <section className={CSS.right_section}>
                 <Activity
-                    photo={data?.photo}
+                    id={profileId}
                     category={data?.category}
                     canEdit={data.user === user?.user_id ? true : false}
-                    profile_name={data?.artistic_nickname || data?.title}
-                    profile_id={data?.musicianId || data?.studioId || data?.storeId || data?.stageId || data?.bandId}
-
                 />
             </section>
 

@@ -32,15 +32,17 @@ export default function NewPost(props: any) {
     // const { errors } = formState
 
 
+    // console.log(props)
 
     const onSubmit = () => {
 
         const finalData = {
             category: label,
             body: post,
-            profile_id: props?.profile_id
+            // profile_id: props?.profile_id
+            [props?.category]: props?.profile_id
         }
-      
+
 
         const new_post = new Call(Routes.posts.add, 'POST', finalData)
 
@@ -55,10 +57,10 @@ export default function NewPost(props: any) {
             .catch((err) => console.warn(err))
 
 
-
+        console.log(finalData)
     }
 
-
+    console.warn(label)
 
     return (
         <>
@@ -70,7 +72,7 @@ export default function NewPost(props: any) {
                     <h3>Νέα δημοσίευση - Επιλέξτε θέμα:</h3>
                     <select onChange={(e) => setLabel(e.target.value)}>
                         {labels
-                        .filter((label:any) => label.category === props?.category)
+                            .filter((label: any) => label.category === props?.category)
                             .map((item: any, index: number) =>
                                 <option
                                     key={index}>
