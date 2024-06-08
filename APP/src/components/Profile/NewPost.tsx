@@ -19,7 +19,7 @@ export default function NewPost(props: any) {
             .GET()
             .then((res) => {
                 console.log(res)
-                setLabels(res.filter((i:any) => i.category === props?.category))
+                setLabels(res.filter((i: any) => i.category === props?.category))
             })
 
     }, [])
@@ -36,16 +36,8 @@ export default function NewPost(props: any) {
     //     { title: 'Ζητείται προσωπικό', category: 'stage' },
     // ]
 
-    // 
-    // const [label, setLabel] = useState<any>(
-    //     props?.category === 'musician' ?
-    //         labels[0].title :
-    //         props?.category === 'studio' ?
-    //             labels[3].title :
-    //             props?.category === 'store' ?
-    //                 labels[4].title :
-    //                 null
-    // )
+    // @ts-ignore
+    const [label, setLabel] = useState<any>(labels?.[0])
 
     let limit = 150
     const [post, setPost] = useState<string>('')
@@ -93,16 +85,18 @@ export default function NewPost(props: any) {
 
                 <div className={CSS.labels}>
                     <h3>Νέα δημοσίευση - Επιλέξτε θέμα:</h3>
-                    {/* <select onChange={(e) => setLabel(e.target.value)}> */}
-                        {/* {labels
-                            // .filter((label: any) => label.category === props?.category)
+                    <select onChange={(e) => setLabel(e.target.value)}>
+                        {labels && labels
+                        // @ts-ignore
                             .map((item: any, index: number) =>
                                 <option
                                     key={index}>
                                     {item.title}
                                 </option>
-                            )} */}
-                    {/* </select> */}
+                            )}
+
+
+                    </select>
                 </div>
 
 
