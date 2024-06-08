@@ -35,6 +35,9 @@ export const Routes = {
         id: (stage_id: string) => `${url}/stage/${stage_id}`,
         post: `${url}/stage/new/`,
     },
+    band: {
+        id:(band_id:string) => `${url}/band/${band_id}`,
+    },
 
     posts: {
         all: `${url}/posts/all_posts/`,
@@ -42,6 +45,7 @@ export const Routes = {
         profile_id: (profile_id: string) => `${url}/posts/${profile_id}`,
         post_id: (post_id: string) => `${url}/posts/post/${post_id}/`,
         update: (post_id:string) => `${url}/posts/post/${post_id}/`,
+        titles:  `${url}/posts/titles/all`,
     },
 
     instruments: {

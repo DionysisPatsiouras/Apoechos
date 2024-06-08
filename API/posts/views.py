@@ -7,6 +7,17 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from django.db.models import Q
 
+
+
+
+@api_view(["GET"])
+def all_titles(request):
+
+    posts = Post_Title.objects.all()
+    serializer = TitleSerializer(posts, many=True)
+
+    return Response(serializer.data)
+
 # /posts/all_posts
 @api_view(["GET"])
 def all_posts(request):
@@ -33,7 +44,7 @@ def add_post(request):
 def post_by_profile_id(request, id):
 
     try:
-        post = Post.objects.filter(Q(musician=id) | Q(studio=id) | Q(store=id) | Q(stage=id))
+        post = Post.objects.filter(Q(musician=id) | Q(studio=id) | Q(store=id) | Q(stage=id) | Q(band=id))
     except Post.DoesNotExist:
         return Response(["error", "not exist"])
 
@@ -59,6 +70,10 @@ def post_by_id(request, id):
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)
+
+
+
+
 
 
 

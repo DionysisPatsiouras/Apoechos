@@ -14,8 +14,8 @@ import UpdatePost from './UpdatePost'
 const Post = forwardRef(function Post(props: any, ref: any) {
 
     let post = props?.data
-    let profile_photo = props?.data?.musician?.photo || props?.data?.studio?.photo || props?.data?.store?.photo || props?.data?.stage?.photo
-    let profile_category = props?.data?.musician?.category || props?.data?.studio?.category || props?.data?.store?.category || props?.data?.stage?.category
+    let profile_photo = props?.data?.musician?.photo || props?.data?.studio?.photo || props?.data?.store?.photo || props?.data?.stage?.photo || props?.data?.band?.photo
+    let profile_category = props?.data?.musician?.category || props?.data?.studio?.category || props?.data?.store?.category || props?.data?.stage?.category || props?.data?.stage?.category
 
     const [edit, setEdit] = useState<boolean>(false)
     const [deletePost, setDelete] = useState<boolean>(false)
@@ -72,7 +72,7 @@ const Post = forwardRef(function Post(props: any, ref: any) {
                             {post.musician?.artistic_nickname}
                             {post?.is_pinned && <SvgIcon id={'pinned'} color='#D2A35B' />}
                         </h3>
-                        <p className={CSS.category}>{`"${post?.category}"`}</p>
+                        <p className={CSS.category}>{`"${post?.title?.title}"`}</p>
                         <p className={CSS.body}>{post?.body}</p>
                         <p className={CSS.date}>{full_date(post?.created_at)}</p>
                     </div>
@@ -81,6 +81,7 @@ const Post = forwardRef(function Post(props: any, ref: any) {
             </div>
         </section>
 
+// console.warn(post)
 
 
     return (

@@ -53,7 +53,10 @@ export default function Activity(props: any) {
                         :
                         window.location.pathname.includes('STAGE') ?
                             Routes.stage.id(props?.id)
-                            : '/',
+                            :
+                            window.location.pathname.includes('BAND') ?
+                                Routes.band.id(props?.id)
+                                : '/',
             'GET'
         )
 
@@ -72,7 +75,7 @@ export default function Activity(props: any) {
 
     }, [props, createNew])
 
-    // console.warn(data)
+    // console.warn(posts)
 
 
 
@@ -123,7 +126,7 @@ export default function Activity(props: any) {
             } */}
             {tab === 'posts' &&
                 <section style={{ height: '72vh', overflowY: 'auto', padding: '0 20px 0 0' }}>
-                    <div style={{margin: '6px 0 0 5px', display: 'flex', flexDirection: 'column', gap: '15px'}}>
+                    <div style={{ margin: '6px 0 0 5px', display: 'flex', flexDirection: 'column', gap: '15px' }}>
 
 
                         {

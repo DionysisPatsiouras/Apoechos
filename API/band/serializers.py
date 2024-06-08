@@ -10,8 +10,10 @@ class BandSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-# class New_Stage_Serializer(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = Stage
-#         fields = "__all__"
+class Band_Posts_Serializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Band
+        fields = ("bandId", "name", "photo", )
+        

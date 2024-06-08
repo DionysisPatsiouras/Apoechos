@@ -24,6 +24,8 @@ admin.site.register(Stage)
 
 # Store
 admin.site.register(Store)
+admin.site.register(Store_Service)
+
 
 # Band
 admin.site.register(Band)
@@ -31,3 +33,4 @@ admin.site.register(Band)
 
 admin.site.register(Post)
 admin.site.register(Event)
+admin.site.register(Post_Title)

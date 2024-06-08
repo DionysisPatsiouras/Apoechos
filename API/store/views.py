@@ -7,6 +7,23 @@ from .models import *
 from rest_framework.permissions import IsAuthenticated
 
 
+@api_view(["GET"])
+def all_services(request):
+
+    services = Service.objects.all()
+    serializer = ServiceSerializer(services, many=True)
+
+    return Response(serializer.data)
+
+@api_view(["GET"])
+def all_services123(request):
+
+    services = Store_Service.objects.all()
+    serializer = StoreServiceSerializer(services, many=True)
+
+    return Response(serializer.data)
+
+
 # /store/
 @api_view(["GET"])
 def all_stores(request):
@@ -43,33 +60,7 @@ def store_by_id(request, id):
     return Response(serializer.data)
 
 
-# # /musician/patch/:id/
-# @api_view(["PATCH"])
-# @permission_classes([IsAuthenticated])
-# def update_musician(request, id):
-#     user = request.user
 
-#     try:
-#         musician = Musician.objects.get(pk=id)
-#     except Musician.DoesNotExist:
-#         return Response({"message": "Musician not found!"})
 
-#     serializer = MusicianSerializer(musician, data=request.data, partial=True)
 
-#     if serializer.is_valid():
-#         if user.id == musician.user_id:
-#             serializer.save()
-#             return Response(
-#                 {
-#                     "message": "ok",
-#                     "status": 200,
-#                     "message": "Updated Successfully!",
-#                     "updated entities": request.data,
-#                 }
-#             )
-#         else:
-#             return Response(
-#                 {
-#                     "message": "You don't have permission",
-#                 }
-#             )
+

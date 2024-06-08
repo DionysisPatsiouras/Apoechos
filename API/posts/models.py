@@ -6,6 +6,7 @@ from musician.models import Musician
 from studios.models import Studio
 from store.models import Store
 from stage.models import Stage
+from band.models import Band
 
 
 def generate_pk():
@@ -19,6 +20,15 @@ def generate_pk():
         + str(randomNumber * 2)
     )
     return "POST" + id
+
+
+class Post_Title(models.Model):
+    title = models.CharField(max_length=150, blank=False)
+    category = models.CharField(max_length=40, blank=False)
+
+
+    def __str__(self):
+        return self.title
 
 
 class Post(models.Model):
@@ -56,14 +66,26 @@ class Post(models.Model):
         null=True,
         blank=True,
     )
+    band = models.ForeignKey(
+        Band,
+        related_name="band",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
 
     body = models.CharField(max_length=150, blank=False)
-    category = models.CharField(max_length=40, blank=False)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(blank=True, null=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
     is_deleted = models.BooleanField(default=False)
     is_pinned = models.BooleanField(default=False)
 
+    title = models.ForeignKey(
+        Post_Title, on_delete=models.CASCADE, null=False, default="123"
+    )
+
     def __str__(self):
         return self.post_id
+
+

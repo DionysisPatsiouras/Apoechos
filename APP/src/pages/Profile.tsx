@@ -49,7 +49,10 @@ export default function Profile() {
                         :
                         window.location.pathname.includes('STAGE') ?
                             Routes.stage.id(profile_id)
-                            : '/',
+                            :
+                            window.location.pathname.includes('BAND') ?
+                                Routes.band.id(profile_id)
+                                : '/',
             'GET'
         )
 
@@ -60,10 +63,11 @@ export default function Profile() {
 
     }, [updateDOM])
 
+    // console.log(data)
 
-    
 
-    let profileId = data?.musicianId || data?.studioId || data?.storeId || data?.stageId
+
+    let profileId = data?.musicianId || data?.studioId || data?.storeId || data?.stageId || data?.bandId
 
     // console.warn(finalId)
     const check_category = (category: string) => {
