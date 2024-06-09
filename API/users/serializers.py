@@ -11,7 +11,6 @@ class UserSerializer(serializers.ModelSerializer):
         # fields = '__all__'
         exclude = ('groups', 'user_permissions')
 
-    
         extra_kwargs = {
             "email": {
                 "validators" : [

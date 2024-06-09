@@ -69,6 +69,8 @@ const Post = forwardRef(function Post(props: any, ref: any) {
     }
 
 
+    console.log(post)
+
 
     const PostView = (with_edit_icon: boolean) =>
         <section className={CSS.post_card}>
@@ -85,7 +87,7 @@ const Post = forwardRef(function Post(props: any, ref: any) {
 
                         <Link to={`/profile/${profile_id}`}>
                             <h3 style={{ display: 'flex', alignItems: 'center' }}>
-                                {post.musician?.artistic_nickname || post?.studio.title}
+                                {post.musician?.artistic_nickname || post?.studio?.title || post?.store?.title}
                                 {post?.is_pinned && <SvgIcon id={'pinned'} color='#D2A35B' />}
                             </h3>
                         </Link>

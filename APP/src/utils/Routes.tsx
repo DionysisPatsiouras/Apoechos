@@ -48,6 +48,10 @@ export const Routes = {
         titles:  `${url}/posts/titles/all`,
     },
 
+    events: {
+        new: `${url}/event/new/`,
+    },
+
     instruments: {
         add: `${url}/musician/instrument/add/`,
     },
