@@ -9,7 +9,7 @@ from django.db.models import Q
 
 
 
-
+# /posts/titles/all/
 @api_view(["GET"])
 def all_titles(request):
 
@@ -22,7 +22,8 @@ def all_titles(request):
 @api_view(["GET"])
 def all_posts(request):
 
-    posts = Post.objects.all()
+    # posts = Post.objects.all()
+    posts = Post.objects.filter(is_deleted=False)
     serializer = PostSerializer(posts, many=True)
 
     return Response(serializer.data)
@@ -44,7 +45,7 @@ def new_post(request):
 def post_by_profile_id(request, id):
 
     try:
-        post = Post.objects.filter(Q(musician=id) | Q(studio=id) | Q(store=id) | Q(stage=id) | Q(band=id))
+        post = Post.objects.filter(Q(musician=id) | Q(studio=id) | Q(store=id) | Q(stage=id) | Q(band=id)).filter(is_deleted=False)
     except Post.DoesNotExist:
         return Response(["error", "not exist"])
 

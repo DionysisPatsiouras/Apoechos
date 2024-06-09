@@ -26,7 +26,6 @@ class Post_Title(models.Model):
     title = models.CharField(max_length=150, blank=False)
     category = models.CharField(max_length=40, blank=False)
 
-
     def __str__(self):
         return self.title
 

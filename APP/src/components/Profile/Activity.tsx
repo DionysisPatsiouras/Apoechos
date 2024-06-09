@@ -131,7 +131,6 @@ export default function Activity(props: any) {
 
                         {
                             posts
-                                .filter((post: any) => post?.is_deleted === false)
                                 .sort((a: any, b: any) => new Date(b.created_at) > new Date(a.created_at) ? 1 : -1)
                                 .map((post: any, index: number) => (
                                     <Post

@@ -92,7 +92,7 @@ const Post = forwardRef(function Post(props: any, ref: any) {
 
                         <p className={CSS.category}>{`"${post?.title?.title}"`}</p>
                         <p className={CSS.body}>{post?.body}</p>
-                        <p className={CSS.date}>{full_date(post?.created_at)}</p>
+                        <p className={CSS.date}><SvgIcon id='calendar' color='#BDBDBD' width={20}/>{full_date(post?.created_at)}</p>
                     </div>
                 </div>
                 {with_edit_icon && props?.canEdit && <SvgIcon id={'expand'} width={20} height={20} onClick={() => setEdit(!edit)} />}
