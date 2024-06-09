@@ -82,10 +82,10 @@ class Post(models.Model):
     is_pinned = models.BooleanField(default=False)
 
     title = models.ForeignKey(
-        Post_Title, on_delete=models.CASCADE, null=False, default="123"
+        Post_Title, on_delete=models.CASCADE, null=False
     )
 
     def __str__(self):
-        return self.post_id
+        return self.body
 
 

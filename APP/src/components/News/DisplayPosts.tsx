@@ -7,23 +7,26 @@ import CSS from '../../css/News/News.module.css'
 
 const DisplayPosts = forwardRef(function DisplayPosts(props: any, ref: any) {
 
-    const all_posts = new Call(Routes.posts.all, 'GET')
+
     const [data, setData] = useState<any[]>([])
     const [array, setArray] = useState<any[]>([])
     const [open, setOpen] = useState<boolean>(false)
 
-    let labels = [
-        { title: 'Ψάχνω νέα μέλη' },
-        { title: 'Νέα κυκλοφορία' },
-        { title: 'Ψάχνω μπάντα' },
-        { title: 'Νέα ενημέρωση' },
-        { title: 'Νέες αφίξεις' },
-        { title: 'Προσφορές' },
-        { title: 'Ζητείται προσωπικό' }
-    ]
+    const [labels, setLabels] = useState<any[]>([])
+
+    const all_posts = new Call(Routes.posts.all, 'GET')
+    const get_labels = new Call(Routes.posts.titles, 'GET')
+
+
+    useEffect(() => {
+        get_labels
+            .GET()
+            .then((res) => { setLabels(res.map((i: any) => ({ value: i.id, label: i.title }))) })
+    }, [])
+
 
     const handle_checkbox = (event: any) => {
-        const { value, checked } = event.target;
+        const { value, checked } = event;
         setArray((prevCategories: any) =>
             checked
                 ? [...prevCategories, value]
@@ -33,11 +36,10 @@ const DisplayPosts = forwardRef(function DisplayPosts(props: any, ref: any) {
 
 
     useEffect(() => {
-        all_posts.GET()
-            .then((res) => setData(res))
+        all_posts.GET().then((res) => setData(res))
     }, [])
 
-    // console.log(array)
+    console.log('array', array)
 
     return (
         <section style={{ width: '50vw' }}>
@@ -47,14 +49,16 @@ const DisplayPosts = forwardRef(function DisplayPosts(props: any, ref: any) {
                 <p>Δημοσίευσεις</p>
 
                 <div className={CSS.filters} onClick={() => setOpen(!open)}>Φίλτρα</div>
+
                 {open &&
-
                     <ul>
-
                         {labels.map((label: any, index: number) => (
                             <li key={index}>
-                                <input type='checkbox' id={label?.title} value={label.title} onChange={(e: any) => handle_checkbox(e)} />
-                                <label htmlFor={label.title}>{label.title}</label>
+                                <input type='checkbox' id={label?.label}
+                                    value={label.label}
+                                    onChange={(e: any) => handle_checkbox(e.target)}
+                                />
+                                <label htmlFor={label.label}>{label.label}</label>
                             </li>
                         ))
                         }
@@ -64,11 +68,11 @@ const DisplayPosts = forwardRef(function DisplayPosts(props: any, ref: any) {
             </div>
 
             <div className={CSS.main_body}>
+
                 <div style={{ margin: '10px', display: 'flex', flexDirection: 'column', gap: '15px' }}>
 
-
                     {data
-                        .filter((profile: any) => array.length === 0 ? !array.includes(labels) : array.includes(profile.category))
+                        .filter((profile: any) => array.length === 0 ? !array.includes(labels) : array.includes(profile.title.title))
                         .sort((a: any, b: any) => new Date(b.created_at) > new Date(a.created_at) ? 1 : -1)
                         .map((post: any, index: number) => (
                             <Post data={post} key={index} />
