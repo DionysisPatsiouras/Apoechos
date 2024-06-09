@@ -28,9 +28,9 @@ def all_posts(request):
     return Response(serializer.data)
 
 
-# /posts/add
+# /posts/new
 @api_view(["POST"])
-def add_post(request):
+def new_post(request):
     serializer = NewPostSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -53,10 +53,10 @@ def post_by_profile_id(request, id):
     return Response(serializer.data)
 
 
-# /posts/post/:postId
+# /posts/update/:postId
 @api_view(["PATCH"])
 @permission_classes([IsAuthenticated])
-def post_by_id(request, id):
+def update_post(request, id):
 
     user = request.user
 

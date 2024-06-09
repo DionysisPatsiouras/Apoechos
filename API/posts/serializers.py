@@ -46,4 +46,5 @@ class PostSerializer(serializers.ModelSerializer):
 class PatchPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        exclude = ("post_id", "profile_id", "created_at")
+        # exclude = ("post_id", "profile_id", "created_at")
+        fields = "__all__"

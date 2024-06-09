@@ -25,6 +25,7 @@ export default function Activity(props: any) {
     let [tab, setTab] = useState<string>('posts')
 
     let [createNew, setCreateNew] = useState<boolean>(false)
+    let [updateDOM, setUpdateDOM] = useState<boolean>(false)
     let [modalTitle, setModalTitle] = useState<string>('')
     // let data = props?.data
 
@@ -73,7 +74,7 @@ export default function Activity(props: any) {
             .then((res) => setPosts(res))
             .catch((err) => console.warn(err))
 
-    }, [props, createNew])
+    }, [props, createNew, updateDOM])
 
     // console.warn(posts)
 
@@ -128,12 +129,17 @@ export default function Activity(props: any) {
                 <section style={{ height: '72vh', overflowY: 'auto', padding: '0 20px 0 0' }}>
                     <div style={{ margin: '6px 0 0 5px', display: 'flex', flexDirection: 'column', gap: '15px' }}>
 
-
                         {
                             posts
+                                .filter((post: any) => post?.is_deleted === false)
                                 .sort((a: any, b: any) => new Date(b.created_at) > new Date(a.created_at) ? 1 : -1)
                                 .map((post: any, index: number) => (
-                                    <Post key={index} data={post} canEdit={data.user === user?.user_id ? true : false} />
+                                    <Post
+                                        key={index}
+                                        data={post}
+                                        canEdit={data.user === user?.user_id ? true : false}
+                                        updateDOM={() => setUpdateDOM(!updateDOM)}
+                                    />
                                 ))
                         }
                     </div>

@@ -1,5 +1,5 @@
 
-import { forwardRef, useState } from 'react'
+import { forwardRef, useState, useContext } from 'react'
 import CSS from '../css/Post/Post.module.css'
 import SvgIcon from './SvgIcon'
 import Modal from './Modal'
@@ -8,14 +8,21 @@ import { full_date } from '../utils/Shortcuts'
 import { Routes } from '../utils/Routes'
 import Call from '../utils/Call'
 import UpdatePost from './UpdatePost'
+import { Link } from 'react-router-dom'
+import { Colors } from '../App'
 
 // props -> data, canEdit, photo
 
 const Post = forwardRef(function Post(props: any, ref: any) {
 
     let post = props?.data
-    let profile_photo = props?.data?.musician?.photo || props?.data?.studio?.photo || props?.data?.store?.photo || props?.data?.stage?.photo || props?.data?.band?.photo
-    let profile_category = props?.data?.musician?.category || props?.data?.studio?.category || props?.data?.store?.category || props?.data?.stage?.category || props?.data?.stage?.category
+    let profile_photo = post?.[post?.title?.category]?.photo
+    let profile_category = post?.[post?.title?.category]?.category
+
+    let profile_id = post?.musician?.musicianId || post?.studio?.studioId || post?.stage?.stageId || post?.store?.storeId || post?.band?.bandId
+
+    const color = useContext<any>(Colors)
+
 
     const [edit, setEdit] = useState<boolean>(false)
     const [deletePost, setDelete] = useState<boolean>(false)
@@ -47,12 +54,12 @@ const Post = forwardRef(function Post(props: any, ref: any) {
             deleted_at: new Date(),
             is_deleted: true
         }
-        let patchPost = new Call(Routes.posts.post_id(post_id), 'PATCH', data)
+        let patchPost = new Call(Routes.posts.update(post_id), 'PATCH', data)
 
         patchPost.PATCH()
             .then((res) =>
-            // console.log(res)
             {
+                console.log('Post delete successfully')
                 props?.updateDOM();
                 setEdit(false);
                 setModal(false)
@@ -60,18 +67,29 @@ const Post = forwardRef(function Post(props: any, ref: any) {
             )
             .catch((err) => console.warn(err))
     }
-    // console.warn(post)
+
+
 
     const PostView = (with_edit_icon: boolean) =>
         <section className={CSS.post_card}>
             <div className={CSS.top}>
                 <div style={{ display: 'flex' }}>
-                    <img src={`http://127.0.0.1:8000/${profile_photo}`} width={100} alt='profile_image' />
+
+                    <img src={`http://127.0.0.1:8000/${profile_photo}`} width={100} className={CSS.profile_photo} alt='profile_image' />
+
+                    <div className={CSS.category_container} style={{ backgroundColor: color?.[props?.data?.title?.category] }} >
+                        <SvgIcon id={props?.data?.title?.category} color={'#fff'} width={20} />
+                    </div>
+
                     <div className={CSS.content}>
-                        <h3 style={{ display: 'flex', alignItems: 'center' }}>
-                            {post.musician?.artistic_nickname}
-                            {post?.is_pinned && <SvgIcon id={'pinned'} color='#D2A35B' />}
-                        </h3>
+
+                        <Link to={`/profile/${profile_id}`}>
+                            <h3 style={{ display: 'flex', alignItems: 'center' }}>
+                                {post.musician?.artistic_nickname || post?.studio.title}
+                                {post?.is_pinned && <SvgIcon id={'pinned'} color='#D2A35B' />}
+                            </h3>
+                        </Link>
+
                         <p className={CSS.category}>{`"${post?.title?.title}"`}</p>
                         <p className={CSS.body}>{post?.body}</p>
                         <p className={CSS.date}>{full_date(post?.created_at)}</p>
@@ -81,12 +99,9 @@ const Post = forwardRef(function Post(props: any, ref: any) {
             </div>
         </section>
 
-// console.warn(post)
-
 
     return (
         <div style={{ display: 'flex' }}>
-
 
             <Modal
                 open={patchPost}
@@ -94,10 +109,8 @@ const Post = forwardRef(function Post(props: any, ref: any) {
                 withContainer={true}
                 title={'Επεξεργασία δημοσίευσης'}>
                 <UpdatePost
+                    data={post}
                     category={profile_category}
-                    body={post?.body}
-                    value={post.category}
-                    post_id={props?.data?.post_id}
                     close={() => { setPatchPost(false); props?.updateDOM() }}
                 />
             </Modal>

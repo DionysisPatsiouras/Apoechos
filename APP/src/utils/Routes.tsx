@@ -41,10 +41,10 @@ export const Routes = {
 
     posts: {
         all: `${url}/posts/all_posts/`,
-        add: `${url}/posts/add/`,
+        new: `${url}/posts/new/`,
         profile_id: (profile_id: string) => `${url}/posts/${profile_id}`,
         post_id: (post_id: string) => `${url}/posts/post/${post_id}/`,
-        update: (post_id:string) => `${url}/posts/post/${post_id}/`,
+        update: (post_id:string) => `${url}/posts/update/${post_id}/`,
         titles:  `${url}/posts/titles/all`,
     },
 

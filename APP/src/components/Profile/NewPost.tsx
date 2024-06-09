@@ -26,7 +26,7 @@ export default function NewPost(props: any) {
 
 
     const get_labels = new Call(Routes.posts.titles, 'GET')
-    
+
 
     useEffect(() => {
         get_labels
@@ -52,7 +52,7 @@ export default function NewPost(props: any) {
         }
 
 
-        const new_post = new Call(Routes.posts.add, 'POST', finalData)
+        const new_post = new Call(Routes.posts.new, 'POST', finalData)
 
         new_post
             .POST()
