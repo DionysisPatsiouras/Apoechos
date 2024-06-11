@@ -36,3 +36,6 @@ admin.site.register(Event)
 admin.site.register(Post_Title)
 
 admin.site.register(Message)
+
+admin.site.register(Profile)
+admin.site.register(Category)
