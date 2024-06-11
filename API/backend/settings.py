@@ -62,7 +62,7 @@ INSTALLED_APPS = [
     'band',
     'posts',
     'event',
-    'message'
+    'message',
 ]
 
 

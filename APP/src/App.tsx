@@ -21,6 +21,8 @@ import Discover from './pages/Discover'
 import Profile from './pages/Profile'
 
 
+import Messages from './pages/Messages'
+
 
 // utils
 import PrivateRoutes from './utils/PrivateRoutes'
@@ -66,6 +68,7 @@ export default function App() {
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/' element={<News />} />
+                <Route path='/mystudio' element={<Messages />} />
 
 
                 <Route path='/discover' element={<DiscoverProvider><Discover /></DiscoverProvider>} />

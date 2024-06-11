@@ -61,6 +61,11 @@ export const Routes = {
 
     services: {
         add: `${url}/studio/service/add/`,
+    },
+
+
+    messages: {
+        profile_id: (profile_id:string) => `${url}/message/profile/${profile_id}`,
     }
 
 

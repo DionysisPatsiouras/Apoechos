@@ -8,7 +8,7 @@ from store.models import *
 from stage.models import *
 from event.models import *
 from band.models import *
-
+from message.models import *
 
 # Musician
 admin.site.register(Musician)
@@ -34,3 +34,5 @@ admin.site.register(Band)
 admin.site.register(Post)
 admin.site.register(Event)
 admin.site.register(Post_Title)
+
+admin.site.register(Message)

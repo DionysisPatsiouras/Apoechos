@@ -2,6 +2,9 @@ from django.db import models
 import datetime
 import random
 from django.utils import timezone
+from musician.models import *
+from studios.models import *
+
 
 def generate_pk():
     day = datetime.datetime.now().day
@@ -24,9 +27,23 @@ class Message(models.Model):
 
     body = models.CharField(max_length=200, blank=False)
     created_at = models.DateTimeField(default=timezone.now)
-    profile_1 = models.CharField(max_length=200, blank=False)
-    profile_2 = models.CharField(max_length=200, blank=False)
 
+    sender = models.ForeignKey(
+        Musician,
+        related_name="sender",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
 
-    def __str__(self):
-        return self.user.email
+    receiver = models.ForeignKey(
+        Musician,
+        Studio,
+        related_name="receiver",
+        # on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
+
+    # def __str__(self):
+    #     return self.user.email
