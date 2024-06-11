@@ -16,9 +16,10 @@
 .imageContent
     display: flex
     justify-content: center
-    img
 
-        
+    img
+        max-width: 1000px
+        width: 80%
         // height: 90vh
         margin: 25px 0 0 0
 
@@ -74,6 +75,15 @@
     svg
         position: static
 
+
+// MOBILE
 @media screen and ( max-width: 768px )
     .content header, .content
         width: 80vw
+
+    .imageContent
+
+        img
+            width: 100%
+            max-width: 400px
+            // width: 500px

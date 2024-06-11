@@ -50,7 +50,10 @@ const DisplayPosts = forwardRef(function DisplayPosts(props: any, ref: any) {
             <div className={CSS.header}>
                 <p>Δημοσίευσεις</p>
 
-                <div className={CSS.filters} onClick={() => setOpen(!open)}>Φίλτρα</div>
+                <div className={`${CSS.filters} cursor-pointer`}
+                    onClick={() => setOpen(!open)}>
+                    {open ? 'Κλείσιμο' : 'Φίλτρα'}
+                </div>
 
                 {open &&
                     <ul>

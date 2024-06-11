@@ -61,7 +61,8 @@ INSTALLED_APPS = [
     'stage',
     'band',
     'posts',
-    'event'
+    'event',
+    'message'
 ]
 
 
