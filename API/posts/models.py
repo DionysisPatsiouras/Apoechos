@@ -45,42 +45,6 @@ class Post(models.Model):
         blank=False
     )
 
-    musician = models.ForeignKey(
-        Musician,
-        related_name="musician",
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-    )
-
-    studio = models.ForeignKey(
-        Studio,
-        related_name="studio",
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-    )
-    store = models.ForeignKey(
-        Store,
-        related_name="store",
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-    )
-    stage = models.ForeignKey(
-        Stage,
-        related_name="stage",
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-    )
-    band = models.ForeignKey(
-        Band,
-        related_name="band",
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-    )
 
     body = models.CharField(max_length=150, blank=False)
     created_at = models.DateTimeField(default=timezone.now)

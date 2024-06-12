@@ -27,7 +27,21 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class New_Profile_Serializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = Profile
         fields = "__all__"
+
+
+class Profile_Post_Serializer(serializers.ModelSerializer):
+
+    category = CategorySerializer(many=False)
+
+    class Meta:
+        model = Profile
+        fields = (
+            "profileId",
+            "photo",
+            "name",
+            "category",
+        )

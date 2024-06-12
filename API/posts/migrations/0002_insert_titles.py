@@ -40,13 +40,6 @@ class Migration(migrations.Migration):
 
             new_title.save()
 
-     
-        # new_title = Post_Title(title="Ψάχνω νέα μέλη", category="musician")
-        # new_title = Post_Title(title="Νέα κυκλοφορία", category="musician")
-        # new_title = Post_Title(title="Ψάχνω μπάντα", category="musician")
-        # new_title = Post_Title(title="Νέα ενημέρωση", category="studio")
-        # new_title = Post_Title(title="Νέες αφίξεις", category="store")
-        # new_title = Post_Title(title="Ζητείται προσωπικό", category="stage")
       
 
     operations = [
