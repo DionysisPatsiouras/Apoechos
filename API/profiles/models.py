@@ -25,6 +25,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+
 class City(models.Model):
 
     name = models.CharField(max_length=200, blank=False)
@@ -33,30 +34,26 @@ class City(models.Model):
         return self.name
 
 
-
 class Profile(models.Model):
 
     profileId = models.CharField(
         default=generate_pk, primary_key=True, max_length=255, unique=True
     )
-
-    name = models.CharField(max_length=200, blank=False)
-    # city = models.CharField(max_length=100)
-
-    
-    address = models.CharField(max_length=100)
-    bio = models.TextField(blank=True)
-    websiteLink = models.URLField(blank=True, max_length=100)
-    photo = models.ImageField(null=True, blank=True, upload_to="images/")
-
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='user', unique=False)
-    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='city', unique=False)
-
+    user = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE, related_name="user", unique=False
+    )
+    city = models.ForeignKey(City, on_delete=models.CASCADE)
 
     category = models.ForeignKey(
         Category, related_name="category", on_delete=models.CASCADE
     )
 
+    name = models.CharField(max_length=200, blank=False)
+
+    address = models.CharField(max_length=100)
+    bio = models.TextField(blank=True)
+    websiteLink = models.URLField(blank=True, max_length=100)
+    photo = models.ImageField(null=True, blank=True, upload_to="images/")
+
     def __str__(self):
         return self.name
-

@@ -7,6 +7,8 @@ from store.serializers import Store_Posts_Serializer
 from stage.serializers import Stage_Posts_Serializer
 from band.serializers import Band_Posts_Serializer
 
+from profiles.serializers import ProfileSerializer
+
 
 class TitleSerializer(serializers.ModelSerializer):
 
@@ -35,6 +37,7 @@ class PostSerializer(serializers.ModelSerializer):
     store = Store_Posts_Serializer(many=False)
     stage = Stage_Posts_Serializer(many=False)
     band = Band_Posts_Serializer(many=False)
+    profile = ProfileSerializer(many=False)
 
     title = NoIdTitleSerializer(many=False)
 

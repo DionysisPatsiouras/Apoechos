@@ -7,6 +7,7 @@ from studios.models import Studio
 from store.models import Store
 from stage.models import Stage
 from band.models import Band
+from profiles.models import Profile
 
 
 def generate_pk():
@@ -34,6 +35,14 @@ class Post(models.Model):
 
     post_id = models.CharField(
         default=generate_pk, primary_key=True, max_length=255, unique=True
+    )
+    
+    profile = models.ForeignKey(
+        Profile,
+        related_name="profile",
+        on_delete=models.CASCADE,
+        null=False,
+        blank=False
     )
 
     musician = models.ForeignKey(

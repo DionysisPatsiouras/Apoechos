@@ -22,6 +22,36 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
 
+# /profiles/all/
+@api_view(["GET"])
+@permission_classes([])
+def all_profiles(request):
+    profiles = Profile.objects.all()
+    serializer = ProfileSerializer(profiles, many=True)
+
+    return Response([{"length": len(serializer.data)}, serializer.data])
+
+
+
+
+
+# /profiles/new/
+@api_view(["POST"])
+def new_profile(request):
+    serializer = New_Profile_Serializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"message": "Created", "status": 201, "data": serializer.data})
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+
+
+
+
 
 
 # POST NEW GENRE
@@ -55,7 +85,7 @@ def cities(request):
 # profiles/everything/
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
-def all_profiles(request):
+def all_profiles2(request):
     musicians = Musician.objects.all()
     studios = Studio.objects.all()
     stores = Store.objects.all()
@@ -89,10 +119,7 @@ def all_profiles(request):
                 "studios": studio_serializer.data,
                 "stores": store_serializer.data,
                 "stages": stage_serializer.data,
-                "bands" : band_serializer.data
-
+                "bands": band_serializer.data,
             }
         ]
     )
-
-
