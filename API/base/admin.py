@@ -39,3 +39,4 @@ admin.site.register(Message)
 
 admin.site.register(Profile)
 admin.site.register(Category)
+admin.site.register(City)
