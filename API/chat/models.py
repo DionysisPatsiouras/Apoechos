@@ -4,6 +4,7 @@ import datetime
 import random
 from profiles.models import Profile
 
+
 def generate_pk():
     day = datetime.datetime.now().day
     minute = datetime.datetime.now().minute
@@ -14,28 +15,24 @@ def generate_pk():
         + str(minute * second * randomNumber)
         + str(randomNumber * 2)
     )
-    return "CHAT" + id
+    return "MSG" + id
 
 
 
 
+class Message(models.Model):
 
-
-
-class Chat(models.Model):
-
-    chatId = models.CharField(
+    messageId = models.CharField(
         default=generate_pk, primary_key=True, max_length=255, unique=True
     )
-  
-
-    profile1 = models.ForeignKey(
-        Profile, related_name="profile1", on_delete=models.CASCADE
-    )
-    profile2 = models.ForeignKey(
-        Profile, related_name="profile2", on_delete=models.CASCADE
-    )
-
+    sender = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='sender')
+    receiver = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='receiver')
+    message = models.CharField(max_length=1200)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.name
+        return self.message
+
+    class Meta:
+        ordering = ('timestamp',)
