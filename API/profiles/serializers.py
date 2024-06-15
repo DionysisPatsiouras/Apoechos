@@ -2,6 +2,13 @@ from rest_framework import serializers
 from .models import *
 
 
+class GenreSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Genre
+        fields = ("name",)
+
+
 class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -20,6 +27,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     city = CitiesSerializer(many=False)
     category = CategorySerializer(many=False)
+    genres = GenreSerializer(many=True)
 
     class Meta:
         model = Profile

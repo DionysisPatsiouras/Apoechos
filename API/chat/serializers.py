@@ -1,15 +1,16 @@
-
-
 from rest_framework import serializers
 from .models import *
 from profiles.models import *
-
+from profiles.serializers import *
 
 
 class MessageSerializer(serializers.ModelSerializer):
-    sender = serializers.SlugRelatedField(many=False, slug_field='name', queryset=Profile.objects.all())
-    receiver = serializers.SlugRelatedField(many=False, slug_field='name', queryset=Profile.objects.all())
+
+    sender  = Profile_Post_Serializer(many=False)
+    receiver  = Profile_Post_Serializer(many=False)
+
 
     class Meta:
         model = Message
-        fields = ['sender', 'receiver', 'message', 'timestamp']
+        # fields = ["sender", "receiver", "message", "timestamp"]
+        fields = "__all__"

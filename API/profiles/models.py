@@ -27,11 +27,15 @@ class Category(models.Model):
 
 
 class City(models.Model):
-
     name = models.CharField(max_length=200, blank=False)
-
     def __str__(self):
         return self.name
+
+class Genre(models.Model):
+    name = models.CharField(max_length=200, blank=False)
+    def __str__(self):
+        return self.name
+
 
 
 class Profile(models.Model):
@@ -54,6 +58,10 @@ class Profile(models.Model):
     bio = models.TextField(blank=True)
     websiteLink = models.URLField(blank=True, max_length=100)
     photo = models.ImageField(null=True, blank=True, upload_to="images/")
+    genres = models.ManyToManyField('Genre', blank=True)
 
     def __str__(self):
         return self.name
+
+
+

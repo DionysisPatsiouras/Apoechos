@@ -11,6 +11,7 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
 
+
 # /profile/all/
 @api_view(["GET"])
 @permission_classes([])
@@ -19,9 +20,6 @@ def all_profiles(request):
     serializer = ProfileSerializer(profiles, many=True)
 
     return Response([{"length": len(serializer.data)}, serializer.data])
-
-
-
 
 
 # /profile/new/
@@ -33,8 +31,6 @@ def new_profile(request):
         return Response({"message": "Created", "status": 201, "data": serializer.data})
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
 
 
 # /profile/<str:id>/

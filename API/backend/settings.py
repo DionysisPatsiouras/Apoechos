@@ -55,14 +55,15 @@ INSTALLED_APPS = [
     "corsheaders",
     "profiles",
     "musician",
-    "studios",
-    "store",
-    "stage",
-    "band",
+    # "studios",
+    # "store",
+    # "stage",
+    # "band",
     "posts",
     "event",
-    "message",
+    # "message",
     "chat",
+    # "attribute"
 ]
 
 

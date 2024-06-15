@@ -3,10 +3,10 @@ import datetime
 import random
 from django.utils import timezone
 from musician.models import Musician
-from studios.models import Studio
-from store.models import Store
-from stage.models import Stage
-from band.models import Band
+# from studios.models import Studio
+# from store.models import Store
+# from stage.models import Stage
+# from band.models import Band
 from profiles.models import Profile
 
 

@@ -2,11 +2,6 @@ from rest_framework import serializers
 from .models import *
 
 from musician.serializers import Musician_Posts_Serializer
-from studios.serializers import Studio_Posts_Serializer
-from store.serializers import Store_Posts_Serializer
-from stage.serializers import Stage_Posts_Serializer
-from band.serializers import Band_Posts_Serializer
-
 from profiles.serializers import Profile_Post_Serializer
 
 
