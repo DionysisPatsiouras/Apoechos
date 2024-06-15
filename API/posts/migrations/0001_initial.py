@@ -4,14 +4,19 @@ import django.db.models.deletion
 import django.utils.timezone
 import posts.models
 from django.db import migrations, models
+from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     initial = True
 
+    # dependencies = [
+    #     ('profiles', '0004_alter_profile_city'),
+    # ]
+ 
     dependencies = [
-        ('profiles', '0004_alter_profile_city'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
