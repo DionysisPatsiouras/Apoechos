@@ -1,7 +1,5 @@
 from rest_framework import serializers
 from .models import *
-
-from musician.serializers import Musician_Posts_Serializer
 from profiles.serializers import Profile_Post_Serializer
 
 

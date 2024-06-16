@@ -27,10 +27,8 @@ urlpatterns = [
     path('profile/', include('profiles.urls')),
     path('user/', include('users.urls')),
     path('posts/', include('posts.urls')),
-    path('musician/', include('musician.urls')),
     path('event/', include('event.urls')),
     path('chat/', include('chat.urls')),
-    # path('attribute/', include('attribute.urls'))
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
