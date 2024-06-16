@@ -6,7 +6,8 @@ class GenreSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Genre
-        fields = ("name",)
+        fields = "__all__"
+        # fields = ("name",)
 
 
 class CategorySerializer(serializers.ModelSerializer):

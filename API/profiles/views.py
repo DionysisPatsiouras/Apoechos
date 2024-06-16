@@ -77,3 +77,23 @@ def update_profile(request, id):
                     "message": "You don't have permission",
                 }
             )
+
+
+# /profile/get/cities/
+@api_view(["GET"])
+def get_cities(request):
+
+    cities = City.objects.all()
+    serializer = CitiesSerializer(cities, many=True)
+
+    return Response([{"length": len(serializer.data)}, serializer.data])
+
+
+# /profile/get/genres/
+@api_view(["GET"])
+def get_genres(request):
+
+    genres = Genre.objects.all()
+    serializer = GenreSerializer(genres, many=True)
+
+    return Response([{"length": len(serializer.data)}, serializer.data])

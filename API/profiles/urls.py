@@ -12,6 +12,9 @@ urlpatterns = [
     path("new/", views.new_profile),  # /profiles/new/
     path("<str:id>/", views.profile_by_id),  # /profiles/<str:id>/
     path("update/<str:id>/", views.update_profile),  # /profiles/update/<str:id>/
+    path("get/cities/", views.get_cities),  # /profiles/get/cities/
+    path("get/genres/", views.get_genres),  # /profiles/get/genres/
+    
     # path("services/all", views.all_services),  # /store/services/
     # path("services/all/123", views.all_services123),  # /store/services/
 
