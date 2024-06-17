@@ -10,5 +10,6 @@ urlpatterns = [
     path("update/<str:id>/", views.update_profile),  # /profiles/update/<str:id>/
     path("get/cities/", views.get_cities),  # /profiles/get/cities/
     path("get/genres/", views.get_genres),  # /profiles/get/genres/
+    path("get/my_profiles/", views.get_my_profiles),  # /profiles/get/my_profiles/
     
 ]

@@ -97,3 +97,14 @@ def get_genres(request):
     serializer = GenreSerializer(genres, many=True)
 
     return Response([{"length": len(serializer.data)}, serializer.data])
+
+# /profile/get/my_profiles/
+@api_view(["GET"])
+def get_my_profiles(request):
+    user = request.user
+
+    profiles = Profile.objects.filter(user_id=user)
+    serializer = ProfileSerializer(profiles, many=True)
+
+    return Response([{"length": len(serializer.data)}, serializer.data])
+
