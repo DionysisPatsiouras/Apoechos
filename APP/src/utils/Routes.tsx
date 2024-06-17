@@ -12,6 +12,8 @@ export const Routes = {
     },
     profiles: {
         all : `${url}/profile/all/`,
+        cities: `${url}/profile/get/cities`,
+        genres: `${url}/profile/get/genres`
         // everything: `${url}/profiles/everything/`,
         // musicians: `${url}/profiles/musicians/`,
         // studios: `${url}/profiles/studios/`,

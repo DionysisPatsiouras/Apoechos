@@ -6,8 +6,9 @@ import { Colors } from '../App'
 import SearchValidation from '../utils/SearchValidation'
 import { genres } from '../utils/MusicianUtils'
 import { cities, studio_services } from '../utils/Lists'
-const DiscoverContext = createContext({})
 
+
+const DiscoverContext = createContext({})
 
 export default DiscoverContext
 

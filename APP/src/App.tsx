@@ -17,6 +17,7 @@ import CreateStudio from './pages/CreateStudio'
 // context
 import { AuthProvider } from "./context/AuthContext"
 import { DiscoverProvider } from './context/DiscoverContext'
+import { CreateNewProfileProvider } from './context/CreateNewProfileContext'
 import Discover from './pages/Discover'
 import Profile from './pages/Profile'
 
@@ -27,6 +28,7 @@ import Messages from './pages/Messages'
 // utils
 import PrivateRoutes from './utils/PrivateRoutes'
 import CreateStore from './pages/CreateStore'
+import CreateNewProfile from './pages/CreateNewProfile'
 
 
 export const WindowSize = createContext(null)
@@ -80,6 +82,7 @@ export default function App() {
                 <Route element={<PrivateRoutes />} >
                   <Route path='/account' element={<Account />} />
                   <Route path='/create' element={<Create />} />
+                  <Route path='/create/new_profile' element={<CreateNewProfileProvider><CreateNewProfile /></CreateNewProfileProvider>} />
                   <Route path='/create/musician' element={<CreateMusician />} />
                   <Route path='/create/studio' element={<CreateStudio />} />
                   <Route path='/create/store' element={<CreateStore />} />
