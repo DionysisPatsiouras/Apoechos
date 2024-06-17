@@ -39,7 +39,7 @@ export const DiscoverProvider = ({ children }: any) => {
 
 
 
-    const call_profiles = new Call(Routes.profiles.everything, 'GET')
+    const call_profiles = new Call(Routes.profiles.all, 'GET')
 
 
 
@@ -48,18 +48,20 @@ export const DiscoverProvider = ({ children }: any) => {
         call_profiles
             .GET()
             .then((res: any) => {
-                console.log(res)
-                setSelected(res?.[0]?.everything)
-                setAll(res?.[0]?.everything)
-                setAllMusicians(res?.[0]?.musicians)
-                setAllStudios(res?.[0]?.studios)
-                setAllStores(res?.[0]?.stores)
-                setAllStages(res?.[0]?.stages)
-                setAllBands(res?.[0]?.bands)
+                // console.log(res?.[1])
+                setSelected(res?.[1])
+                setAll(res?.[1])
+                setAllMusicians(res?.[1].filter((profile:any) => profile?.category?.name === "Musician"))
+                setAllStudios(res?.[1].filter((profile:any) => profile?.category?.name === "Studio"))
+                setAllStores(res?.[1].filter((profile:any) => profile?.category?.name === "Store"))
+                setAllStages(res?.[1].filter((profile:any) => profile?.category?.name === "Stage"))
+                setAllBands(res?.[1].filter((profile:any) => profile?.category?.name === "Band"))
+           
             })
             .catch((err: any) => console.warn(err))
     }, [])
 
+    // console.warn(selected)
 
     const filters = [
         {
@@ -97,7 +99,7 @@ export const DiscoverProvider = ({ children }: any) => {
                 SearchValidation(profile?.name, search))
 
             .filter((profile: any) =>
-                filtered_cities.length === 0 ? !filtered_cities.includes(cities) : filtered_cities.includes(profile?.city))
+                filtered_cities.length === 0 ? !filtered_cities.includes(cities) : filtered_cities.includes(profile?.city?.name))
 
 
     const filteredData =
@@ -110,7 +112,7 @@ export const DiscoverProvider = ({ children }: any) => {
             : activeTab === 'Music Studio' ?
                 basicFiltering
                     .filter((profile: any) =>
-                        profile?.services?.some((service: any) =>
+                        profile?.studio_services?.some((service: any) =>
                             filtered_studio_services.length === 0 ? !filtered_studio_services.includes(studio_services) : filtered_studio_services.includes(service?.name)))
                 : basicFiltering
 

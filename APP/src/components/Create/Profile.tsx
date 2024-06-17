@@ -12,7 +12,6 @@ export default function Profile(props: any) {
         <div className={CSS.selectionContainer} >
             <div className={CSS.selection}
                 onClick={() => {
-                    // setNumberOfSteps(3);
                     props?.setActive()
                 }}
                 style={{ 'backgroundColor': props?.active === props?.label ? props?.color : '#EFEEEE' }}>

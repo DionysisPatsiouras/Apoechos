@@ -11,9 +11,10 @@ export const Routes = {
         patch: `${url}/user/patch/`,
     },
     profiles: {
-        everything: `${url}/profiles/everything/`,
-        musicians: `${url}/profiles/musicians/`,
-        studios: `${url}/profiles/studios/`,
+        all : `${url}/profile/all/`,
+        // everything: `${url}/profiles/everything/`,
+        // musicians: `${url}/profiles/musicians/`,
+        // studios: `${url}/profiles/studios/`,
     },
 
     musician: {
