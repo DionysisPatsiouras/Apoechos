@@ -39,10 +39,6 @@ class Event(models.Model):
     main_bands = models.ManyToManyField(Profile, blank=False, related_name="main_bands")
     support_acts = models.ManyToManyField(Profile, blank=True, related_name="support_acts")
 
-   
-    
-
-
 
     def __str__(self):
         return self.eventId

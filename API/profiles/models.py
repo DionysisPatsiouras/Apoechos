@@ -18,36 +18,36 @@ def generate_pk():
 
 
 class Category(models.Model):
-
     name = models.CharField(max_length=200, blank=False)
     color = models.CharField(max_length=200, blank=False)
-
     def __str__(self):
         return self.name
 
 
 
 class City(models.Model):
-
     name = models.CharField(max_length=200, blank=False)
-
     def __str__(self):
         return self.name
 
 
 
 class Genre(models.Model):
-
     name = models.CharField(max_length=200, blank=False)
-
     def __str__(self):
         return self.name
 
 
+
 class Instrument(models.Model):
-
     name = models.CharField(max_length=200, blank=False)
+    def __str__(self):
+        return self.name
 
+
+
+class Studio_Services(models.Model):
+    name = models.CharField(max_length=200, blank=False)
     def __str__(self):
         return self.name
 
