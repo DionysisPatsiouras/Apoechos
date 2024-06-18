@@ -32,37 +32,61 @@ export default function Profile() {
 
     let profile_id = window.location.pathname.replace('/profile/', '')
 
-
+    const color = useContext<any>(Colors)
 
 
     useEffect(() => {
 
-        const get_profile = new Call(Routes.profiles.id(profile_id), 'GET')
-        const my_profiles = new Call(Routes.profiles.my_profiles, 'GET')
+        const newCall = new Call(
+            window.location.pathname.includes('MUSICIAN') ?
+                Routes.musician.id(profile_id)
+                :
+                window.location.pathname.includes('STUDIO') ?
+                    Routes.studio.id(profile_id)
+                    :
+                    window.location.pathname.includes('STORE') ?
+                        Routes.store.id(profile_id)
+                        :
+                        window.location.pathname.includes('STAGE') ?
+                            Routes.stage.id(profile_id)
+                            :
+                            window.location.pathname.includes('BAND') ?
+                                Routes.band.id(profile_id)
+                                : '/',
+            'GET'
+        )
 
-        get_profile
+        newCall
             .GET()
             .then((res: any) => { setData(res) })
             .catch((err) => console.warn(err))
 
-        my_profiles.GET()
-        .then((res)=> console.log(res))
-
     }, [updateDOM])
 
-
-
-    // console.warn(user)
-
+    // console.log(data)
 
 
 
+    let profileId = data?.musicianId || data?.studioId || data?.storeId || data?.stageId || data?.bandId
 
+    // console.warn(finalId)
+    const check_category = (category: string) => {
+
+        switch (category) {
+            case 'musician':
+                return <EditMusician data={data} close={() => { setEditMode(false); setUpdateDOM(!updateDOM) }} />
+
+            default:
+                break;
+        }
+    }
 
     return (
 
 
+
         <div className={CSS.container}>
+
 
 
             <Modal open={modal} close={() => setModal(false)} closeButton={true}>
@@ -74,16 +98,15 @@ export default function Profile() {
                 close={() => { setEditMode(false); setUpdateDOM(!updateDOM) }}
                 withContainer={true}
                 title={'Επεξεργασία'}>
-                {/* {check_category(data?.category)} */}
-
+                {check_category(data?.category)}
             </Modal>
 
 
 
             <section className={CSS.personal_info}>
 
-                <div className={CSS.signature} style={{ backgroundColor: data?.category?.color }}>
-                    <SvgIcon id={data?.category?.name.toLowerCase()} style={{ margin: '5px  0 0 172px' }} color={'#fff'} />
+                <div className={CSS.signature} style={{ backgroundColor: color?.[data?.category] }}>
+                    <SvgIcon id={data?.category} style={{ margin: '5px  0 0 172px' }} color={'#fff'} />
                 </div>
 
 
@@ -106,11 +129,11 @@ export default function Profile() {
             <hr></hr>
 
             <section className={CSS.right_section}>
-                {/* <Activity
+                <Activity
                     id={profileId}
                     category={data?.category}
                     canEdit={data.user === user?.user_id ? true : false}
-                /> */}
+                />
             </section>
 
 

@@ -12,7 +12,7 @@ import Register from '../src/pages/Register'
 import Account from './pages/Account'
 import Create from './pages/Create'
 import CreateMusician from './pages/CreateMusician'
-import CreateStudio from './pages/CreateStudio'
+// import CreateStudio from './pages/CreateStudio'
 
 // context
 import { AuthProvider } from "./context/AuthContext"
@@ -27,7 +27,7 @@ import Messages from './pages/Messages'
 
 // utils
 import PrivateRoutes from './utils/PrivateRoutes'
-import CreateStore from './pages/CreateStore'
+// import CreateStore from './pages/CreateStore'
 import CreateNewProfile from './pages/CreateNewProfile'
 
 
@@ -74,18 +74,14 @@ export default function App() {
 
 
                 <Route path='/discover' element={<DiscoverProvider><Discover /></DiscoverProvider>} />
-
-
-                {/* <Route path='/profile/:category/:id/' element={<Profile />} /> */}
                 <Route path='/profile/:id/' element={<Profile />} />
+
 
                 <Route element={<PrivateRoutes />} >
                   <Route path='/account' element={<Account />} />
                   <Route path='/create' element={<Create />} />
                   <Route path='/create/new_profile' element={<CreateNewProfileProvider><CreateNewProfile /></CreateNewProfileProvider>} />
                   <Route path='/create/musician' element={<CreateMusician />} />
-                  <Route path='/create/studio' element={<CreateStudio />} />
-                  <Route path='/create/store' element={<CreateStore />} />
                 </Route>
 
 

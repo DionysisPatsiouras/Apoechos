@@ -31,8 +31,10 @@ export default function UserMenu(props: any) {
 
 
             <ul>
-                <Link to="/">Εκδηλώσεις - Ροή</Link>
+                <Link to="/profile">Προφίλ</Link>
+
                 <Link to="/discover">Ανακάλυψε</Link>
+                <Link to="/">Εκδηλώσεις - Ροή</Link>
                 {/* <Link to="/mystudio">My Studio</Link> */}
                 {/* <Link to="/upcoming-events">Upcoming Events</Link> */}
                 {/* <Link to="learn-more">Learn More</Link> */}

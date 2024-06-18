@@ -38,6 +38,7 @@ export default function MobileMenu(props: any) {
                             <Link to='/account'><SvgIcon id='account' color={'#3E3E3E'} /> Λογαριασμός</Link>
                             <Link to='/account'><SvgIcon id='notifications' color={'#3E3E3E'} /> Ειδοποιήσεις</Link>
                             <Link to='/account'><SvgIcon id='messages' color={'#3E3E3E'} /> Μηνύματα</Link>
+                            <Link to="/profile">Προφίλ</Link>
                             <Link to='/account' onClick={logoutUser}><SvgIcon id='logout' color={'#3E3E3E'} /> Αποσύνδεση</Link>
                         </ul>
                         :
