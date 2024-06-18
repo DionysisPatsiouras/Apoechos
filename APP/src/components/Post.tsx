@@ -69,7 +69,7 @@ const Post = forwardRef(function Post(props: any, ref: any) {
     }
 
 
-    console.log(post)
+    // console.log(post)
 
 
     const PostView = (with_edit_icon: boolean) =>

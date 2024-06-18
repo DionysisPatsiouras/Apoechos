@@ -2,21 +2,15 @@ import { useContext, useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 
-
 // components
 import Confirmation from '../components/Confirmation'
 import SvgIcon from '../components/SvgIcon'
 import FormError from '../utils/FormError'
 
+import CreateNewProfileContext from '../context/CreateNewProfileContext'
+import CSS from '../css/CreateNewProfile/CreateNewProfile.module.sass'
 import { all_categories, strings, woodwind, percussion, vocals, keys, genres } from '../utils/MusicianUtils'
 
-import CreateNewProfileContext from '../context/CreateNewProfileContext'
-
-// css
-// import CSS from '../css/CreateMusician/CreateMusician.module.css'
-import CSS from '../css/CreateNewProfile/CreateNewProfile.module.sass'
-
-import { patchUser } from '../utils/functions/patchUser'
 
 
 export default function CreateNewProfile() {
@@ -31,13 +25,17 @@ export default function CreateNewProfile() {
     let {
         is_musician,
         has_genres,
+        has_services,
         has_natural_presence,
         cities,
         genres,
+        studio_services,
         onSubmit,
         handleCheckBox,
         setGenreArray,
-        genreArray
+        genreArray,
+        setStudioServicesArray,
+        studio_services_array
     }: any = useContext(CreateNewProfileContext)
 
 
@@ -83,12 +81,16 @@ export default function CreateNewProfile() {
                             <FormError value={errors?.name} />
 
                             <label>Πόλη</label>
-                            <select className={CSS.city_dropdown}{...register('city')}>
+                            <select className={CSS.city_dropdown}
+                                {...register('city')}>
+                                <option defaultValue={undefined} selected disabled hidden>Επιλέξτε πόλη</option>
                                 {cities.map((city: any) => (
                                     <option key={city.id} value={city.id}>{city.name}</option>
                                 ))}
                             </select>
                             <FormError value={errors?.city} />
+
+                            {errors?.city?.message}
 
                             {has_natural_presence &&
                                 <>
@@ -109,6 +111,33 @@ export default function CreateNewProfile() {
                         </div>
 
                     </div>
+                    
+
+                    {has_services && 
+                        <>
+                            <hr className='divider'></hr>
+                            <h2>Υπηρεσίες</h2>
+                            <div className={CSS.checkboxes_section}>
+                                {studio_services.map((service: any) => (
+                                    <div className={CSS.checkbox} key={service.id}>
+                                        <input
+                                            {...register('genres', {
+                                                required: 'Επιλέξτε τουλάχιστον 1 υπηρεσία'
+                                            })}
+                                            id={service.id}
+                                            type='checkbox'
+                                            value={service.id}
+                                            onChange={(event) => handleCheckBox(setStudioServicesArray, event)}
+                                            checked={studio_services_array.includes(service.id.toString())}
+                                        />
+                                        <label htmlFor={service.id}>{service.name}</label>
+                                    </div>
+                                ))}
+                            </div>
+                            <FormError value={errors?.genres} />
+                        </>
+
+                    }
 
                     {has_genres === true &&
                         <>
@@ -143,12 +172,6 @@ export default function CreateNewProfile() {
                             <h2>Διεύθυνση</h2>
                         </>
                     }
-
-
-
-
-
-
 
 
 

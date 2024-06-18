@@ -11,10 +11,11 @@ export const Routes = {
         patch: `${url}/user/patch/`,
     },
     profiles: {
-        all : `${url}/profile/all/`,
+        all: `${url}/profile/all/`,
         cities: `${url}/profile/get/cities/`,
         genres: `${url}/profile/get/genres/`,
-        new:  `${url}/profile/new/`,
+        studio_services: `${url}/profile/get/studio_services/`,
+        new: `${url}/profile/new/`,
         // everything: `${url}/profiles/everything/`,
         // musicians: `${url}/profiles/musicians/`,
         // studios: `${url}/profiles/studios/`,
@@ -40,7 +41,7 @@ export const Routes = {
         post: `${url}/stage/new/`,
     },
     band: {
-        id:(band_id:string) => `${url}/band/${band_id}`,
+        id: (band_id: string) => `${url}/band/${band_id}`,
     },
 
     posts: {
@@ -48,8 +49,8 @@ export const Routes = {
         new: `${url}/posts/new/`,
         profile_id: (profile_id: string) => `${url}/posts/${profile_id}`,
         post_id: (post_id: string) => `${url}/posts/post/${post_id}/`,
-        update: (post_id:string) => `${url}/posts/update/${post_id}/`,
-        titles:  `${url}/posts/titles/all`,
+        update: (post_id: string) => `${url}/posts/update/${post_id}/`,
+        titles: `${url}/posts/titles/all`,
     },
 
     events: {
@@ -69,7 +70,7 @@ export const Routes = {
 
 
     messages: {
-        profile_id: (profile_id:string) => `${url}/message/profile/${profile_id}`,
+        profile_id: (profile_id: string) => `${url}/message/profile/${profile_id}`,
     }
 
 

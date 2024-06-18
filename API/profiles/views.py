@@ -108,3 +108,12 @@ def get_my_profiles(request):
 
     return Response([{"length": len(serializer.data)}, serializer.data])
 
+# /profile/get/studio_services/
+@api_view(["GET"])
+def get_studio_services(request):
+
+    studio_services = Studio_Services.objects.all()
+    serializer = Studio_Services_Serializers(studio_services, many=True)
+
+    return Response([{"length": len(serializer.data)}, serializer.data])
+

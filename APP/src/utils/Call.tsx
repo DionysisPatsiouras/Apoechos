@@ -33,7 +33,7 @@ export default class Call {
             cache: 'force-cache',
             headers: {
                 Authorization: `Bearer ${this.token}`,
-                Accept: '*/*',
+                "Accept": "application/json",
                 'Content-Type': 'multipart/form-data',
             }
         }
