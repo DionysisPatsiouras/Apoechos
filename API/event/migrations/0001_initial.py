@@ -10,9 +10,9 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-        ('profiles', '0004_insert_genres'),
-    ]
+    # dependencies = [
+    #     ('profiles', '0004_insert_genres'),
+    # ]
 
     operations = [
         migrations.CreateModel(

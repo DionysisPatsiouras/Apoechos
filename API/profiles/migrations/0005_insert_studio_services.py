@@ -4,7 +4,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("profiles", "0005_studio_services"),
+        ("profiles", "0001_initial"),
     ]
 
     def insertData(apps, schema_editor):

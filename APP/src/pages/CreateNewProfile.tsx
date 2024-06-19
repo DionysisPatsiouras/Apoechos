@@ -29,15 +29,17 @@ export default function CreateNewProfile() {
         has_natural_presence,
         cities,
         genres,
+        instruments,
         studio_services,
         onSubmit,
         handleCheckBox,
         setGenreArray,
         genreArray,
+        instrumentArray,
+        setInstrumentArray,
         setStudioServicesArray,
-        studio_services_array
+        studio_services_array,
     }: any = useContext(CreateNewProfileContext)
-
 
 
     return (
@@ -83,7 +85,7 @@ export default function CreateNewProfile() {
                             <label>Πόλη</label>
                             <select className={CSS.city_dropdown}
                                 {...register('city')}>
-                                <option defaultValue={undefined} selected disabled hidden>Επιλέξτε πόλη</option>
+                                <option defaultValue={1} disabled hidden>Επιλέξτε πόλη</option>
                                 {cities.map((city: any) => (
                                     <option key={city.id} value={city.id}>{city.name}</option>
                                 ))}
@@ -111,9 +113,9 @@ export default function CreateNewProfile() {
                         </div>
 
                     </div>
-                    
 
-                    {has_services && 
+
+                    {has_services &&
                         <>
                             <hr className='divider'></hr>
                             <h2>Υπηρεσίες</h2>
@@ -165,6 +167,33 @@ export default function CreateNewProfile() {
                     }
 
 
+                    {is_musician === true &&
+                        <>
+                            <hr className='divider'></hr>
+                            <h2>Όργανα</h2>
+                            <div className={CSS.checkboxes_section}>
+                                {instruments.map((instr: any) => (
+                                    <div className={CSS.checkbox} key={instr.id}>
+                                        <input
+                                            {...register('instruments', {
+                                                required: 'Επιλέξτε τουλάχιστον 1 όργανο',
+                                                maxLength: 2
+                                            })}
+                                            id={instr.id + instr.category}
+                                            type='checkbox'
+                                            value={instr.id}
+
+                                            onChange={(event) => handleCheckBox(setInstrumentArray, event)}
+                                            checked={instrumentArray.includes(instr.id.toString())}
+                                        />
+                                        <label htmlFor={instr.id + instr.category}>{instr.name}</label>
+                                    </div>
+                                ))}
+                            </div>
+                            <FormError value={errors?.instruments} />
+                        </>
+
+                    }
 
                     {has_natural_presence &&
                         <>

@@ -11,9 +11,6 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    # dependencies = [
-    #     ('profiles', '0004_alter_profile_city'),
-    # ]
  
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),

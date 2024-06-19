@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('profiles', '0003_insert_cities'),
+        ('profiles', '0001_initial'),
     ]
 
     operations = [

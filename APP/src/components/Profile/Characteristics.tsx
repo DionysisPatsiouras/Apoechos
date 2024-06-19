@@ -9,7 +9,8 @@ export default function Characteristics(props: any) {
     let lists = [
         { id: 'studio_services', icon: 'studio' },
         { id: 'genres', icon: 'keys' },
-        // { id: 'instruments', icon: 'instruments' },
+        { id: 'instruments', icon: 'musician' },
+
     ]
     // console.log(data)
 
@@ -18,7 +19,7 @@ export default function Characteristics(props: any) {
         <div className={CSS.info}>
 
 
-             {props?.canEdit &&
+            {props?.canEdit &&
                 <div className='items-inline'
                     style={{ margin: '10px 0', border: '2px solid #5f69c6', padding: '10px', borderRadius: '4px', cursor: 'pointer' }}
                     onClick={props?.onClick}>
@@ -26,9 +27,9 @@ export default function Characteristics(props: any) {
                     <span>Επεξεργασία</span>
                 </div>
 
-            } 
+            }
 
-            <strong> {data?.name}</strong>
+            <strong> {data?.name} </strong>
 
             <ul className={CSS.characteristics}>
                 <li>
@@ -36,10 +37,10 @@ export default function Characteristics(props: any) {
                     <div> {data?.city?.name} <br></br> {data?.address}</div>
                 </li>
 
-                
+
                 {props?.data?.length !== 0 && lists.map((list: any) => (
                     <li key={list.id}>
-                         {data?.[list?.id]?.length !== 0 &&
+                        {data?.[list?.id]?.length !== 0 &&
                             <SvgIcon id={list?.icon} style={{ minWidth: '24px', minHeight: '24px' }} color={icon_color} />
                         }
 

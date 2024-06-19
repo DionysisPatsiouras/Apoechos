@@ -117,3 +117,12 @@ def get_studio_services(request):
 
     return Response([{"length": len(serializer.data)}, serializer.data])
 
+# /profile/get/instruments/
+@api_view(["GET"])
+def get_instruments(request):
+
+    instruments = Instrument.objects.all()
+    serializer = InstrumentSerializer(instruments, many=True)
+
+    return Response([{"length": len(serializer.data)}, serializer.data])
+

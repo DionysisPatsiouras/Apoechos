@@ -16,11 +16,13 @@ export const CreateNewProfileProvider = ({ children }: any) => {
     // variables
     const [cities, setCities] = useState<any[]>([])
     const [genres, setGenres] = useState<any[]>([])
+    const [instruments, setInstruments] = useState<any[]>([])
     const [studio_services, setStudioServices] = useState<any[]>([])
 
     const [category, setCategory] = useState<number>()
 
     const [genreArray, setGenreArray] = useState<any[]>([])
+    const [instrumentArray, setInstrumentArray] = useState<any[]>([])
     const [studio_services_array, setStudioServicesArray] = useState<any[]>([])
 
 
@@ -28,6 +30,7 @@ export const CreateNewProfileProvider = ({ children }: any) => {
     const get_cities = new Call(Routes.profiles.cities, 'GET')
     const get_genres = new Call(Routes.profiles.genres, 'GET')
     const get_studio_services = new Call(Routes.profiles.studio_services, 'GET')
+    const get_instruments = new Call(Routes.profiles.instruments, 'GET')
 
     const queryParameters = new URLSearchParams(window.location.search)
     const param = queryParameters.get("category")
@@ -46,6 +49,7 @@ export const CreateNewProfileProvider = ({ children }: any) => {
         get_cities.GET().then((res) => setCities(res?.[1])).catch((err) => console.warn(err))
         get_genres.GET().then((res) => setGenres(res?.[1])).catch((err) => console.warn(err))
         get_studio_services.GET().then((res) => setStudioServices(res?.[1])).catch((err) => console.warn(err))
+        get_instruments.GET().then((res) => setInstruments(res?.[1])).catch((err) => console.warn(err))
 
         switch (param) {
             case "Musician":
@@ -73,33 +77,18 @@ export const CreateNewProfileProvider = ({ children }: any) => {
 
 
     const handleCheckBox = (state: any, event: any) => {
-
         const { value, checked } = event.target;
-
         state((prevCategories: any) =>
             checked
                 ? [...prevCategories, value]
-                : prevCategories.filter((allGroups: any) => allGroups !== value)
-        );
-
+                : prevCategories.filter((all_values: any) => all_values !== value)
+        )
     }
 
- 
+
+
     const onSubmit = async (data: any) => {
 
-        // console.log(data)
-
-        let converted_array = []
-        let converted_array_services = []
-
-        // convert 'genresArray' into an array on numbers
-        for (let i = 0; i < genreArray.length; i++) {
-            converted_array.push(Number(genreArray[i]))
-        }
-        // convert 'studio_services_array' into an array on numbers
-        for (let i = 0; i < studio_services_array.length; i++) {
-            converted_array_services.push(Number(studio_services_array[i]))
-        }
 
         let formData: any = new FormData()
 
@@ -110,11 +99,14 @@ export const CreateNewProfileProvider = ({ children }: any) => {
         formData.append('user', me?.id)
         formData.append('category', category)
 
-        for (let i = 0; i < converted_array.length; i++) {
-            formData.append('genres', converted_array[i])
+        for (let i = 0; i < genreArray.length; i++) {
+            formData.append('genres', genreArray[i])
         }
         for (let i = 0; i < studio_services_array.length; i++) {
             formData.append('studio_services', studio_services_array[i])
+        }
+        for (let i = 0; i < instrumentArray.length; i++) {
+            formData.append('instruments', instrumentArray[i])
         }
 
 
@@ -143,13 +135,17 @@ export const CreateNewProfileProvider = ({ children }: any) => {
 
         cities: cities,
         genres: genres,
+        instruments: instruments,
         studio_services: studio_services,
+
 
         param: param,
         onSubmit: onSubmit,
         handleCheckBox: handleCheckBox,
         setGenreArray: setGenreArray,
         setStudioServicesArray: setStudioServicesArray,
+        setInstrumentArray: setInstrumentArray,
+        instrumentArray: instrumentArray,
         studio_services_array: studio_services_array,
         genreArray: genreArray,
     }
