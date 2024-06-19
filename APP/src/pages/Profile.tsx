@@ -94,7 +94,7 @@ export default function Profile() {
                     <ul>
                         {my_profiles.map((profile: any) => (
                             <Link to={`/profile/${profile.profileId}`} key={profile.profileId}>
-                                <li 
+                                <li
                                     className='items-inline'
                                     style={{
                                         backgroundColor: data?.category.name === profile.category.name ? profile.category.color : 'unset',
@@ -148,11 +148,11 @@ export default function Profile() {
             <hr></hr>
 
             <section className={CSS.right_section}>
-                {/* <Activity
-                    id={profileId}
-                    category={data?.category}
+                <Activity
+                    id={data?.profileId}
+                    category={data?.category?.name}
                     canEdit={data.user === user?.user_id ? true : false}
-                /> */}
+                />
             </section>
 
 

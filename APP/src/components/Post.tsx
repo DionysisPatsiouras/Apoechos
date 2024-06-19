@@ -16,11 +16,10 @@ import { Colors } from '../App'
 const Post = forwardRef(function Post(props: any, ref: any) {
 
     let post = props?.data
-    let profile_photo = post?.[post?.title?.category]?.photo
-    let profile_category = post?.[post?.title?.category]?.category
+    let profile_category = props?.profile?.category?.name
+    
 
-    let profile_id = post?.musician?.musicianId || post?.studio?.studioId || post?.stage?.stageId || post?.store?.storeId || post?.band?.bandId
-
+    let profile = props?.profile
     const color = useContext<any>(Colors)
 
 
@@ -69,7 +68,7 @@ const Post = forwardRef(function Post(props: any, ref: any) {
     }
 
 
-    // console.log(post)
+    // console.log(props)
 
 
     const PostView = (with_edit_icon: boolean) =>
@@ -77,7 +76,7 @@ const Post = forwardRef(function Post(props: any, ref: any) {
             <div className={CSS.top}>
                 <div style={{ display: 'flex' }}>
 
-                    <img src={`http://127.0.0.1:8000/${profile_photo}`} width={100} className={CSS.profile_photo} alt='profile_image' />
+                    <img src={`http://127.0.0.1:8000/${profile?.photo}`} width={100} className={CSS.profile_photo} alt='profile_image' />
 
                     <div className={CSS.category_container} style={{ backgroundColor: color?.[props?.data?.title?.category] }} >
                         <SvgIcon id={props?.data?.title?.category} color={'#fff'} width={20} />
@@ -85,10 +84,10 @@ const Post = forwardRef(function Post(props: any, ref: any) {
 
                     <div className={CSS.content}>
 
-                        <Link to={`/profile/${profile_id}`}>
+                        <Link to={`/profile/${profile?.profileId}`}>
                             <h3 style={{ display: 'flex', alignItems: 'center' }}>
-                                {post.musician?.artistic_nickname || post?.studio?.title || post?.store?.title}
-                                {post?.is_pinned && <SvgIcon id={'pinned'} color='#D2A35B' />}
+                                {profile?.name}
+                                {/* {post?.is_pinned && <SvgIcon id={'pinned'} color='#D2A35B' />} */}
                             </h3>
                         </Link>
 

@@ -4,23 +4,25 @@ import { Routes } from '../utils/Routes'
 
 import UserContext from './UserContext'
 import { patchUser } from '../utils/functions/patchUser'
+
+
 const CreateNewProfileContext = createContext({})
-
-
 export default CreateNewProfileContext
 
 
 export const CreateNewProfileProvider = ({ children }: any) => {
 
     let { me }: any = useContext(UserContext)
+
     // variables
     const [cities, setCities] = useState<any[]>([])
     const [genres, setGenres] = useState<any[]>([])
     const [instruments, setInstruments] = useState<any[]>([])
     const [studio_services, setStudioServices] = useState<any[]>([])
-
     const [category, setCategory] = useState<number>()
 
+
+    // arrays
     const [genreArray, setGenreArray] = useState<any[]>([])
     const [instrumentArray, setInstrumentArray] = useState<any[]>([])
     const [studio_services_array, setStudioServicesArray] = useState<any[]>([])
@@ -32,13 +34,14 @@ export const CreateNewProfileProvider = ({ children }: any) => {
     const get_studio_services = new Call(Routes.profiles.studio_services, 'GET')
     const get_instruments = new Call(Routes.profiles.instruments, 'GET')
 
+
+    // URL params
     const queryParameters = new URLSearchParams(window.location.search)
     const param = queryParameters.get("category")
 
+
     // utils
     let has_natural_presence = param === "Store" || param === "Stage" || param === "Studio"
-
-
     let is_musician = param === "Musician" ? true : false
     let has_genres = param === "Musician" || param === "Band" ? true : false
     let has_services = param === "Studio" ? true : false
@@ -75,7 +78,6 @@ export const CreateNewProfileProvider = ({ children }: any) => {
 
 
 
-
     const handleCheckBox = (state: any, event: any) => {
         const { value, checked } = event.target;
         state((prevCategories: any) =>
@@ -88,7 +90,6 @@ export const CreateNewProfileProvider = ({ children }: any) => {
 
 
     const onSubmit = async (data: any) => {
-
 
         let formData: any = new FormData()
 
@@ -109,14 +110,12 @@ export const CreateNewProfileProvider = ({ children }: any) => {
             formData.append('instruments', instrumentArray[i])
         }
 
-
         const create_profile = new Call(Routes.profiles.new, 'POST', formData)
 
-        create_profile.POST_MEDIA().then((res) => console.log(res)).catch((err) => console.warn(err))
-
-        // console.warn('submitted', formData)
-
-
+        create_profile
+            .POST_MEDIA()
+            .then((res) => console.log(res))
+            .catch((err) => console.warn(err))
 
     }
 

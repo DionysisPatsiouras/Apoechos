@@ -13,6 +13,7 @@ import Post from '../Post'
 // utils
 import { Routes } from '../../utils/Routes'
 import Call from '../../utils/Call'
+import AllPosts from '../AllPosts'
 
 
 export default function Activity(props: any) {
@@ -20,7 +21,7 @@ export default function Activity(props: any) {
     let { user }: any = useContext(AuthContext)
 
 
-    const [data, setData] = useState<any>()
+    const [profile, setProfile] = useState<any>()
     const [posts, setPosts] = useState<any>([])
     let [tab, setTab] = useState<string>('posts')
 
@@ -30,56 +31,37 @@ export default function Activity(props: any) {
     // let data = props?.data
 
 
+
     const new_entry = (title: string) => {
         setCreateNew(true)
         setModalTitle(title)
     }
-    // @ts-ignore
 
-
-
+    const get_profile = new Call(Routes.profiles.id(props?.id), 'GET')
 
 
     useEffect(() => {
 
-        const newCall = new Call(
-            window.location.pathname.includes('MUSICIAN') ?
-                Routes.musician.id(props?.id)
-                :
-                window.location.pathname.includes('STUDIO') ?
-                    Routes.studio.id(props?.id)
-                    :
-                    window.location.pathname.includes('STORE') ?
-                        Routes.store.id(props?.id)
-                        :
-                        window.location.pathname.includes('STAGE') ?
-                            Routes.stage.id(props?.id)
-                            :
-                            window.location.pathname.includes('BAND') ?
-                                Routes.band.id(props?.id)
-                                : '/',
-            'GET'
-        )
-
-        newCall
-            .GET()
-            .then((res: any) => { setData(res) })
-            .catch((err) => console.warn(err))
-
-
         const posts_by_id = new Call(Routes.posts.profile_id(props?.id), 'GET')
+
+        get_profile
+            .GET()
+            .then((res: any) => {
+                setProfile(res);
+                setUpdateDOM(!updateDOM)
+            })
+            .catch((err) => console.warn(err))
 
         posts_by_id
             .GET()
             .then((res) => setPosts(res))
             .catch((err) => console.warn(err))
 
-    }, [props, createNew, updateDOM])
+    }, [props])
 
-    // console.warn(posts)
+    let my_posts = posts?.[1]
 
-
-
+    // console.log(props)
 
     return (
 
@@ -101,7 +83,7 @@ export default function Activity(props: any) {
                 withContainer={true}
                 title={modalTitle}>
                 {modalTitle === 'Νέα Δημοσίευση' &&
-                    <NewPost category={data?.category} close={() => setCreateNew(false)} profile_id={props?.id} />}
+                    <NewPost category={profile?.category} close={() => setCreateNew(false)} profile_id={props?.id} />}
 
                 {modalTitle === 'Νέα Εκδήλωση' && <NewEvent />}
 
@@ -113,37 +95,31 @@ export default function Activity(props: any) {
                 {props?.category === 'musician' &&
                     <li className={tab === 'events' ? CSS.active : undefined} onClick={() => setTab('events')}>Εκδηλώσεις</li>}
             </ul>
+            
+            {/* <AllPosts id={profileId}/> */}
+            <AllPosts id={profile?.profileId} with_edit_icon={true}/>
 
-
-
-            {/* {tab === 'posts' &&
-                <All_Posts
-                    photo={props?.photo}
-                    canEdit={props?.canEdit}
-                    category={props?.category}
-                    profile_id={props?.profile_id}
-                    profile_name={props?.profile_name}
-                />
-            } */}
+{/* 
             {tab === 'posts' &&
                 <section style={{ height: '72vh', overflowY: 'auto', padding: '0 20px 0 0' }}>
                     <div style={{ margin: '6px 0 0 5px', display: 'flex', flexDirection: 'column', gap: '15px' }}>
 
                         {
-                            posts
+                            my_posts && my_posts
                                 .sort((a: any, b: any) => new Date(b.created_at) > new Date(a.created_at) ? 1 : -1)
                                 .map((post: any, index: number) => (
                                     <Post
                                         key={index}
                                         data={post}
-                                        canEdit={data.user === user?.user_id ? true : false}
+                                        profile={profile}
+                                        canEdit={profile.user === user?.user_id ? true : false}
                                         updateDOM={() => setUpdateDOM(!updateDOM)}
                                     />
                                 ))
                         }
                     </div>
                 </section>
-            }
+            } */}
 
 
 
