@@ -20,7 +20,7 @@ import Activity from '../components/Profile/Activity'
 import EditMusician from '../components/Profile/EditMusician'
 import Characteristics from '../components/Profile/Characteristics'
 
-
+import { Link } from 'react-router-dom'
 export default function Profile() {
 
     const [data, setData] = useState<any>([])
@@ -32,30 +32,39 @@ export default function Profile() {
 
     let profile_id = window.location.pathname.replace('/profile/', '')
 
+    // console.log(window.location)
 
 
+    const [my_profiles, setMyProfiles] = useState<any>([])
 
-    useEffect(() => {
+    const get_profile = new Call(Routes.profiles.id(profile_id), 'GET')
+    const get_my_profiles = new Call(Routes.profiles.my_profiles, 'GET')
 
-        const get_profile = new Call(Routes.profiles.id(profile_id), 'GET')
-        const my_profiles = new Call(Routes.profiles.my_profiles, 'GET')
+    const getProfile = () => {
 
         get_profile
             .GET()
-            .then((res: any) => { setData(res) })
+            .then((res: any) => {
+                setData(res);
+                setUpdateDOM(!updateDOM)
+            })
             .catch((err) => console.warn(err))
+    }
 
-        my_profiles.GET()
-        .then((res)=> console.log(res))
+    const getMyProfiles = () => {
 
-    }, [updateDOM])
+        get_my_profiles.GET()
+            .then((res) => {
+                // setUpdateDOM(!updateDOM)
+                setMyProfiles(res[1]);
 
+            })
+    }
+    useEffect(() => {
+        getProfile()
+        getMyProfiles()
 
-
-    // console.warn(user)
-
-
-
+    }, [profile_id])
 
 
 
@@ -63,6 +72,7 @@ export default function Profile() {
 
 
         <div className={CSS.container}>
+
 
 
             <Modal open={modal} close={() => setModal(false)} closeButton={true}>
@@ -79,6 +89,38 @@ export default function Profile() {
             </Modal>
 
 
+            {user?.user_id === data?.user &&
+                <aside className={CSS.my_profiles_list}>
+                    <ul>
+                        {my_profiles.map((profile: any) => (
+                            <Link to={`/profile/${profile.profileId}`} key={profile.profileId}>
+                                <li 
+                                    className='items-inline'
+                                    style={{
+                                        backgroundColor: data?.category.name === profile.category.name ? profile.category.color : 'unset',
+                                        color: data?.category.name === profile.category.name ? '#fff' : '#646464',
+                                        justifyContent: 'space-between'
+                                    }}
+                                >
+                                    {profile.name}
+                                    <SvgIcon id={profile.category.name.toLocaleLowerCase()}
+                                        color={data?.category.name === profile.category.name ? '#fff' : '#646464'}
+                                    />
+                                </li>
+                            </Link>
+                        ))}
+
+                        <Link to='/create/'>
+
+                            <li className='items-inline' style={{ justifyContent: 'space-between' }}>
+                                Νέο Προφίλ
+                                <SvgIcon id='add' color='#646464' />
+                            </li>
+                        </Link>
+                    </ul>
+                </aside>
+
+            }
 
             <section className={CSS.personal_info}>
 

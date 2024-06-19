@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react"
-
-
+import Call from "../utils/Call"
+import { Routes } from "../utils/Routes"
 
 const UserContext = createContext({})
 
@@ -9,49 +9,46 @@ export default UserContext
 
 export const UserProvider = ({ children }: any) => {
 
-    const [data, setData] = useState<any[]>([])
+    const [me, setMe] = useState<any[]>([])
+    const [myProfiles, setMyProfiles] = useState<any[]>([])
+    // const [loading, setLoading] = useState<boolean>(false)
 
-    // console.log(data)
+    const fetch_me = new Call(Routes.user.me, 'GET')
+    const fetch_my_profiles = new Call(Routes.profiles.my_profiles, 'GET')
 
-    useEffect(() => {
-        // @ts-ignore
-        let token = localStorage.getItem('auth-token')?.slice(0, -1)?.slice(1);
+    const fetchMyProfiles = () => {
+        fetch_my_profiles
+            .GET()
+            .then((res) => {
+                setMyProfiles(res)
+            })
+            .catch((err) => console.warn(err))
+    }
 
-        var myHeaders = new Headers();
-        myHeaders.append("Authorization", `Bearer ${token}`)
-        myHeaders.append("Accept", "*/*");
-        myHeaders.append("Host", "localhost:8000");
-        myHeaders.append("Connection", "keep-alive");
-
-        var requestOptions: {} = {
-            method: 'GET',
-            headers: myHeaders,
-            // body: formdata,
-            redirect: 'follow'
-        };
-
-        fetch("http://localhost:8000/user/me", requestOptions)
-            .then(response => response.json())
-            // .then(result => console.log(result))
-            .then(result => setData(result))
-            .catch(error => console.log('error', error));
-    }, [])
-
-
-
-
-
-
-
-    let contextData = {
-
-        data: data
+    const fetchMe = () => {
+        fetch_me
+            .GET()
+            .then((res) => {
+                setMe(res)
+            })
+            .catch((err) => console.warn(err))
     }
 
 
 
+    useEffect(() => {
+
+        fetchMyProfiles()
+        fetchMe()
+
+    }, [])
 
 
+
+    let contextData = {
+        me: me,
+        myProfiles: myProfiles
+    }
 
 
 

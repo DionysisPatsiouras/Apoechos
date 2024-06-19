@@ -21,6 +21,7 @@ import { CreateNewProfileProvider } from './context/CreateNewProfileContext'
 import Discover from './pages/Discover'
 import Profile from './pages/Profile'
 
+import { UserProvider } from './context/UserContext'
 
 import Messages from './pages/Messages'
 
@@ -60,34 +61,38 @@ export default function App() {
       <WindowSize.Provider value={responsive}>
         <BrowserRouter>
           <AuthProvider>
-
-            <Colors.Provider value={colors}>
-
-              <Header />
-
-              <Routes>
-
-                <Route path='/login' element={<Login />} />
-                <Route path='/register' element={<Register />} />
-                <Route path='/' element={<News />} />
-                <Route path='/mystudio' element={<Messages />} />
+            <UserProvider>
 
 
-                <Route path='/discover' element={<DiscoverProvider><Discover /></DiscoverProvider>} />
-                <Route path='/profile/:id/' element={<Profile />} />
+
+              <Colors.Provider value={colors}>
+
+                <Header />
+
+                <Routes>
+
+                  <Route path='/login' element={<Login />} />
+                  <Route path='/register' element={<Register />} />
+                  <Route path='/' element={<News />} />
+                  <Route path='/mystudio' element={<Messages />} />
 
 
-                <Route element={<PrivateRoutes />} >
-                  <Route path='/account' element={<Account />} />
-                  <Route path='/create' element={<Create />} />
-                  <Route path='/create/new_profile' element={<CreateNewProfileProvider><CreateNewProfile /></CreateNewProfileProvider>} />
-                  <Route path='/create/musician' element={<CreateMusician />} />
-                </Route>
+                  <Route path='/discover' element={<DiscoverProvider><Discover /></DiscoverProvider>} />
+                  <Route path='/profile/:id/' element={<Profile />} />
 
 
-              </Routes>
-            </Colors.Provider>
 
+                  <Route element={<PrivateRoutes />} >
+                    <Route path='/account' element={<Account />} />
+                    <Route path='/create' element={<Create />} />
+                    <Route path='/create/new_profile' element={<CreateNewProfileProvider><CreateNewProfile /></CreateNewProfileProvider>} />
+                    <Route path='/create/musician' element={<CreateMusician />} />
+                  </Route>
+
+
+                </Routes>
+              </Colors.Provider>
+            </UserProvider>
           </AuthProvider>
         </BrowserRouter>
       </WindowSize.Provider>

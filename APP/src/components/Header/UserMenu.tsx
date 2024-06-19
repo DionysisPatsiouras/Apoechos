@@ -3,36 +3,28 @@ import AuthContext from '../../context/AuthContext'
 import SvgIcon from '../SvgIcon'
 import CSS from '../../css/Header/Header.module.css'
 import { useContext, useState, useEffect } from 'react'
-
+import UserContext from '../../context/UserContext'
 
 
 
 export default function UserMenu(props: any) {
 
-    let { logoutUser, userData, fetchMe }: any = useContext(AuthContext)
+    let { logoutUser }: any = useContext(AuthContext)
+    let { me, myProfiles }: any = useContext(UserContext)
 
 
     const [accountModal, setAccountModal] = useState<boolean>(false)
 
 
-
-
-    useEffect(() => {
-        fetchMe()
-
-    }, [])
-
-    // console.warn(userData)
-
+    let profile_url = myProfiles?.[1]?.[0]?.profileId == undefined
+        ? '/create/'
+        : `/profile/${myProfiles?.[1]?.[0]?.profileId}`
 
     return (
         <>
 
-
-
             <ul>
-                <Link to="/profile">Προφίλ</Link>
-
+                <Link to={profile_url}>Προφίλ</Link>
                 <Link to="/discover">Ανακάλυψε</Link>
                 <Link to="/">Εκδηλώσεις - Ροή</Link>
                 {/* <Link to="/mystudio">My Studio</Link> */}
@@ -40,24 +32,17 @@ export default function UserMenu(props: any) {
                 {/* <Link to="learn-more">Learn More</Link> */}
             </ul>
 
-            {/* 
-            {props?.data?.musicianId === undefined || props?.data?.musicianId === null && 'ok' } */}
-
-
 
 
             <ul className={CSS.loggedUserMenu}>
 
-
-                {userData?.musicianId &&
+                {me?.musicianId &&
                     <>
                         <SvgIcon id='notifications' width={20} />
                         <SvgIcon id='messages' width={25} />
                     </>
                 }
-                {!userData?.musicianId &&
-                    <Link to='/create'>Δημιουργία Προφίλ</Link>
-                }
+              
                 <SvgIcon id='account' width={25} onClick={() => setAccountModal(!accountModal)} />
 
 

@@ -1,8 +1,8 @@
 import { createContext, useState, useEffect, useContext } from 'react'
 import Call from '../utils/Call'
 import { Routes } from '../utils/Routes'
-import AuthContext from './AuthContext'
 
+import UserContext from './UserContext'
 import { patchUser } from '../utils/functions/patchUser'
 const CreateNewProfileContext = createContext({})
 
@@ -11,7 +11,8 @@ export default CreateNewProfileContext
 
 
 export const CreateNewProfileProvider = ({ children }: any) => {
-    let { userData }: any = useContext(AuthContext)
+
+    let { me }: any = useContext(UserContext)
     // variables
     const [cities, setCities] = useState<any[]>([])
     const [genres, setGenres] = useState<any[]>([])
@@ -83,7 +84,7 @@ export const CreateNewProfileProvider = ({ children }: any) => {
 
     }
 
-
+ 
     const onSubmit = async (data: any) => {
 
         // console.log(data)
@@ -106,7 +107,7 @@ export const CreateNewProfileProvider = ({ children }: any) => {
         data?.file?.[0] && formData.append('photo', data?.file?.[0])
         formData.append('name', data?.name)
         formData.append('city', data?.city)
-        formData.append('user', userData?.id)
+        formData.append('user', me?.id)
         formData.append('category', category)
 
         for (let i = 0; i < converted_array.length; i++) {

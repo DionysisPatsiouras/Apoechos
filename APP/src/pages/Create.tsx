@@ -1,18 +1,17 @@
 import CSS from '../css/Create/Create.module.sass'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Profile from '../components/Create/Profile'
 import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 
-import AuthContext from '../context/AuthContext'
+// import AuthContext from '../context/AuthContext'
+import UserContext from '../context/UserContext'
 import { Colors } from '../App'
 
 
 export default function Create() {
 
-
-    let { userData }: any = useContext(AuthContext)
-
+    let { me, myProfiles }: any = useContext(UserContext)
 
     const [active, setActive] = useState<string>('')
     const color = useContext<any>(Colors)
@@ -24,9 +23,11 @@ export default function Create() {
         textAlign: 'center'
     }
 
+    // let profiles = myProfiles[1]
 
+    // console.warn(profiles)
+    // console.warn(profiles && profiles.map((i: any) => i.category.name))
 
-    // console.log(userData)
 
     return (
         <div className='space'>
@@ -44,7 +45,7 @@ export default function Create() {
 
 
 
-                    {userData?.musicianId === null &&
+                    {me?.musicianId === null &&
                         <Profile
                             id={'musician'} color={color.musician}
                             active={active} setActive={() => setActive('Musician')}
@@ -52,13 +53,12 @@ export default function Create() {
                         />
                     }
 
-
                     <Profile
                         id={'band'} color={color.band}
                         active={active} setActive={() => setActive('Band')}
                         label={'Band'} description={'Promote your band'}
                     />
-                    {userData?.studioId === null &&
+                    {me?.studioId === null &&
                         <Profile
                             id={'studio'} color={color.studio}
                             active={active} setActive={() => setActive('Studio')}
@@ -66,7 +66,7 @@ export default function Create() {
                         />
                     }
 
-                    {userData?.stageId === null &&
+                    {me?.stageId === null &&
                         <Profile
                             id={'stage'} color={color.stage}
                             active={active} setActive={() => setActive('Stage')}
@@ -74,7 +74,7 @@ export default function Create() {
                         />
                     }
 
-                    {userData?.storeId === null &&
+                    {me?.storeId === null &&
                         <Profile
                             id={'store'} color={color.store}
                             active={active} setActive={() => setActive('Store')}

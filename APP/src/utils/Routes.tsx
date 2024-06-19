@@ -9,7 +9,9 @@ export const Routes = {
 
     user: {
         patch: `${url}/user/patch/`,
+        me: `${url}/user/me/`,
     },
+
     profiles: {
         all: `${url}/profile/all/`,
         cities: `${url}/profile/get/cities/`,
