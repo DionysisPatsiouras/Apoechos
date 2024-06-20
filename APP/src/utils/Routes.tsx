@@ -20,17 +20,14 @@ export const Routes = {
         studio_services: `${url}/profile/get/studio_services/`,
         new: `${url}/profile/new/`,
         id: (profile_id: string) => `${url}/profile/${profile_id}/`,
+        update: (profile_id: string) => `${url}/profile/update/${profile_id}/`,
         my_profiles: `${url}/profile/get/my_profiles/`,
         // everything: `${url}/profiles/everything/`,
         // musicians: `${url}/profiles/musicians/`,
         // studios: `${url}/profiles/studios/`,
     },
 
-    musician: {
-        id: (musician_id: string) => `${url}/musician/${musician_id}`,
-        post: `${url}/musician/new/`,
-        patch: (musician_id: string) => `${url}/musician/patch/${musician_id}/`,
-    },
+
 
     studio: {
         id: (studio_id: string) => `${url}/studio/${studio_id}`,

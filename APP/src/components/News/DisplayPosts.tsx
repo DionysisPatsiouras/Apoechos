@@ -2,7 +2,7 @@
 import { forwardRef, useEffect, useState } from 'react'
 import Call from '../../utils/Call'
 import { Routes } from '../../utils/Routes'
-import Post from '../Post'
+
 import CSS from '../../css/News/News.module.css'
 import AllPosts from '../AllPosts'
 
@@ -39,14 +39,6 @@ const DisplayPosts = forwardRef(function DisplayPosts(props: any, ref: any) {
                 : prevCategories.filter((all_values: any) => all_values !== value)
         )
     }
-
-
-    // useEffect(() => {
-    //     all_posts.GET().then((res) => setData(res))
-    // }, [])
-
-    // .filter((profile: any) => array.length === 0 ? !array.includes(labels) : array.includes(profile.title.title))
-    // .sort((a: any, b: any) => new Date(b.created_at) > new Date(a.created_at) ? 1 : -1)
 
 
     return (

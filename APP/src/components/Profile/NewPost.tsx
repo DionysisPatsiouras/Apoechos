@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 // utils
@@ -38,12 +38,7 @@ export default function NewPost(props: any) {
     // console.log(props)
     // console.log(labels)
 
-
-
-
-
     const onSubmit = (data: any) => {
-
 
         const finalData = {
             title: data.title,
@@ -52,7 +47,6 @@ export default function NewPost(props: any) {
         }
 
         const new_post = new Call(Routes.posts.new, 'POST', finalData)
-
         new_post
             .POST()
             .then(() => {
@@ -63,9 +57,7 @@ export default function NewPost(props: any) {
                 console.log('Post uploaded successfully')
             })
             .catch((err) => console.warn(err))
-
     }
-
 
 
 

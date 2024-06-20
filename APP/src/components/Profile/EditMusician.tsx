@@ -24,61 +24,61 @@ export default function EditMusician(props: any) {
 
 
 
-    const [current_inst, setCurrentInst] = useState<any>(props?.data?.instruments.map((item: any) => item.name))
-    const [missing_inst, setMissingInst] = useState<any>(inst.filter((i: any) => !current_inst.includes(i)))
+    // const [current_inst, setCurrentInst] = useState<any>(props?.data?.instruments.map((item: any) => item.name))
+    // const [missing_inst, setMissingInst] = useState<any>(inst.filter((i: any) => !current_inst.includes(i)))
     const [addedInstruments, setAddedInstruments] = useState<any[]>([])
 
     const [tab, setTab] = useState<number>(1)
 
 
-    const updateProfile = (data: any) => {
-        const patchMusician = new Call(Routes.musician.patch(props?.data?.musicianId), 'PATCH', data)
-        patchMusician
-            .PATCH()
-            .then(() => { props?.close() })
-            .catch((err) => console.warn(err))
-    }
+    // const updateProfile = (data: any) => {
+    //     const patchMusician = new Call(Routes.profiles.id(props?.data?.musicianId), 'PATCH', data)
+    //     patchMusician
+    //         .PATCH()
+    //         .then(() => { props?.close() })
+    //         .catch((err) => console.warn(err))
+    // }
 
 
-    const add_new_instruments = () => {
+    // const add_new_instruments = () => {
 
-        for (let index = 0; index < addedInstruments.length; index++) {
+    //     for (let index = 0; index < addedInstruments.length; index++) {
 
-            let finalData = {
-                name: addedInstruments[index],
-                musician: props?.data?.musicianId
-            }
+    //         let finalData = {
+    //             name: addedInstruments[index],
+    //             musician: props?.data?.musicianId
+    //         }
 
-            let add_inst = new Call(Routes.instruments.add, 'POST', finalData)
-            add_inst
-                .POST()
-                .then((res) => {
-                    console.log(res);
-                    setAddedInstruments([])
-                    for (let index = 0; index < addedInstruments.length; index++) {
-                        const element = addedInstruments[index];
-                        setCurrentInst([...current_inst, element])
+    //         let add_inst = new Call(Routes.instruments.add, 'POST', finalData)
+    //         add_inst
+    //             .POST()
+    //             .then((res) => {
+    //                 console.log(res);
+    //                 setAddedInstruments([])
+    //                 for (let index = 0; index < addedInstruments.length; index++) {
+    //                     const element = addedInstruments[index];
+    //                     setCurrentInst([...current_inst, element])
 
-                    }
-                })
-                .catch((err) => console.warn(err))
-        }
+    //                 }
+    //             })
+    //             .catch((err) => console.warn(err))
+    //     }
 
-    }
-
-
+    // }
 
 
-    const addInstruments = (e: any) => {
-        setAddedInstruments([...addedInstruments, e]);
-        setMissingInst((prev: any) => prev.filter((value: any) => value !== e))
-    }
 
-    const removeInstruments = (e: any) => {
-        setMissingInst([...missing_inst, e]);
-        setCurrentInst((prev: any) => prev.filter((value: any) => value !== e))
-        setAddedInstruments((prev: any) => prev.filter((value: any) => value !== e))
-    }
+
+    // const addInstruments = (e: any) => {
+    //     setAddedInstruments([...addedInstruments, e]);
+    //     setMissingInst((prev: any) => prev.filter((value: any) => value !== e))
+    // }
+
+    // const removeInstruments = (e: any) => {
+    //     setMissingInst([...missing_inst, e]);
+    //     setCurrentInst((prev: any) => prev.filter((value: any) => value !== e))
+    //     setAddedInstruments((prev: any) => prev.filter((value: any) => value !== e))
+    // }
 
 
 
@@ -101,7 +101,7 @@ export default function EditMusician(props: any) {
                 </li>
             </ul>
 
-            <form onSubmit={handleSubmit(updateProfile)} className={CSS.edit_form}>
+            {/* <form onSubmit={handleSubmit(updateProfile)} className={CSS.edit_form}>
 
                 {tab === 1 &&
 
@@ -192,7 +192,7 @@ export default function EditMusician(props: any) {
                     <button type='submit'>Αποθηκεύση</button>
                     <button type='reset' style={{ 'backgroundColor': '#9A9A9A' }} onClick={props?.close}>Ακύρωση</button>
                 </div>
-            </form>
+            </form> */}
 
         </section>
     )

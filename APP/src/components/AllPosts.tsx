@@ -7,15 +7,19 @@ import SvgIcon from './SvgIcon'
 import { full_date } from '../utils/Shortcuts'
 import Modal from './Modal'
 import Confirmation from './Modal/Confirmation'
+import UpdatePost from './UpdatePost'
 
 const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
 
     const posts_by_id = new Call(Routes.posts.profile_id(props?.id), 'GET')
 
     const [post, setPost] = useState<any[]>([])
-    const [modal, setModal] = useState<boolean>(false)
-    const [edit, setEdit] = useState<boolean>(false)
+    const [editModal, setEditModal] = useState<boolean>(false)
+    const [deleteModal, setDeleteModal] = useState<boolean>(false)
+
+    // const [edit, setEdit] = useState<boolean>(false)
     const [selectedPost, setSelectedPost] = useState<any>()
+    const [updateDOM, setUpdateDOM] = useState<boolean>(false)
 
 
     useEffect(() => {
@@ -27,6 +31,24 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
 
 
     // console.warn(props)
+
+
+    const delete_post = (post_id: string) => {
+        const data = {
+            deleted_at: new Date(),
+            is_deleted: true
+        }
+        let patchPost = new Call(Routes.posts.update(post_id), 'PATCH', data)
+
+        patchPost.PATCH()
+            .then(() => {
+                console.log('Post delete successfully')
+                props?.updateDOM();
+                setDeleteModal(false)
+            })
+            .catch((err) => console.warn(err))
+    }
+
 
 
 
@@ -64,8 +86,8 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
                 </div>
                 {with_icons && props?.can_edit &&
                     <ul>
-                        <li> <SvgIcon id='edit' width={20} height={20} onClick={() => setEdit(!edit)} /> </li>
-                        <li> <SvgIcon id='delete' onClick={() => { setModal(!modal); setSelectedPost(post) }} /></li>
+                        <li> <SvgIcon id='edit' width={20} height={20} onClick={() => { setEditModal(!editModal); setSelectedPost(post) }} /> </li>
+                        <li> <SvgIcon id='delete' onClick={() => { setDeleteModal(!deleteModal); setSelectedPost(post) }} /></li>
                     </ul>
                 }
 
@@ -77,26 +99,31 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
 
     return (
         <>
-            <Modal open={modal} close={() => setModal(false)}>
-
+            <Modal open={deleteModal} close={() => setDeleteModal(false)}>
                 <Confirmation
-                    cancel={() => setModal(false)}
-                    // confirm={() => deletePost ? delete_post(post?.post_id) : pinPost(post?.post_id)}
-                    // icon={'delete'}
+                    cancel={() => setDeleteModal(false)}
+                    confirm={() => delete_post(selectedPost?.post_id)}
                     text='Είστε σίγουρος πως θέλετε να διαγράψετε την παρακάτω δημοσιεύση;'
-
                     body={PostView(selectedPost, false)}
                 />
+            </Modal>
 
+            <Modal open={editModal} close={() => { setEditModal(false) }} withContainer title='Επεξεργασία Δημοσίευσης'>
+                <UpdatePost post={selectedPost} close={() => {
+                    setSelectedPost(undefined);
+                    setEditModal(false);
+                    props?.updateDOM();
+                    setUpdateDOM(!updateDOM)
+                }} />
             </Modal>
 
 
-
-            {post.map((post: any, index: number) =>
-                <div key={index} style={{ display: 'flex' }}>
-                    {PostView(post, props?.all_posts ? false : true)}
-                </div>
-            )}
+            {post
+                .map((post: any, index: number) =>
+                    <div key={index} style={{ display: 'flex' }}>
+                        {PostView(post, props?.all_posts ? false : true)}
+                    </div>
+                )}
 
 
 

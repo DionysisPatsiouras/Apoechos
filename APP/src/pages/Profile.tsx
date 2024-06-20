@@ -1,5 +1,6 @@
 
 import { useEffect, useState, useContext } from 'react'
+import { Link } from 'react-router-dom'
 import img from '../utils/img/default_img.png'
 
 // css
@@ -7,7 +8,6 @@ import CSS from '../css/Profile/Profile.module.sass'
 
 // context
 import AuthContext from '../context/AuthContext'
-import { Colors } from '../App'
 
 // utils
 import { Routes } from '../utils/Routes'
@@ -17,54 +17,42 @@ import Call from '../utils/Call'
 import Modal from '../components/Modal'
 import SvgIcon from '../components/SvgIcon'
 import Activity from '../components/Profile/Activity'
-import EditMusician from '../components/Profile/EditMusician'
+
 import Characteristics from '../components/Profile/Characteristics'
-import { Link } from 'react-router-dom'
+
+import EditProfile from '../components/Profile/EditProfile'
 export default function Profile() {
 
-    const [data, setData] = useState<any>([])
-    const [modal, setModal] = useState<boolean>(false)
     let { user }: any = useContext(AuthContext)
-    let [updateDOM, setUpdateDOM] = useState<boolean>(false)
 
+    const [currentProfile, setCurrentProfile] = useState<any>([])
+    const [my_profiles, setMyProfiles] = useState<any>([])
+
+    const [modal, setModal] = useState<boolean>(false)
+    let [updateDOM, setUpdateDOM] = useState<boolean>(false)
     let [editMode, setEditMode] = useState<boolean>(false)
 
     let profile_id = window.location.pathname.replace('/profile/', '')
 
-    // console.log(window.location)
-
-
-    const [my_profiles, setMyProfiles] = useState<any>([])
 
     const get_profile = new Call(Routes.profiles.id(profile_id), 'GET')
     const get_my_profiles = new Call(Routes.profiles.my_profiles, 'GET')
 
-    const getProfile = () => {
+   
+    useEffect(() => {
+ 
+        get_my_profiles
+            .GET()
+            .then((res) => setMyProfiles(res[1]))
+            .catch((err) => console.warn(err))
 
         get_profile
             .GET()
-            .then((res: any) => {
-                setData(res);
-                setUpdateDOM(!updateDOM)
-            })
+            .then((res: any) => setCurrentProfile(res))
             .catch((err) => console.warn(err))
-    }
 
-    const getMyProfiles = () => {
 
-        get_my_profiles.GET()
-            .then((res) => {
-                // setUpdateDOM(!updateDOM)
-                setMyProfiles(res[1]);
-
-            })
-    }
-    useEffect(() => {
-        getProfile()
-        getMyProfiles()
-
-    }, [profile_id])
-
+    }, [updateDOM])
 
 
     return (
@@ -73,10 +61,8 @@ export default function Profile() {
         <div className={CSS.container}>
 
 
-
-
             <Modal open={modal} close={() => setModal(false)} closeButton={true}>
-                <img src={`http://127.0.0.1:8000/${data?.photo}` || img} alt='profile_photo' />
+                <img src={`http://127.0.0.1:8000/${currentProfile?.photo}` || img} alt='profile_photo' />
             </Modal>
 
             <Modal
@@ -84,27 +70,29 @@ export default function Profile() {
                 close={() => { setEditMode(false); setUpdateDOM(!updateDOM) }}
                 withContainer={true}
                 title={'Επεξεργασία'}>
-                {/* {check_category(data?.category)} */}
-
+                <EditProfile profile={currentProfile} close={() => {
+                    setUpdateDOM(!updateDOM);
+                    setEditMode(false)
+                }} />
             </Modal>
 
 
-            {user?.user_id === data?.user &&
+            {user?.user_id === currentProfile?.user &&
                 <aside className={CSS.my_profiles_list}>
                     <ul>
                         {my_profiles.map((profile: any) => (
-                            <Link to={`/profile/${profile.profileId}`} key={profile.profileId}>
+                            <Link to={`/profile/${profile.profileId}`} onClick={() => setUpdateDOM(!updateDOM)} key={profile.profileId}>
                                 <li
                                     className='items-inline'
                                     style={{
-                                        backgroundColor: profile.profileId === data?.profileId ? profile?.category?.color : 'unset',
-                                        color: profile.profileId === data?.profileId ? '#fff' : '#646464',
+                                        backgroundColor: profile.profileId === currentProfile?.profileId ? profile?.category?.color : 'unset',
+                                        color: profile.profileId === currentProfile?.profileId ? '#fff' : '#646464',
                                         justifyContent: 'space-between'
                                     }}
                                 >
                                     {profile.name}
                                     <SvgIcon id={profile.category.name.toLocaleLowerCase()}
-                                        color={ profile.profileId === data?.profileId ? '#fff' : '#646464'}
+                                        color={profile.profileId === currentProfile?.profileId ? '#fff' : '#646464'}
                                     />
                                 </li>
                             </Link>
@@ -124,22 +112,22 @@ export default function Profile() {
 
             <section className={CSS.personal_info}>
 
-                <div className={CSS.signature} style={{ backgroundColor: data?.category?.color }}>
-                    <SvgIcon id={data?.category?.name.toLowerCase()} style={{ margin: '5px  0 0 172px' }} color={'#fff'} />
+                <div className={CSS.signature} style={{ backgroundColor: currentProfile?.category?.color }}>
+                    <SvgIcon id={currentProfile?.category?.name.toLowerCase()} style={{ margin: '5px  0 0 172px' }} color={'#fff'} />
                 </div>
 
 
                 <img
-                    src={data?.photo !== null ? `http://127.0.0.1:8000/${data.photo}` : img}
-                    alt='profile_photo'
+                    src={currentProfile?.photo !== null ? `http://127.0.0.1:8000/${currentProfile.photo}` : img}
+                    alt='currentProfile'
                     className={CSS.profile_photo}
                     width={150}
                     height={150}
                     onClick={() => setModal(!modal)} />
 
                 <Characteristics
-                    data={data}
-                    canEdit={user?.user_id === data?.user ? true : false}
+                    data={currentProfile}
+                    canEdit={user?.user_id === currentProfile?.user ? true : false}
                     onClick={() => setEditMode(!editMode)}
                 />
 
@@ -149,9 +137,9 @@ export default function Profile() {
 
             <section className={CSS.right_section}>
                 <Activity
-                    id={data?.profileId}
-                    category={data?.category?.name}
-                    canEdit={data.user === user?.user_id ? true : false}
+                    id={currentProfile?.profileId}
+                    category={currentProfile?.category?.name}
+                    canEdit={currentProfile.user === user?.user_id ? true : false}
                 />
             </section>
 

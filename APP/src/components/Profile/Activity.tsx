@@ -1,13 +1,13 @@
 
-import { useState, useContext, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 import Modal from '../Modal'
 import CSS from '../../css/Profile/Profile.module.sass'
-import AuthContext from '../../context/AuthContext'
-import All_Posts from './All_Posts'
+// import AuthContext from '../../context/AuthContext'
+
 import NewEvent from './NewEvent'
 import NewPost from './NewPost'
-import Post from '../Post'
+
 
 
 // utils
@@ -26,7 +26,7 @@ export default function Activity(props: any) {
     let [createNew, setCreateNew] = useState<boolean>(false)
     let [updateDOM, setUpdateDOM] = useState<boolean>(false)
     let [modalTitle, setModalTitle] = useState<string>('')
- 
+
 
     const new_entry = (title: string) => {
         setCreateNew(true)
@@ -49,7 +49,7 @@ export default function Activity(props: any) {
 
     }, [props])
 
- 
+
     // console.log(props)
 
     return (
@@ -84,9 +84,9 @@ export default function Activity(props: any) {
                 {props?.category === 'musician' &&
                     <li className={tab === 'events' ? CSS.active : undefined} onClick={() => setTab('events')}>Εκδηλώσεις</li>}
             </ul>
-            
-         
-            <AllPosts id={profile?.profileId} can_edit={props?.canEdit}/>
+
+
+            <AllPosts id={profile?.profileId} can_edit={props?.canEdit} updateDOM={() => setUpdateDOM(!updateDOM)} />
 
 
 

@@ -11,7 +11,7 @@ import News from './pages/News'
 import Register from '../src/pages/Register'
 import Account from './pages/Account'
 import Create from './pages/Create'
-import CreateMusician from './pages/CreateMusician'
+// import CreateMusician from './pages/CreateMusician'
 // import CreateStudio from './pages/CreateStudio'
 
 // context
@@ -86,7 +86,7 @@ export default function App() {
                     <Route path='/account' element={<Account />} />
                     <Route path='/create' element={<Create />} />
                     <Route path='/create/new_profile' element={<CreateNewProfileProvider><CreateNewProfile /></CreateNewProfileProvider>} />
-                    <Route path='/create/musician' element={<CreateMusician />} />
+                    {/* <Route path='/create/musician' element={<CreateMusician />} /> */}
                   </Route>
 
 

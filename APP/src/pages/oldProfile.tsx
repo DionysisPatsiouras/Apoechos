@@ -39,7 +39,7 @@ export default function Profile() {
 
         const newCall = new Call(
             window.location.pathname.includes('MUSICIAN') ?
-                Routes.musician.id(profile_id)
+                Routes.profiles.id(profile_id)
                 :
                 window.location.pathname.includes('STUDIO') ?
                     Routes.studio.id(profile_id)

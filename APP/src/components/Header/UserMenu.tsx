@@ -66,7 +66,7 @@ export default function UserMenu(props: any) {
                 onClick={() => setAccountModal(false)}
                 style={{ 'display': accountModal ? 'block' : 'none' }}>
                 <Link to='/account'><SvgIcon id='account' width={25} />Λογαριασμός</Link>
-                <Link to='/create'><SvgIcon id='add' width={25} />Νέο Προφίλ</Link>
+           
                 <Link to='/login' onClick={logoutUser}><SvgIcon id='logout' width={25} />Αποσύνδεση</Link>
             </div>
 
