@@ -20,7 +20,7 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
 
     }, [props])
 
-    // console.log(props)
+    // console.log(post)
 
     return (
         <>
@@ -35,8 +35,8 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
                                 width={100}
                                 alt='profile_image' />
 
-                            <div className={CSS.category_container} style={{ backgroundColor: i?.category?.color }} >
-                                <SvgIcon id={'add'} color={'#fff'} width={20} />
+                            <div className={CSS.category_container} style={{ backgroundColor: i?.profile?.category?.color }} >
+                                <SvgIcon id={i?.profile?.category?.name.toLocaleLowerCase()} color={'#fff'} width={20} />
                             </div>
 
                             <div className={CSS.content}>

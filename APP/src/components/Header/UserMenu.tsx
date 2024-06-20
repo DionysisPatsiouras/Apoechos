@@ -4,32 +4,43 @@ import SvgIcon from '../SvgIcon'
 import CSS from '../../css/Header/Header.module.css'
 import { useContext, useState, useEffect } from 'react'
 import UserContext from '../../context/UserContext'
-
+import Call from '../../utils/Call'
+import { Routes } from '../../utils/Routes'
 
 
 export default function UserMenu(props: any) {
 
     let { logoutUser }: any = useContext(AuthContext)
-    let { me, myProfiles }: any = useContext(UserContext)
+    let { me }: any = useContext(UserContext)
 
 
     const [accountModal, setAccountModal] = useState<boolean>(false)
 
 
-    let profile_url = myProfiles?.[1]?.[0]?.profileId == undefined
-        ? '/create/'
-        : `/profile/${myProfiles?.[1]?.[0]?.profileId}`
+    const [myProfiles, setMyProfiles] = useState<any[]>([])
+
+    const fetch_my_profiles = new Call(Routes.profiles.my_profiles, 'GET')
+
+    useEffect(() => {
+        fetch_my_profiles
+            .GET()
+            .then((res) => {
+                setMyProfiles(res)
+            })
+            .catch((err) => console.warn(err))
+    }, [])
+
+    // console.log(myProfiles)
+
 
     return (
         <>
+           
 
             <ul>
-                <Link to={profile_url}>Προφίλ</Link>
+                <Link to={ myProfiles?.[1]?.[0]?.profileId !== undefined ? `/profile/${myProfiles?.[1]?.[0]?.profileId}` : '/create/' }>Προφίλ</Link>
                 <Link to="/discover">Ανακάλυψε</Link>
                 <Link to="/">Εκδηλώσεις - Ροή</Link>
-                {/* <Link to="/mystudio">My Studio</Link> */}
-                {/* <Link to="/upcoming-events">Upcoming Events</Link> */}
-                {/* <Link to="learn-more">Learn More</Link> */}
             </ul>
 
 
@@ -42,7 +53,7 @@ export default function UserMenu(props: any) {
                         <SvgIcon id='messages' width={25} />
                     </>
                 }
-              
+
                 <SvgIcon id='account' width={25} onClick={() => setAccountModal(!accountModal)} />
 
 

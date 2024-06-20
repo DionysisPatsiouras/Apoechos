@@ -1,5 +1,5 @@
 import CSS from '../css/Create/Create.module.sass'
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Profile from '../components/Create/Profile'
 import { useContext } from 'react'
 import { Link } from 'react-router-dom'
@@ -11,10 +11,11 @@ import { Colors } from '../App'
 
 export default function Create() {
 
-    let { me, myProfiles }: any = useContext(UserContext)
+    let { me }: any = useContext(UserContext)
 
     const [active, setActive] = useState<string>('')
     const color = useContext<any>(Colors)
+
 
     const css: {} = {
         display: 'flex',
@@ -27,7 +28,7 @@ export default function Create() {
 
     // console.warn(profiles)
     // console.warn(profiles && profiles.map((i: any) => i.category.name))
-
+    // console.log(me)
 
     return (
         <div className='space'>

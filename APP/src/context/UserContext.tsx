@@ -38,6 +38,7 @@ export const UserProvider = ({ children }: any) => {
 
     useEffect(() => {
 
+        
         fetchMyProfiles()
         fetchMe()
 
@@ -47,7 +48,9 @@ export const UserProvider = ({ children }: any) => {
 
     let contextData = {
         me: me,
-        myProfiles: myProfiles
+        myProfiles: myProfiles,
+        fetchMyProfiles: fetchMyProfiles,
+        fetchMe: fetchMe
     }
 
 

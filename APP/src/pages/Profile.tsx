@@ -19,7 +19,6 @@ import SvgIcon from '../components/SvgIcon'
 import Activity from '../components/Profile/Activity'
 import EditMusician from '../components/Profile/EditMusician'
 import Characteristics from '../components/Profile/Characteristics'
-
 import { Link } from 'react-router-dom'
 export default function Profile() {
 
@@ -75,6 +74,7 @@ export default function Profile() {
 
 
 
+
             <Modal open={modal} close={() => setModal(false)} closeButton={true}>
                 <img src={`http://127.0.0.1:8000/${data?.photo}` || img} alt='profile_photo' />
             </Modal>
@@ -97,14 +97,14 @@ export default function Profile() {
                                 <li
                                     className='items-inline'
                                     style={{
-                                        backgroundColor: data?.category.name === profile.category.name ? profile.category.color : 'unset',
-                                        color: data?.category.name === profile.category.name ? '#fff' : '#646464',
+                                        backgroundColor: profile.profileId === data?.profileId ? profile?.category?.color : 'unset',
+                                        color: profile.profileId === data?.profileId ? '#fff' : '#646464',
                                         justifyContent: 'space-between'
                                     }}
                                 >
                                     {profile.name}
                                     <SvgIcon id={profile.category.name.toLocaleLowerCase()}
-                                        color={data?.category.name === profile.category.name ? '#fff' : '#646464'}
+                                        color={ profile.profileId === data?.profileId ? '#fff' : '#646464'}
                                     />
                                 </li>
                             </Link>
