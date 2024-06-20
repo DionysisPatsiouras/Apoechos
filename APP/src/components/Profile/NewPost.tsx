@@ -1,12 +1,12 @@
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 
 // utils
 import Call from '../../utils/Call'
 import { Routes } from '../../utils/Routes'
 
-import Select from 'react-select'
+// import Select from 'react-select'
 
 import CSS from '../../css/Profile/NewPost.module.css'
 
@@ -18,10 +18,6 @@ export default function NewPost(props: any) {
 
     const [wordCount, setWordCount] = useState<number>(0)
     const [labels, setLabels] = useState<any[]>([])
-
-    const [post, setPost] = useState<string>('')
-    const [title, setTitle] = useState<any>()
-
     let limit = 150
 
 
@@ -32,25 +28,28 @@ export default function NewPost(props: any) {
         get_labels
             .GET()
             .then((res) => {
-                setLabels(
-                    res
-                        .filter((i: any) => i.category === props?.category)
-                        .map((i: any) => ({ value: i.id, label: i.title, }))
+                setLabels(res
+                    .filter((i: any) => i.categoryId?.id === props?.category?.id)
+                    .map((i: any) => ({ value: i.id, label: i.title, category: i.categoryId?.id }))
                 )
             })
-    }, [])
+    }, [props])
+
+    // console.log(props)
+    // console.log(labels)
 
 
 
 
 
-    const onSubmit = () => {
+    const onSubmit = (data: any) => {
+
+
         const finalData = {
-            title: title,
-            body: post,
-            [props?.category]: props?.profile_id
+            title: data.title,
+            body: data.body,
+            profile: props?.profile_id
         }
-
 
         const new_post = new Call(Routes.posts.new, 'POST', finalData)
 
@@ -58,15 +57,13 @@ export default function NewPost(props: any) {
             .POST()
             .then(() => {
                 props?.close()
-                resetField('post');
+                resetField('body');
+                resetField('title');
                 setWordCount(0);
-                setPost('')
                 console.log('Post uploaded successfully')
             })
             .catch((err) => console.warn(err))
 
-
-        // console.log(finalData)
     }
 
 
@@ -80,19 +77,23 @@ export default function NewPost(props: any) {
 
             <div className={CSS.labels}>
                 <h3>Νέα δημοσίευση - Επιλέξτε θέμα:</h3>
-                <Select options={labels} onChange={(e) => setTitle(e.value)} />
+                {/* <Select options={labels} defaultValue={labels?.[0]?.value} onChange={(e) => setTitle(e.value)} /> */}
+
+                <select {...register('title')}>
+                    {labels?.map((i: any) => (
+                        <option key={i.value}
+                            value={i.value}>{i.label}
+                        </option>
+                    ))}
+                </select>
             </div>
 
 
             <div style={{ margin: '0 0 20px 0', width: '100%' }}>
 
 
-                <textarea placeholder='Γράψτε κάτι...' {...register('post')}
-                    onChange={(e) => {
-                        setPost(e.target.value);
-                        setWordCount(e.target.value.length)
-                    }}>
-
+                <textarea placeholder='Γράψτε κάτι...' {...register('body')}
+                    onChange={(e) => { setWordCount(e.target.value.length) }}>
                 </textarea>
 
                 <div className={CSS.bottom_section}>

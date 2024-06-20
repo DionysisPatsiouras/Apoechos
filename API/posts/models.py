@@ -2,6 +2,7 @@ from django.db import models
 import datetime
 import random
 from django.utils import timezone
+from profiles.models import Category
 
 from profiles.models import Profile
 
@@ -21,7 +22,11 @@ def generate_pk():
 
 class Post_Title(models.Model):
     title = models.CharField(max_length=150, blank=False)
-    category = models.CharField(max_length=40, blank=False)
+
+    categoryId = models.ForeignKey(
+        Category, related_name="categoryId", on_delete=models.CASCADE
+    )
+
 
     def __str__(self):
         return self.title

@@ -13,34 +13,20 @@ class Migration(migrations.Migration):
 
         titles = [
             "Ψάχνω νέα μέλη",
-            "Νέα κυκλοφορία",
             "Ψάχνω μπάντα",
+            "Νέα κυκλοφορία",
             "Νέα ενημέρωση",
             "Νέες αφίξεις",
             "Προσφορές",
-            "Ζητείται προσωπικό"
+            "Ζητείται προσωπικό",
         ]
 
-        category = [
-            "musician",
-            "musician",
-            "musician",
-            "studio",
-            "store",
-            "store",
-            "stage"
-        ]
+        category = [1, 1, 2, 3, 4, 4, 5]
         for index in range(len(titles)):
 
-            new_title = Post_Title(
-                
-                title=titles[index],
-                category=category[index]
-            )
+            new_title = Post_Title(title=titles[index], categoryId_id=category[index])
 
             new_title.save()
-
-      
 
     operations = [
         migrations.RunPython(insertData),
