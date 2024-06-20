@@ -59,29 +59,29 @@ export default function Create() {
                         active={active} setActive={() => setActive('Band')}
                         label={'Band'} description={'Promote your band'}
                     />
-                    {me?.studioId === null &&
+                    
                         <Profile
                             id={'studio'} color={color.studio}
                             active={active} setActive={() => setActive('Studio')}
                             label={'Studio'} description={'Promote your business'}
                         />
-                    }
+                    
 
-                    {me?.stageId === null &&
+           
                         <Profile
                             id={'stage'} color={color.stage}
                             active={active} setActive={() => setActive('Stage')}
                             label={'Stage'} description={'Organize events'}
                         />
-                    }
+                    
 
-                    {me?.storeId === null &&
+              
                         <Profile
                             id={'store'} color={color.store}
                             active={active} setActive={() => setActive('Store')}
                             label={'Store'} description={'Increase your sales'}
                         />
-                    }
+                    
                 </div>
 
                 <div className={CSS.buttonSection}>Text here...

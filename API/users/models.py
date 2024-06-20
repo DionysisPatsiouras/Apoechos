@@ -6,7 +6,7 @@ from datetime import datetime
 import datetime 
 import random
 from .managers import CustomUserManager
-# from musician.models import Musician
+
 
 
 def generate_pk():
@@ -26,10 +26,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
 
+    birthdate = models.DateTimeField(blank=False, null=False)
+
     musicianId = models.CharField(max_length=255, null=True)
-    studioId = models.CharField(max_length=255, null=True)
-    storeId = models.CharField(max_length=255, null=True)
-    stageId = models.CharField(max_length=255, null=True)
+
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
