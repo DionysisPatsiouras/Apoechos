@@ -20,13 +20,12 @@ export default function EditProfile(props: any) {
     const { register, handleSubmit, formState } = form
     const { errors } = formState
 
-    const [tab, setTab] = useState<number>(1)
-   
+    const [tab, setTab] = useState<number>(0)
+
 
     const updateProfile = (data: any) => {
- 
 
-        const update_profile = new Call (Routes.profiles.update(profile?.profileId), 'PATCH', data)
+        const update_profile = new Call(Routes.profiles.update(profile?.profileId), 'PATCH', data)
 
         update_profile
             .PATCH()
@@ -35,38 +34,47 @@ export default function EditProfile(props: any) {
     }
 
 
+    let edit_menu = [
+        { icon: 'account', label: 'Στοιχεία', category: 'All'},
+        { icon: 'genres', label: 'Είδη', category: 'Musician' },
+        { icon: 'keys', label: 'Όργανα', category: 'Store' },
+
+
+    ]
 
     // console.log(props.profile)
-   
+
 
 
     return (
         <section style={{ margin: '-30px' }}>
 
             <ul className={CSS.tabs}>
-                <li className={tab === 1 ? CSS.active_tab : CSS.tab} onClick={() => setTab(1)}>
-                    <SvgIcon id='account' color={tab === 1 ? '#fff' : '#000'} width={20} height={20} />
-                    Στοιχεία
-                </li>
-                <li className={tab === 2 ? CSS.active_tab : CSS.tab} onClick={() => setTab(2)}>
-                    <SvgIcon id='genres' color={tab === 2 ? '#fff' : '#000'} width={20} height={20} />
-                    Είδη
-                </li>
-                <li className={tab === 3 ? CSS.active_tab : CSS.tab} onClick={() => setTab(3)}>
-                    <SvgIcon id='keys' color={tab === 3 ? '#fff' : '#000'} width={20} height={20} />
-                    Όργανα
-                </li>
+
+                {edit_menu
+                    .filter((i:any) => i.category === profile?.category?.name || i.category === 'All')
+                    .map((item: any, index: number) => (
+                        <li key={index}
+                        style={{width :  '100%' }}
+                            className={tab === index ? CSS.active_tab : CSS.tab}
+                            onClick={() => setTab(index)}>
+
+                            <SvgIcon id={item.icon} color={tab === index ? '#fff' : '#000'} width={20} height={20} />
+                            {item.label}
+                        </li>
+                    ))}
+
             </ul>
 
             <form onSubmit={handleSubmit(updateProfile)} className={CSS.edit_form}>
 
-                {tab === 1 &&
+                {tab === 0 &&
 
                     <div className={CSS.info_stats}>
 
                         <div className='items-inline' style={{ gap: '25px', alignItems: 'flex-start' }}>
 
-                            <img src={`http://127.0.0.1:8000/${props?.data?.photo}`} width={200} alt='profile'
+                            <img src={`http://127.0.0.1:8000/${profile?.photo}`} width={200} alt='profile'
                                 style={{ height: '218px', objectFit: 'cover', margin: '0 0 20px 0' }} />
 
                             <div className={CSS.updateImage}>
@@ -84,7 +92,7 @@ export default function EditProfile(props: any) {
                                 required: 'Υποχρεωτικό πεδίο'
                             })}
                         />
-                        <FormError value={errors?.artistic_nickname} />
+                        <FormError value={errors?.name} />
 
                         {/* <select className={CSS.city_dropdown} {...register('city')}>
                             {cities.map((city: any, index: number) => (
@@ -93,7 +101,7 @@ export default function EditProfile(props: any) {
                         </select> */}
                         <textarea
                             placeholder='Λίγα λόγια για εσάς..'
-                            defaultValue={props?.data?.bio}
+                            defaultValue={profile?.bio}
                             {...register('bio')}
                         />
                     </div>
@@ -101,7 +109,7 @@ export default function EditProfile(props: any) {
                 }
 
 
-             
+
                 <div className={CSS.bottom_section}>
 
 

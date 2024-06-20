@@ -5,7 +5,7 @@ import { Routes } from '../utils/Routes'
 import { Colors } from '../App'
 import SearchValidation from '../utils/SearchValidation'
 import { genres } from '../utils/MusicianUtils'
-import { cities, studio_services } from '../utils/Lists'
+// import { studio_services } from '../utils/Lists'
 
 
 const DiscoverContext = createContext({})
@@ -18,6 +18,14 @@ export const DiscoverProvider = ({ children }: any) => {
     const color = useContext<any>(Colors)
 
 
+    const [selected, setSelected] = useState<any>([])
+    const [all, setAll] = useState<any>([])
+    const [allMusicians, setAllMusicians] = useState<any>([])
+    const [allStudios, setAllStudios] = useState<any>([])
+    const [allStores, setAllStores] = useState<any>([])
+    const [allStages, setAllStages] = useState<any>([])
+    const [allBands, setAllBands] = useState<any>([])
+
     const [search, setSearch] = useState<string>('')
     const [citySearch, setCitySearch] = useState<string>('')
     const [genreSearch, setGenreSearch] = useState<string>('')
@@ -29,22 +37,28 @@ export const DiscoverProvider = ({ children }: any) => {
     const [activeTab, setActiveTab] = useState('Everything')
 
 
-    const [selected, setSelected] = useState<any>([])
-    const [all, setAll] = useState<any>([])
-    const [allMusicians, setAllMusicians] = useState<any>([])
-    const [allStudios, setAllStudios] = useState<any>([])
-    const [allStores, setAllStores] = useState<any>([])
-    const [allStages, setAllStages] = useState<any>([])
-    const [allBands, setAllBands] = useState<any>([])
+   
 
-
+    const [cities, setCities] = useState<any[]>([])
+    const [studio_services, setStudioServices] = useState<any[]>([])
 
 
     const call_profiles = new Call(Routes.profiles.all, 'GET')
+    const call_cities = new Call(Routes.profiles.cities, 'GET')
+    const call_studio_services = new Call(Routes.profiles.studio_services, 'GET')
 
 
 
     useEffect(() => {
+
+        call_studio_services
+            .GET()
+            .then((res) => setStudioServices(res?.[1].map((i: any) => i.name)))
+            .catch((err: any) => console.warn(err))
+        call_cities
+            .GET()
+            .then((res) => setCities(res?.[1].map((i: any) => i.name)))
+            .catch((err: any) => console.warn(err))
 
         call_profiles
             .GET()
@@ -52,17 +66,19 @@ export const DiscoverProvider = ({ children }: any) => {
                 // console.log(res?.[1])
                 setSelected(res?.[1])
                 setAll(res?.[1])
-                setAllMusicians(res?.[1].filter((profile:any) => profile?.category?.name === "Musician"))
-                setAllStudios(res?.[1].filter((profile:any) => profile?.category?.name === "Studio"))
-                setAllStores(res?.[1].filter((profile:any) => profile?.category?.name === "Store"))
-                setAllStages(res?.[1].filter((profile:any) => profile?.category?.name === "Stage"))
-                setAllBands(res?.[1].filter((profile:any) => profile?.category?.name === "Band"))
-           
+                setAllMusicians(res?.[1].filter((profile: any) => profile?.category?.name === "Musician"))
+                setAllStudios(res?.[1].filter((profile: any) => profile?.category?.name === "Studio"))
+                setAllStores(res?.[1].filter((profile: any) => profile?.category?.name === "Store"))
+                setAllStages(res?.[1].filter((profile: any) => profile?.category?.name === "Stage"))
+                setAllBands(res?.[1].filter((profile: any) => profile?.category?.name === "Band"))
+
             })
             .catch((err: any) => console.warn(err))
+
+
     }, [])
 
-    // console.warn(selected)
+
 
     const filters = [
         {
@@ -135,7 +151,7 @@ export const DiscoverProvider = ({ children }: any) => {
     let contextData = {
         activeTab: activeTab,
         tabs: tabs,
-        color: color,
+        // color: color,
         filteredData: filteredData,
         setSearch: setSearch,
         onHover: onHover,
