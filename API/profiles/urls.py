@@ -13,5 +13,6 @@ urlpatterns = [
     path("get/instruments/", views.get_instruments),  # /profiles/get/instruments/
     path("get/studio_services/", views.get_studio_services),  # /profiles/get/studio_services/
     path("get/my_profiles/", views.get_my_profiles),  # /profiles/get/my_profiles/
+    path("get/categories/", views.get_categories),  # /profiles/get/categories/
     
 ]

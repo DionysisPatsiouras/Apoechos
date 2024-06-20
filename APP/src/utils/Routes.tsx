@@ -22,9 +22,7 @@ export const Routes = {
         id: (profile_id: string) => `${url}/profile/${profile_id}/`,
         update: (profile_id: string) => `${url}/profile/update/${profile_id}/`,
         my_profiles: `${url}/profile/get/my_profiles/`,
-        // everything: `${url}/profiles/everything/`,
-        // musicians: `${url}/profiles/musicians/`,
-        // studios: `${url}/profiles/studios/`,
+        categories: `${url}/profile/get/categories/`,
     },
 
 

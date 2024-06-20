@@ -126,3 +126,13 @@ def get_instruments(request):
 
     return Response([{"length": len(serializer.data)}, serializer.data])
 
+
+# /profile/get/get_categories/
+@api_view(["GET"])
+def get_categories(request):
+
+    categories = Category.objects.all()
+    serializer = CategorySerializer(categories, many=True)
+
+    return Response(serializer.data)
+

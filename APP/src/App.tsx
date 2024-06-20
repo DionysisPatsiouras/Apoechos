@@ -11,25 +11,27 @@ import News from './pages/News'
 import Register from '../src/pages/Register'
 import Account from './pages/Account'
 import Create from './pages/Create'
-// import CreateMusician from './pages/CreateMusician'
-// import CreateStudio from './pages/CreateStudio'
+
 
 // context
-import { AuthProvider } from "./context/AuthContext"
+import { AuthProvider } from './context/AuthContext'
+import { UserProvider } from './context/UserContext'
 import { DiscoverProvider } from './context/DiscoverContext'
 import { CreateNewProfileProvider } from './context/CreateNewProfileContext'
+
+
+// pages
 import Discover from './pages/Discover'
 import Profile from './pages/Profile'
-
-import { UserProvider } from './context/UserContext'
-
+import Homepage from './pages/Homepage'
 import Messages from './pages/Messages'
+import CreateNewProfile from './pages/CreateNewProfile'
 
 
 // utils
 import PrivateRoutes from './utils/PrivateRoutes'
-// import CreateStore from './pages/CreateStore'
-import CreateNewProfile from './pages/CreateNewProfile'
+
+
 
 
 export const WindowSize = createContext(null)
@@ -64,7 +66,6 @@ export default function App() {
             <UserProvider>
 
 
-
               <Colors.Provider value={colors}>
 
                 <Header />
@@ -73,10 +74,9 @@ export default function App() {
 
                   <Route path='/login' element={<Login />} />
                   <Route path='/register' element={<Register />} />
-                  <Route path='/' element={<News />} />
+                  <Route path='/' element={<Homepage />} />
+                  <Route path='/news' element={<News />} />
                   <Route path='/mystudio' element={<Messages />} />
-
-
                   <Route path='/discover' element={<DiscoverProvider><Discover /></DiscoverProvider>} />
                   <Route path='/profile/:id/' element={<Profile />} />
 
