@@ -20,6 +20,8 @@ class Migration(migrations.Migration):
         ]
 
         colors = ["#10ACDD", "#E37056", "#FF8514", "#12C59A", "#E558C6"]
+
+      
         for index in range(len(names)):
 
             new_category = Category(name=names[index], color=colors[index])

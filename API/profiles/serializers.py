@@ -10,7 +10,13 @@ class InstrumentSerializer(serializers.ModelSerializer):
 
 class Studio_Services_Serializers(serializers.ModelSerializer):
     class Meta:
-        model = Studio_Services
+        model = Studio_Service
+        fields = "__all__"
+
+
+class Store_Services_Serializers(serializers.ModelSerializer):
+    class Meta:
+        model = Store_Service
         fields = "__all__"
 
 

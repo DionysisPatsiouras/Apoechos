@@ -18,7 +18,8 @@ admin.site.register(Category)
 
 admin.site.register(City)
 admin.site.register(Genre)
-admin.site.register(Studio_Services)
+admin.site.register(Studio_Service)
+admin.site.register(Store_Service)
 
 
 admin.site.register(Message)

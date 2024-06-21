@@ -54,16 +54,9 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt.token_blacklist",
     "corsheaders",
     "profiles",
-    # "musician",
-    # "studios",
-    # "store",
-    # "stage",
-    # "band",
     "posts",
     "event",
-    # "message",
     "chat",
-    # "attribute"
 ]
 
 
