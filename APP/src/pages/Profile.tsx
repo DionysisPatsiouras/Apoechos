@@ -67,9 +67,8 @@ export default function Profile() {
 
             <Modal
                 open={editMode}
-                close={() => { setEditMode(false); setUpdateDOM(!updateDOM) }}
                 withContainer={true}
-                title={'Επεξεργασία'}>
+                title={'Επεξεργασία προφίλ'}>
                 <EditProfile profile={currentProfile} close={() => {
                     setUpdateDOM(!updateDOM);
                     setEditMode(false)

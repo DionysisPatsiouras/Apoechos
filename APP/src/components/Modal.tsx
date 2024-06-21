@@ -16,7 +16,9 @@ const Modal = forwardRef(function Modal(props: any, ref: any) {
                 <div className={CSS.content}>
                     <header>
                         <h3>{props?.title}</h3>
-                        <SvgIcon id='close' width={20} height={20} onClick={props?.close} />
+
+                        {props.btn && <SvgIcon id='close' width={20} height={20} onClick={props?.close} />}
+
                     </header>
                     <section className={CSS.body}>
                         {props?.children}
