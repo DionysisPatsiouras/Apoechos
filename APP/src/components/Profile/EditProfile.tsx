@@ -48,11 +48,24 @@ export default function EditProfile(props: any) {
 
 
     const updateProfile = (data: any) => {
-        const update_profile = new Call(Routes.profiles.update(profile?.profileId), 'PATCH', data)
-        update_profile
-            .PATCH()
-            .then(() => { props?.close() })
-            .catch((err) => console.warn(err))
+
+    
+
+        const finalData = [
+            {
+                // ...data,
+                // ["studio_services"]: array
+                city: data?.city,
+                studio_services: my_services
+            }
+        ]
+        console.log(finalData)
+
+        // const update_profile = new Call(Routes.profiles.update(profile?.profileId), 'PATCH', data)
+        // update_profile
+        //     .PATCH()
+        //     .then(() => { props?.close() })
+        //     .catch((err) => console.warn(err))
     }
 
 
