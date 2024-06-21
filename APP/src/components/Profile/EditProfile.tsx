@@ -1,91 +1,29 @@
-import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useContext } from 'react'
 
 // CSS
 import CSS from '../../css/Profile/EditMusician.module.sass'
 
 // local components
-import FormError from '../../utils/FormError'
+// import FormError from '../../utils/FormError'
 import SvgIcon from '../SvgIcon'
 
 // utils
-import Call from '../../utils/Call'
-import { Routes } from '../../utils/Routes'
-
+import EditProfileContext from '../../context/EditProfileContext'
 
 export default function EditProfile(props: any) {
 
-    let profile = props?.profile
-    const form = useForm()
-    const { register, handleSubmit, formState } = form
-    const { errors } = formState
-
-    const [tab, setTab] = useState<number>(1)
-    const [cities, setCitites] = useState<any[]>([])
-    const [studioServices, setStudioServices] = useState<any[]>([])
-
-    const get_cities = new Call(Routes.profiles.cities, 'GET')
-    const get_studio_services = new Call(Routes.profiles.studio_services, 'GET')
-
-    const [my_services, setMyServices] = useState<any[]>([])
-
-
-    useEffect(() => {
-
-        setMyServices(props?.profile && props?.profile?.studio_services?.map((i: any) => i?.id?.toString()))
-
-        get_studio_services
-            .GET()
-            .then((res) => setStudioServices(res[1]))
-            .catch((err) => console.warn(err))
-
-        get_cities
-            .GET()
-            .then((res => setCitites(res[1])))
-            .catch((err) => console.warn(err))
-
-    }, [props])
-
-
-    const updateProfile = (data: any) => {
-
-    
-
-        const finalData = [
-            {
-                // ...data,
-                // ["studio_services"]: array
-                city: data?.city,
-                studio_services: my_services
-            }
-        ]
-        console.log(finalData)
-
-        // const update_profile = new Call(Routes.profiles.update(profile?.profileId), 'PATCH', data)
-        // update_profile
-        //     .PATCH()
-        //     .then(() => { props?.close() })
-        //     .catch((err) => console.warn(err))
-    }
-
-
-    let edit_menu = [
-        { icon: 'account', label: 'Στοιχεία', category: 'All', id: 1 },
-        { icon: 'genres', label: 'Είδη', category: 'Musician', id: 2 },
-        { icon: 'studio_services', label: 'Υπηρεσίες', category: 'Studio', id: 3 },
-        { icon: 'keys', label: 'Όργανα', category: 'Store', id: 4 },
-    ]
-
-
-
-    const handle_checkbox = (event: any, state: any) => {
-        const { value, checked } = event.target;
-        state((prevCategories: any) =>
-            checked
-                ? [...prevCategories, value]
-                : prevCategories?.filter((all_values: any) => all_values !== value)
-        )
-    }
+    let {
+        edit_menu,
+        handle_checkbox,
+        setTab,
+        profile,
+        handleSubmit,
+        tab,
+        studioServices,
+        setMyServices,
+        my_services,
+        updateProfile
+    }: any = useContext(EditProfileContext)
 
 
 
@@ -110,7 +48,7 @@ export default function EditProfile(props: any) {
 
             </ul>
 
-            <form onSubmit={handleSubmit(updateProfile)} className={CSS.edit_form}>
+            <form onSubmit={handleSubmit(updateProfile)} noValidate className={CSS.edit_form}>
 
                 {tab === 1 &&
                     <div className={CSS.info_stats}>
@@ -126,16 +64,23 @@ export default function EditProfile(props: any) {
 
                         </div>
 
-                        <input
-                            placeholder='Όνομα'
-                            defaultValue={profile?.name}
-                            {...register('name', {
-                                required: 'Υποχρεωτικό πεδίο'
-                            })}
-                        />
-                        <FormError value={errors?.name} />
+                        {props?.profile?.name &&
+                            <>
 
-                        <select className={CSS.city_dropdown} {...register('city')}>
+
+                                <input
+                                    type='text'
+                                    placeholder='Όνομα'
+                                // defaultValue={profile?.name}
+                                // {...register('name', {
+                                //     required: 'Υποχρεωτικό πεδίο'
+                                // })}
+                                />
+                                {/* <FormError value={errors?.name} /> */}
+                            </>
+
+                        }
+                        {/* <select className={CSS.city_dropdown} {...register('city')}>
                             {cities.map((city: any) => (
                                 <option key={city.id} value={city.id}>{city.name}</option>
                             ))}
@@ -144,7 +89,7 @@ export default function EditProfile(props: any) {
                             placeholder='Λίγα λόγια για εσάς..'
                             defaultValue={profile?.bio}
                             {...register('bio')}
-                        />
+                        /> */}
                     </div>
 
                 }
@@ -174,10 +119,7 @@ export default function EditProfile(props: any) {
 
 
                     <button type='submit'>Αποθηκεύση</button>
-                    <button type='reset' style={{ 'backgroundColor': '#9A9A9A' }}
-                        onClick={() => { setTab(1); props?.close() }}>
-                        Ακύρωση
-                    </button>
+                    <button type='reset' style={{ 'backgroundColor': '#9A9A9A' }} onClick={() => { setTab(1); props?.close() }}>  Ακύρωση </button>
                 </div>
             </form>
 

@@ -91,4 +91,14 @@ export default class Call {
             })
     }
 
+    public PATCH_MEDIA = async () => {
+        return await axios(this.post_photo)
+            .then(function (response) {
+                return response.data
+            })
+            .catch(function (error) {
+                throw error
+            })
+    }
+
 }

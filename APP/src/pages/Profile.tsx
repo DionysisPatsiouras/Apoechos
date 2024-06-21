@@ -8,6 +8,7 @@ import CSS from '../css/Profile/Profile.module.sass'
 
 // context
 import AuthContext from '../context/AuthContext'
+import { EditProfileProvider } from '../context/EditProfileContext'
 
 // utils
 import { Routes } from '../utils/Routes'
@@ -21,6 +22,7 @@ import Activity from '../components/Profile/Activity'
 import Characteristics from '../components/Profile/Characteristics'
 
 import EditProfile from '../components/Profile/EditProfile'
+
 export default function Profile() {
 
     let { user }: any = useContext(AuthContext)
@@ -38,9 +40,9 @@ export default function Profile() {
     const get_profile = new Call(Routes.profiles.id(profile_id), 'GET')
     const get_my_profiles = new Call(Routes.profiles.my_profiles, 'GET')
 
-   
+
     useEffect(() => {
- 
+
         get_my_profiles
             .GET()
             .then((res) => setMyProfiles(res[1]))
@@ -69,10 +71,12 @@ export default function Profile() {
                 open={editMode}
                 withContainer={true}
                 title={'Επεξεργασία προφίλ'}>
-                <EditProfile profile={currentProfile} close={() => {
-                    setUpdateDOM(!updateDOM);
-                    setEditMode(false)
-                }} />
+                <EditProfileProvider>
+                    <EditProfile profile={currentProfile} close={() => {
+                        setUpdateDOM(!updateDOM);
+                        setEditMode(false)
+                    }} />
+                </EditProfileProvider>
             </Modal>
 
 
