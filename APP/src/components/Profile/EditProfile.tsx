@@ -74,7 +74,7 @@ export default function EditProfile(props: any) {
 
             <form onSubmit={handleSubmit(updateProfile)} noValidate className={CSS.edit_form}>
 
-123
+
                 {tab === 1 &&
                     <div className={CSS.info_stats}>
                         <div className='items-inline' style={{ gap: '25px', alignItems: 'flex-start' }}>
