@@ -7,7 +7,7 @@ import AuthContext from '../context/AuthContext'
 import CSS from '../css/Login/Login.module.css'
 
 import { email_regex } from '../utils/Regex'
-
+import FormError from '../utils/FormError'
 
 export default function Login() {
 
@@ -48,11 +48,7 @@ export default function Login() {
                         })}
                     />
 
-                    {/* @ts-ignore */}
-                    {errors?.email &&
-                        // @ts-ignore
-                        <p className={'error_msg'}>{errors?.email?.message}</p>
-                    }
+                    <FormError value={errors?.email} />
 
 
                     <label htmlFor="password" >Κωδικός πρόσβασης *</label>
@@ -65,20 +61,19 @@ export default function Login() {
                     />
 
 
-                    {/* @ts-ignore */}
-                    {errors?.password &&
-                        // @ts-ignore
-                        <p className={'error_msg'}>{errors?.password?.message}</p>
-                    }
+           
 
-                    <button type='submit'>Σύνδεση</button>
+                    <FormError value={errors?.password} />
+
+
+                    <button className={CSS.form_btn} type='submit'>Σύνδεση</button>
                 </form>
 
 
                 <section>
-                    Don’t have an account?
+                    Δεν έχεις λογαριασμό;
                     <br></br>
-                    Register <Link to='/register' style={{ 'color': '#5F69C6' }}>here</Link>
+                    Κάνε εγγραφή <Link to='/register' style={{ 'color': '#5F69C6' }}>εδώ</Link>
                 </section>
 
             </div>

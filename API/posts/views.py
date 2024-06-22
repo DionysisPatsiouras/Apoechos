@@ -7,6 +7,8 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from django.db.models import Q
 
+from profiles.models import *
+
 
 
 # /posts/titles/all/
@@ -45,13 +47,13 @@ def new_post(request):
 def post_by_profile_id(request, id):
 
     try:
-        post = Post.objects.filter(Q(musician=id) | Q(studio=id) | Q(store=id) | Q(stage=id) | Q(band=id)).filter(is_deleted=False)
+        post = Post.objects.filter(profile=id).filter(is_deleted=False)
     except Post.DoesNotExist:
-        return Response(["error", "not exist"])
+        return Response(["Message", "Profile not exist!"])
 
     serializer = PostSerializer(post, many=True)
 
-    return Response(serializer.data)
+    return Response([{"length": len(serializer.data)}, serializer.data])
 
 
 # /posts/update/:postId

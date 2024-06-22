@@ -1,0 +1,1684 @@
+{
+	"info": {
+		"_postman_id": "809d5402-1f2a-4bc3-b834-3ed999b9c985",
+		"name": "Apoechos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17383025"
+	},
+	"item": [
+		{
+			"name": "Profiles",
+			"item": [
+				{
+					"name": "Musician",
+					"item": [
+						{
+							"name": "/musician/",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Host}}{{Port}}/musician/",
+									"host": [
+										"{{Host}}{{Port}}"
+									],
+									"path": [
+										"musician",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/musician/:id/",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Host}}{{Port}}/musician/MUSICIAN4720280368944/",
+									"host": [
+										"{{Host}}{{Port}}"
+									],
+									"path": [
+										"musician",
+										"MUSICIAN4720280368944",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/musician/new/",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "artistic_nickname",
+											"value": "patsiouras",
+											"type": "text"
+										},
+										{
+											"key": "city",
+											"value": "larisa",
+											"type": "text"
+										},
+										{
+											"key": "user",
+											"value": "USER2430437400486",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{Host}}{{Port}}/musician/new/",
+									"host": [
+										"{{Host}}{{Port}}"
+									],
+									"path": [
+										"musician",
+										"new",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/musician/instrument/add/",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "Flute",
+											"type": "text"
+										},
+										{
+											"key": "musician",
+											"value": "MUSICIAN13970254",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{Host}}{{Port}}/musician/instrument/add/",
+									"host": [
+										"{{Host}}{{Port}}"
+									],
+									"path": [
+										"musician",
+										"instrument",
+										"add",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/musician/instrument/delete/",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "Flute",
+											"type": "text"
+										},
+										{
+											"key": "musician",
+											"value": "MUSICIAN13970254",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{Host}}{{Port}}/musician/instrument/delete/6/",
+									"host": [
+										"{{Host}}{{Port}}"
+									],
+									"path": [
+										"musician",
+										"instrument",
+										"delete",
+										"6",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/musician/patch/:id/",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "artistic_nickname",
+											"value": "sjaiashidjaidjisajdasjda",
+											"type": "text"
+										},
+										{
+											"key": "city",
+											"value": "larisa",
+											"type": "text"
+										},
+										{
+											"key": "bio",
+											"value": "dsadasda",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "websiteLink",
+											"value": "https://www.google.gr/",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "photo",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "user_id",
+											"value": "USER367527125350",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{Host}}{{Port}}/musician/patch/MUSICIAN4720280368944/",
+									"host": [
+										"{{Host}}{{Port}}"
+									],
+									"path": [
+										"musician",
+										"patch",
+										"MUSICIAN4720280368944",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Studio",
+					"item": [
+						{
+							"name": "/studio/",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Host}}{{Port}}/studio/",
+									"host": [
+										"{{Host}}{{Port}}"
+									],
+									"path": [
+										"studio",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/studio/:id/",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Host}}{{Port}}/studio/STUDIO3731220129574/",
+									"host": [
+										"{{Host}}{{Port}}"
+									],
+									"path": [
+										"studio",
+										"STUDIO3731220129574",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/studio/new/",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "title",
+											"value": "tetete",
+											"type": "text"
+										},
+										{
+											"key": "city",
+											"value": "larisa",
+											"type": "text"
+										},
+										{
+											"key": "address",
+											"value": "Test address",
+											"type": "text"
+										},
+										{
+											"key": "user",
+											"value": "USER494072960760",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{Host}}{{Port}}/studio/new/",
+									"host": [
+										"{{Host}}{{Port}}"
+									],
+									"path": [
+										"studio",
+										"new",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/studio/services/add/",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "Flute",
+											"type": "text"
+										},
+										{
+											"key": "musician",
+											"value": "MUSICIAN13970254",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{Host}}{{Port}}/studio/service/add/",
+									"host": [
+										"{{Host}}{{Port}}"
+									],
+									"path": [
+										"studio",
+										"service",
+										"add",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/studio/patch/:id/",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "title",
+											"value": "mystudio",
+											"type": "text"
+										},
+										{
+											"key": "city",
+											"value": "LARISA",
+											"type": "text"
+										},
+										{
+											"key": "address",
+											"value": "panagouli 3",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{Host}}{{Port}}/studio/patch/STUDIO3731220129574/",
+									"host": [
+										"{{Host}}{{Port}}"
+									],
+									"path": [
+										"studio",
+										"patch",
+										"STUDIO3731220129574",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Store",
+					"item": [
+						{
+							"name": "/store/",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Host}}{{Port}}/store/",
+									"host": [
+										"{{Host}}{{Port}}"
+									],
+									"path": [
+										"store",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/store/:id/",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Host}}{{Port}}/store/STUDIO3731220129574/",
+									"host": [
+										"{{Host}}{{Port}}"
+									],
+									"path": [
+										"store",
+										"STUDIO3731220129574",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/store/:id/ Copy",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{Host}}{{Port}}/store/services/all/123/",
+									"host": [
+										"{{Host}}{{Port}}"
+									],
+									"path": [
+										"store",
+										"services",
+										"all",
+										"123",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/store/new/",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "title",
+											"value": "tetete",
+											"type": "text"
+										},
+										{
+											"key": "city",
+											"value": "larisa",
+											"type": "text"
+										},
+										{
+											"key": "address",
+											"value": "Test address",
+											"type": "text"
+										},
+										{
+											"key": "user",
+											"value": "USER196328690302",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{Host}}{{Port}}/store/new/",
+									"host": [
+										"{{Host}}{{Port}}"
+									],
+									"path": [
+										"store",
+										"new",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Band",
+					"item": [
+						{
+							"name": "/band/",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Host}}{{Port}}/band/",
+									"host": [
+										"{{Host}}{{Port}}"
+									],
+									"path": [
+										"band",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/band/:id/",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Host}}{{Port}}/band/BAND40231011114894/",
+									"host": [
+										"{{Host}}{{Port}}"
+									],
+									"path": [
+										"band",
+										"BAND40231011114894",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/store/new/",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "title",
+											"value": "tetete",
+											"type": "text"
+										},
+										{
+											"key": "city",
+											"value": "larisa",
+											"type": "text"
+										},
+										{
+											"key": "address",
+											"value": "Test address",
+											"type": "text"
+										},
+										{
+											"key": "user",
+											"value": "USER196328690302",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{Host}}{{Port}}/store/new/",
+									"host": [
+										"{{Host}}{{Port}}"
+									],
+									"path": [
+										"store",
+										"new",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Stage",
+					"item": [
+						{
+							"name": "/stage/",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Host}}{{Port}}/stage/",
+									"host": [
+										"{{Host}}{{Port}}"
+									],
+									"path": [
+										"stage",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/stage/:id/",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Host}}{{Port}}/stage/STAGE9954576384948/",
+									"host": [
+										"{{Host}}{{Port}}"
+									],
+									"path": [
+										"stage",
+										"STAGE9954576384948",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "/musician/genre/add/",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Flute",
+									"type": "text"
+								},
+								{
+									"key": "musician",
+									"value": "MUSICIAN13970254",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{Host}}{{Port}}/musician/genre/add/",
+							"host": [
+								"{{Host}}{{Port}}"
+							],
+							"path": [
+								"musician",
+								"genre",
+								"add",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "everything",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}{{Port}}/profiles/everything",
+							"host": [
+								"{{Host}}{{Port}}"
+							],
+							"path": [
+								"profiles",
+								"everything"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "profile/all/",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}{{Port}}/profile/all/",
+							"host": [
+								"{{Host}}{{Port}}"
+							],
+							"path": [
+								"profile",
+								"all",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "profile/new/",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "new profile",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "my address",
+									"type": "text"
+								},
+								{
+									"key": "user",
+									"value": "USER394823688658",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "19",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "4",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{Host}}{{Port}}/profile/new/",
+							"host": [
+								"{{Host}}{{Port}}"
+							],
+							"path": [
+								"profile",
+								"new",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "profile/:id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "new profile",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "my address",
+									"type": "text"
+								},
+								{
+									"key": "user",
+									"value": "USER394823688658",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "19",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "4",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{Host}}{{Port}}/profile/PROFILE512430744854/",
+							"host": [
+								"{{Host}}{{Port}}"
+							],
+							"path": [
+								"profile",
+								"PROFILE512430744854",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "profile/update/:id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "dionysis",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "my address",
+									"type": "text"
+								},
+								{
+									"key": "user",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "city",
+									"value": "7",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{Host}}{{Port}}/profile/update/PROFILE5244235980874/",
+							"host": [
+								"{{Host}}{{Port}}"
+							],
+							"path": [
+								"profile",
+								"update",
+								"PROFILE5244235980874",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "user/",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}{{Port}}/user/",
+							"host": [
+								"{{Host}}{{Port}}"
+							],
+							"path": [
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user/me/",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}{{Port}}/user/me/",
+							"host": [
+								"{{Host}}{{Port}}"
+							],
+							"path": [
+								"user",
+								"me",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user/patch/",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"musicianId\" : \"132513\",\r\n    \"has_premium\" : 123,\r\n    \"is_active\" : true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}{{Port}}/user/patch/",
+							"host": [
+								"{{Host}}{{Port}}"
+							],
+							"path": [
+								"user",
+								"patch",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user/register/",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "dennis2@mail.com1123",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "is_active",
+									"value": "True",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{Host}}{{Port}}/user/register/",
+							"host": [
+								"{{Host}}{{Port}}"
+							],
+							"path": [
+								"user",
+								"register",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "api/token/",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"admin@mail.com\",\r\n    \"password\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}{{Port}}/api/token/",
+							"host": [
+								"{{Host}}{{Port}}"
+							],
+							"path": [
+								"api",
+								"token",
+								""
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Genre",
+			"item": [
+				{
+					"name": "genre/",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIzMTg3MDU0LCJpYXQiOjE3MTMxODcwNTQsImp0aSI6IjA0OTliMGQ5NjMxMzQzN2JiMzdkYzJhNmNlZWNjNTAxIiwidXNlcl9pZCI6IlVTRVIzNjc1MjcxMjUzNTAiLCJlbWFpbCI6ImFkbWluQG1haWwuY29tIn0.Ad0HwacsnwOST9QKhe3PBQU3N_kRU3FkQif1EwTK9ZY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}{{Port}}/genre/",
+							"host": [
+								"{{Host}}{{Port}}"
+							],
+							"path": [
+								"genre",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "posts/all_posts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}{{Port}}/posts/all_posts/",
+							"host": [
+								"{{Host}}{{Port}}"
+							],
+							"path": [
+								"posts",
+								"all_posts",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "posts/titles/all",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}{{Port}}/posts/titles/all/",
+							"host": [
+								"{{Host}}{{Port}}"
+							],
+							"path": [
+								"posts",
+								"titles",
+								"all",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "posts/:profile_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}{{Port}}/posts/PROFILE5244235980874/",
+							"host": [
+								"{{Host}}{{Port}}"
+							],
+							"path": [
+								"posts",
+								"PROFILE5244235980874",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "posts/post/:postId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "body",
+									"value": "dsadas",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{Host}}{{Port}}/posts/update/POST3420123500760/",
+							"host": [
+								"{{Host}}{{Port}}"
+							],
+							"path": [
+								"posts",
+								"update",
+								"POST3420123500760",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "posts/add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "musician",
+									"value": "MUSICIAN9380267330938",
+									"type": "text"
+								},
+								{
+									"key": "body",
+									"value": "ti skata",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "4",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{Host}}{{Port}}/posts/add/",
+							"host": [
+								"{{Host}}{{Port}}"
+							],
+							"path": [
+								"posts",
+								"add",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Chat",
+			"item": [
+				{
+					"name": "chat/:id/:id/",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}{{Port}}/chat/PROFILE2702145136386/PROFILE4942333232706",
+							"host": [
+								"{{Host}}{{Port}}"
+							],
+							"path": [
+								"chat",
+								"PROFILE2702145136386",
+								"PROFILE4942333232706"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "message/:profile_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}{{Port}}/message/profile/MUSICIAN753630050/",
+							"host": [
+								"{{Host}}{{Port}}"
+							],
+							"path": [
+								"message",
+								"profile",
+								"MUSICIAN753630050",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "/event/",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}{{Port}}/event/",
+							"host": [
+								"{{Host}}{{Port}}"
+							],
+							"path": [
+								"event",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/event/new/",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "profile_id",
+									"value": "MUSICIAN9380267330938",
+									"type": "text"
+								},
+								{
+									"key": "body",
+									"value": "3rd post",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "\"Ψάχνω μπάντα\"",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{Host}}{{Port}}/event/new/",
+							"host": [
+								"{{Host}}{{Port}}"
+							],
+							"path": [
+								"event",
+								"new",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost:8000"
+		}
+	]
+}

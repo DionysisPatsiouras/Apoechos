@@ -1,40 +1,50 @@
 import CSS from '../css/Create/Create.module.sass'
-import { useState } from 'react'
-import Profile from '../components/Create/Profile'
-import { useContext } from 'react'
+import { useEffect, useState, useContext } from 'react'
+
+// import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 
-import AuthContext from '../context/AuthContext'
-import { Colors } from '../App'
+// import AuthContext from '../context/AuthContext'
+import UserContext from '../context/UserContext'
 
+import Call from '../utils/Call'
+import { Routes } from '../utils/Routes'
+import SvgIcon from '../components/SvgIcon'
 
 export default function Create() {
 
-
-    let { userData }: any = useContext(AuthContext)
-
+    let { myProfiles }: any = useContext(UserContext)
 
     const [active, setActive] = useState<string>('')
-    const color = useContext<any>(Colors)
-
-    const css: {} = {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        textAlign: 'center'
-    }
+    const [categories, setCategories] = useState<any[]>([])
 
 
+    const get_categories = new Call(Routes.profiles.categories, 'GET')
+    const [hasMusician, setHasMusician] = useState<any[]>([])
+    let my_profiles = myProfiles[1]
 
-    // console.log(userData)
+
+    useEffect(() => {
+
+        get_categories
+            .GET()
+            .then((res) => setCategories(res))
+            .catch((err) => console.warn(err))
+
+        setHasMusician(my_profiles && my_profiles.map((i: any) => i.category.name === "Musician" ? true : false))
+
+    }, [myProfiles])
+
+
+
 
     return (
         <div className='space'>
-            <div className='container' style={css}>
+            <div className={`${CSS.mainContainer} container`}>
 
                 <div className={CSS.head}>
-                    <h5 className={CSS.title}>Create personal or business profile</h5>
-                    <p className={CSS.desc}>There is no limit to how many profile types you can create!</p>
+                    <h5 className={CSS.title}>Δημιουργία προφίλ</h5>
+                    <p className={CSS.desc}>Δεν υπάρχει όριο στο πόσα προφιλ μπορείς να φτιάξεις!</p>
 
                 </div>
 
@@ -42,49 +52,37 @@ export default function Create() {
 
                 <div style={{ 'padding': '35px' }}>
 
+                    {categories !== undefined && myProfiles &&
+                        categories
+                            .filter((category: any) => hasMusician?.includes(true) ? category.name !== "Musician" : category.name !== "")
+                            .map((category: any) => (
+                                <div key={category.id} className={CSS.selectionContainer}>
+
+                                    <div className={CSS.selection}
+                                        onClick={() => setActive(category.name)}
+                                        style={{ backgroundColor: active === category.name ? category.color : '#EFEEEE' }}
+                                    >
+                                        <SvgIcon
+                                            id={category.name.toLowerCase()}
+                                            style={{ position: 'absolute', marginLeft: '-200px' }}
+                                            color={active === category.name ? '#ffffff' : '#000000'} />
+                                        <p style={{ color: active === category.name ? '#ffffff' : '#6B6767' }}>{category.name}</p>
+                                    </div>
+                                    <p className={CSS.desktopDescription}
+                                        style={{ color: active === category.name ? '#565656' : '#9A9A9A' }}>
+                                        {category?.description}</p>
+
+                                </div>
 
 
-                    {userData?.musicianId === null &&
-                        <Profile
-                            id={'musician'} color={color.musician}
-                            active={active} setActive={() => setActive('Musician')}
-                            label={'Musician'} description={'Discover new musicians'}
-                        />
-                    }
+                            ))}
 
 
-                    <Profile
-                        id={'band'} color={color.band}
-                        active={active} setActive={() => setActive('Band')}
-                        label={'Band'} description={'Promote your band'}
-                    />
-                    {userData?.studioId === null &&
-                        <Profile
-                            id={'studio'} color={color.studio}
-                            active={active} setActive={() => setActive('Studio')}
-                            label={'Studio'} description={'Promote your business'}
-                        />
-                    }
 
-                    {userData?.stageId === null &&
-                        <Profile
-                            id={'stage'} color={color.stage}
-                            active={active} setActive={() => setActive('Stage')}
-                            label={'Stage'} description={'Organize events'}
-                        />
-                    }
-
-                    {userData?.storeId === null &&
-                        <Profile
-                            id={'store'} color={color.store}
-                            active={active} setActive={() => setActive('Store')}
-                            label={'Store'} description={'Increase your sales'}
-                        />
-                    }
                 </div>
 
                 <div className={CSS.buttonSection}>Text here...
-                    <Link to={`/create/${active.toLocaleLowerCase()}`}><button>Επόμενο</button></Link>
+                    <Link to={`/create/new_profile?category=${active}`}><button>Επόμενο</button></Link>
                 </div>
 
 

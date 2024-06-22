@@ -6,7 +6,7 @@
 .tabs li {
   cursor: pointer;
   padding: 15px;
-  width: 33%;
+  width: 100%;
   text-align: center;
   display: flex;
   align-items: center;

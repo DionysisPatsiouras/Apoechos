@@ -1,32 +1,44 @@
+
+import { forwardRef } from 'react'
 import CSS from '../css/Profile/NewPost.module.css'
 import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import Call from '../utils/Call'
 import { Routes } from '../utils/Routes'
-import Select from 'react-select'
 
 
 
-export default function UpdatePost(props: any) {
 
-    const [wordCount, setWordCount] = useState<number>(props?.data?.body?.length)
+const UpdatePost = forwardRef(function UpdatePost(props: any, ref: any) {
 
-
-    let data = props?.data
+    let data = props?.post
     let limit = 150
-    const [post, setPost] = useState<string>(props?.body)
 
-    const form = useForm()
-    const { register, handleSubmit } = form
+    const [wordCount, setWordCount] = useState<number>()
+
+    const [post, setPost] = useState<any>()
+
+
+    const form = useForm<any>({
+        defaultValues: {
+            body: props?.post?.body
+        }
+    })
+    const {  handleSubmit, } = form
     // const { errors } = formState
 
 
+    useEffect(() => {
+        setWordCount(props?.post?.body?.length)
+        setPost(props?.post?.body)
+    }, [props])
+
     const onSubmit = () => {
 
+        // console.log(post)
         const finalData = {
             body: post,
         }
-
 
         const update_post = new Call(Routes.posts.update(data?.post_id), 'PATCH', finalData)
 
@@ -35,13 +47,13 @@ export default function UpdatePost(props: any) {
             .then(() => {
                 console.log('Post updated successfully')
                 props?.close()
-                // props?.updateDOM()
             })
             .catch((err) => console.warn(err))
 
-
+        // console.log(finalData)
     }
 
+    // console.log('post', post)
 
     return (
 
@@ -50,25 +62,36 @@ export default function UpdatePost(props: any) {
 
             <h3>Θέμα: {data?.title?.title}</h3>
 
+
+            {data?.body}
             <div style={{ margin: '20px 0', width: '100%' }}>
+
+
                 <textarea
-                    defaultValue={data?.body}
-                    placeholder='Γράψτε κάτι...'
-                    {...register('post')}
+                    // defaultValue={data?.body}
+                    // {...register('body')}
                     onChange={(e) => {
                         setPost(e.target.value);
                         setWordCount(e.target.value.length)
-                    }}>
+                    }}
+                >
+
                 </textarea>
+
+
 
                 <div className={CSS.bottom_section}>
                     <p>{wordCount}/{limit}</p>
                     <button>Δημοσίευση</button>
                 </div>
-
             </div>
+
+
 
         </form>
 
     )
-}
+})
+
+export default UpdatePost
+

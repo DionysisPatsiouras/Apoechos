@@ -24,16 +24,11 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('base.api.urls')),
-    path('profiles/', include('profiles.urls')),
+    path('profile/', include('profiles.urls')),
     path('user/', include('users.urls')),
     path('posts/', include('posts.urls')),
-    path('musician/', include('musician.urls')),
-    path('studio/', include('studios.urls')),
-    path('store/', include('store.urls')),
-    path('stage/', include('stage.urls')),
     path('event/', include('event.urls')),
-    path('band/', include('band.urls')),
-    path('message/', include('message.urls'))
+    path('chat/', include('chat.urls')),
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

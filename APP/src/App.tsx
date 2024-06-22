@@ -11,22 +11,27 @@ import News from './pages/News'
 import Register from '../src/pages/Register'
 import Account from './pages/Account'
 import Create from './pages/Create'
-import CreateMusician from './pages/CreateMusician'
-import CreateStudio from './pages/CreateStudio'
+
 
 // context
-import { AuthProvider } from "./context/AuthContext"
+import { AuthProvider } from './context/AuthContext'
+import { UserProvider } from './context/UserContext'
 import { DiscoverProvider } from './context/DiscoverContext'
+import { CreateNewProfileProvider } from './context/CreateNewProfileContext'
+
+
+// pages
 import Discover from './pages/Discover'
 import Profile from './pages/Profile'
-
-
+import Homepage from './pages/Homepage'
 import Messages from './pages/Messages'
+import CreateNewProfile from './pages/CreateNewProfile'
 
 
 // utils
 import PrivateRoutes from './utils/PrivateRoutes'
-import CreateStore from './pages/CreateStore'
+
+
 
 
 export const WindowSize = createContext(null)
@@ -58,37 +63,36 @@ export default function App() {
       <WindowSize.Provider value={responsive}>
         <BrowserRouter>
           <AuthProvider>
-
-            <Colors.Provider value={colors}>
-
-              <Header />
-
-              <Routes>
-
-                <Route path='/login' element={<Login />} />
-                <Route path='/register' element={<Register />} />
-                <Route path='/' element={<News />} />
-                <Route path='/mystudio' element={<Messages />} />
+            <UserProvider>
 
 
-                <Route path='/discover' element={<DiscoverProvider><Discover /></DiscoverProvider>} />
+              <Colors.Provider value={colors}>
+
+                <Header />
+
+                <Routes>
+
+                  <Route path='/login' element={<Login />} />
+                  <Route path='/register' element={<Register />} />
+                  <Route path='/' element={<Homepage />} />
+                  <Route path='/news' element={<News />} />
+                  <Route path='/mystudio' element={<Messages />} />
+                  <Route path='/discover' element={<DiscoverProvider><Discover /></DiscoverProvider>} />
+                  <Route path='/profile/:id/' element={<Profile />} />
 
 
-                {/* <Route path='/profile/:category/:id/' element={<Profile />} /> */}
-                <Route path='/profile/:id/' element={<Profile />} />
 
-                <Route element={<PrivateRoutes />} >
-                  <Route path='/account' element={<Account />} />
-                  <Route path='/create' element={<Create />} />
-                  <Route path='/create/musician' element={<CreateMusician />} />
-                  <Route path='/create/studio' element={<CreateStudio />} />
-                  <Route path='/create/store' element={<CreateStore />} />
-                </Route>
+                  <Route element={<PrivateRoutes />} >
+                    <Route path='/account' element={<Account />} />
+                    <Route path='/create' element={<Create />} />
+                    <Route path='/create/new_profile' element={<CreateNewProfileProvider><CreateNewProfile /></CreateNewProfileProvider>} />
+                    {/* <Route path='/create/musician' element={<CreateMusician />} /> */}
+                  </Route>
 
 
-              </Routes>
-            </Colors.Provider>
-
+                </Routes>
+              </Colors.Provider>
+            </UserProvider>
           </AuthProvider>
         </BrowserRouter>
       </WindowSize.Provider>

@@ -16,11 +16,11 @@ export default function Header() {
 
 
     let { user }: any = useContext(AuthContext)
-    let { data }: any = useContext(UserContext)
+    let { me }: any = useContext(UserContext)
     const windowIsResponsive = useContext(WindowSize)
 
     
-    // console.warn(data)
+    // console.warn(user)
 
     return (
         <header className={CSS.container}>
@@ -29,7 +29,7 @@ export default function Header() {
             {windowIsResponsive ?
                 <MobileMenu /> :
                 <div className={CSS.desktopMenu}>
-                    {user ? <UserMenu user={user} data={data}/> : <VisitorMenu />}
+                    {user ? <UserMenu user={user} data={me}/> : <VisitorMenu />}
                 </div>
             }
 

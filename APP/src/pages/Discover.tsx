@@ -15,11 +15,12 @@ import DiscoverContext from '../context/DiscoverContext'
 export default function Discover() {
 
     let {
-        activeTab, tabs, color, filteredData,
+        activeTab, tabs, filteredData,
         setSearch, handle_checkbox,
         onHover, setOnHover, filters
     }: any = useContext(DiscoverContext)
 
+    // console.warn(filteredData)
 
 
     return (
@@ -90,19 +91,11 @@ export default function Discover() {
 
                 <section className={CSS.all_cards}>
 
+
+
                     {filteredData?.map((item: any, index: number) => (
-                        <Card
-                            data={item}
-                            key={index}
-                            id={item?.musicianId || item?.studioId || item?.storeId || item?.stageId || item?.bandId}
-                            category={item?.category}
-                            city={item?.city}
-                            photo={item?.photo}
-                            name={item?.artistic_nickname || item?.title || item?.name}
-                            color={color?.[item?.category]}
-                        />
-                    ))
-                    }
+                        <Card key={index} data={item} />
+                    ))}
 
                 </section>
             </section>

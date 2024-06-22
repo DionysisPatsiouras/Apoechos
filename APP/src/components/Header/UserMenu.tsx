@@ -3,59 +3,57 @@ import AuthContext from '../../context/AuthContext'
 import SvgIcon from '../SvgIcon'
 import CSS from '../../css/Header/Header.module.css'
 import { useContext, useState, useEffect } from 'react'
-
-
+import UserContext from '../../context/UserContext'
+import Call from '../../utils/Call'
+import { Routes } from '../../utils/Routes'
 
 
 export default function UserMenu(props: any) {
 
-    let { logoutUser, userData, fetchMe }: any = useContext(AuthContext)
+    let { logoutUser }: any = useContext(AuthContext)
+    let { me }: any = useContext(UserContext)
 
 
     const [accountModal, setAccountModal] = useState<boolean>(false)
 
 
+    const [myProfiles, setMyProfiles] = useState<any[]>([])
 
+    const fetch_my_profiles = new Call(Routes.profiles.my_profiles, 'GET')
 
     useEffect(() => {
-        fetchMe()
-
+        fetch_my_profiles
+            .GET()
+            .then((res) => {
+                setMyProfiles(res)
+            })
+            .catch((err) => console.warn(err))
     }, [])
 
-    // console.warn(userData)
+    // console.log(myProfiles)
 
 
     return (
         <>
-
-
+           
 
             <ul>
-                <Link to="/">What's New</Link>
-                <Link to="/discover">Discover</Link>
-                <Link to="/mystudio">My Studio</Link>
-                {/* <Link to="/upcoming-events">Upcoming Events</Link> */}
-                <Link to="learn-more">Learn More</Link>
+                <Link to={ myProfiles?.[1]?.[0]?.profileId !== undefined ? `/profile/${myProfiles?.[1]?.[0]?.profileId}` : '/create/' }>Προφίλ</Link>
+                <Link to="/discover">Ανακάλυψε</Link>
+                <Link to="/news">Εκδηλώσεις - Ροή</Link>
             </ul>
-
-            {/* 
-            {props?.data?.musicianId === undefined || props?.data?.musicianId === null && 'ok' } */}
-
 
 
 
             <ul className={CSS.loggedUserMenu}>
 
-
-                {userData?.musicianId &&
+                {me?.musicianId &&
                     <>
                         <SvgIcon id='notifications' width={20} />
                         <SvgIcon id='messages' width={25} />
                     </>
                 }
-                {!userData?.musicianId &&
-                    <Link to='/create'>Δημιουργία Προφίλ</Link>
-                }
+
                 <SvgIcon id='account' width={25} onClick={() => setAccountModal(!accountModal)} />
 
 
@@ -68,7 +66,7 @@ export default function UserMenu(props: any) {
                 onClick={() => setAccountModal(false)}
                 style={{ 'display': accountModal ? 'block' : 'none' }}>
                 <Link to='/account'><SvgIcon id='account' width={25} />Λογαριασμός</Link>
-                <Link to='/create'><SvgIcon id='add' width={25} />Νέο Προφίλ</Link>
+           
                 <Link to='/login' onClick={logoutUser}><SvgIcon id='logout' width={25} />Αποσύνδεση</Link>
             </div>
 

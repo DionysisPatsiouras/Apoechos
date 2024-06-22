@@ -109,6 +109,18 @@
   width: 500px;
 }
 
+.my_profiles_list {
+  position: absolute;
+  left: 0;
+  background-color: #F8F8F8;
+  width: 20%;
+  height: 100vh;
+  margin: -30px 0 0 0;
+}
+.my_profiles_list li {
+  padding: 10px;
+}
+
 @media screen and (min-width: 768px) {
   .container {
     flex-direction: row;

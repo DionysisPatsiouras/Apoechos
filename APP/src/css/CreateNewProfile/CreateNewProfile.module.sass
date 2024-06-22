@@ -1,0 +1,105 @@
+.personal_info
+    display: flex
+    align-items: center
+    margin: 30px 0
+    width: 100%
+    justify-content: space-evenly
+    flex-direction: column
+
+.group
+    display: flex
+    flex-direction: column
+
+
+.checkbox input
+    min-width: auto
+    cursor: pointer
+
+.checkbox label
+    margin: 0 20px 0 5px
+    cursor: pointer
+
+.genre_list
+    display: flex
+    flex-wrap: wrap
+    flex-direction: column
+    
+    height: 65vh
+    align-content: center
+    max-width: 300px
+
+.checkboxes_section
+    display: flex
+    height: 150px
+    overflow-y: scroll
+    width: 78%
+    flex-direction: column
+    flex-wrap: wrap
+
+.buttonSection
+    display: flex
+    align-items: center
+    border-top: 1px solid #DBDBDB
+    width: 100%
+    justify-content: space-evenly
+    padding: 20px 0
+    background-color: #F6F6F6
+    font-size: 16px
+
+.buttonSection button
+    margin: 0
+    background-color: #5F69C6
+    width: 180px
+    font-size: 16px
+
+.city_dropdown
+    width: 263px
+    height: 49px
+    background-color: #efeeee
+    border: none
+    border-radius: 4px
+    color: #6B6767
+    padding: 0 0 0 11px
+    margin: 9px 0
+
+.city_dropdown *
+    font-size: 16px
+
+
+.categories_list
+    display: flex
+    align-items: center
+
+    li
+        // background-color: #5F69C6
+        padding: 15px 5px
+        width: 75px
+        height: 25px
+        margin: 0 4px
+        display: flex
+        align-items: center
+        justify-content: center
+        cursor: pointer
+        border-radius: 4px
+
+
+.image_preview
+    width: 150px
+    height: 150px
+    border: 1px solid grey
+    object-fit: cover
+    border-radius: 5px
+
+
+.space_around
+    display: flex
+    justify-content: space-around
+
+    
+@media screen and ( min-width: 768px )
+
+    .genre_list
+        display: flex
+        height: 225px
+    .personal_info
+        flex-direction: row

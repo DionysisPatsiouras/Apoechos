@@ -2,10 +2,11 @@
 import { forwardRef, useEffect, useState } from 'react'
 import Call from '../../utils/Call'
 import { Routes } from '../../utils/Routes'
-import Post from '../Post'
-import CSS from '../../css/News/News.module.css'
 
-import { Link } from 'react-router-dom'
+import CSS from '../../css/News/News.module.css'
+import AllPosts from '../AllPosts'
+
+// import { Link } from 'react-router-dom'
 
 const DisplayPosts = forwardRef(function DisplayPosts(props: any, ref: any) {
 
@@ -24,6 +25,9 @@ const DisplayPosts = forwardRef(function DisplayPosts(props: any, ref: any) {
         get_labels
             .GET()
             .then((res) => { setLabels(res.map((i: any) => ({ value: i.id, label: i.title }))) })
+
+
+        all_posts.GET().then((res) => setData(res))
     }, [])
 
 
@@ -35,12 +39,6 @@ const DisplayPosts = forwardRef(function DisplayPosts(props: any, ref: any) {
                 : prevCategories.filter((all_values: any) => all_values !== value)
         )
     }
-
-
-    useEffect(() => {
-        all_posts.GET().then((res) => setData(res))
-    }, [])
-
 
 
     return (
@@ -76,14 +74,10 @@ const DisplayPosts = forwardRef(function DisplayPosts(props: any, ref: any) {
 
                 <div style={{ margin: '10px', display: 'flex', flexDirection: 'column', gap: '15px' }}>
 
-                    {data
-                        .filter((profile: any) => array.length === 0 ? !array.includes(labels) : array.includes(profile.title.title))
-                        .sort((a: any, b: any) => new Date(b.created_at) > new Date(a.created_at) ? 1 : -1)
-                        .map((post: any, index: number) => (
-
-                            <Post data={post} key={index} />
-
-                        ))}
+                    <AllPosts
+                        all_posts={data
+                            .filter((profile: any) => array.length === 0 ? !array.includes(labels) : array.includes(profile.title.title))
+                            .sort((a: any, b: any) => new Date(b.created_at) > new Date(a.created_at) ? 1 : -1)} />
                 </div>
             </div>
 

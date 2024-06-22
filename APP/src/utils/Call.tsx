@@ -33,7 +33,7 @@ export default class Call {
             cache: 'force-cache',
             headers: {
                 Authorization: `Bearer ${this.token}`,
-                Accept: '*/*',
+                "Accept": "application/json",
                 'Content-Type': 'multipart/form-data',
             }
         }
@@ -83,6 +83,16 @@ export default class Call {
 
     public PATCH = async () => {
         return await axios(this.config)
+            .then(function (response) {
+                return response.data
+            })
+            .catch(function (error) {
+                throw error
+            })
+    }
+
+    public PATCH_MEDIA = async () => {
+        return await axios(this.post_photo)
             .then(function (response) {
                 return response.data
             })

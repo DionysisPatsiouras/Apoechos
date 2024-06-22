@@ -4,19 +4,16 @@ import SvgIcon from '../SvgIcon'
 export default function Characteristics(props: any) {
 
     let data = props?.data
-
     let icon_color = '#414141'
-    // console.warn(data)
 
-    let array: any =
-        data?.category === 'musician' ? 'instruments' :
-            data?.category === 'studio' ? 'services' :
-                null
+    let lists = [
+        { id: 'studio_services', icon: 'studio' },
+        { id: 'genres', icon: 'keys' },
+        { id: 'instruments', icon: 'musician' },
 
-    let icon: any =
-        data?.category === 'musician' ? 'keys' :
-            data?.category === 'studio' ? 'studio' :
-                null
+    ]
+    // console.log(data)
+
 
     return (
         <div className={CSS.info}>
@@ -32,48 +29,34 @@ export default function Characteristics(props: any) {
 
             }
 
-            <strong> {data?.artistic_nickname || data?.title}</strong>
+            <strong> {data?.name} </strong>
 
             <ul className={CSS.characteristics}>
                 <li>
                     <div> <SvgIcon id='location' color={icon_color} /> </div>
-                    <div> {data?.city} <br></br> {data?.address}</div>
+                    <div> {data?.city?.name} <br></br> {data?.address}</div>
                 </li>
 
 
-                {array !== null &&
+                {props?.data?.length !== 0 && lists.map((list: any) => (
+                    <li key={list.id}>
+                        {data?.[list?.id]?.length !== 0 &&
+                            <SvgIcon id={list?.icon} style={{ minWidth: '24px', minHeight: '24px' }} color={icon_color} />
+                        }
 
-                    <li>
-                        <SvgIcon id={icon} style={{ minWidth: '24px', minHeight: '24px' }} color={icon_color} />
                         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-
-                            {data?.[array]?.map((i: any, index: number) => (
+                            {data?.[list.id]?.map((i: any, index: number) => (
                                 <div key={index} style={{ margin: '0 3px 0 0' }}>
                                     {i?.name}
-                                    {index !== data?.[array]?.length - 1 && ','}
+                                    {index !== data?.[list?.id]?.length - 1 && ','}
                                 </div>
                             ))}
                         </div>
 
                     </li>
-                }
+                ))}
 
 
-                {data?.category === 'musician' &&
-                    <li>
-                        <SvgIcon id='genres' style={{ minWidth: '24px', minHeight: '24px' }} color={icon_color} />
-                        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-
-                            {data?.genres?.map((i: any, index: number) => (
-                                <div key={index} style={{ margin: '0 3px 0 0' }}>
-                                    {i?.name}
-                                    {index !== data?.['genres']?.length - 1 && ','}
-                                </div>
-                            ))}
-                        </div>
-
-                    </li>
-                }
 
             </ul>
 

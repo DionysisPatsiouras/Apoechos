@@ -19,10 +19,10 @@ export default function MobileMenu(props: any) {
                 onClick={() => setNavMenu(false)}>
                 <nav>
                     <ul>
-                        <Link to="/">What's New</Link>
-                        <Link to="/discover">Discover</Link>
-                        <Link to="/upcoming-events">Upcoming Events</Link>
-                        <Link to="learn-more">Learn More</Link>
+                        <Link to="/">Εκδηλώσεις - Ροή</Link>
+                        <Link to="/discover">Ανακάλυψε</Link>
+                        {/* <Link to="/upcoming-events">Upcoming Events</Link> */}
+                        {/* <Link to="learn-more">Learn More</Link> */}
                     </ul>
                 </nav>
             </div>
@@ -35,10 +35,11 @@ export default function MobileMenu(props: any) {
                 <nav>
                     {user ?
                         <ul>
-                            <Link to='/account'><SvgIcon id='account' color={'#3E3E3E'}/> Λογαριασμός</Link>
-                            <Link to='/account'><SvgIcon id='notifications' color={'#3E3E3E'}/> Ειδοποιήσεις</Link>
-                            <Link to='/account'><SvgIcon id='messages' color={'#3E3E3E'}/> Μηνύματα</Link>
-                            <Link to='/account' onClick={logoutUser}><SvgIcon id='logout' color={'#3E3E3E'}/> Αποσύνδεση</Link>
+                            <Link to='/account'><SvgIcon id='account' color={'#3E3E3E'} /> Λογαριασμός</Link>
+                            <Link to='/account'><SvgIcon id='notifications' color={'#3E3E3E'} /> Ειδοποιήσεις</Link>
+                            <Link to='/account'><SvgIcon id='messages' color={'#3E3E3E'} /> Μηνύματα</Link>
+                            <Link to="/profile">Προφίλ</Link>
+                            <Link to='/account' onClick={logoutUser}><SvgIcon id='logout' color={'#3E3E3E'} /> Αποσύνδεση</Link>
                         </ul>
                         :
                         <ul>

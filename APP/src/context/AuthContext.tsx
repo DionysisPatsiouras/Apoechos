@@ -2,8 +2,8 @@ import { createContext, useState, useEffect } from "react"
 import { jwtDecode } from 'jwt-decode'
 import { useNavigate } from "react-router-dom"
 import axios from 'axios'
-
-
+import Call from "../utils/Call"
+import { Routes } from "../utils/Routes"
 
 const AuthContext = createContext({})
 
@@ -16,39 +16,11 @@ export const AuthProvider = ({ children }: any) => {
 
     let [authTokens, setAuthTokens] = useState<any>(() => localStorage.getItem('auth-token') ? JSON.parse(localStorage.getItem('auth-token')!) : null)
     let [user, setUser] = useState<any>(() => localStorage.getItem('auth-token') ? jwtDecode(localStorage.getItem('auth-token')!) : null)
+
     
-    let [userData, setUserData] = useState<any>()
-
-   
-
- 
-    async function fetchMe() {
-
-        let token = localStorage.getItem('auth-token')?.slice(0, -1)?.slice(1);
-
-        const config = {
-            headers: { Authorization: `Bearer ${token}` }
-        };
-
-
-        await axios
-            .get('http://localhost:8000/user/me', config)
-            .then((res) => {
-                delete res.data.password
-                delete res.data.is_staff
-                delete res.data.date_joined
-                delete res.data.last_login
-                delete res.data.is_active
-                delete res.data.is_superuser
-                setUserData(res.data)
-            })
-    }
-
-
     async function loginUser(e: any) {
 
         // e.preventDefault()
-
 
         let data = {
             email: e.email,
@@ -69,7 +41,7 @@ export const AuthProvider = ({ children }: any) => {
                 } else {
                     localStorage.setItem('auth-token', JSON.stringify(res?.data.access))
                     setUser(jwtDecode(res?.data?.access))
-                   
+
                     navigate('/discover')
                 }
             })
@@ -145,10 +117,6 @@ export const AuthProvider = ({ children }: any) => {
         authTokens: authTokens,
         loginUser: loginUser,
         logoutUser: logoutUser,
-        fetchMe: fetchMe,
-        userData: userData
-        // error: error,
-
     }
 
 

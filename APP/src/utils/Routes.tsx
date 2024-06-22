@@ -9,18 +9,23 @@ export const Routes = {
 
     user: {
         patch: `${url}/user/patch/`,
-    },
-    profiles: {
-        everything: `${url}/profiles/everything/`,
-        musicians: `${url}/profiles/musicians/`,
-        studios: `${url}/profiles/studios/`,
+        me: `${url}/user/me/`,
     },
 
-    musician: {
-        id: (musician_id: string) => `${url}/musician/${musician_id}`,
-        post: `${url}/musician/new/`,
-        patch: (musician_id: string) => `${url}/musician/patch/${musician_id}/`,
+    profiles: {
+        all: `${url}/profile/all/`,
+        cities: `${url}/profile/get/cities/`,
+        genres: `${url}/profile/get/genres/`,
+        instruments: `${url}/profile/get/instruments/`,
+        studio_services: `${url}/profile/get/studio_services/`,
+        new: `${url}/profile/new/`,
+        id: (profile_id: string) => `${url}/profile/${profile_id}/`,
+        update: (profile_id: string) => `${url}/profile/update/${profile_id}/`,
+        my_profiles: `${url}/profile/get/my_profiles/`,
+        categories: `${url}/profile/get/categories/`,
     },
+
+
 
     studio: {
         id: (studio_id: string) => `${url}/studio/${studio_id}`,
@@ -36,7 +41,7 @@ export const Routes = {
         post: `${url}/stage/new/`,
     },
     band: {
-        id:(band_id:string) => `${url}/band/${band_id}`,
+        id: (band_id: string) => `${url}/band/${band_id}`,
     },
 
     posts: {
@@ -44,8 +49,8 @@ export const Routes = {
         new: `${url}/posts/new/`,
         profile_id: (profile_id: string) => `${url}/posts/${profile_id}`,
         post_id: (post_id: string) => `${url}/posts/post/${post_id}/`,
-        update: (post_id:string) => `${url}/posts/update/${post_id}/`,
-        titles:  `${url}/posts/titles/all`,
+        update: (post_id: string) => `${url}/posts/update/${post_id}/`,
+        titles: `${url}/posts/titles/all`,
     },
 
     events: {
@@ -65,7 +70,7 @@ export const Routes = {
 
 
     messages: {
-        profile_id: (profile_id:string) => `${url}/message/profile/${profile_id}`,
+        profile_id: (profile_id: string) => `${url}/message/profile/${profile_id}`,
     }
 
 
