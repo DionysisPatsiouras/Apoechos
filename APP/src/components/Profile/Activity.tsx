@@ -70,7 +70,8 @@ export default function Activity(props: any) {
                 open={createNew}
                 close={() => setCreateNew(false)}
                 withContainer={true}
-                title={modalTitle}>
+                title={modalTitle}
+                btn >
                 {modalTitle === 'Νέα Δημοσίευση' &&
                     <NewPost category={profile?.category} close={() => setCreateNew(false)} profile_id={props?.id} />}
 

@@ -22,10 +22,35 @@ export default function EditProfile(props: any) {
         studioServices,
         setMyServices,
         my_services,
-        updateProfile
+        updateProfile,
+        genres,
+        setMyGenres,
+        register,
+        my_genres,
+        instruments,
+        setMyInstruments,
+        my_instruments
     }: any = useContext(EditProfileContext)
 
 
+    const update_array = (initial_Array: any, setState: any, myArray: any) => {
+
+        return (
+            <ul>
+                {initial_Array
+                    .map((i: any) => (
+                        <li className='items-inline' key={i.id}>
+                            <input type='checkbox' value={i.id} id={i.id} style={{ width: 'unset' }}
+                                onChange={(event: any) => handle_checkbox(event, setState)}
+                                checked={myArray?.includes(i?.id?.toString())}
+                            />
+                            <label htmlFor={i.id}>{i.name}</label>
+                        </li>
+                    ))}
+            </ul>
+        )
+
+    }
 
 
     return (
@@ -40,7 +65,6 @@ export default function EditProfile(props: any) {
                             style={{ width: '100%' }}
                             className={tab === item.id ? CSS.active_tab : CSS.tab}
                             onClick={() => setTab(item.id)}>
-
                             <SvgIcon id={item.icon} color={tab === item.id ? '#fff' : '#000'} width={20} height={20} />
                             {item.label}
                         </li>
@@ -66,15 +90,13 @@ export default function EditProfile(props: any) {
 
                         {props?.profile?.name &&
                             <>
-
-
                                 <input
                                     type='text'
                                     placeholder='Όνομα'
-                                // defaultValue={profile?.name}
-                                // {...register('name', {
-                                //     required: 'Υποχρεωτικό πεδίο'
-                                // })}
+                                    // defaultValue={profile?.name}
+                                    {...register('name', {
+                                        required: 'Υποχρεωτικό πεδίο'
+                                    })}
                                 />
                                 {/* <FormError value={errors?.name} /> */}
                             </>
@@ -94,24 +116,9 @@ export default function EditProfile(props: any) {
 
                 }
 
-                {tab === 2 &&
-                    <div>genres</div>}
-
-                {tab === 3 &&
-                    <ul>
-                        {studioServices
-                            .map((i: any) => (
-                                <li className='items-inline' key={i.id}>
-                                    <input type='checkbox' value={i.id} id={i.id} style={{ width: 'unset' }}
-                                        onChange={(event: any) => handle_checkbox(event, setMyServices)}
-                                        checked={my_services?.includes(i?.id?.toString())}
-                                    />
-                                    <label htmlFor={i.id}>{i.name}</label>
-                                </li>
-                            ))}
-                    </ul>
-
-                }
+                {tab === 2 && update_array(genres, setMyGenres, my_genres)}
+                {tab === 3 && update_array(studioServices, setMyServices, my_services)}
+                {tab === 4 && update_array(instruments, setMyInstruments, my_instruments)}
 
 
 
