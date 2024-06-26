@@ -9,6 +9,7 @@
 // search, location, add_person, new_release, expand, edit
 // keys, strings, vocals, woodwind, percussion, delete
 // pinned, insert, remove, settings, genres, studio_services
+// check
 
 
 
@@ -19,6 +20,19 @@ export default function SvgIcon(props: any) {
     return (
 
         <>
+
+            {props?.id === 'check' &&
+
+                <svg
+                    width={props?.width || '24'}
+                    height={props?.height || '24'}
+                    onClick={props?.onClick}
+                    style={props?.style}
+                    viewBox="0 -960 960 960" fill="#5f6368"
+                >
+                    <path fill={props?.color || color} d="m424-408-86-86q-11-11-28-11t-28 11q-11 11-11 28t11 28l114 114q12 12 28 12t28-12l226-226q11-11 11-28t-11-28q-11-11-28-11t-28 11L424-408Zm56 328q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z" />
+                </svg>
+            }
 
             {props?.id === 'studio_services' &&
 

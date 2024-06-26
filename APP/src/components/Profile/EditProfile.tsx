@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 
 // CSS
 import CSS from '../../css/Profile/EditMusician.module.sass'
@@ -9,6 +9,9 @@ import SvgIcon from '../SvgIcon'
 
 // utils
 import EditProfileContext from '../../context/EditProfileContext'
+// import { useDebounce } from 'use-debounce'
+
+
 
 export default function EditProfile(props: any) {
 
@@ -33,6 +36,9 @@ export default function EditProfile(props: any) {
     }: any = useContext(EditProfileContext)
 
 
+   
+
+
     const update_array = (initial_Array: any, setState: any, myArray: any) => {
 
         return (
@@ -51,6 +57,9 @@ export default function EditProfile(props: any) {
         )
 
     }
+
+    // const [name, setName] = useState(props.profile.name);
+    // const [value] = useDebounce(name, 1000);
 
 
     return (
@@ -95,8 +104,11 @@ export default function EditProfile(props: any) {
                                     type='text'
                                     placeholder='Όνομα'
                                     // defaultValue={profile?.name}
+                                    // defaultValue={value}
+                                    // onChange={() => setName(e:any) => e.target.value}
+                                    // onChange={() => setName((e:any) => e.target.value)}
                                     {...register('name', {
-                                        required: 'Υποχρεωτικό πεδίο'
+                                        required: 'Υποχρεωτικό πεδίο',
                                     })}
                                 />
                                 {/* <FormError value={errors?.name} /> */}

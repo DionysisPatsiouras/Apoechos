@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from "react"
 import Call from "../utils/Call"
 import { Routes } from "../utils/Routes"
 import { useForm } from 'react-hook-form'
+import { useDebounce } from 'use-debounce'
 
 const EditProfileContext = createContext({})
 
@@ -11,9 +12,10 @@ export default EditProfileContext
 
 export const EditProfileProvider = ({ children }: any) => {
 
-    console.log(children.props)
+    // console.log(children.props)
     let profile = children?.props?.profile
 
+  
     // const form = useForm()
     const { register, handleSubmit, formState } = useForm({
         defaultValues: {

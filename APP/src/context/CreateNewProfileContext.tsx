@@ -20,6 +20,8 @@ export const CreateNewProfileProvider = ({ children }: any) => {
     const [instruments, setInstruments] = useState<any[]>([])
     const [studio_services, setStudioServices] = useState<any[]>([])
     const [category, setCategory] = useState<number>()
+    const [created, setCreated] = useState<boolean>(false)
+    const [profileId, setProfileId] = useState<string>('')
 
 
     // arrays
@@ -48,6 +50,9 @@ export const CreateNewProfileProvider = ({ children }: any) => {
 
 
     useEffect(() => {
+
+        setCreated(false)
+        setProfileId('')
 
         get_cities.GET().then((res) => setCities(res?.[1])).catch((err) => console.warn(err))
         get_genres.GET().then((res) => setGenres(res?.[1])).catch((err) => console.warn(err))
@@ -114,7 +119,11 @@ export const CreateNewProfileProvider = ({ children }: any) => {
 
         create_profile
             .POST_MEDIA()
-            .then((res) => console.log(res))
+            .then((res) => {
+                console.log(res);
+                setProfileId(res?.data?.profileId)
+                setCreated(true)
+            })
             .catch((err) => console.warn(err))
 
     }
@@ -127,26 +136,29 @@ export const CreateNewProfileProvider = ({ children }: any) => {
 
     let contextData = {
 
-        is_musician: is_musician,
-        has_genres: has_genres,
-        has_natural_presence: has_natural_presence,
-        has_services: has_services,
+        is_musician,
+        has_genres,
+        has_natural_presence,
+        has_services,
 
-        cities: cities,
-        genres: genres,
-        instruments: instruments,
-        studio_services: studio_services,
+        cities,
+        genres,
+        instruments,
+        studio_services,
 
 
-        param: param,
-        onSubmit: onSubmit,
-        handleCheckBox: handleCheckBox,
-        setGenreArray: setGenreArray,
-        setStudioServicesArray: setStudioServicesArray,
-        setInstrumentArray: setInstrumentArray,
-        instrumentArray: instrumentArray,
-        studio_services_array: studio_services_array,
-        genreArray: genreArray,
+        param,
+        onSubmit,
+        handleCheckBox,
+        setGenreArray,
+        setStudioServicesArray,
+        setInstrumentArray,
+        instrumentArray,
+        studio_services_array,
+        genreArray,
+
+        created,
+        profileId
     }
 
 
