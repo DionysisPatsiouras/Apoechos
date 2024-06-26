@@ -12,8 +12,8 @@ export default CreateNewProfileContext
 
 export const CreateNewProfileProvider = ({ children }: any) => {
 
-    let { me }: any = useContext(UserContext)
-    let { DOM, setDOM }: any = useContext(AuthContext)
+    let { me, updateDOM, setUpdateDOM }: any = useContext(UserContext)
+ 
 
     // variables
     const [cities, setCities] = useState<any[]>([])
@@ -123,7 +123,7 @@ export const CreateNewProfileProvider = ({ children }: any) => {
             .then((res) => {
                 console.log(res);
                 setProfileId(res?.data?.profileId)
-                setDOM(!DOM)
+                setUpdateDOM(!updateDOM)
                 setCreated(true)
             })
             .catch((err) => console.warn(err))

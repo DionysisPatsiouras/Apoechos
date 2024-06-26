@@ -11,7 +11,7 @@ export const UserProvider = ({ children }: any) => {
 
     const [me, setMe] = useState<any[]>([])
     const [myProfiles, setMyProfiles] = useState<any[]>([])
-    // const [loading, setLoading] = useState<boolean>(false)
+    let [updateDOM, setUpdateDOM] = useState<boolean>(false)
 
     const fetch_me = new Call(Routes.user.me, 'GET')
     const fetch_my_profiles = new Call(Routes.profiles.my_profiles, 'GET')
@@ -38,7 +38,7 @@ export const UserProvider = ({ children }: any) => {
 
     useEffect(() => {
 
-        
+
         fetchMyProfiles()
         fetchMe()
 
@@ -50,7 +50,9 @@ export const UserProvider = ({ children }: any) => {
         me: me,
         myProfiles: myProfiles,
         fetchMyProfiles: fetchMyProfiles,
-        fetchMe: fetchMe
+        fetchMe: fetchMe,
+        updateDOM: updateDOM,
+        setUpdateDOM: setUpdateDOM
     }
 
 

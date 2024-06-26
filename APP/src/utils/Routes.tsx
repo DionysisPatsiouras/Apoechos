@@ -27,23 +27,6 @@ export const Routes = {
 
 
 
-    studio: {
-        id: (studio_id: string) => `${url}/studio/${studio_id}`,
-        post: `${url}/studio/new/`,
-    },
-
-    store: {
-        id: (store_id: string) => `${url}/store/${store_id}`,
-        post: `${url}/store/new/`,
-    },
-    stage: {
-        id: (stage_id: string) => `${url}/stage/${stage_id}`,
-        post: `${url}/stage/new/`,
-    },
-    band: {
-        id: (band_id: string) => `${url}/band/${band_id}`,
-    },
-
     posts: {
         all: `${url}/posts/all_posts/`,
         new: `${url}/posts/new/`,
@@ -54,19 +37,11 @@ export const Routes = {
     },
 
     events: {
+        all: `${url}/event/all/`,
         new: `${url}/event/new/`,
     },
 
-    instruments: {
-        add: `${url}/musician/instrument/add/`,
-    },
-    genres: {
-        add: `${url}/musician/genre/add/`,
-    },
 
-    services: {
-        add: `${url}/studio/service/add/`,
-    },
 
 
     messages: {

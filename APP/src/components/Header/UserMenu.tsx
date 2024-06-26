@@ -10,8 +10,8 @@ import { Routes } from '../../utils/Routes'
 
 export default function UserMenu(props: any) {
 
-    let { logoutUser, DOM }: any = useContext(AuthContext)
-    let { me }: any = useContext(UserContext)
+    let { logoutUser }: any = useContext(AuthContext)
+    let { me, updateDOM }: any = useContext(UserContext)
 
     const [accountModal, setAccountModal] = useState<boolean>(false)
     const [myProfiles, setMyProfiles] = useState<any[]>([])
@@ -25,7 +25,7 @@ export default function UserMenu(props: any) {
                 setMyProfiles(res)
             })
             .catch((err) => console.warn(err))
-    }, [DOM])
+    }, [updateDOM])
 
     // console.log(myProfiles)
 

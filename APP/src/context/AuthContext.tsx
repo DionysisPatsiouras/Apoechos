@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }: any) => {
 
     let [authTokens, setAuthTokens] = useState<any>(() => localStorage.getItem('auth-token') ? JSON.parse(localStorage.getItem('auth-token')!) : null)
     let [user, setUser] = useState<any>(() => localStorage.getItem('auth-token') ? jwtDecode(localStorage.getItem('auth-token')!) : null)
-    let [DOM, setDOM] = useState<boolean>(false)
+
     
     async function loginUser(e: any) {
 
@@ -117,8 +117,7 @@ export const AuthProvider = ({ children }: any) => {
         authTokens: authTokens,
         loginUser: loginUser,
         logoutUser: logoutUser,
-        setDOM: setDOM,
-        DOM: DOM
+   
     }
 
 

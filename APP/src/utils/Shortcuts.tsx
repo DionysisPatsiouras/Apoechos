@@ -9,4 +9,18 @@ export const full_date = (value: string) =>
         minute: "numeric"
     })
 
+export const numeric_date = (value: string) =>
+    new Date(value).toLocaleDateString("el-GR", {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+        weekday: "long"
+    })
+
+export const timestamp = (value: string) =>
+    new Date(value).toLocaleTimeString("el-GR", {
+        hour: "numeric",
+        minute: "numeric"
+    });
+
 
