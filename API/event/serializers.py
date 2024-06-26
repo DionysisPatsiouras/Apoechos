@@ -16,7 +16,7 @@ class EventSerializer(serializers.ModelSerializer):
     created_by = Profile_Post_Serializer(many=False)
     main_bands = Profile_Post_Serializer(many=True)
     support_acts = Profile_Post_Serializer(many=True)
-    profile_location = Profile_Post_Serializer(many=False)
+    # profile_location = New_Profile_Serializer(many=False)
 
     class Meta:
         model = Event

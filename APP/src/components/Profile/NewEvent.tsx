@@ -35,7 +35,7 @@ const NewEvent = forwardRef(function NewEvent(props: any, ref: any) {
 
         const new_event = new Call(Routes.events.new, 'POST', finalData)
 
-        new_event.POST_MEDIA().then((res) => console.log(res))
+        // new_event.POST_MEDIA().then((res) => console.log(res))
 
         console.log(data)
         console.warn(finalData)

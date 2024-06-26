@@ -44,7 +44,7 @@ const Card = forwardRef(function Card(props: any, ref) {
 
                 <div className={CSS.btn_section}>
                     <Link to={`/profile/${profile?.profileId}`} >
-                        <button>Περισσότερα</button>
+                        <button className='cursor-pointer blue_btn'>Περισσότερα</button>
                     </Link>
                 </div>
 
