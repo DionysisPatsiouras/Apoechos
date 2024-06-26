@@ -10,13 +10,10 @@ import { Routes } from '../../utils/Routes'
 
 export default function UserMenu(props: any) {
 
-    let { logoutUser }: any = useContext(AuthContext)
+    let { logoutUser, DOM }: any = useContext(AuthContext)
     let { me }: any = useContext(UserContext)
 
-
     const [accountModal, setAccountModal] = useState<boolean>(false)
-
-
     const [myProfiles, setMyProfiles] = useState<any[]>([])
 
     const fetch_my_profiles = new Call(Routes.profiles.my_profiles, 'GET')
@@ -28,17 +25,15 @@ export default function UserMenu(props: any) {
                 setMyProfiles(res)
             })
             .catch((err) => console.warn(err))
-    }, [])
+    }, [DOM])
 
     // console.log(myProfiles)
 
 
     return (
         <>
-           
-
             <ul>
-                <Link to={ myProfiles?.[1]?.[0]?.profileId !== undefined ? `/profile/${myProfiles?.[1]?.[0]?.profileId}` : '/create/' }>Προφίλ</Link>
+                <Link to={myProfiles?.[1]?.[0]?.profileId !== undefined ? `/profile/${myProfiles?.[1]?.[0]?.profileId}` : '/create/'}>Προφίλ</Link>
                 <Link to="/discover">Ανακάλυψε</Link>
                 <Link to="/news">Εκδηλώσεις - Ροή</Link>
             </ul>
@@ -57,7 +52,6 @@ export default function UserMenu(props: any) {
                 <SvgIcon id='account' width={25} onClick={() => setAccountModal(!accountModal)} />
 
 
-
             </ul>
 
 
@@ -66,7 +60,6 @@ export default function UserMenu(props: any) {
                 onClick={() => setAccountModal(false)}
                 style={{ 'display': accountModal ? 'block' : 'none' }}>
                 <Link to='/account'><SvgIcon id='account' width={25} />Λογαριασμός</Link>
-           
                 <Link to='/login' onClick={logoutUser}><SvgIcon id='logout' width={25} />Αποσύνδεση</Link>
             </div>
 

@@ -4,7 +4,7 @@ import { Routes } from '../utils/Routes'
 
 import { Colors } from '../App'
 import SearchValidation from '../utils/SearchValidation'
-import { genres } from '../utils/MusicianUtils'
+// import { genres } from '../utils/MusicianUtils'
 // import { studio_services } from '../utils/Lists'
 
 
@@ -30,22 +30,31 @@ export const DiscoverProvider = ({ children }: any) => {
     const [citySearch, setCitySearch] = useState<string>('')
     const [genreSearch, setGenreSearch] = useState<string>('')
     const [studio_services_search, setStudioServicesSearch] = useState<string>('')
+    const [instrument_search, setInstrumentSearch] = useState<string>('')
+
+
     const [onHover, setOnHover] = useState('')
     const [filtered_cities, setFilteredCities] = useState<any[]>([])
     const [filtered_genres, setFilteredGenres] = useState<any[]>([])
     const [filtered_studio_services, setFilteredStudioServices] = useState<any[]>([])
+    const [filtered_instruments, setFilteredInstruments] = useState<any[]>([])
+
+
     const [activeTab, setActiveTab] = useState('Everything')
 
 
-   
 
     const [cities, setCities] = useState<any[]>([])
     const [studio_services, setStudioServices] = useState<any[]>([])
+    const [genres, setGenres] = useState<any[]>([])
+    const [instruments, setInstruments] = useState<any[]>([])
 
 
     const call_profiles = new Call(Routes.profiles.all, 'GET')
     const call_cities = new Call(Routes.profiles.cities, 'GET')
     const call_studio_services = new Call(Routes.profiles.studio_services, 'GET')
+    const call_genres = new Call(Routes.profiles.genres, 'GET')
+    const call_instruments = new Call(Routes.profiles.instruments, 'GET')
 
 
 
@@ -59,6 +68,15 @@ export const DiscoverProvider = ({ children }: any) => {
             .GET()
             .then((res) => setCities(res?.[1].map((i: any) => i.name)))
             .catch((err: any) => console.warn(err))
+        call_genres
+            .GET()
+            .then((res) => setGenres(res?.[1].map((i: any) => i.name)))
+            .catch((err: any) => console.warn(err))
+        call_instruments
+            .GET()
+            .then((res) => setInstruments(res?.[1].map((i: any) => i.name)))
+            .catch((err: any) => console.warn(err))
+
 
         call_profiles
             .GET()
@@ -78,6 +96,7 @@ export const DiscoverProvider = ({ children }: any) => {
 
     }, [])
 
+    // console.warn(genres)
 
 
     const filters = [
@@ -92,29 +111,35 @@ export const DiscoverProvider = ({ children }: any) => {
             filtered: filtered_genres, setFilters: setFilteredGenres,
         },
         {
+            id: 'Musicians', label: 'Όργανα', data: instruments,
+            setSearch: setInstrumentSearch, search: instrument_search,
+            filtered: filtered_instruments, setFilters: setFilteredInstruments,
+        },
+        {
             id: 'Music Studio', label: 'Υπηρεσίες', data: studio_services,
             setSearch: setStudioServicesSearch, search: studio_services_search,
             filtered: filtered_studio_services, setFilters: setFilteredStudioServices
-        }
+        },
+        // {
+        //     id: 'Bands', label: 'Συγκροτήματα', data: genres,
+        //     setSearch: setGenreSearch, search: genreSearch,
+        //     filtered: filtered_genres, setFilters: setFilteredGenres
+        // }
     ]
 
 
     let tabs: any = [
-        { label: 'Everything', color: 'black', action: () => { setSelected(all); setActiveTab('Everything'); } },
-        { label: 'Musicians', color: color?.musician, action: () => { setSelected(allMusicians); setActiveTab('Musicians'); } },
-        { label: 'Bands', color: color?.band, action: () => { setSelected(allBands); setActiveTab('Bands') } },
-        { label: 'Music Studio', color: color?.studio, action: () => { setSelected(allStudios); setActiveTab('Music Studio') } },
-        { label: 'Music Stores', color: color?.store, action: () => { setSelected(allStores); setActiveTab('Music Stores') } },
-        { label: 'Live Stages', color: color?.stage, action: () => { setSelected(allStages); setActiveTab('Live Stages') } }
+        { label: 'Όλα', color: 'black', action: () => { setSelected(all); setActiveTab('Everything'); } },
+        { label: 'Μουσικοί', color: color?.musician, action: () => { setSelected(allMusicians); setActiveTab('Musicians'); } },
+        { label: 'Συγκροτήματα', color: color?.band, action: () => { setSelected(allBands); setActiveTab('Bands') } },
+        { label: 'Στούντιο', color: color?.studio, action: () => { setSelected(allStudios); setActiveTab('Music Studio') } },
+        { label: 'Καταστήματα', color: color?.store, action: () => { setSelected(allStores); setActiveTab('Music Stores') } },
+        { label: 'Σκηνές', color: color?.stage, action: () => { setSelected(allStages); setActiveTab('Live Stages') } }
     ]
 
     const basicFiltering =
         selected
-            .filter((profile: any) =>
-                SearchValidation(profile?.artistic_nickname, search) ||
-                SearchValidation(profile?.title, search) ||
-                SearchValidation(profile?.name, search))
-
+            .filter((profile: any) => SearchValidation(profile?.name, search))
             .filter((profile: any) =>
                 filtered_cities.length === 0 ? !filtered_cities.includes(cities) : filtered_cities.includes(profile?.city?.name))
 
@@ -125,6 +150,9 @@ export const DiscoverProvider = ({ children }: any) => {
                 .filter((profile: any) =>
                     profile?.genres?.some((genre: any) =>
                         filtered_genres.length === 0 ? !filtered_genres.includes(genres) : filtered_genres.includes(genre?.name)))
+                .filter((profile: any) =>
+                    profile?.instruments?.some((instrument: any) =>
+                        filtered_instruments.length === 0 ? !filtered_instruments.includes(genres) : filtered_instruments.includes(instrument?.name)))
 
             : activeTab === 'Music Studio' ?
                 basicFiltering
@@ -151,7 +179,6 @@ export const DiscoverProvider = ({ children }: any) => {
     let contextData = {
         activeTab: activeTab,
         tabs: tabs,
-        // color: color,
         filteredData: filteredData,
         setSearch: setSearch,
         onHover: onHover,

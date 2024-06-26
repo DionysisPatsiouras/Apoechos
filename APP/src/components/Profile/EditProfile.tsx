@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 
 // CSS
-import CSS from '../../css/Profile/EditMusician.module.sass'
+import CSS from '../../css/Profile/EditProfile.module.sass'
 
 // local components
 // import FormError from '../../utils/FormError'
@@ -36,24 +36,29 @@ export default function EditProfile(props: any) {
     }: any = useContext(EditProfileContext)
 
 
-   
 
 
-    const update_array = (initial_Array: any, setState: any, myArray: any) => {
+
+    const update_array = (title: string, initial_Array: any, setState: any, myArray: any) => {
 
         return (
-            <ul>
-                {initial_Array
-                    .map((i: any) => (
-                        <li className='items-inline' key={i.id}>
-                            <input type='checkbox' value={i.id} id={i.id} style={{ width: 'unset' }}
-                                onChange={(event: any) => handle_checkbox(event, setState)}
-                                checked={myArray?.includes(i?.id?.toString())}
-                            />
-                            <label htmlFor={i.id}>{i.name}</label>
-                        </li>
-                    ))}
-            </ul>
+
+            <div className={CSS.attributes}>
+                <h2>{title}</h2>
+
+                <ul>
+                    {initial_Array
+                        .map((i: any) => (
+                            <li className='items-inline' key={i.id}>
+                                <input type='checkbox' value={i.id} id={i.id} style={{ width: 'unset' }}
+                                    onChange={(event: any) => handle_checkbox(event, setState)}
+                                    checked={myArray?.includes(i?.id?.toString())}
+                                />
+                                <label htmlFor={i.id}>{i.name}</label>
+                            </li>
+                        ))}
+                </ul>
+            </div>
         )
 
     }
@@ -129,16 +134,16 @@ export default function EditProfile(props: any) {
 
                 }
 
-                {tab === 2 && update_array(genres, setMyGenres, my_genres)}
-                {tab === 3 && update_array(studioServices, setMyServices, my_services)}
-                {tab === 4 && update_array(instruments, setMyInstruments, my_instruments)}
+                {tab === 2 && update_array('Είδη', genres, setMyGenres, my_genres)}
+                {tab === 3 && update_array('Υπηρεσίες', studioServices, setMyServices, my_services)}
+                {tab === 4 && update_array('Όργανα', instruments, setMyInstruments, my_instruments)}
 
 
 
                 <div className={CSS.bottom_section}>
 
 
-                    <button type='submit'>Αποθηκεύση</button>
+                    <button type='submit'>Αποθήκευση</button>
                     <button type='reset' style={{ 'backgroundColor': '#9A9A9A' }} onClick={() => { setTab(1); props?.close() }}>  Ακύρωση </button>
                 </div>
             </form>

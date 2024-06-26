@@ -14,11 +14,14 @@ import { Link } from 'react-router-dom'
 
 
 
+
 export default function CreateNewProfile() {
 
     const form = useForm()
     const { register, handleSubmit, formState } = form
     const { errors } = formState
+
+
 
     const [uploadedFile, setUploadedFile] = useState<any>()
 
@@ -44,7 +47,7 @@ export default function CreateNewProfile() {
         profileId
     }: any = useContext(CreateNewProfileContext)
 
-
+    // console.log(uploadedFile)
     return (
         <div className='space'>
 
@@ -63,9 +66,6 @@ export default function CreateNewProfile() {
                         <Link to={`/profile/${profileId}`}>
                             <button className='blue_btn cursor-pointer'>  Προβολή </button>
                         </Link>
-
-
-
                     </div>}
 
                 {!created &&
@@ -78,10 +78,20 @@ export default function CreateNewProfile() {
                             <div className={CSS.personal_info}>
                                 <div className={CSS.group} style={{ cursor: 'pointer' }}>
 
+
+
+
                                     <label htmlFor='picture'>
                                         <img className={CSS.image_preview} src={uploadedFile} width={20} height={20} alt='' />
-                                        <p className={CSS.space_around}><SvgIcon id={'upload-image'} /> Μεταφόρτωση</p>
+
                                     </label>
+
+                                    {uploadedFile ?
+                                        <p className={CSS.space_around} onClick={() => setUploadedFile(undefined)}><SvgIcon id={'delete'} /> Διαγραφή</p>
+                                        :
+                                        <p className={CSS.space_around}><SvgIcon id={'upload-image'} /> Μεταφόρτωση</p>
+                                    }
+
 
                                     <input
                                         {...register('file')}

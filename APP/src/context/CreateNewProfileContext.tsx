@@ -3,8 +3,8 @@ import Call from '../utils/Call'
 import { Routes } from '../utils/Routes'
 
 import UserContext from './UserContext'
-import { patchUser } from '../utils/functions/patchUser'
-
+// import { patchUser } from '../utils/functions/patchUser'
+import AuthContext from '../context/AuthContext'
 
 const CreateNewProfileContext = createContext({})
 export default CreateNewProfileContext
@@ -13,6 +13,7 @@ export default CreateNewProfileContext
 export const CreateNewProfileProvider = ({ children }: any) => {
 
     let { me }: any = useContext(UserContext)
+    let { DOM, setDOM }: any = useContext(AuthContext)
 
     // variables
     const [cities, setCities] = useState<any[]>([])
@@ -122,6 +123,7 @@ export const CreateNewProfileProvider = ({ children }: any) => {
             .then((res) => {
                 console.log(res);
                 setProfileId(res?.data?.profileId)
+                setDOM(!DOM)
                 setCreated(true)
             })
             .catch((err) => console.warn(err))
