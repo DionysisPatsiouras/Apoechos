@@ -1,37 +1,19 @@
 
-import { forwardRef, useState } from 'react'
+import { forwardRef } from 'react'
 import CSS from '../../css/Event/EventView.module.css'
 import { numeric_date, timestamp } from '../../utils/Shortcuts'
 import { Link } from 'react-router-dom'
-import Modal from '../Modal'
+
 
 const EventView = forwardRef(function EventView(props: any, ref: any) {
 
-    const [modal, setModal] = useState<boolean>(false)
-    const [content, setContent] = useState<any>()
-
 
     let event = props.event
-    // console.log(content)
 
 
     return (
-        <div
-            className={`${CSS.content} cursor-pointer`}
-            onClick={() => {
-                setModal(true)
-                setContent(event)
-            }}>
+        <div className={`${CSS.content} cursor-pointer`} onClick={props?.onClick}>
 
-
-            <Modal
-                open={modal}
-                title={content?.title || 'live'}
-                withContainer
-            >   
-            <h5>Περιγραφή</h5>
-                {content && content?.description}
-            </Modal>
 
             {event.title ? <h3 className={CSS.title}>{event.title}</h3> : <h3 className={CSS.title}>&nbsp;</h3>}
 
@@ -49,7 +31,6 @@ const EventView = forwardRef(function EventView(props: any, ref: any) {
 
 
 
-
             {event.support_acts.length !== 0 && <p className={CSS.supportTitle}>SUPPORT ACT</p>}
 
             {event?.support_acts
@@ -58,7 +39,6 @@ const EventView = forwardRef(function EventView(props: any, ref: any) {
                         <h5>{band?.name}</h5>
                     </Link>
                 ))}
-
 
 
             <div className={CSS.date}>
