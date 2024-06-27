@@ -1,9 +1,9 @@
 
 import { forwardRef, useEffect, useState } from 'react'
-import CSS from '../../css/News/News.module.css'
-import Call from '../../utils/Call'
-import { Routes } from '../../utils/Routes'
-import SingleEvent from '../Events/SingleEvent'
+import CSS from '../css/News/News.module.css'
+import Call from '../utils/Call'
+import { Routes } from '../utils/Routes'
+import EventView from '../components/Events/EventView'
 
 const Events = forwardRef(function Events(props: any, ref: any) {
 
@@ -18,19 +18,21 @@ const Events = forwardRef(function Events(props: any, ref: any) {
 
     console.log(events)
     return (
-        <section style={{ width: '50vw' }}>
-
-            <div className={CSS.header}>Εκδηλώσεις</div>
-
-            {events.map((event: any) => (
-                <SingleEvent key={event.eventId} event={event} />
-            ))}
+        <section>
 
 
-   
+
+            <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}>
+
+
+                {events.map((event: any) => (
+                    <EventView key={event.eventId} event={event} />
+                ))}
+
+            </div>
+
         </section>
     )
 })
 
 export default Events
-

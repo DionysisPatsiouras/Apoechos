@@ -1,0 +1,48 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  text-align: center;
+  border-bottom: 1px solid #dfdfdf;
+  padding: 20px 0;
+}
+.content h2 {
+  font-size: 27px;
+}
+.content h5 {
+  font-size: 20px;
+}
+
+.content:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.content:hover {
+  background-color: #393939;
+}
+.content:hover h2, .content:hover h5, .content:hover .date, .content:hover .title {
+  color: #fff;
+}
+
+.cover {
+  height: 297px;
+  width: 210px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transform: scale(0.85);
+}
+
+.title {
+  font-size: 20px;
+}
+
+.supportTitle {
+  color: #999999;
+  font-size: 15px;
+  padding: 10px 0;
+}
+
+.date {
+  margin-top: 10px;
+}/*# sourceMappingURL=EventView.module.css.map */

@@ -31,7 +31,7 @@ import CreateNewProfile from './pages/CreateNewProfile'
 // utils
 import PrivateRoutes from './utils/PrivateRoutes'
 
-
+import Events from './pages/Events'
 
 
 export const WindowSize = createContext(null)
@@ -76,6 +76,7 @@ export default function App() {
                   <Route path='/register' element={<Register />} />
                   <Route path='/' element={<Homepage />} />
                   <Route path='/news' element={<News />} />
+                  <Route path='/events' element={<Events />} />
                   <Route path='/mystudio' element={<Messages />} />
                   <Route path='/discover' element={<DiscoverProvider><Discover /></DiscoverProvider>} />
                   <Route path='/profile/:id/' element={<Profile />} />
