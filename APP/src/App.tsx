@@ -7,7 +7,7 @@ import Header from './components/Header/Header'
 
 // pages
 import Login from '../src/pages/Login'
-import News from './pages/News'
+import Posts from './pages/Posts'
 import Register from '../src/pages/Register'
 import Account from './pages/Account'
 import Create from './pages/Create'
@@ -75,11 +75,13 @@ export default function App() {
                   <Route path='/login' element={<Login />} />
                   <Route path='/register' element={<Register />} />
                   <Route path='/' element={<Homepage />} />
-                  <Route path='/news' element={<News />} />
+                  <Route path='/profile/:id/' element={<Profile />} />
+                  <Route path='/discover' element={<DiscoverProvider><Discover /></DiscoverProvider>} />
+                  <Route path='/posts' element={<Posts />} />
                   <Route path='/events' element={<Events />} />
                   <Route path='/mystudio' element={<Messages />} />
-                  <Route path='/discover' element={<DiscoverProvider><Discover /></DiscoverProvider>} />
-                  <Route path='/profile/:id/' element={<Profile />} />
+
+           
 
 
 
@@ -87,7 +89,6 @@ export default function App() {
                     <Route path='/account' element={<Account />} />
                     <Route path='/create' element={<Create />} />
                     <Route path='/create/new_profile' element={<CreateNewProfileProvider><CreateNewProfile /></CreateNewProfileProvider>} />
-                    {/* <Route path='/create/musician' element={<CreateMusician />} /> */}
                   </Route>
 
 

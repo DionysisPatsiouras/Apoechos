@@ -35,7 +35,7 @@ export default function UserMenu(props: any) {
             <ul>
                 <Link to={myProfiles?.[1]?.[0]?.profileId !== undefined ? `/profile/${myProfiles?.[1]?.[0]?.profileId}` : '/create/'}>Προφίλ</Link>
                 <Link to="/discover">Ανακάλυψε</Link>
-                <Link to="/news">Εκδηλώσεις - Ροή</Link>
+                <Link to="/posts">Δημοσιεύσεις</Link>
                 <Link to="/events">Εκδηλώσεις</Link>
             </ul>
 

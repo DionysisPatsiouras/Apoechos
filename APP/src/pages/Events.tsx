@@ -16,13 +16,13 @@ const Events = forwardRef(function Events(props: any, ref: any) {
 
     }, [])
 
-    console.log(events)
+    // console.log(events)
     return (
         <section>
 
 
 
-            <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}>
+            <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start'}}>
 
 
                 {events.map((event: any) => (

@@ -1,16 +1,15 @@
 
+
+
 import { forwardRef, useEffect, useState } from 'react'
-import Call from '../../utils/Call'
-import { Routes } from '../../utils/Routes'
+import Call from '../utils/Call'
+import { Routes } from '../utils/Routes'
 
-import CSS from '../../css/News/News.module.css'
-import AllPosts from '../AllPosts'
-
-// import { Link } from 'react-router-dom'
-
-const DisplayPosts = forwardRef(function DisplayPosts(props: any, ref: any) {
+import CSS from '../css/News/News.module.css'
 
 
+import AllPosts from '../components/AllPosts'
+export default function News() {
     const [data, setData] = useState<any[]>([])
     const [array, setArray] = useState<any[]>([])
     const [open, setOpen] = useState<boolean>(false)
@@ -42,7 +41,7 @@ const DisplayPosts = forwardRef(function DisplayPosts(props: any, ref: any) {
 
 
     return (
-        <section style={{ width: '50vw' }}>
+        <section>
 
 
             <div className={CSS.header}>
@@ -84,7 +83,4 @@ const DisplayPosts = forwardRef(function DisplayPosts(props: any, ref: any) {
 
         </section>
     )
-})
-
-export default DisplayPosts
-
+}
