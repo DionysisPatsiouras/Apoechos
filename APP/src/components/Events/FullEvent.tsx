@@ -1,8 +1,9 @@
 
-import { forwardRef, useEffect, useState } from 'react'
-// import CSS from '../css/News/News.module.css'
+import { forwardRef } from 'react'
 import CSS from '../../css/Event/FullEvent.module.css'
 import { Link } from 'react-router-dom'
+import { numeric_date, timestamp } from '../../utils/Shortcuts'
+import SvgIcon from '../SvgIcon'
 
 
 const FullEvent = forwardRef(function FullEvent(props: any, ref: any) {
@@ -41,8 +42,25 @@ const FullEvent = forwardRef(function FullEvent(props: any, ref: any) {
                 }
             </div>
 
-          
-            <h3>Περιγραφή</h3><br></br>
+            <div className={CSS.info}>
+                <div className='items-inline'>
+                    <SvgIcon id='calendar' color={'#c5c2c2'} />
+                    <p>{numeric_date(event?.date)}</p>
+                </div>
+
+                <div className='items-inline'>
+                    <SvgIcon id='location' color={'#c5c2c2'} />
+                    <p>{event?.location}</p>
+                </div>
+                <div className='items-inline'>
+                    <SvgIcon id='clock' color={'#c5c2c2'} />
+                    <p>{timestamp(event?.date)}</p>
+                </div>
+
+            </div>
+
+
+            {/* <h3>Περιγραφή</h3><br></br> */}
             <p>{event?.description}</p>
 
 

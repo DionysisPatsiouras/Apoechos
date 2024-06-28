@@ -9,7 +9,7 @@
 // search, location, add_person, new_release, expand, edit
 // keys, strings, vocals, woodwind, percussion, delete
 // pinned, insert, remove, settings, genres, studio_services
-// check
+// check, clock
 
 
 
@@ -20,6 +20,19 @@ export default function SvgIcon(props: any) {
     return (
 
         <>
+
+            {props?.id === 'clock' &&
+                <svg
+                    width={props?.width || '24'}
+                    height={props?.height || '24'}
+                    onClick={props?.onClick}
+                    style={props?.style}
+                    viewBox="0 -960 960 960" fill="#5f6368"
+                >
+                    <path fill={props?.color || color} d="M520-496v-144q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640v159q0 8 3 15.5t9 13.5l132 132q11 11 28 11t28-11q11-11 11-28t-11-28L520-496ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z" />
+                </svg>
+
+            }
 
             {props?.id === 'check' &&
 
