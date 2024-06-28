@@ -5,6 +5,7 @@ import Call from '../utils/Call'
 import { Routes } from '../utils/Routes'
 import EventView from '../components/Events/EventView'
 import Modal from '../components/Modal'
+import FullEvent from '../components/Events/FullEvent'
 
 const Events = forwardRef(function Events(props: any, ref: any) {
 
@@ -30,11 +31,11 @@ const Events = forwardRef(function Events(props: any, ref: any) {
     return (
         <section>
 
-            <Modal open={modal} title={content?.title || 'live'} withContainer >
+            <Modal open={modal} title='Εκδήλωση' withContainer btn close={() => toggle_modal(false, undefined)}>
                 
-                <h5>Περιγραφή</h5>
-                {content && content?.description}
-                <button onClick={() => toggle_modal(false, undefined)}>Κλείσιμο</button>
+                <FullEvent event={content}/>
+
+
             </Modal>
 
 

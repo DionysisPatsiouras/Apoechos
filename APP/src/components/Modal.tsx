@@ -3,7 +3,7 @@ import { forwardRef } from 'react'
 import CSS from '../css/Modal/Modal.module.sass'
 import SvgIcon from './SvgIcon'
 
-// props => open, close, closeButton, withContainer, title
+// props => open, close, closeButton, withContainer, title, btn
 
 const Modal = forwardRef(function Modal(props: any, ref: any) {
     return (
