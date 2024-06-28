@@ -34,7 +34,7 @@ class Event(models.Model):
     photo = models.ImageField(null=True, blank=True, upload_to="images/")
 
 
-    profile_location = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="profile_location", blank=True, null=True),  
+    profile_location = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="profile_location", blank=True)
     created_by = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="created_by", blank=False) 
     main_bands = models.ManyToManyField(Profile, blank=False, related_name="main_bands")
     support_acts = models.ManyToManyField(Profile, blank=True, related_name="support_acts")
