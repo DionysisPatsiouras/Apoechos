@@ -4,11 +4,10 @@
 import { forwardRef, useEffect, useState } from 'react'
 import Call from '../utils/Call'
 import { Routes } from '../utils/Routes'
-
 import CSS from '../css/News/News.module.css'
-
-
 import AllPosts from '../components/AllPosts'
+import { handle_checkbox } from '../utils/functions/handle_checkbox'
+
 export default function News() {
     const [data, setData] = useState<any[]>([])
     const [array, setArray] = useState<any[]>([])
@@ -26,18 +25,10 @@ export default function News() {
             .then((res) => { setLabels(res.map((i: any) => ({ value: i.id, label: i.title }))) })
 
 
-        all_posts.GET().then((res) => setData(res))
+        all_posts.GET().then((res) => setData(res)).catch((err) => console.warn(err))
     }, [])
 
 
-    const handle_checkbox = (event: any) => {
-        const { value, checked } = event;
-        setArray((prevCategories: any) =>
-            checked
-                ? [...prevCategories, value]
-                : prevCategories.filter((all_values: any) => all_values !== value)
-        )
-    }
 
 
     return (
@@ -58,7 +49,7 @@ export default function News() {
                             <li key={index}>
                                 <input type='checkbox' id={label?.label}
                                     value={label.label}
-                                    onChange={(e: any) => handle_checkbox(e.target)}
+                                    onChange={(e: any) => handle_checkbox(setArray, e.target)}
                                 />
                                 <label htmlFor={label.label}>{label.label}</label>
                             </li>

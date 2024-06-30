@@ -70,3 +70,11 @@ class Profile_Post_Serializer(serializers.ModelSerializer):
             "name",
             "category",
         )
+
+class Profile_Event_Serializer(serializers.ModelSerializer):
+
+    city = CitiesSerializer(many=False)
+
+    class Meta:
+        model = Profile
+        fields = ("profileId", "photo", "name", "city", )

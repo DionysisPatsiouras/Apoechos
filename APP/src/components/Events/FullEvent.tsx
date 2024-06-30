@@ -48,14 +48,31 @@ const FullEvent = forwardRef(function FullEvent(props: any, ref: any) {
                     <p>{numeric_date(event?.date)}</p>
                 </div>
 
-                <div className='items-inline'>
-                    <SvgIcon id='location' color={'#c5c2c2'} />
-                    <p>{event?.location}</p>
-                </div>
+
                 <div className='items-inline'>
                     <SvgIcon id='clock' color={'#c5c2c2'} />
                     <p>{timestamp(event?.date)}</p>
                 </div>
+
+            </div>
+
+            <div className={CSS.info}>
+
+                <div className='items-inline'>
+                    <Link to={event?.profile_location?.profileId}>
+                        <div className='items-inline'>
+                            <img src={`http://127.0.0.1:8000/${event?.profile_location?.photo}`} alt='profile_photo' width={50} />
+                            <p>{event?.profile_location?.name}</p>
+                        </div>
+
+                    </Link>
+                </div>
+
+                <div className='items-inline'>
+                    <SvgIcon id='location' color={'#c5c2c2'} />
+                    <p>{event?.profile_location?.city?.name}</p>
+                </div>
+
 
             </div>
 
