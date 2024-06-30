@@ -2,6 +2,9 @@ const url = `http://localhost:8000`
 
 export const Routes = {
 
+    api: {
+        token: `${url}/api/token/`
+    },
 
     auth: {
         register: `${url}/user/register/`,

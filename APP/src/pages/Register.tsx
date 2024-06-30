@@ -27,7 +27,7 @@ export default function Register() {
     const onSubmit = (data: any) => {
 
         const registerUser = new Call(Routes.auth.register, 'POST', data)
-        console.log(data)
+        // console.log(data)
         registerUser
             .POST_NO_TOKEN()
             .then((res) => {

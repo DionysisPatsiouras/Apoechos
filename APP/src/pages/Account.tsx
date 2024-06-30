@@ -6,7 +6,7 @@ import axios from 'axios'
 import AuthContext from '../context/AuthContext'
 import FormError from '../utils/FormError'
 import UpdateEmail from '../components/Account/UpdateEmail'
-import { token, config } from '../utils/Token'
+import { token } from '../utils/Token'
 
 export default function Account() {
 

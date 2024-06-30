@@ -44,10 +44,10 @@ export const CreateNewProfileProvider = ({ children }: any) => {
 
 
     // utils
-    let has_natural_presence = param === "Store" || param === "Stage" || param === "Studio"
-    let is_musician = param === "Musician" ? true : false
-    let has_genres = param === "Musician" || param === "Band" ? true : false
-    let has_services = param === "Studio" ? true : false
+    let has_natural_presence = param === "Καταστήματα" || param === "Σκηνές" || param === "Στούντιο"
+    let is_musician = param === "Μουσικοί" ? true : false
+    let has_genres = param === "Μουσικοί" || param === "Συγκροτήματα" ? true : false
+    let has_services = param === "Στούντιο" ? true : false
 
 
     useEffect(() => {
@@ -61,19 +61,19 @@ export const CreateNewProfileProvider = ({ children }: any) => {
         get_instruments.GET().then((res) => setInstruments(res?.[1])).catch((err) => console.warn(err))
 
         switch (param) {
-            case "Musician":
+            case "Μουσικοί":
                 setCategory(1)
                 break;
-            case "Band":
+            case "Συγκροτήματα":
                 setCategory(2)
                 break;
-            case "Studio":
+            case "Στούντιο":
                 setCategory(3)
                 break;
-            case "Store":
+            case "Καταστήματα":
                 setCategory(4)
                 break;
-            case "Stage":
+            case "Σκηνές":
                 setCategory(5)
                 break;
             default:

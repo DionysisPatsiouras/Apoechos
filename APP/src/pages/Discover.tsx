@@ -2,7 +2,6 @@ import CSS from '../css/Discover/Discover.module.css'
 import { useContext } from 'react'
 
 // components
-import Tab from '../components/Discover/Tab'
 import SvgIcon from '../components/SvgIcon'
 import Card from '../components/Discover/Card'
 
@@ -16,11 +15,13 @@ export default function Discover() {
 
     let {
         activeTab, tabs, filteredData,
-        setSearch, handle_checkbox,
-        onHover, setOnHover, filters
+        setSearch,
+        handle_checkbox,
+        onHover, setOnHover, filters,
+
     }: any = useContext(DiscoverContext)
 
-    // console.warn(filteredData)
+    // console.log(activeTab)
 
 
     return (
@@ -50,7 +51,7 @@ export default function Discover() {
                                             id={i}
                                             type='checkbox'
                                             value={i}
-                                            onChange={(event) => handle_checkbox(event, item?.setFilters)}
+                                            onChange={(event) => handle_checkbox(item?.setFilters, event.target)}
                                             checked={item?.filtered.includes(i)}
                                         />
                                         <label htmlFor={i}>{i}</label>
@@ -66,20 +67,29 @@ export default function Discover() {
 
             <section className={CSS.cards_container}>
 
+
                 <ul className={CSS.profiles_menu}>
-                    {tabs.map((tab: any, index: number) => (
-                        <Tab
+                    {tabs.map((category: any, index: number) => (
+                        <div
                             key={index}
-                            label={tab.label}
-                            color={tab.color}
-                            onMouseEnter={() => setOnHover(tab.label)}
-                            onMouseLeave={() => setOnHover('')}
-                            onClick={tab.action}
-                            activeTab={activeTab}
-                            onHover={onHover}
-                        />
+                            className={CSS.profile_tab}
+                            onClick={category?.action}
+                        >
+                            <li
+                                onMouseEnter={() => setOnHover(category?.label)}
+                                onMouseLeave={() => setOnHover('')}
+                                style={{ color: category?.color }}>
+                                {category?.label}
+                            </li>
+                            <span style={{
+                                background: onHover === category?.label || activeTab === category?.label
+                                    ? category?.color
+                                    : '#ffffff'
+                            }}></span>
+                        </div>
                     ))}
                 </ul>
+
 
                 <section className={CSS.search}>
                     <div className={CSS.left_section}>

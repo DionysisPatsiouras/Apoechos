@@ -1,12 +1,8 @@
-import { createContext, useState, useEffect, useContext } from 'react'
+import { createContext, useState, useEffect } from 'react'
 import Call from '../utils/Call'
 import { Routes } from '../utils/Routes'
-
-import { Colors } from '../App'
 import SearchValidation from '../utils/SearchValidation'
-// import { genres } from '../utils/MusicianUtils'
-// import { studio_services } from '../utils/Lists'
-
+import { handle_checkbox } from '../utils/functions/handle_checkbox'
 
 const DiscoverContext = createContext({})
 
@@ -15,7 +11,6 @@ export default DiscoverContext
 
 export const DiscoverProvider = ({ children }: any) => {
 
-    const color = useContext<any>(Colors)
 
 
     const [selected, setSelected] = useState<any>([])
@@ -48,6 +43,9 @@ export const DiscoverProvider = ({ children }: any) => {
     const [studio_services, setStudioServices] = useState<any[]>([])
     const [genres, setGenres] = useState<any[]>([])
     const [instruments, setInstruments] = useState<any[]>([])
+    const [categories, setCategories] = useState<any[]>(
+        [{ id: 0, name: 'Όλα', color: 'black', action: () => changeSelected(all, 'Everything') }]
+    )
 
 
     const call_profiles = new Call(Routes.profiles.all, 'GET')
@@ -55,6 +53,13 @@ export const DiscoverProvider = ({ children }: any) => {
     const call_studio_services = new Call(Routes.profiles.studio_services, 'GET')
     const call_genres = new Call(Routes.profiles.genres, 'GET')
     const call_instruments = new Call(Routes.profiles.instruments, 'GET')
+    const call_categories = new Call(Routes.profiles.categories, 'GET')
+
+
+    const changeSelected = (value: any, value2: any) => {
+        setSelected(value)
+        setActiveTab(value2)
+    }
 
 
 
@@ -77,6 +82,10 @@ export const DiscoverProvider = ({ children }: any) => {
             .then((res) => setInstruments(res?.[1].map((i: any) => i.name)))
             .catch((err: any) => console.warn(err))
 
+        call_categories
+            .GET()
+            .then((res) => setCategories([...categories, ...res]))
+            .catch((err: any) => console.warn(err))
 
         call_profiles
             .GET()
@@ -84,11 +93,12 @@ export const DiscoverProvider = ({ children }: any) => {
                 // console.log(res?.[1])
                 setSelected(res?.[1])
                 setAll(res?.[1])
-                setAllMusicians(res?.[1].filter((profile: any) => profile?.category?.name === "Musician"))
-                setAllStudios(res?.[1].filter((profile: any) => profile?.category?.name === "Studio"))
-                setAllStores(res?.[1].filter((profile: any) => profile?.category?.name === "Store"))
-                setAllStages(res?.[1].filter((profile: any) => profile?.category?.name === "Stage"))
-                setAllBands(res?.[1].filter((profile: any) => profile?.category?.name === "Band"))
+                setAllMusicians(res?.[1].filter((profile: any) => profile?.category?.id === 1))
+                setAllBands(res?.[1].filter((profile: any) => profile?.category?.id === 2))
+                setAllStudios(res?.[1].filter((profile: any) => profile?.category?.id === 3))
+                setAllStores(res?.[1].filter((profile: any) => profile?.category?.id === 4))
+                setAllStages(res?.[1].filter((profile: any) => profile?.category?.id === 5))
+                
 
             })
             .catch((err: any) => console.warn(err))
@@ -96,7 +106,7 @@ export const DiscoverProvider = ({ children }: any) => {
 
     }, [])
 
-    // console.warn(genres)
+  
 
 
     const filters = [
@@ -106,36 +116,38 @@ export const DiscoverProvider = ({ children }: any) => {
             filtered: filtered_cities, setFilters: setFilteredCities,
         },
         {
-            id: 'Musicians', label: 'Είδη', data: genres,
+            id: categories?.[1]?.name, label: 'Είδη', data: genres,
             setSearch: setGenreSearch, search: genreSearch,
             filtered: filtered_genres, setFilters: setFilteredGenres,
         },
         {
-            id: 'Musicians', label: 'Όργανα', data: instruments,
+            id: categories?.[1]?.name, label: 'Όργανα', data: instruments,
             setSearch: setInstrumentSearch, search: instrument_search,
             filtered: filtered_instruments, setFilters: setFilteredInstruments,
         },
         {
-            id: 'Music Studio', label: 'Υπηρεσίες', data: studio_services,
+            id: categories?.[3]?.name, label: 'Υπηρεσίες', data: studio_services,
             setSearch: setStudioServicesSearch, search: studio_services_search,
             filtered: filtered_studio_services, setFilters: setFilteredStudioServices
         },
-        // {
-        //     id: 'Bands', label: 'Συγκροτήματα', data: genres,
-        //     setSearch: setGenreSearch, search: genreSearch,
-        //     filtered: filtered_genres, setFilters: setFilteredGenres
-        // }
+
     ]
+
+
 
 
     let tabs: any = [
-        { label: 'Όλα', color: 'black', action: () => { setSelected(all); setActiveTab('Everything'); } },
-        { label: 'Μουσικοί', color: color?.musician, action: () => { setSelected(allMusicians); setActiveTab('Musicians'); } },
-        { label: 'Συγκροτήματα', color: color?.band, action: () => { setSelected(allBands); setActiveTab('Bands') } },
-        { label: 'Στούντιο', color: color?.studio, action: () => { setSelected(allStudios); setActiveTab('Music Studio') } },
-        { label: 'Καταστήματα', color: color?.store, action: () => { setSelected(allStores); setActiveTab('Music Stores') } },
-        { label: 'Σκηνές', color: color?.stage, action: () => { setSelected(allStages); setActiveTab('Live Stages') } }
+
+        { label: 'Όλα', color: 'black', action: () => changeSelected(all, 'Everything') },
+        { label: categories?.[1]?.name, color: categories?.[1]?.color, action: () => changeSelected(allMusicians, categories?.[1]?.name) },
+        { label: categories?.[2]?.name, color: categories?.[2]?.color, action: () => changeSelected(allBands, categories?.[2]?.name) },
+        { label: categories?.[3]?.name, color: categories?.[3]?.color, action: () => changeSelected(allStudios, categories?.[3]?.name) },
+        { label: categories?.[4]?.name, color: categories?.[4]?.color, action: () => changeSelected(allStores, categories?.[4]?.name) },
+        { label: categories?.[5]?.name, color: categories?.[5]?.color, action: () => changeSelected(allStages, categories?.[5]?.name) }
+
     ]
+
+
 
     const basicFiltering =
         selected
@@ -145,7 +157,7 @@ export const DiscoverProvider = ({ children }: any) => {
 
 
     const filteredData =
-        activeTab === 'Musicians' ?
+        activeTab === categories?.[1]?.name?
             basicFiltering
                 .filter((profile: any) =>
                     profile?.genres?.some((genre: any) =>
@@ -154,7 +166,7 @@ export const DiscoverProvider = ({ children }: any) => {
                     profile?.instruments?.some((instrument: any) =>
                         filtered_instruments.length === 0 ? !filtered_instruments.includes(genres) : filtered_instruments.includes(instrument?.name)))
 
-            : activeTab === 'Music Studio' ?
+            : activeTab === categories?.[3]?.name ?
                 basicFiltering
                     .filter((profile: any) =>
                         profile?.studio_services?.some((service: any) =>
@@ -165,26 +177,15 @@ export const DiscoverProvider = ({ children }: any) => {
 
 
 
-    const handle_checkbox = (event: any, state: any) => {
-        const { value, checked } = event.target;
-        state((prevCategories: any) =>
-            checked
-                ? [...prevCategories, value]
-                : prevCategories.filter((all_values: any) => all_values !== value)
-        )
-    }
-
-
-
     let contextData = {
-        activeTab: activeTab,
-        tabs: tabs,
-        filteredData: filteredData,
-        setSearch: setSearch,
-        onHover: onHover,
-        setOnHover: setOnHover,
-        handle_checkbox: handle_checkbox,
-        filters: filters
+        activeTab,
+        tabs,
+        filteredData,
+        setSearch,
+        handle_checkbox,
+        onHover,
+        setOnHover,
+        filters,
     }
 
 

@@ -14,42 +14,64 @@ export const AuthProvider = ({ children }: any) => {
 
     const navigate = useNavigate()
 
+
+
     let [authTokens, setAuthTokens] = useState<any>(() => localStorage.getItem('auth-token') ? JSON.parse(localStorage.getItem('auth-token')!) : null)
     let [user, setUser] = useState<any>(() => localStorage.getItem('auth-token') ? jwtDecode(localStorage.getItem('auth-token')!) : null)
 
-    
+
     async function loginUser(e: any) {
 
         // e.preventDefault()
+
 
         let data = {
             email: e.email,
             password: e.password
         }
 
+        let get_token = new Call(Routes.api.token, 'POST', data)
 
-        await axios
-            .post('http://127.0.0.1:8000/api/token/', data)
-            .then((res: any) => {
-                // console.log('axios res', res)
 
-                // validate token
-
-                if (!jwtDecode(res?.data?.access)) {
+        get_token
+            .POST_NO_TOKEN()
+            .then((res) => {
+                if (!jwtDecode(res?.access)) {
                     localStorage.removeItem('auth-token')
                     console.log('token expired')
                 } else {
-                    localStorage.setItem('auth-token', JSON.stringify(res?.data.access))
-                    setUser(jwtDecode(res?.data?.access))
-
+                    localStorage.setItem('auth-token', JSON.stringify(res?.access))
+                    setUser(jwtDecode(res?.access))
                     navigate('/discover')
                 }
             })
 
             .catch((err: any) => {
                 alert(err?.response?.data?.detail || err)
-                // console.log(err)
             })
+
+        // await axios
+        //     .post('http://127.0.0.1:8000/api/token/', data)
+        //     .then((res: any) => {
+        //         // console.log('axios res', res)
+
+        //         // validate token
+
+        //         if (!jwtDecode(res?.data?.access)) {
+        //             localStorage.removeItem('auth-token')
+        //             console.log('token expired')
+        //         } else {
+        //             localStorage.setItem('auth-token', JSON.stringify(res?.data.access))
+        //             setUser(jwtDecode(res?.data?.access))
+
+        //             navigate('/discover')
+        //         }
+        //     })
+
+        //     .catch((err: any) => {
+        //         alert(err?.response?.data?.detail || err)
+        //         // console.log(err)
+        //     })
 
 
 
@@ -117,7 +139,7 @@ export const AuthProvider = ({ children }: any) => {
         authTokens: authTokens,
         loginUser: loginUser,
         logoutUser: logoutUser,
-   
+
     }
 
 

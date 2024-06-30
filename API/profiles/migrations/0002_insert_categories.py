@@ -12,11 +12,11 @@ class Migration(migrations.Migration):
         Category = apps.get_model("profiles", "Category")
 
         names = [
-            "Musician",
-            "Band",
-            "Studio",
-            "Store",
-            "Stage",
+            "Μουσικοί",
+            "Συγκροτήματα",
+            "Στούντιο",
+            "Καταστήματα",
+            "Σκηνές",
         ]
 
         colors = ["#10ACDD", "#E37056", "#FF8514", "#12C59A", "#E558C6"]

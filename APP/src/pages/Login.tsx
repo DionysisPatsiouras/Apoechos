@@ -39,6 +39,7 @@ export default function Login() {
                     <input
                         className={CSS.inputs}
                         type='email'
+                        value={'admin@mail.com'}
                         {...register('email', {
                             required: 'Υποχρεωτικό πεδίο',
                             pattern: {
@@ -53,6 +54,7 @@ export default function Login() {
 
                     <label htmlFor="password" >Κωδικός πρόσβασης *</label>
                     <input
+                        value={'123'}
                         className={CSS.inputs}
                         type='password'
                         {...register('password', {
@@ -61,7 +63,7 @@ export default function Login() {
                     />
 
 
-           
+
 
                     <FormError value={errors?.password} />
 
