@@ -61,7 +61,7 @@ export default function Profile() {
             .catch((err) => console.warn(err))
 
         get_profile
-            .GET()
+            .GET_NO_TOKEN()
             .then((res: any) => setCurrentProfile(res))
             .catch((err) => console.warn(err))
 

@@ -12,7 +12,8 @@ const SearchValidation = (data: any, state: any) => {
         data?.toUpperCase().includes(state) ||
         data?.includes(state)
 
+
 }
 
 
-export default SearchValidation; 
+export default SearchValidation

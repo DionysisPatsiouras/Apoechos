@@ -35,6 +35,7 @@ def new_profile(request):
 
 # /profile/<str:id>/
 @api_view(["GET"])
+@permission_classes([])
 def profile_by_id(request, id):
 
     try:
@@ -81,6 +82,7 @@ def update_profile(request, id):
 
 # /profile/get/cities/
 @api_view(["GET"])
+@permission_classes([])
 def get_cities(request):
 
     cities = City.objects.all()
@@ -91,6 +93,7 @@ def get_cities(request):
 
 # /profile/get/genres/
 @api_view(["GET"])
+@permission_classes([])
 def get_genres(request):
 
     genres = Genre.objects.all()
@@ -110,6 +113,7 @@ def get_my_profiles(request):
 
 # /profile/get/studio_services/
 @api_view(["GET"])
+@permission_classes([])
 def get_studio_services(request):
 
     studio_service = Studio_Service.objects.all()
@@ -119,6 +123,7 @@ def get_studio_services(request):
 
 # /profile/get/store_services/
 @api_view(["GET"])
+@permission_classes([])
 def get_store_services(request):
 
     store_service = Store_Service.objects.all()
@@ -128,6 +133,7 @@ def get_store_services(request):
 
 # /profile/get/instruments/
 @api_view(["GET"])
+@permission_classes([])
 def get_instruments(request):
 
     instruments = Instrument.objects.all()
@@ -138,6 +144,7 @@ def get_instruments(request):
 
 # /profile/get/get_categories/
 @api_view(["GET"])
+@permission_classes([])
 def get_categories(request):
 
     categories = Category.objects.all()

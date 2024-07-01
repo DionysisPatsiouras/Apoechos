@@ -6,9 +6,9 @@ export default function VisitorMenu() {
         <>
             <ul>
                 <Link to="/">What's New</Link>
-                <Link to="/discover">Discover</Link>
+                <Link to="/discover">Ανακάλυψε</Link>
                 {/* <Link to="/upcoming-events">Upcoming Events</Link> */}
-                <Link to="learn-more">Learn More</Link>
+                <Link to='/events'>Εκδηλωσεις</Link>
             </ul>
             <ul>
                 <Link to='/login'>Σύνδεση</Link>

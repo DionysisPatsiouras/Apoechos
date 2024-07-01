@@ -4,7 +4,9 @@ import { Routes } from '../utils/Routes'
 
 import UserContext from './UserContext'
 // import { patchUser } from '../utils/functions/patchUser'
-import AuthContext from '../context/AuthContext'
+// import AuthContext from '../context/AuthContext'
+import UtilsContext from './UtilsContext'
+import { handle_checkbox } from '../utils/functions/handle_checkbox'
 
 const CreateNewProfileContext = createContext({})
 export default CreateNewProfileContext
@@ -13,13 +15,17 @@ export default CreateNewProfileContext
 export const CreateNewProfileProvider = ({ children }: any) => {
 
     let { me, updateDOM, setUpdateDOM }: any = useContext(UserContext)
- 
+    let {
+        cities,
+        get_cities,
+        get_genres,
+        genres,
+        get_studio_services,
+        get_instruments,
+        instruments,
+        studio_services }: any = useContext(UtilsContext)
 
-    // variables
-    const [cities, setCities] = useState<any[]>([])
-    const [genres, setGenres] = useState<any[]>([])
-    const [instruments, setInstruments] = useState<any[]>([])
-    const [studio_services, setStudioServices] = useState<any[]>([])
+
     const [category, setCategory] = useState<number>()
     const [created, setCreated] = useState<boolean>(false)
     const [profileId, setProfileId] = useState<string>('')
@@ -29,13 +35,6 @@ export const CreateNewProfileProvider = ({ children }: any) => {
     const [genreArray, setGenreArray] = useState<any[]>([])
     const [instrumentArray, setInstrumentArray] = useState<any[]>([])
     const [studio_services_array, setStudioServicesArray] = useState<any[]>([])
-
-
-    // calls
-    const get_cities = new Call(Routes.profiles.cities, 'GET')
-    const get_genres = new Call(Routes.profiles.genres, 'GET')
-    const get_studio_services = new Call(Routes.profiles.studio_services, 'GET')
-    const get_instruments = new Call(Routes.profiles.instruments, 'GET')
 
 
     // URL params
@@ -55,10 +54,11 @@ export const CreateNewProfileProvider = ({ children }: any) => {
         setCreated(false)
         setProfileId('')
 
-        get_cities.GET().then((res) => setCities(res?.[1])).catch((err) => console.warn(err))
-        get_genres.GET().then((res) => setGenres(res?.[1])).catch((err) => console.warn(err))
-        get_studio_services.GET().then((res) => setStudioServices(res?.[1])).catch((err) => console.warn(err))
-        get_instruments.GET().then((res) => setInstruments(res?.[1])).catch((err) => console.warn(err))
+        get_cities()
+        get_genres()
+        get_studio_services()
+        get_instruments()
+
 
         switch (param) {
             case "Μουσικοί":
@@ -81,17 +81,6 @@ export const CreateNewProfileProvider = ({ children }: any) => {
         }
 
     }, [])
-
-
-
-    const handleCheckBox = (state: any, event: any) => {
-        const { value, checked } = event.target;
-        state((prevCategories: any) =>
-            checked
-                ? [...prevCategories, value]
-                : prevCategories.filter((all_values: any) => all_values !== value)
-        )
-    }
 
 
 
@@ -152,7 +141,8 @@ export const CreateNewProfileProvider = ({ children }: any) => {
 
         param,
         onSubmit,
-        handleCheckBox,
+        // handleCheckBox,
+        handle_checkbox,
         setGenreArray,
         setStudioServicesArray,
         setInstrumentArray,

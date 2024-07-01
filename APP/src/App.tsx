@@ -18,7 +18,7 @@ import { AuthProvider } from './context/AuthContext'
 import { UserProvider } from './context/UserContext'
 import { DiscoverProvider } from './context/DiscoverContext'
 import { CreateNewProfileProvider } from './context/CreateNewProfileContext'
-
+import { UtilsProvider } from './context/UtilsContext'
 
 // pages
 import Discover from './pages/Discover'
@@ -35,7 +35,7 @@ import Events from './pages/Events'
 
 
 export const WindowSize = createContext(null)
-export const Colors: any = createContext(null)
+// export const Colors: any = createContext(null)
 
 export default function App() {
 
@@ -48,13 +48,7 @@ export default function App() {
 
   const responsive: any = width < 769
 
-  const colors = {
-    musician: '#10ACDD',
-    band: '#E37056',
-    studio: '#FF8514',
-    store: '#12C59A',
-    stage: '#E558C6'
-  }
+
 
   return (
 
@@ -65,12 +59,11 @@ export default function App() {
           <AuthProvider>
             <UserProvider>
 
-
-              <Colors.Provider value={colors}>
-
-                <Header />
-
+              <Header />
+              <UtilsProvider>
                 <Routes>
+
+
 
                   <Route path='/login' element={<Login />} />
                   <Route path='/register' element={<Register />} />
@@ -81,7 +74,7 @@ export default function App() {
                   <Route path='/events' element={<Events />} />
                   <Route path='/mystudio' element={<Messages />} />
 
-           
+
 
 
 
@@ -93,13 +86,14 @@ export default function App() {
 
 
                 </Routes>
-              </Colors.Provider>
+              </UtilsProvider>
+    
             </UserProvider>
           </AuthProvider>
         </BrowserRouter>
       </WindowSize.Provider>
 
-    </div>
+    </div >
   );
 }
 

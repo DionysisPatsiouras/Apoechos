@@ -1,5 +1,5 @@
 
-import { forwardRef, useEffect, useState } from 'react'
+import { forwardRef, useEffect, useState, useContext } from 'react'
 
 import Call from '../utils/Call'
 import { Routes } from '../utils/Routes'
@@ -9,11 +9,17 @@ import FullEvent from '../components/Events/FullEvent'
 import { handle_checkbox } from '../utils/functions/handle_checkbox'
 import CSS from '../css/Event/Events.module.css'
 import FixedButton from '../components/FixedButton'
+import UtilsContext from '../context/UtilsContext'
 
 const Events = forwardRef(function Events(props: any, ref: any) {
 
+    
+    let {
+        cities,
+        get_cities
+    }: any = useContext(UtilsContext)
+
     let [events, setEvents] = useState<any[]>([])
-    let [cities, setCities] = useState<any[]>([])
     const [modal, setModal] = useState<boolean>(false)
     const [content, setContent] = useState<any>()
     const [selectedCities, setSelectedCities] = useState<any[]>([])
@@ -22,12 +28,14 @@ const Events = forwardRef(function Events(props: any, ref: any) {
     const [height, setHeight] = useState<any>(undefined)
 
     let fetch_events = new Call(Routes.events.all, 'GET')
-    let fetch_cities = new Call(Routes.profiles.cities, 'GET')
+    // let fetch_cities = new Call(Routes.profiles.cities, 'GET')
 
     useEffect(() => {
 
-        fetch_events.GET().then((res) => setEvents(res)).catch((err) => console.warn(err))
-        fetch_cities.GET().then((res) => setCities(res?.[1])).catch((err) => console.warn(err))
+        fetch_events.GET_NO_TOKEN().then((res) => setEvents(res)).catch((err) => console.warn(err))
+
+        get_cities()
+
 
         setHeight(window.innerHeight)
         window.addEventListener("resize", () => setHeight(window.innerHeight))
@@ -73,9 +81,11 @@ const Events = forwardRef(function Events(props: any, ref: any) {
                 {events
                     .filter((event: any) => selectedCities.length === 0
                         ?
-                        !selectedCities.includes(event?.profile_location?.city?.id)
+                        !selectedCities.includes(event?.profile_location?.city?.id) 
                         :
-                        selectedCities.includes(event?.profile_location?.city?.id.toString()))
+                        selectedCities.includes(event?.profile_location?.city?.id.toString())
+         
+                    )
                     .map((event: any) => (
                         <EventView key={event.eventId} event={event} onClick={() => toggle_modal(true, event)} />
                     ))}

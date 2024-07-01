@@ -1,8 +1,9 @@
-import { createContext, useState, useEffect } from 'react'
+import { createContext, useState, useEffect, useContext } from 'react'
 import Call from '../utils/Call'
 import { Routes } from '../utils/Routes'
 import SearchValidation from '../utils/SearchValidation'
 import { handle_checkbox } from '../utils/functions/handle_checkbox'
+import UtilsContext from './UtilsContext'
 
 const DiscoverContext = createContext({})
 
@@ -11,7 +12,16 @@ export default DiscoverContext
 
 export const DiscoverProvider = ({ children }: any) => {
 
-
+    let {
+        cities,
+        get_cities,
+        get_genres,
+        genres,
+        get_studio_services,
+        get_instruments,
+        instruments,
+        studio_services
+    }: any = useContext(UtilsContext)
 
     const [selected, setSelected] = useState<any>([])
     const [all, setAll] = useState<any>([])
@@ -37,22 +47,12 @@ export const DiscoverProvider = ({ children }: any) => {
 
     const [activeTab, setActiveTab] = useState('Everything')
 
-
-
-    const [cities, setCities] = useState<any[]>([])
-    const [studio_services, setStudioServices] = useState<any[]>([])
-    const [genres, setGenres] = useState<any[]>([])
-    const [instruments, setInstruments] = useState<any[]>([])
     const [categories, setCategories] = useState<any[]>(
         [{ id: 0, name: 'Όλα', color: 'black', action: () => changeSelected(all, 'Everything') }]
     )
 
 
     const call_profiles = new Call(Routes.profiles.all, 'GET')
-    const call_cities = new Call(Routes.profiles.cities, 'GET')
-    const call_studio_services = new Call(Routes.profiles.studio_services, 'GET')
-    const call_genres = new Call(Routes.profiles.genres, 'GET')
-    const call_instruments = new Call(Routes.profiles.instruments, 'GET')
     const call_categories = new Call(Routes.profiles.categories, 'GET')
 
 
@@ -65,30 +65,19 @@ export const DiscoverProvider = ({ children }: any) => {
 
     useEffect(() => {
 
-        call_studio_services
-            .GET()
-            .then((res) => setStudioServices(res?.[1].map((i: any) => i.name)))
-            .catch((err: any) => console.warn(err))
-        call_cities
-            .GET()
-            .then((res) => setCities(res?.[1].map((i: any) => i.name)))
-            .catch((err: any) => console.warn(err))
-        call_genres
-            .GET()
-            .then((res) => setGenres(res?.[1].map((i: any) => i.name)))
-            .catch((err: any) => console.warn(err))
-        call_instruments
-            .GET()
-            .then((res) => setInstruments(res?.[1].map((i: any) => i.name)))
-            .catch((err: any) => console.warn(err))
+        get_cities()
+        get_studio_services()
+        get_instruments()
+        get_genres()
+
 
         call_categories
-            .GET()
+            .GET_NO_TOKEN()
             .then((res) => setCategories([...categories, ...res]))
             .catch((err: any) => console.warn(err))
 
         call_profiles
-            .GET()
+            .GET_NO_TOKEN()
             .then((res: any) => {
                 // console.log(res?.[1])
                 setSelected(res?.[1])
@@ -98,7 +87,7 @@ export const DiscoverProvider = ({ children }: any) => {
                 setAllStudios(res?.[1].filter((profile: any) => profile?.category?.id === 3))
                 setAllStores(res?.[1].filter((profile: any) => profile?.category?.id === 4))
                 setAllStages(res?.[1].filter((profile: any) => profile?.category?.id === 5))
-                
+
 
             })
             .catch((err: any) => console.warn(err))
@@ -106,27 +95,27 @@ export const DiscoverProvider = ({ children }: any) => {
 
     }, [])
 
-  
+
 
 
     const filters = [
         {
-            id: 'Everything', label: 'Περιοχή', data: cities,
+            id: 'Everything', label: 'Περιοχή', data: cities.map((i: any) => i.name),
             setSearch: setCitySearch, search: citySearch,
             filtered: filtered_cities, setFilters: setFilteredCities,
         },
         {
-            id: categories?.[1]?.name, label: 'Είδη', data: genres,
+            id: categories?.[1]?.name, label: 'Είδη', data: genres.map((i: any) => i.name),
             setSearch: setGenreSearch, search: genreSearch,
             filtered: filtered_genres, setFilters: setFilteredGenres,
         },
         {
-            id: categories?.[1]?.name, label: 'Όργανα', data: instruments,
+            id: categories?.[1]?.name, label: 'Όργανα', data: instruments.map((i: any) => i.name),
             setSearch: setInstrumentSearch, search: instrument_search,
             filtered: filtered_instruments, setFilters: setFilteredInstruments,
         },
         {
-            id: categories?.[3]?.name, label: 'Υπηρεσίες', data: studio_services,
+            id: categories?.[3]?.name, label: 'Υπηρεσίες', data: studio_services.map((i: any) => i.name),
             setSearch: setStudioServicesSearch, search: studio_services_search,
             filtered: filtered_studio_services, setFilters: setFilteredStudioServices
         },
@@ -157,7 +146,8 @@ export const DiscoverProvider = ({ children }: any) => {
 
 
     const filteredData =
-        activeTab === categories?.[1]?.name?
+
+        activeTab === categories?.[1]?.name ?
             basicFiltering
                 .filter((profile: any) =>
                     profile?.genres?.some((genre: any) =>

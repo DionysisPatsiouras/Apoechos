@@ -9,6 +9,7 @@ from rest_framework.permissions import IsAuthenticated
 
 # /event/
 @api_view(["GET"])
+@permission_classes([])
 def all_events(request):
 
     events = Event.objects.all()

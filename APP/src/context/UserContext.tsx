@@ -1,6 +1,8 @@
 import { createContext, useState, useEffect } from "react"
 import Call from "../utils/Call"
 import { Routes } from "../utils/Routes"
+import { useContext } from 'react'
+import AuthContext from "./AuthContext"
 
 const UserContext = createContext({})
 
@@ -15,6 +17,8 @@ export const UserProvider = ({ children }: any) => {
 
     const fetch_me = new Call(Routes.user.me, 'GET')
     const fetch_my_profiles = new Call(Routes.profiles.my_profiles, 'GET')
+
+    let { user }: any = useContext(AuthContext)
 
     const fetchMyProfiles = () => {
         fetch_my_profiles
@@ -37,10 +41,11 @@ export const UserProvider = ({ children }: any) => {
 
 
     useEffect(() => {
-
-
-        fetchMyProfiles()
-        fetchMe()
+        
+        if (user) {
+            fetchMyProfiles()
+            fetchMe()
+        }
 
     }, [])
 

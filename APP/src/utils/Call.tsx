@@ -6,7 +6,7 @@ export default class Call {
 
     private url: string
     private config: { method: string; url: string, data: any, headers: any }
-    private post_config: { method: string; url: string, data: any }
+    private no_token_config: { method: string; url: string, data: any }
     private post_photo: { method: string; url: string, data: any, headers: any, withCredentials: any, cache: any }
 
 
@@ -19,7 +19,7 @@ export default class Call {
             headers: { Authorization: `Bearer ${this.token}` }
         }
 
-        this.post_config = {
+        this.no_token_config = {
             method: `${type}`,
             url: this.url,
             data: data,
@@ -50,6 +50,16 @@ export default class Call {
             })
     }
 
+    public GET_NO_TOKEN = async () => {
+        return await axios(this.no_token_config)
+            .then(function (response) {
+                return response.data
+            })
+            .catch(function (error) {
+                throw error
+            })
+    }
+
 
     public POST = async () => {
         return await axios(this.config)
@@ -62,7 +72,7 @@ export default class Call {
     }
 
     public POST_NO_TOKEN = async () => {
-        return await axios(this.post_config)
+        return await axios(this.no_token_config)
             .then(function (response) {
                 return response.data
             })

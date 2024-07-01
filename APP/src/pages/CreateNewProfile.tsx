@@ -36,7 +36,8 @@ export default function CreateNewProfile() {
         instruments,
         studio_services,
         onSubmit,
-        handleCheckBox,
+        // handleCheckBox,
+        handle_checkbox,
         setGenreArray,
         genreArray,
         instrumentArray,
@@ -160,7 +161,7 @@ export default function CreateNewProfile() {
                                                     id={service.id}
                                                     type='checkbox'
                                                     value={service.id}
-                                                    onChange={(event) => handleCheckBox(setStudioServicesArray, event)}
+                                                    onChange={(event) => handle_checkbox(setStudioServicesArray, event.target)}
                                                     checked={studio_services_array.includes(service.id.toString())}
                                                 />
                                                 <label htmlFor={service.id}>{service.name}</label>
@@ -186,7 +187,7 @@ export default function CreateNewProfile() {
                                                     id={genre.id}
                                                     type='checkbox'
                                                     value={genre.id}
-                                                    onChange={(event) => handleCheckBox(setGenreArray, event)}
+                                                    onChange={(event) => handle_checkbox(setGenreArray, event.target)}
                                                     checked={genreArray.includes(genre.id.toString())}
                                                 />
                                                 <label htmlFor={genre.id}>{genre.name}</label>
@@ -214,7 +215,7 @@ export default function CreateNewProfile() {
                                                     type='checkbox'
                                                     value={instr.id}
 
-                                                    onChange={(event) => handleCheckBox(setInstrumentArray, event)}
+                                                    onChange={(event) => handle_checkbox(setInstrumentArray, event.target)}
                                                     checked={instrumentArray.includes(instr.id.toString())}
                                                 />
                                                 <label htmlFor={instr.id + instr.category}>{instr.name}</label>
