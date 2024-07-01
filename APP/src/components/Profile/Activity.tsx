@@ -3,12 +3,9 @@ import { useState, useEffect } from 'react'
 
 import Modal from '../Modal'
 import CSS from '../../css/Profile/Profile.module.sass'
-// import AuthContext from '../../context/AuthContext'
 
 import NewEvent from './NewEvent'
 import NewPost from './NewPost'
-
-
 
 // utils
 import { Routes } from '../../utils/Routes'

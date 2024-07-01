@@ -1,6 +1,5 @@
 
 import { forwardRef } from 'react'
-import CSS from '../css/Modal/Modal.module.sass'
 import SvgIcon from './SvgIcon'
 
 // props => open, close, closeButton, withContainer, title

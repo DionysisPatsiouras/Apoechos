@@ -21,8 +21,6 @@ export default function MobileMenu(props: any) {
                     <ul>
                         <Link to="/">Εκδηλώσεις - Ροή</Link>
                         <Link to="/discover">Ανακάλυψε</Link>
-                        {/* <Link to="/upcoming-events">Upcoming Events</Link> */}
-                        {/* <Link to="learn-more">Learn More</Link> */}
                     </ul>
                 </nav>
             </div>

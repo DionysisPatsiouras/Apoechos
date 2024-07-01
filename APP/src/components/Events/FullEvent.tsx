@@ -9,7 +9,6 @@ import SvgIcon from '../SvgIcon'
 const FullEvent = forwardRef(function FullEvent(props: any, ref: any) {
 
 
-    // console.log(props.event)
 
     let event = props?.event
 
@@ -77,7 +76,7 @@ const FullEvent = forwardRef(function FullEvent(props: any, ref: any) {
             </div>
 
 
-            {/* <h3>Περιγραφή</h3><br></br> */}
+        
             <p>{event?.description}</p>
 
 

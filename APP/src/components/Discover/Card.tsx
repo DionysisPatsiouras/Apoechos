@@ -7,10 +7,9 @@ import img from '../../utils/img/default_img.png'
 
 const Card = forwardRef(function Card(props: any, ref) {
 
-    // console.warn(props?.data)
 
     let profile = props?.data
-    // console.log(profile)
+
 
     return (
         <div className={CSS.card} style={{ 'backgroundColor': profile?.category?.color }}>

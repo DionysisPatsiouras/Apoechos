@@ -31,7 +31,7 @@ export default function Create() {
             .then((res) => setCategories(res))
             .catch((err) => console.warn(err))
 
-        setHasMusician(my_profiles && my_profiles.map((i: any) => i.category.name === "Musician" ? true : false))
+        setHasMusician(my_profiles && my_profiles.map((i: any) => i.category.name === "Μουσικοί" ? true : false))
 
     }, [myProfiles])
 
@@ -51,10 +51,11 @@ export default function Create() {
                 <hr className='divider'></hr>
 
                 <div style={{ 'padding': '35px' }}>
-
+                    
+                    {/* needs to be fixed */}
                     {categories !== undefined && myProfiles &&
                         categories
-                            .filter((category: any) => hasMusician?.includes(true) ? category.name !== "Musician" : category.name !== "")
+                            .filter((category: any) => hasMusician?.includes(true) ? category.name !== "Μουσικοί" : category.name !== "")
                             .map((category: any) => (
                                 <div key={category.id} className={CSS.selectionContainer}>
 
