@@ -108,7 +108,7 @@ export default function EditProfile(props: any) {
                                 <input
                                     type='text'
                                     placeholder='Όνομα'
-                                    // defaultValue={profile?.name}
+                                    defaultValue={profile?.name}
                                     // defaultValue={value}
                                     // onChange={() => setName(e:any) => e.target.value}
                                     // onChange={() => setName((e:any) => e.target.value)}

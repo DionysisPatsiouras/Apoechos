@@ -19,6 +19,8 @@ const Events = forwardRef(function Events(props: any, ref: any) {
     const [selectedCities, setSelectedCities] = useState<any[]>([])
     const [filters, setFilters] = useState<boolean>(false)
 
+    const [height, setHeight] = useState<any>(undefined)
+
     let fetch_events = new Call(Routes.events.all, 'GET')
     let fetch_cities = new Call(Routes.profiles.cities, 'GET')
 
@@ -26,6 +28,9 @@ const Events = forwardRef(function Events(props: any, ref: any) {
 
         fetch_events.GET().then((res) => setEvents(res)).catch((err) => console.warn(err))
         fetch_cities.GET().then((res) => setCities(res?.[1])).catch((err) => console.warn(err))
+
+        setHeight(window.innerHeight)
+        window.addEventListener("resize", () => setHeight(window.innerHeight))
 
     }, [])
 
@@ -63,7 +68,7 @@ const Events = forwardRef(function Events(props: any, ref: any) {
             }
 
 
-            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', height: height - 60, overflow: 'auto' }}>
 
                 {events
                     .filter((event: any) => selectedCities.length === 0
