@@ -103,6 +103,7 @@ export const CreateNewProfileProvider = ({ children }: any) => {
         data?.file?.[0] && formData.append('photo', data?.file?.[0])
         formData.append('name', data?.name)
         formData.append('city', data?.city)
+        formData.append('address', data?.address)
         formData.append('user', me?.id)
         formData.append('category', category)
 

@@ -19,8 +19,9 @@ const Card = forwardRef(function Card(props: any, ref) {
             <div className={CSS.cardWhitePart}>
 
                 <div className={CSS.signatureIcon}>
-                    <SvgIcon id={profile?.category?.name.toLowerCase()} color={'#ffffff'}
-                        style={{ 'margin': profile?.category?.name.toLowerCase() === 'musician' ? '-5px -6px 0 0' : null }} />
+
+                    <SvgIcon id={profile?.category?.icon} color={'#ffffff'}
+                        style={{ 'margin': profile?.category?.icon === 'musician' ? '-5px -6px 0 0' : null }} />
                 </div>
 
 
@@ -44,7 +45,7 @@ const Card = forwardRef(function Card(props: any, ref) {
 
                 <div className={CSS.btn_section}>
                     <Link to={`/profile/${profile?.profileId}`} >
-                        <button className='cursor-pointer blue_btn'>Περισσότερα</button>
+                        <button className={'cursor-pointer blue_btn'}>Περισσότερα</button>
                     </Link>
                 </div>
 

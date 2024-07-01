@@ -21,7 +21,7 @@ export default function Activity(props: any) {
 
     const [profile, setProfile] = useState<any>()
 
-    let [tab, setTab] = useState<string>('posts')
+    let [activeTab, setActiveTab] = useState<string>('posts')
 
     let [createNew, setCreateNew] = useState<boolean>(false)
     let [updateDOM, setUpdateDOM] = useState<boolean>(false)
@@ -49,8 +49,13 @@ export default function Activity(props: any) {
 
     }, [props])
 
+    let tabs = [
+        { id: [1, 2, 3, 4, 5], label: "Δημοσιεύσεις", tab: "posts", onClick: () => setActiveTab("posts") },
+        { id: [1, 2, 5], label: "Εκδηλώσεις", tab: "events", onClick: () => setActiveTab("events") },
+        { id: [3, 4, 5], label: "Τοποθεσία", tab: "location", onClick: () => setActiveTab("location") },
+    ]
 
-    // console.log(props)
+
 
     return (
 
@@ -81,13 +86,24 @@ export default function Activity(props: any) {
 
 
             <ul className={CSS.wall_list}>
-                <li className={tab === 'posts' ? CSS.active : undefined} onClick={() => setTab('posts')}>Δημοσιεύσεις</li>
-                {props?.category === 'musician' &&
-                    <li className={tab === 'events' ? CSS.active : undefined} onClick={() => setTab('events')}>Εκδηλώσεις</li>}
+
+
+                {tabs
+                    .filter((tab: any) => tab.id.includes(profile?.category?.id))
+                    .map((tab: any, index: number) => (
+                        <li
+                            key={index}
+                            className={activeTab === tab?.tab ? CSS.active : undefined}
+                            onClick={tab?.onClick}>
+                            {tab.label}
+                        </li>
+                    ))}
             </ul>
 
+            {activeTab === 'posts' &&
+                <AllPosts id={profile?.profileId} can_edit={props?.canEdit} updateDOM={() => setUpdateDOM(!updateDOM)} />
+            }
 
-            <AllPosts id={profile?.profileId} can_edit={props?.canEdit} updateDOM={() => setUpdateDOM(!updateDOM)} />
 
 
 

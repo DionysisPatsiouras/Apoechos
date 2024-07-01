@@ -87,9 +87,9 @@ export const EditProfileProvider = ({ children }: any) => {
 
     let edit_menu = [
         { icon: 'account', label: 'Στοιχεία', category: 'All', id: 1 },
-        { icon: 'genres', label: 'Είδη', category: 'Musician', id: 2 },
-        { icon: 'studio_services', label: 'Υπηρεσίες', category: 'Studio', id: 3 },
-        { icon: 'keys', label: 'Όργανα', category: 'Musician', id: 4 },
+        { icon: 'genres', label: 'Είδη', category: 'Μουσικοί', id: 2 },
+        { icon: 'studio_services', label: 'Υπηρεσίες', category: 'Στούντιο', id: 3 },
+        { icon: 'keys', label: 'Όργανα', category: 'Μουσικοί', id: 4 },
     ]
 
 

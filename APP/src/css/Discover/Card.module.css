@@ -65,6 +65,9 @@
   height: auto;
   padding: 10px;
   font-size: 1rem;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
 }
 
 .location {

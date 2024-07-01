@@ -63,7 +63,7 @@ export default function Create() {
                                         style={{ backgroundColor: active === category.name ? category.color : '#EFEEEE' }}
                                     >
                                         <SvgIcon
-                                            id={category.name.toLowerCase()}
+                                            id={category.icon}
                                             style={{ position: 'absolute', marginLeft: '-200px' }}
                                             color={active === category.name ? '#ffffff' : '#000000'} />
                                         <p style={{ color: active === category.name ? '#ffffff' : '#6B6767' }}>{category.name}</p>

@@ -65,7 +65,7 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
                         alt='profile_image' />
 
                     <div className={CSS.category_container} style={{ backgroundColor: post?.profile?.category?.color }} >
-                        <SvgIcon id={post?.profile?.category?.name.toLocaleLowerCase()} color={'#fff'} width={20} />
+                        <SvgIcon id={post?.profile?.category?.icon} color={'#fff'} width={20} />
                     </div>
 
                     <div className={CSS.content}>

@@ -1,11 +1,6 @@
 .container
-    width: 80vw
-    max-width: 1200px
-    margin: 0 auto
-    display: flex
-    flex-direction: column
-    justify-content: center
-    padding: 30px 0 0 0
+
+    width: 100%
 
     hr
         height: 0
@@ -34,11 +29,10 @@
     color: #5F69C6 !important
     border-bottom: 2px solid #5F69C6
 
-.personal_info
+.right_content
 
-    display: flex
-    flex-direction: column
-    align-items: center
+    padding: 40px 40px 0 40px
+    width: 100%
 
     strong
         color: #5F69C6
@@ -61,7 +55,7 @@
             display: flex
 
     .bio
-
+        width: 500px
         margin: 10px 0
         color: #999999
 
@@ -78,6 +72,16 @@
         svg
             margin: 0 5px 0 0
 
+.profileInfo
+    display: flex
+    // border-bottom: 1px solid #DCD6D6
+    padding: 0 0 20px 0
+    justify-content: space-between
+
+.attr
+    display: flex
+    width: 200px
+    margin-bottom: 20px
 .create_new
     position: fixed
     bottom: 15px
@@ -100,22 +104,15 @@
     cursor: pointer
 
 .right_section
-    // background-color: red
     width: 500px
 
 .my_profiles_list
-    position: absolute
-    left: 0
-    background-color: #F8F8F8
-    width: 20%
-    height: 100vh
-    margin: -30px 0 0 0
- 
 
+    background-color: #F8F8F8
+    width: 300px
 
     li
         padding: 10px
-
 
 // DESKTOP
 @media screen and ( min-width: 768px )
