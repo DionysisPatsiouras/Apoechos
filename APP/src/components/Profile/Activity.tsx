@@ -100,10 +100,13 @@ export default function Activity(props: any) {
                     ))}
             </ul>
 
-            {activeTab === 'posts' &&
-                <AllPosts id={profile?.profileId} can_edit={props?.canEdit} updateDOM={() => setUpdateDOM(!updateDOM)} />
-            }
+            <section style={{display: 'flex', width: '500px', gap: '20px', flexDirection: 'column'}}>
 
+
+                {activeTab === 'posts' &&
+                    <AllPosts id={profile?.profileId} can_edit={props?.canEdit} updateDOM={() => setUpdateDOM(!updateDOM)} />
+                }
+            </section>
 
 
 

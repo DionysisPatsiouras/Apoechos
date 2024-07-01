@@ -29,14 +29,14 @@ export default function News() {
     }, [])
 
 
-
+    console.log(array)
 
     return (
         <section>
 
 
             <div className={CSS.header}>
-                <p>Δημοσίευσεις</p>
+                <p></p>
 
                 <div className={`${CSS.filters} cursor-pointer`}
                     onClick={() => setOpen(!open)}>
@@ -47,9 +47,11 @@ export default function News() {
                     <ul>
                         {labels.map((label: any, index: number) => (
                             <li key={index}>
-                                <input type='checkbox' id={label?.label}
+                                <input type='checkbox'
+                                    id={label?.label}
                                     value={label.label}
                                     onChange={(e: any) => handle_checkbox(setArray, e.target)}
+                                    checked={array.includes(label?.label)}
                                 />
                                 <label htmlFor={label.label}>{label.label}</label>
                             </li>
@@ -62,7 +64,7 @@ export default function News() {
 
             <div className={CSS.main_body}>
 
-                <div style={{ margin: '10px', display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                <div className={CSS.allPosts} >
 
                     <AllPosts
                         all_posts={data

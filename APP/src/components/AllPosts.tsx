@@ -73,7 +73,7 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
                         <Link to={`/profile/${post?.profile?.profileId}`}>
                             <h3 style={{ display: 'flex', alignItems: 'center' }}>
                                 {post?.profile?.name}
-                                {/* {post?.is_pinned && <SvgIcon id={'pinned'} color='#D2A35B' />} */}
+                          
                             </h3>
                         </Link>
 

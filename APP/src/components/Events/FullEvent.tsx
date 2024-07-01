@@ -9,7 +9,7 @@ import SvgIcon from '../SvgIcon'
 const FullEvent = forwardRef(function FullEvent(props: any, ref: any) {
 
 
-    console.log(props.event)
+    // console.log(props.event)
 
     let event = props?.event
 
