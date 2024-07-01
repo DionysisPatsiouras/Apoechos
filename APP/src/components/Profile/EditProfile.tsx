@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 // CSS
 import CSS from '../../css/Profile/EditProfile.module.sass'
@@ -32,10 +32,14 @@ export default function EditProfile(props: any) {
         my_genres,
         instruments,
         setMyInstruments,
-        my_instruments
+        my_instruments,
+        cities,
+        setNewFile,
+        newFile,
+
     }: any = useContext(EditProfileContext)
 
-
+    // console.log(props.profile)
 
 
 
@@ -51,7 +55,7 @@ export default function EditProfile(props: any) {
                         .map((i: any) => (
                             <li className='items-inline' key={i.id}>
                                 <input type='checkbox' value={i.id} id={i.id} style={{ width: 'unset' }}
-                                    onChange={(event: any) => handle_checkbox(event, setState)}
+                                    onChange={(event: any) => handle_checkbox(setState, event.target)}
                                     checked={myArray?.includes(i?.id?.toString())}
                                 />
                                 <label htmlFor={i.id}>{i.name}</label>
@@ -63,8 +67,6 @@ export default function EditProfile(props: any) {
 
     }
 
-    // const [name, setName] = useState(props.profile.name);
-    // const [value] = useDebounce(name, 1000);
 
 
     return (
@@ -93,12 +95,26 @@ export default function EditProfile(props: any) {
                     <div className={CSS.info_stats}>
                         <div className='items-inline' style={{ gap: '25px', alignItems: 'flex-start' }}>
 
-                            <img src={`http://127.0.0.1:8000/${profile?.photo}`} width={200} alt='profile'
+                            <img src={newFile || `http://127.0.0.1:8000/${profile?.photo}`} width={200} alt='profile'
                                 style={{ height: '218px', objectFit: 'cover', margin: '0 0 20px 0' }} />
 
                             <div className={CSS.updateImage}>
-                                <button ><SvgIcon id={'upload-image'} color='#fff' />Ανέβασμα</button>
-                                <button style={{ background: '#C65F5F' }}><SvgIcon id={'close'} color='#fff' width={20} />Κατάργηση</button>
+
+
+                                <label htmlFor='photo'>
+                                    <SvgIcon id={'upload-image'} color='#fff' />
+                                    Ανέβασμα
+                                </label>
+
+                                <input
+                                    {...register('photo')}
+                                    id='photo' type='file' style={{ position: 'absolute', top: '-20000px' }}
+                                    onChange={(file: any) => setNewFile(URL.createObjectURL(file.target.files[0]))}
+                                />
+
+                                <label onClick={() => setNewFile(undefined)} style={{ background: '#C65F5F' }}>
+                                    <SvgIcon id={'close'} color='#fff' width={20} />Κατάργηση
+                                </label>
                             </div>
 
                         </div>
@@ -109,9 +125,6 @@ export default function EditProfile(props: any) {
                                     type='text'
                                     placeholder='Όνομα'
                                     defaultValue={profile?.name}
-                                    // defaultValue={value}
-                                    // onChange={() => setName(e:any) => e.target.value}
-                                    // onChange={() => setName((e:any) => e.target.value)}
                                     {...register('name', {
                                         required: 'Υποχρεωτικό πεδίο',
                                     })}
@@ -120,8 +133,8 @@ export default function EditProfile(props: any) {
                             </>
 
                         }
-                        {/* <select className={CSS.city_dropdown} {...register('city')}>
-                            {cities.map((city: any) => (
+                        <select className={CSS.city_dropdown} {...register('city')}>
+                            {cities?.map((city: any) => (
                                 <option key={city.id} value={city.id}>{city.name}</option>
                             ))}
                         </select>
@@ -129,7 +142,7 @@ export default function EditProfile(props: any) {
                             placeholder='Λίγα λόγια για εσάς..'
                             defaultValue={profile?.bio}
                             {...register('bio')}
-                        /> */}
+                        />
                     </div>
 
                 }

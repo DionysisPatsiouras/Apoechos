@@ -18,28 +18,31 @@ const NewEvent = forwardRef(function NewEvent(props: any, ref: any) {
 
     const onSubmit = (data: any) => {
 
-        let formData = new FormData()
-        formData.append('file', data?.file?.[0])
 
-
-
-        const finalData = {
-            title: data?.title,
-            date: `${data?.date} ${data?.time}`,
-            description: data?.description,
-            photo: data?.file?.[0],
-            location: data?.location,
-            created_by: "dasdad"
-        }
-
-
-        const new_event = new Call(Routes.events.new, 'POST', finalData)
-
-        // new_event.POST_MEDIA().then((res) => console.log(res))
+        let formData: any = new FormData()
 
         console.log(data)
-        console.warn(finalData)
+        // check if photo exists
+        data?.file?.[0] && formData.append('photo', data?.file?.[0])
+
+        formData.append('title', data?.title)
+        formData.append('description', data?.description)
+        formData.append('created_by', props?.created_by)
+        // date not right
+        formData.append('date', `${data?.date}-${data?.time}`)
+        formData.append('main_bands', [props?.created_by])
+        const new_event = new Call(Routes.events.new, 'POST', formData)
+
+        new_event
+            .POST_MEDIA()
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((err) => console.warn(err))
+
     }
+    // console.log(props)
+
     return (
         <form onSubmit={handleSubmit(onSubmit)} noValidate className={CSS.new_event_form}>
 

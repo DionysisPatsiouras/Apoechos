@@ -80,7 +80,7 @@ export default function Activity(props: any) {
                 {modalTitle === 'Νέα Δημοσίευση' &&
                     <NewPost category={profile?.category} close={() => setCreateNew(false)} profile_id={props?.id} />}
 
-                {modalTitle === 'Νέα Εκδήλωση' && <NewEvent />}
+                {modalTitle === 'Νέα Εκδήλωση' && <NewEvent created_by={profile?.profileId}/>}
 
             </Modal>
 

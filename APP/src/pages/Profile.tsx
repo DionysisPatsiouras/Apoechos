@@ -68,7 +68,7 @@ export default function Profile() {
 
     }, [updateDOM])
 
-   
+
     return (
 
 
@@ -84,10 +84,12 @@ export default function Profile() {
                 withContainer={true}
                 title={'Επεξεργασία προφίλ'}>
                 <EditProfileProvider>
-                    <EditProfile profile={currentProfile} close={() => {
-                        setUpdateDOM(!updateDOM);
-                        setEditMode(false)
-                    }} />
+                    <EditProfile
+                        profile={currentProfile}
+                        close={() => {
+                            setUpdateDOM(!updateDOM);
+                            setEditMode(false)
+                        }} />
                 </EditProfileProvider>
             </Modal>
 
@@ -108,7 +110,7 @@ export default function Profile() {
                                         }}
                                     >
                                         {profile.name}
-                                        <SvgIcon id={profile.category.name.toLocaleLowerCase()}
+                                        <SvgIcon id={profile.category.icon}
                                             color={profile.profileId === currentProfile?.profileId ? '#fff' : '#646464'}
                                         />
                                     </li>
@@ -152,7 +154,7 @@ export default function Profile() {
                                 <div className='items-inline' >
                                     <strong> {currentProfile?.name} </strong>
                                     {user?.user_id === currentProfile?.user &&
-                                        <SvgIcon id='edit' color='#5b5b5b'onClick={() => setEditMode(true)} />
+                                        <SvgIcon id='edit' color='#5b5b5b' onClick={() => setEditMode(true)} />
                                     }
 
                                 </div>
@@ -161,9 +163,9 @@ export default function Profile() {
                                 <div className='items-inline'>
                                     <SvgIcon id='location' />
                                     <p>{currentProfile?.city?.name}{currentProfile.address && `, ${currentProfile.address}`} </p>
-                                 
+
                                 </div>
-                       
+
                             </div>
                         </div>
 
