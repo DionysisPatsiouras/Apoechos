@@ -149,7 +149,7 @@ export default function Register() {
                             })}
                         />
                         <label htmlFor='terms' className={CSS.termsLabel}>
-                            Συμφωνώ με τους όρους χρήσης της εφαρμογής
+                            Συμφωνώ με τους <Link to='/terms-and-conditions'>όρους χρήσης</Link> της εφαρμογής
                         </label>
 
                         <FormError value={errors.checkbox} />

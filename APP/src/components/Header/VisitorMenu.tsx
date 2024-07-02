@@ -5,7 +5,7 @@ export default function VisitorMenu() {
     return (
         <>
             <ul>
-                <Link to="/">What's New</Link>
+                <Link to="/">Αρχική</Link>
                 <Link to="/discover">Ανακάλυψε</Link>
                 <Link to='/events'>Εκδηλώσεις</Link>
             </ul>

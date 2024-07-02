@@ -25,7 +25,7 @@ const Events = forwardRef(function Events(props: any, ref: any) {
     const [selectedCities, setSelectedCities] = useState<any[]>([])
     const [filters, setFilters] = useState<boolean>(false)
 
-    const [height, setHeight] = useState<any>(undefined)
+    const [height, setHeight] = useState<any>(100)
 
     let fetch_events = new Call(Routes.events.all, 'GET')
     // let fetch_cities = new Call(Routes.profiles.cities, 'GET')
