@@ -26,8 +26,11 @@ export default function Register() {
 
     const onSubmit = (data: any) => {
 
+       
+
         const registerUser = new Call(Routes.auth.register, 'POST', data)
-        // console.log(data)
+
+
         registerUser
             .POST_NO_TOKEN()
             .then((res) => {
@@ -39,13 +42,14 @@ export default function Register() {
             })
             .catch((err) => {
                 console.log(err)
-                setEmailInUse(err.response.data.email)
+                setEmailInUse(err?.response?.data?.email)
                 setEmailInUse('To email χρησιμοποιείται ήδη')
             })
 
         console.log('Form submitted', data)
 
     }
+
 
 
     return (
@@ -58,9 +62,9 @@ export default function Register() {
 
                 <h6 className={CSS.title}>{accountCreated ? 'Επιτυχής εγγραφή!' : 'Εγγραφή'}</h6>
                 <form onSubmit={handleSubmit(onSubmit)} noValidate style={{ 'display': accountCreated ? 'none' : 'flex' }}>
-                    <div style={{display: 'flex', gap: '20px'}}>
+                    <div style={{ display: 'flex', gap: '20px' }}>
                         <div>
-                            <div style={{ display: 'flex', flexDirection: 'column'}}>
+                            <div style={{ display: 'flex', flexDirection: 'column' }}>
 
                                 {/* EMAIL */}
                                 <label htmlFor="email" className={CSS.fieldLabel}>E-mail</label>
@@ -84,14 +88,16 @@ export default function Register() {
 
                             <div style={{ display: 'flex', flexDirection: 'column' }}>
                                 {/* DATE */}
-                                <label htmlFor="password" className={CSS.fieldLabel}>Ημ/νία γέννησης</label>
-                                <input className={CSS.inputs} type="date" id="password"
+                                <label htmlFor="birthdate" className={CSS.fieldLabel}>Ημερομηνία Γέννησης</label>
+                                <input className={CSS.inputs} type="date" id="birthdate"
                                     {...register("birthdate", {
                                         required: "Υποχρεωτικό πεδίο",
 
                                     })} />
 
-                                <FormError value={errors?.password} />
+
+
+                                <FormError value={errors?.birthdate} />
                             </div>
                         </div>
                         <div>
@@ -131,25 +137,25 @@ export default function Register() {
 
 
 
-                          
+
 
                         </div>
                     </div>
-                      {/* TERMS AND CONDITIONS CHECKBOX */}
-                      <div className={`${CSS.terms} items-inline`} >
-                                <input type='checkbox' id="terms"
-                                    {...register("checkbox", {
-                                        required: "You must agree with Terms & Conditions to create an account"
-                                    })}
-                                />
-                                <label htmlFor='terms' className={CSS.termsLabel}>
-                                    Συμφωνώ με τους όρους χρήσης της εφαρμογής
-                                </label>
+                    {/* TERMS AND CONDITIONS CHECKBOX */}
+                    <div className={`${CSS.terms} items-inline`} >
+                        <input type='checkbox' id="terms"
+                            {...register("checkbox", {
+                                required: "You must agree with Terms & Conditions to create an account"
+                            })}
+                        />
+                        <label htmlFor='terms' className={CSS.termsLabel}>
+                            Συμφωνώ με τους όρους χρήσης της εφαρμογής
+                        </label>
 
-                                <FormError value={errors.checkbox} />
-                            </div>
+                        <FormError value={errors.checkbox} />
+                    </div>
 
-                            <button className={CSS.form_btn}>Επιβεβαίωση</button>
+                    <button className={CSS.form_btn}>Επιβεβαίωση</button>
                 </form>
 
 

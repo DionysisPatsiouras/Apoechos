@@ -1,44 +1,32 @@
 import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import CSS from '../css/Account/Account.module.css'
-import axios from 'axios'
+
 
 import AuthContext from '../context/AuthContext'
 import FormError from '../utils/FormError'
-import UpdateEmail from '../components/Account/UpdateEmail'
-import { token } from '../utils/Token'
 
+import Call from '../utils/Call'
+import { Routes } from '../utils/Routes'
 export default function Account() {
 
-    let { userData }: any = useContext(AuthContext)
+    let { logoutUser }: any = useContext(AuthContext)
     const form = useForm()
     const { register, handleSubmit, formState, watch } = form
     const { errors } = formState
 
-    const updateUser = (data: any) => {
 
-        axios
-            .patch('http://127.0.0.1:8000/user/patch/', data, {
-                headers: { Authorization: `Bearer ${token}` }
-            })
-            .then((response) => { console.log(response) })
-            .catch((error) => { console.warn(error) })
 
-    }
 
-    const updateEmail = (data:any) => {
-        updateUser(data)
-    }
 
-    const updatePassword = (data: any) => {
-        console.warn(data)
-
-        const finalData = {
-            password: data?.password
-        }
-
-        updateUser(finalData)
-
+    const delete_account = () => {
+        const data = { is_active: false }
+        let update_user = new Call(Routes.user.patch, 'PATCH', data)
+        update_user.PATCH().then((res) => {
+            console.log('User deleted sucessfully');
+            alert("O λογαριασμός σας διεγράφη με επιτυχία")
+            logoutUser()
+        }).catch((err) => console.warn(err))
     }
 
     return (
@@ -47,13 +35,12 @@ export default function Account() {
             <div className='container'>
                 <h2>Ο Λογαριασμός μου</h2>
                 <hr className='divider'></hr>
-         
-                {/* not updating */}
-                <UpdateEmail defaultValue={userData?.email}/>
+
+
 
                 <hr className='divider'></hr>
                 <section className={CSS.box}>
-                    <form onSubmit={handleSubmit(updatePassword)} noValidate>
+                    <form noValidate>
 
 
                         <h3>Αλλαγή κωδικού</h3>
@@ -65,7 +52,7 @@ export default function Account() {
                         />
                         <FormError value={errors?.password} />
 
-                        <input className={CSS.inputs} type='password' id='confirm_password'
+                        <input className={CSS.inputs} type='password' id='confirm_password' placeholder='Επανάληψη νέου κωδικού'
                             {...register('confirm_password', {
                                 required: 'Υποχρεωτικό πεδίο',
                                 validate: (val) => {
@@ -86,7 +73,7 @@ export default function Account() {
                 <section className={CSS.box}>
                     <h3>Διαγραφή λογαριασμού</h3>
                     <strong>ΠΡΟΣΟΧΗ! <br></br>Αυτή η ενέργεια είναι οριστική. <br></br>Δεν θα μπορέσετε να επαναφέρετε το λογαριασμό σας</strong>
-                    <button className='red_btn'>Διαγραφή</button>
+                    <button className='red_btn' onClick={() => delete_account()}>Διαγραφή</button>
                 </section>
             </div>
 

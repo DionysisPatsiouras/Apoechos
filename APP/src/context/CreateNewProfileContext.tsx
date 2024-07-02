@@ -14,7 +14,7 @@ export default CreateNewProfileContext
 
 export const CreateNewProfileProvider = ({ children }: any) => {
 
-    let { me, updateDOM, setUpdateDOM }: any = useContext(UserContext)
+    let { updateDOM, setUpdateDOM }: any = useContext(UserContext)
     let {
         cities,
         get_cities,
@@ -29,6 +29,7 @@ export const CreateNewProfileProvider = ({ children }: any) => {
     const [category, setCategory] = useState<number>()
     const [created, setCreated] = useState<boolean>(false)
     const [profileId, setProfileId] = useState<string>('')
+    const [me, setMe] = useState<any>()
 
 
     // arrays
@@ -49,7 +50,17 @@ export const CreateNewProfileProvider = ({ children }: any) => {
     let has_services = param === "Στούντιο" ? true : false
 
 
+    const fetch_me = new Call(Routes.user.me, 'GET')
+    
+   
     useEffect(() => {
+
+        fetch_me
+            .GET()
+            .then((res) => {
+                setMe(res)
+            })
+            .catch((err) => console.warn(err))
 
         setCreated(false)
         setProfileId('')
@@ -107,6 +118,8 @@ export const CreateNewProfileProvider = ({ children }: any) => {
         }
 
         const create_profile = new Call(Routes.profiles.new, 'POST', formData)
+
+        console.log(formData)
 
         create_profile
             .POST_MEDIA()

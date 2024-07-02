@@ -57,7 +57,8 @@ def update_profile(request, id):
     try:
         profile = Profile.objects.get(pk=id)
     except Profile.DoesNotExist:
-        return Response({"message": "Profile not found!"})
+        # return Response({"message": "Profile not found!"})
+        return Response({"message": "Profile not found!"},status=404)
 
     serializer = New_Profile_Serializer(profile, data=request.data, partial=True)
 

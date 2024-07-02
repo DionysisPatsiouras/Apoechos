@@ -46,8 +46,10 @@ export const UserProvider = ({ children }: any) => {
             fetchMyProfiles()
             fetchMe()
         }
+        // console.log('me', me)
 
-    }, [])
+      
+    }, [user])
 
 
 
