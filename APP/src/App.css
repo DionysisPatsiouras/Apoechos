@@ -103,6 +103,7 @@ li {
   padding: 20px;
   max-height: 400px;
   overflow: auto;
+  background-color: #fff;
 }
 .floating_filters h5 {
   border-bottom: 1px solid #e3e3e3;
@@ -115,6 +116,20 @@ li {
   padding: 0 0 0 5px;
 }
 
+.animated {
+  animation-name: rotation;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 @media screen and (min-width: 768px) {
   .space {
     margin: 0 auto;

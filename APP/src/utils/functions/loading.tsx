@@ -1,5 +1,5 @@
 import { useState } from 'react'
-
+import Loader from '../../components/Loader'
 export const Loading = (not_empty: boolean, data: any) => {
 
     const [completed, setCompleted] = useState<boolean>(false)
@@ -12,7 +12,7 @@ export const Loading = (not_empty: boolean, data: any) => {
         ? data
         : completed && !not_empty
             ? 'Δε βρέθηκαν αποτελέσματα'
-            : 'Αναζήτηση...'
+            : <Loader />
 
 
 }
