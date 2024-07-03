@@ -31,7 +31,7 @@ export default function News() {
         all_posts.GET().then((res) => setData(res)).catch((err) => console.warn(err))
     }, [])
 
-    console.log(data)
+    // console.log(data)
 
 
 

@@ -119,7 +119,6 @@ export const CreateNewProfileProvider = ({ children }: any) => {
 
         const create_profile = new Call(Routes.profiles.new, 'POST', formData)
 
-        console.log(formData)
 
         create_profile
             .POST_MEDIA()

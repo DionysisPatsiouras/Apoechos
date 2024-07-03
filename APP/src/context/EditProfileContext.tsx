@@ -1,8 +1,9 @@
-import { createContext, useState, useEffect } from "react"
+import { createContext, useState, useEffect, useContext } from "react"
 import Call from "../utils/Call"
 import { Routes } from "../utils/Routes"
 import { useForm } from 'react-hook-form'
 import { handle_checkbox } from "../utils/functions/handle_checkbox"
+import UtilsContext from "./UtilsContext"
 
 const EditProfileContext = createContext({})
 
@@ -12,34 +13,32 @@ export default EditProfileContext
 
 export const EditProfileProvider = ({ children }: any) => {
 
+    let {
+        cities,
+        get_cities,
+        get_genres,
+        genres,
+        get_studio_services,
+        get_instruments,
+        instruments,
+        studio_services
+    }: any = useContext(UtilsContext)
+
     // console.log(children.props)
     let profile = children?.props?.profile
-
-
 
     // const form = useForm()
     const { register, handleSubmit, formState, resetField } = useForm({
         defaultValues: {
-            name: profile && profile?.name
+            name: children?.props?.profile
 
         }
     })
-    const { errors } = formState
+    // const { errors } = formState
 
     const [tab, setTab] = useState<number>(1)
-    // const [myname, setMyName] = useState<any>(children?.props?.profile && children?.props?.profile?.name)
+    const [newName, setNewName] = useState<any>(children?.props?.profile?.name)
 
-
-
-    const [cities, setCitites] = useState<any[]>([])
-    const [studioServices, setStudioServices] = useState<any[]>([])
-    const [genres, setGenres] = useState<any[]>([])
-    const [instruments, setInstruments] = useState<any[]>([])
-
-    const get_cities = new Call(Routes.profiles.cities, 'GET')
-    const get_studio_services = new Call(Routes.profiles.studio_services, 'GET')
-    const get_genres = new Call(Routes.profiles.genres, 'GET')
-    const get_instruments = new Call(Routes.profiles.instruments, 'GET')
 
     const [my_services, setMyServices] = useState<any[]>([])
     const [my_genres, setMyGenres] = useState<any[]>([])
@@ -51,32 +50,13 @@ export const EditProfileProvider = ({ children }: any) => {
 
     useEffect(() => {
 
-
         setMyServices(profile?.studio_services?.map((i: any) => i?.id?.toString()));
         setMyGenres(profile?.genres?.map((i: any) => i?.id?.toString()))
         setMyInstruments(profile?.instruments?.map((i: any) => i?.id?.toString()))
-
-        get_studio_services
-            .GET()
-            .then((res) => setStudioServices(res[1]))
-            .catch((err) => console.warn(err))
-
-        get_cities
-            .GET()
-            .then((res => setCitites(res[1])))
-            .catch((err) => console.warn(err))
-
-        get_genres
-            .GET()
-            .then((res) => setGenres(res[1]))
-            .catch((err) => console.warn(err))
-
-        get_instruments
-            .GET()
-            .then((res) => setInstruments(res[1]))
-            .catch((err) => console.warn(err))
-
-
+        get_cities()
+        get_genres()
+        get_studio_services()
+        get_instruments()
 
     }, [children])
 
@@ -92,8 +72,10 @@ export const EditProfileProvider = ({ children }: any) => {
 
 
     const updateProfile = (data: any) => {
+        
+        console.log(children.props?.profile?.name)
+        console.warn(data)
 
-        // console.warn(data)
         let formData: any = new FormData()
 
         data?.name !== "" && formData.append('name', data?.name)
@@ -111,8 +93,10 @@ export const EditProfileProvider = ({ children }: any) => {
         for (let i = 0; i < my_instruments.length; i++) {
             formData.append('instruments', my_instruments[i])
         }
+        formData = new FormData()
 
-        // console.log(formData)
+        // resetField("name")
+
         const update_profile = new Call(Routes.profiles.update(profile?.profileId), 'PATCH', formData)
         update_profile
             .PATCH_MEDIA()
@@ -120,7 +104,9 @@ export const EditProfileProvider = ({ children }: any) => {
                 console.log(res);
                 setTab(1);
                 children?.props?.close();
+                //    kinda works
                 // resetField("name")
+
             })
             .catch((err) => console.warn(err))
     }
@@ -131,7 +117,7 @@ export const EditProfileProvider = ({ children }: any) => {
         profile,
         handleSubmit,
         tab,
-        studioServices,
+        studio_services,
         setMyServices,
         my_services,
         updateProfile,
@@ -145,6 +131,8 @@ export const EditProfileProvider = ({ children }: any) => {
         cities,
         setNewFile,
         newFile,
+        setNewName,
+        newName
 
     }
 

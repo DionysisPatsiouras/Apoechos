@@ -6,8 +6,6 @@ import { useForm } from 'react-hook-form'
 import Call from '../../utils/Call'
 import { Routes } from '../../utils/Routes'
 
-// import Select from 'react-select'
-
 import CSS from '../../css/Profile/NewPost.module.css'
 import FormError from '../../utils/FormError'
 
@@ -37,8 +35,7 @@ export default function NewPost(props: any) {
             })
     }, [props])
 
-    // console.log(props)
-    // console.log(labels)
+
 
     const onSubmit = (data: any) => {
         // console.warn(data)

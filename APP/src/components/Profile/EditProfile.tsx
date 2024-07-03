@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState, forwardRef } from 'react'
 
 // CSS
 import CSS from '../../css/Profile/EditProfile.module.sass'
@@ -13,7 +13,8 @@ import EditProfileContext from '../../context/EditProfileContext'
 
 
 
-export default function EditProfile(props: any) {
+// export default function EditProfile(props: any) {
+const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
 
     let {
         edit_menu,
@@ -22,7 +23,7 @@ export default function EditProfile(props: any) {
         profile,
         handleSubmit,
         tab,
-        studioServices,
+        studio_services,
         setMyServices,
         my_services,
         updateProfile,
@@ -36,6 +37,8 @@ export default function EditProfile(props: any) {
         cities,
         setNewFile,
         newFile,
+        setNewName,
+        newName
 
     }: any = useContext(EditProfileContext)
 
@@ -67,6 +70,7 @@ export default function EditProfile(props: any) {
 
     }
 
+    console.warn(props.profile)
 
 
     return (
@@ -88,7 +92,7 @@ export default function EditProfile(props: any) {
 
             </ul>
 
-            <form onSubmit={handleSubmit(updateProfile)} noValidate className={CSS.edit_form}>
+            <form onSubmit={handleSubmit(updateProfile)} className={CSS.edit_form}>
 
 
                 {tab === 1 &&
@@ -118,13 +122,15 @@ export default function EditProfile(props: any) {
                             </div>
 
                         </div>
-
+                        new-name:{newName}
+                        {/* {props?.profile?.name} */}
                         {props?.profile?.name &&
                             <>
                                 <input
                                     type='text'
                                     placeholder='Όνομα'
-                                    defaultValue={profile?.name}
+                                    // defaultValue={profile?.name}
+                                    defaultValue={newName}
                                     {...register('name', {
                                         required: 'Υποχρεωτικό πεδίο',
                                     })}
@@ -148,14 +154,12 @@ export default function EditProfile(props: any) {
                 }
 
                 {tab === 2 && update_array('Είδη', genres, setMyGenres, my_genres)}
-                {tab === 3 && update_array('Υπηρεσίες', studioServices, setMyServices, my_services)}
+                {tab === 3 && update_array('Υπηρεσίες', studio_services, setMyServices, my_services)}
                 {tab === 4 && update_array('Όργανα', instruments, setMyInstruments, my_instruments)}
 
 
 
                 <div className={CSS.bottom_section}>
-
-
                     <button type='submit'>Αποθήκευση</button>
                     <button type='reset' style={{ 'backgroundColor': '#9A9A9A' }} onClick={() => { setTab(1); props?.close() }}>  Ακύρωση </button>
                 </div>
@@ -163,4 +167,6 @@ export default function EditProfile(props: any) {
 
         </section>
     )
-}
+    // }
+})
+export default EditProfile
