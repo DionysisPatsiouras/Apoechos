@@ -1,7 +1,7 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import CSS from '../css/Account/Account.module.css'
-
+import Modal from '../components/Modal'
 
 import AuthContext from '../context/AuthContext'
 import FormError from '../utils/FormError'
@@ -16,7 +16,7 @@ export default function Account() {
     const { errors } = formState
 
 
-
+    const [modal, setModal] = useState<boolean>(false)
 
 
     const delete_account = () => {
@@ -31,6 +31,13 @@ export default function Account() {
 
     return (
         <div className='space'>
+
+            <Modal open={modal} title={'Διαγραφή λογαριασμού'} withContainer>
+                Είστε σίγουρος πως θέλετε να διαγράψετε τον λογαριασμό σας;;
+
+                <button className='red_btn' onClick={delete_account}>Διαγραφή</button>
+                <button onClick={() => setModal(false)}>Άκυρο</button>
+            </Modal>
 
             <div className='container'>
                 <h2>Ο Λογαριασμός μου</h2>
@@ -73,7 +80,7 @@ export default function Account() {
                 <section className={CSS.box}>
                     <h3>Διαγραφή λογαριασμού</h3>
                     <strong>ΠΡΟΣΟΧΗ! <br></br>Αυτή η ενέργεια είναι οριστική. <br></br>Δεν θα μπορέσετε να επαναφέρετε το λογαριασμό σας</strong>
-                    <button className='red_btn' onClick={() => delete_account()}>Διαγραφή</button>
+                    <button className='red_btn' onClick={() => setModal(true)}>Διαγραφή</button>
                 </section>
             </div>
 

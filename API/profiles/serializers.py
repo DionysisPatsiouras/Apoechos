@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from .models import *
 
-
 class InstrumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Instrument

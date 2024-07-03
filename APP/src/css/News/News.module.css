@@ -48,4 +48,5 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: 15px;
+  justify-content: center;
 }/*# sourceMappingURL=News.module.css.map */

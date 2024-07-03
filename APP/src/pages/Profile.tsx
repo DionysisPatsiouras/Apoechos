@@ -195,8 +195,6 @@ export default function Profile() {
 
                     </div>
                     <Activity
-                        id={currentProfile?.profileId}
-                        category={currentProfile?.category?.name}
                         canEdit={currentProfile.user === user?.user_id ? true : false}
                     />
                 </section>

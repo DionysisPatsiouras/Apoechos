@@ -24,7 +24,6 @@ export const AuthProvider = ({ children }: any) => {
 
         // e.preventDefault()
 
-
         let data = {
             email: e.email,
             password: e.password
@@ -47,7 +46,13 @@ export const AuthProvider = ({ children }: any) => {
             })
 
             .catch((err: any) => {
-                alert(err?.response?.data?.detail || err)
+                // alert(err?.response?.data?.detail || err)
+                if(err?.response?.data?.detail){
+                    alert("Δεν βρέθηκε λογαριασμός με αυτά τα στοιχεία")
+                }else{
+                    alert("Προέκυψε κάποιο σφάλμα, δοκιμάστε αργότερα",)
+                }
+                // console.warn(err)
             })
 
         // await axios

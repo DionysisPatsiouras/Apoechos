@@ -26,5 +26,4 @@ class UserSerializer(serializers.ModelSerializer):
 class UpdateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        # fields = ('password', 'musicianId')
         fields = '__all__'

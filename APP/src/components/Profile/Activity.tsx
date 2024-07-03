@@ -15,6 +15,7 @@ import AllPosts from '../AllPosts'
 
 export default function Activity(props: any) {
 
+    let profile_id = window.location.pathname.replace('/profile/', '')
 
     const [profile, setProfile] = useState<any>()
 
@@ -30,9 +31,9 @@ export default function Activity(props: any) {
         setModalTitle(title)
     }
 
-    const get_profile = new Call(Routes.profiles.id(props?.id), 'GET')
+    const get_profile = new Call(Routes.profiles.id(profile_id), 'GET')
 
-
+    // console.log(props)
     useEffect(() => {
 
         get_profile
@@ -52,6 +53,7 @@ export default function Activity(props: any) {
         { id: [3, 4, 5], label: "Τοποθεσία", tab: "location", onClick: () => setActiveTab("location") },
     ]
 
+    // console.log(profile)
 
 
     return (
@@ -75,7 +77,7 @@ export default function Activity(props: any) {
                 title={modalTitle}
                 btn >
                 {modalTitle === 'Νέα Δημοσίευση' &&
-                    <NewPost category={profile?.category} close={() => setCreateNew(false)} profile_id={props?.id} />}
+                    <NewPost category={profile?.category} close={() => setCreateNew(false)} profile_id={profile?.profileId} />}
 
                 {modalTitle === 'Νέα Εκδήλωση' && <NewEvent created_by={profile?.profileId}/>}
 

@@ -17,6 +17,7 @@ from django.http import JsonResponse
 @permission_classes([])
 def all_profiles(request):
     profiles = Profile.objects.all()
+    # profiles = Profile.objects.filter(city=16)
     serializer = ProfileSerializer(profiles, many=True)
 
     return Response([{"length": len(serializer.data)}, serializer.data])
@@ -41,7 +42,7 @@ def profile_by_id(request, id):
     try:
         profile = Profile.objects.get(pk=id)
     except Profile.DoesNotExist:
-        return Response({"message": "Profile not exist", "status": 404})
+        return Response({"message": "Profile not exist", "status": 404}, status=404)
 
     serializer = ProfileSerializer(profile)
 
@@ -58,7 +59,7 @@ def update_profile(request, id):
         profile = Profile.objects.get(pk=id)
     except Profile.DoesNotExist:
         # return Response({"message": "Profile not found!"})
-        return Response({"message": "Profile not found!"},status=404)
+        return Response({"message": "Profile not found!"}, status=404)
 
     serializer = New_Profile_Serializer(profile, data=request.data, partial=True)
 
@@ -102,6 +103,7 @@ def get_genres(request):
 
     return Response([{"length": len(serializer.data)}, serializer.data])
 
+
 # /profile/get/my_profiles/
 @api_view(["GET"])
 def get_my_profiles(request):
@@ -111,6 +113,7 @@ def get_my_profiles(request):
     serializer = ProfileSerializer(profiles, many=True)
 
     return Response([{"length": len(serializer.data)}, serializer.data])
+
 
 # /profile/get/studio_services/
 @api_view(["GET"])
@@ -122,6 +125,7 @@ def get_studio_services(request):
 
     return Response([{"length": len(serializer.data)}, serializer.data])
 
+
 # /profile/get/store_services/
 @api_view(["GET"])
 @permission_classes([])
@@ -131,6 +135,7 @@ def get_store_services(request):
     serializer = Studio_Services_Serializers(store_service, many=True)
 
     return Response([{"length": len(serializer.data)}, serializer.data])
+
 
 # /profile/get/instruments/
 @api_view(["GET"])
@@ -152,4 +157,3 @@ def get_categories(request):
     serializer = CategorySerializer(categories, many=True)
 
     return Response(serializer.data)
-

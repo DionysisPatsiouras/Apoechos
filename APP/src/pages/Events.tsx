@@ -7,13 +7,14 @@ import EventView from '../components/Events/EventView'
 import Modal from '../components/Modal'
 import FullEvent from '../components/Events/FullEvent'
 import { handle_checkbox } from '../utils/functions/handle_checkbox'
-import CSS from '../css/Event/Events.module.css'
+
 import FixedButton from '../components/FixedButton'
 import UtilsContext from '../context/UtilsContext'
+import { Loading } from '../utils/functions/loading'
 
 const Events = forwardRef(function Events(props: any, ref: any) {
 
-    
+
     let {
         cities,
         get_cities
@@ -48,7 +49,7 @@ const Events = forwardRef(function Events(props: any, ref: any) {
         setContent(content)
     }
 
-    
+
     return (
         <section>
 
@@ -58,7 +59,8 @@ const Events = forwardRef(function Events(props: any, ref: any) {
 
 
             {filters &&
-                <ul className={`${CSS.filters} shadow`}>
+                <ul className={`floating_filters shadow`}>
+                    <h5>Πόλη</h5>
                     {cities.map((city: any, index: number) => (
                         <li key={index}>
                             <input
@@ -75,22 +77,25 @@ const Events = forwardRef(function Events(props: any, ref: any) {
                 </ul>
             }
 
+            {Loading(
+                events?.length !== 0,
 
-            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', height: height - 60, overflow: 'auto' }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', height: height - 60, overflow: 'auto' }}>
 
-                {events
-                    .filter((event: any) => selectedCities.length === 0
-                        ?
-                        !selectedCities.includes(event?.profile_location?.city?.id) 
-                        :
-                        selectedCities.includes(event?.profile_location?.city?.id.toString())
-         
-                    )
-                    .map((event: any) => (
-                        <EventView key={event.eventId} event={event} onClick={() => toggle_modal(true, event)} />
-                    ))}
+                    {events
+                        .filter((event: any) => selectedCities.length === 0
+                            ?
+                            !selectedCities.includes(event?.profile_location?.city?.id)
+                            :
+                            selectedCities.includes(event?.profile_location?.city?.id.toString())
 
-            </div>
+                        )
+                        .map((event: any) => (
+                            <EventView key={event.eventId} event={event} onClick={() => toggle_modal(true, event)} />
+                        ))}
+
+                </div>)}
+
 
 
 
