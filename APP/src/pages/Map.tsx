@@ -1,25 +1,42 @@
 import { useState, useContext, useEffect } from 'react'
-import { MapContainer, Marker, TileLayer } from 'react-leaflet'
+import { MapContainer, Marker, TileLayer, Popup } from 'react-leaflet'
 import UtilsContext from '../context/UtilsContext'
 import { useMap } from 'react-leaflet'
-
+import { handle_checkbox } from '../utils/functions/handle_checkbox'
+import Call from '../utils/Call'
+import { Routes } from '../utils/Routes'
 export default function Map() {
 
 
-    let { cities, get_cities }: any = useContext(UtilsContext)
+    let { cities, get_cities}: any = useContext(UtilsContext)
 
     const [coordinates, setCoordinates] = useState<any>([37.983810, 23.727539])
 
     const [latitude, setLatitude] = useState<any>(coordinates?.[0])
     const [longitude, setLongitude] = useState<any>(coordinates?.[1])
+    const [selectedCategories, setSelectedCategories] = useState<any[]>([])
+    const [profiles, setProfiles] = useState<any[]>([])
 
+
+    const call_profiles = new Call(Routes.profiles.all, 'GET')
 
     useEffect(() => {
         get_cities()
+
         setLatitude(coordinates?.[0])
         setLongitude(coordinates?.[1])
 
+        call_profiles
+            .GET_NO_TOKEN()
+            .then((res: any) =>
+                setProfiles(res?.[1])
+            )
+            .catch((err: any) => console.warn(err))
+
     }, [coordinates])
+
+    // console.log(profiles)
+    // console.log(selectedCategories)
 
 
     function ChangeView({ center, zoom }: any) {
@@ -28,6 +45,13 @@ export default function Map() {
         return null;
     }
 
+
+
+    let categories = [
+        { id: 3, label: "Στούντιο" },
+        { id: 4, label: "Καταστήματα" },
+        { id: 5, label: "Σκηνές" }
+    ]
 
 
     return (
@@ -43,9 +67,22 @@ export default function Map() {
                         </option>
                     ))}
                 </select>
+
+
             </aside>
 
 
+            {categories
+                .map((category: any, i: number) => (
+                    <div key={i}>
+                        <label>{category?.label}</label>
+                        <input type='checkbox'
+                            value={category?.id}
+                            onChange={(e) => handle_checkbox(setSelectedCategories, e.target)}
+                        />
+                    </div>
+
+                ))}
 
 
             <MapContainer
@@ -57,12 +94,24 @@ export default function Map() {
 
                 <ChangeView center={[latitude || Number(coordinates?.[0]), longitude || Number(coordinates?.[1])]} />
 
-{/*                 
-                <Marker position={position}>
-                    <Popup>
-                        A pretty CSS3 popup. <br /> Easily customizable.
-                    </Popup>
-                </Marker> */}
+                {profiles
+       
+                    .filter((profile: any) => 
+                        selectedCategories.length === 0
+                            ? !selectedCategories.includes(categories)
+                            : selectedCategories.includes(profile?.category?.id.toString()))
+
+
+                    .map((item: any, i:number) => (
+                        <Marker key={i} position={[item?.latitude, item?.longitude]}>
+                            <Popup>
+
+                                {item?.name}
+                            </Popup>
+                        </Marker>
+
+                    ))}
+
 
             </MapContainer>
 

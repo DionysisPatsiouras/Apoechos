@@ -18,14 +18,14 @@ export const UtilsProvider = ({ children }: any) => {
     let [genres, setGenres] = useState<any[]>([])
     let [instruments, setInstruments] = useState<any[]>([])
     let [studio_services, setStudioServices] = useState<any[]>([])
-    // let [categories, setCategories] = useState<any[]>([])
+    let [categories, setCategories] = useState<any[]>([])
 
 
 
-    // const get_categories = () => {
-    //     const fetch_categories = new Call(Routes.profiles.categories, 'GET')
-    //     fetch_categories .GET_NO_TOKEN().then((res) => setCategories([...categories, ...res])) .catch((err: any) => console.warn(err))
-    // }
+    const get_categories = () => {
+        const fetch_categories = new Call(Routes.profiles.categories, 'GET')
+        fetch_categories .GET_NO_TOKEN().then((res) => setCategories([...categories, ...res])) .catch((err: any) => console.warn(err))
+    }
 
     const get_studio_services = () => {
         const fetch_studio_services = new Call(Routes.profiles.studio_services, 'GET')
@@ -57,8 +57,8 @@ export const UtilsProvider = ({ children }: any) => {
         get_instruments,
         instruments,
         studio_services,
-        // get_categories,
-        // categories
+        get_categories,
+        categories
     }
 
 
