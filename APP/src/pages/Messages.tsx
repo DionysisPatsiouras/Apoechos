@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import Call from "../utils/Call"
-import { Routes } from "../utils/Routes"
+// import Call from "../utils/Call"
+// import { Routes } from "../utils/Routes"
 export default function Messages() {
 
     let user = 'MUSICIAN205778540374'
@@ -15,7 +15,7 @@ export default function Messages() {
 
     }, [])
 
-    console.warn(msgs)
+    // console.warn(msgs)
 
     return (
         <div style={{ width: '600px', padding: '20px' }}>

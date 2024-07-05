@@ -24,6 +24,7 @@ import { UtilsProvider } from './context/UtilsContext'
 import Discover from './pages/Discover'
 import Profile from './pages/Profile'
 import Homepage from './pages/Homepage'
+import Map from './pages/Map'
 import Messages from './pages/Messages'
 import CreateNewProfile from './pages/CreateNewProfile'
 
@@ -72,6 +73,7 @@ export default function App() {
                   <Route path='/discover' element={<DiscoverProvider><Discover /></DiscoverProvider>} />
                   <Route path='/posts' element={<Posts />} />
                   <Route path='/events' element={<Events />} />
+                  <Route path='/map' element={<Map />} />
                   <Route path='/mystudio' element={<Messages />} />
                   {/* need to create this */}
                   {/* <Route path='/terms-and-conditions' element={<Messages />} /> */}

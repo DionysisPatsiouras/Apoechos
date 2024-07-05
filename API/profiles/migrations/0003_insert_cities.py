@@ -17,25 +17,16 @@ class Migration(migrations.Migration):
             "Πάτρα",
             "Ηράκλειο",
             "Λάρισα",
-            "Βόλος",
-            "Ιωάννινα",
-            "Τρίκαλα",
-            "Χαλκίδα",
-            "Σέρρες",
-            "Αλεξανδρούπολη",
-            "Ξάνθη",
-            "Κατερίνη",
-            "Αγρίνιο",
-            "Καλαμάτα",
-            "Καβάλα",
-            "Καρδίτσα",
-            "Λαμία",
-            "Ραφήνα",
         ]
+        latitude = ["37.983810", "40.629269", "38.246639", "35.341846", "39.643452"]
+
+        longitude = ["23.727539", "22.947412", "21.734573", "25.148254", "22.413208"]
 
         for index in range(len(names)):
 
-            new_city = City(name=names[index])
+            new_city = City(
+                name=names[index], latitude=latitude[index], longitude=longitude[index]
+            )
 
             new_city.save()
 

@@ -37,6 +37,7 @@ export default function UserMenu(props: any) {
                 <Link to="/discover">Ανακάλυψε</Link>
                 <Link to="/posts">Δημοσιεύσεις</Link>
                 <Link to="/events">Εκδηλώσεις</Link>
+                <Link to="/map">Χάρτης</Link>
             </ul>
 
 

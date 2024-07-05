@@ -29,6 +29,8 @@ class Category(models.Model):
 
 class City(models.Model):
     name = models.CharField(max_length=200, blank=False)
+    latitude = models.CharField(max_length=200, blank=False)
+    longitude = models.CharField(max_length=200, blank=False)
     def __str__(self):
         return self.name
 
