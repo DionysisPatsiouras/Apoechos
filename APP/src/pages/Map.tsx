@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from 'react'
-import { MapContainer, TileLayer } from 'react-leaflet'
+import { MapContainer, Marker, TileLayer } from 'react-leaflet'
 import UtilsContext from '../context/UtilsContext'
 import { useMap } from 'react-leaflet'
 
@@ -56,6 +56,13 @@ export default function Map() {
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
                 <ChangeView center={[latitude || Number(coordinates?.[0]), longitude || Number(coordinates?.[1])]} />
+
+{/*                 
+                <Marker position={position}>
+                    <Popup>
+                        A pretty CSS3 popup. <br /> Easily customizable.
+                    </Popup>
+                </Marker> */}
 
             </MapContainer>
 

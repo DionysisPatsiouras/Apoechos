@@ -82,8 +82,8 @@ class Profile(models.Model):
     name = models.CharField(max_length=200, blank=False)
 
     address = models.CharField(max_length=100, blank=True)
-    latitude = models.CharField(max_length=200, blank=False)
-    longitude = models.CharField(max_length=200, blank=False)
+    latitude = models.CharField(max_length=200, blank=True)
+    longitude = models.CharField(max_length=200, blank=True)
 
     bio = models.TextField(blank=True)
     websiteLink = models.URLField(blank=True, max_length=100)
