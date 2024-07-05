@@ -1,8 +1,8 @@
 import { useState, useContext, useEffect } from 'react'
 import { MapContainer, TileLayer } from 'react-leaflet'
 import UtilsContext from '../context/UtilsContext'
-
 import { useMap } from 'react-leaflet'
+
 export default function Map() {
 
 

@@ -125,6 +125,8 @@ class Migration(migrations.Migration):
                 ),
                 ("name", models.CharField(max_length=200)),
                 ("address", models.CharField(blank=True, max_length=100)),
+                ("latitude", models.CharField(blank=True, max_length=200)),
+                ("longitude", models.CharField(blank=True, max_length=200)),
                 ("bio", models.TextField(blank=True)),
                 ("websiteLink", models.URLField(blank=True, max_length=100)),
                 (
