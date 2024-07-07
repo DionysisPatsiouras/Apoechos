@@ -124,7 +124,7 @@ export default function CreateNewProfile() {
 
                                     <label>Πόλη</label>
 
-                                    <select
+                                    <select className={CSS.city_dropdown}
                                         {...register('city')}
                                         onChange={(e) => setCoordinates(e.target.value.split(','))}>
 
@@ -169,7 +169,7 @@ export default function CreateNewProfile() {
                                         {studio_services.map((service: any) => (
                                             <div className={CSS.checkbox} key={service.id}>
                                                 <input
-                                                    {...register('genres', {
+                                                    {...register('studio_services', {
                                                         required: 'Επιλέξτε τουλάχιστον 1 υπηρεσία'
                                                     })}
                                                     id={service.id}

@@ -119,9 +119,6 @@ export const CreateNewProfileProvider = ({ children }: any) => {
     const onSubmit = async (data: any) => {
 
         let formData: any = new FormData()
-        console.warn(data?.city)
-        console.warn(coordinates?.[0])
-        console.warn(coordinates?.[1])
 
         // check if photo exists
         data?.file?.[0] && formData.append('photo', data?.file?.[0])
@@ -157,9 +154,6 @@ export const CreateNewProfileProvider = ({ children }: any) => {
             .catch((err) => console.warn(err))
 
     }
-
-
-
 
 
 
