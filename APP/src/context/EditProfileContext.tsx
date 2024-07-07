@@ -73,8 +73,8 @@ export const EditProfileProvider = ({ children }: any) => {
 
     const updateProfile = (data: any) => {
         
-        console.log(children.props?.profile?.name)
-        console.warn(data)
+        // console.log(children.props?.profile?.name)
+        // console.warn(data)
 
         let formData: any = new FormData()
 

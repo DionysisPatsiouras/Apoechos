@@ -7,7 +7,7 @@ import UserContext from './UserContext'
 // import AuthContext from '../context/AuthContext'
 import UtilsContext from './UtilsContext'
 import { handle_checkbox } from '../utils/functions/handle_checkbox'
-
+import { useMap } from 'react-leaflet'
 const CreateNewProfileContext = createContext({})
 export default CreateNewProfileContext
 
@@ -51,9 +51,30 @@ export const CreateNewProfileProvider = ({ children }: any) => {
 
 
     const fetch_me = new Call(Routes.user.me, 'GET')
-    
-   
+
+    const [coordinates, setCoordinates] = useState<any>([37.983810, 23.727539])
+    const [latitude, setLatitude] = useState<any>(coordinates?.[0])
+    const [longitude, setLongitude] = useState<any>(coordinates?.[1])
+
+    const [markerPosition, setMarkerPosition] = useState<any>()
+
+    const updatePosition = (event: any) => {
+        const { lat, lng } = event.target.getLatLng();
+        setMarkerPosition({ lat, lng });
+    }
+
+
+    function ChangeView({ center, zoom }: any) {
+        const map = useMap();
+        map.setView(center, zoom);
+        return null;
+    }
+
+
     useEffect(() => {
+
+        setLatitude(coordinates?.[0])
+        setLongitude(coordinates?.[1])
 
         fetch_me
             .GET()
@@ -91,21 +112,26 @@ export const CreateNewProfileProvider = ({ children }: any) => {
                 break;
         }
 
-    }, [])
+    }, [coordinates])
 
 
 
     const onSubmit = async (data: any) => {
 
         let formData: any = new FormData()
+        console.warn(data?.city)
+        console.warn(coordinates?.[0])
+        console.warn(coordinates?.[1])
 
         // check if photo exists
         data?.file?.[0] && formData.append('photo', data?.file?.[0])
         formData.append('name', data?.name)
-        formData.append('city', data?.city)
         formData.append('address', data?.address)
         formData.append('user', me?.id)
         formData.append('category', category)
+        formData.append('latitude', markerPosition?.lat)
+        formData.append('longitude', markerPosition?.lng)
+        formData.append('city', data?.city?.split(',')[2])
 
         for (let i = 0; i < genreArray.length; i++) {
             formData.append('genres', genreArray[i])
@@ -153,7 +179,6 @@ export const CreateNewProfileProvider = ({ children }: any) => {
 
         param,
         onSubmit,
-        // handleCheckBox,
         handle_checkbox,
         setGenreArray,
         setStudioServicesArray,
@@ -163,7 +188,14 @@ export const CreateNewProfileProvider = ({ children }: any) => {
         genreArray,
 
         created,
-        profileId
+        profileId,
+        latitude, setLatitude,
+        longitude, setLongitude,
+        setCoordinates,
+        coordinates,
+        markerPosition,
+        updatePosition,
+        ChangeView
     }
 
 

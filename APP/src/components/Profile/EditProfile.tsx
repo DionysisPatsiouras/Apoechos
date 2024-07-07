@@ -70,7 +70,7 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
 
     }
 
-    console.warn(props.profile)
+    // console.warn(props.profile)
 
 
     return (

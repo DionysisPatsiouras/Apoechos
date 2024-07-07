@@ -10,9 +10,10 @@ import FormError from '../utils/FormError'
 import CreateNewProfileContext from '../context/CreateNewProfileContext'
 import CSS from '../css/CreateNewProfile/CreateNewProfile.module.sass'
 import { Link } from 'react-router-dom'
-// import { all_categories, strings, woodwind, percussion, vocals, keys, genres } from '../utils/MusicianUtils'
+import { MapContainer, Marker, TileLayer, Popup } from 'react-leaflet'
+import { useRef, useMemo, useCallback } from 'react'
 
-
+import { useMap } from 'react-leaflet'
 
 
 export default function CreateNewProfile() {
@@ -36,7 +37,6 @@ export default function CreateNewProfile() {
         instruments,
         studio_services,
         onSubmit,
-        // handleCheckBox,
         handle_checkbox,
         setGenreArray,
         genreArray,
@@ -45,10 +45,20 @@ export default function CreateNewProfile() {
         setStudioServicesArray,
         studio_services_array,
         created,
-        profileId
+        profileId,
+        latitude,
+        longitude,
+        setCoordinates,
+        coordinates,
+        markerPosition,
+        updatePosition,
+        ChangeView
     }: any = useContext(CreateNewProfileContext)
 
-    // console.log(uploadedFile)
+
+
+
+
     return (
         <div className='space'>
 
@@ -74,12 +84,10 @@ export default function CreateNewProfile() {
                         <h2>Νέο προφίλ</h2>
                         <hr className='divider'></hr>
 
-                        <form onSubmit={handleSubmit(onSubmit)} >
+                        <form onSubmit={handleSubmit(onSubmit)}>
 
                             <div className={CSS.personal_info}>
                                 <div className={CSS.group} style={{ cursor: 'pointer' }}>
-
-
 
 
                                     <label htmlFor='picture'>
@@ -115,12 +123,18 @@ export default function CreateNewProfile() {
                                     <FormError value={errors?.name} />
 
                                     <label>Πόλη</label>
-                                    <select className={CSS.city_dropdown}
-                                        {...register('city')}>
-                                        <option defaultValue={1} disabled hidden>Επιλέξτε πόλη</option>
+
+                                    <select
+                                        {...register('city')}
+                                        onChange={(e) => setCoordinates(e.target.value.split(','))}>
+
                                         {cities.map((city: any) => (
-                                            <option key={city.id} value={city.id}>{city.name}</option>
+                                            <option key={city.id}
+                                                value={[city?.latitude, city?.longitude, city?.id]}
+                                            >
+                                                {city.name}</option>
                                         ))}
+
                                     </select>
                                     <FormError value={errors?.city} />
 
@@ -230,7 +244,36 @@ export default function CreateNewProfile() {
                             {has_natural_presence &&
                                 <>
                                     <hr className='divider'></hr>
-                                    <h2>Διεύθυνση</h2>
+                                    <h2>Τοποθεσία</h2>
+
+                                    <MapContainer
+                                        // @ts-ignore
+                                        center={[33.91907336973602, 35.51552625946782]}
+                                        zoom={13}
+                                        style={{ width: '100%', height: '400px' }} >
+                                        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+
+                                        <ChangeView center={[
+                                            markerPosition?.lat || Number(coordinates?.[0]) || latitude,
+                                            markerPosition?.lng || Number(coordinates?.[1]) || longitude]} />
+
+                                        <Marker
+                                            position={[
+                                                markerPosition?.lat || Number(coordinates?.[0]) || latitude,
+                                                markerPosition?.lng || Number(coordinates?.[1]) || longitude]}
+                                            // @ts-ignore
+                                            draggable={true}
+                                            eventHandlers={{
+                                                dragend: (event: any) => updatePosition(event),
+                                            }}
+                                        >
+
+
+                                        </Marker>
+
+
+
+                                    </MapContainer>
                                 </>
                             }
 
@@ -238,7 +281,7 @@ export default function CreateNewProfile() {
 
 
                             <div className={CSS.buttonSection}>...
-                                <button>Δημιουργία</button>
+                                <button type='submit'>Δημιουργία</button>
                             </div>
                         </form>
 
@@ -248,6 +291,6 @@ export default function CreateNewProfile() {
                     </div>
                 }
             </div>
-        </div>
+        </div >
     )
 }
