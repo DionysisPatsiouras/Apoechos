@@ -5,10 +5,12 @@ import { useMap } from 'react-leaflet'
 import { handle_checkbox } from '../utils/functions/handle_checkbox'
 import Call from '../utils/Call'
 import { Routes } from '../utils/Routes'
+import CSS from '../css/Map/Map.module.css'
+
 export default function Map() {
 
 
-    let { cities, get_cities}: any = useContext(UtilsContext)
+    let { cities, get_cities }: any = useContext(UtilsContext)
 
     const [coordinates, setCoordinates] = useState<any>([37.983810, 23.727539])
 
@@ -35,8 +37,6 @@ export default function Map() {
 
     }, [coordinates])
 
-    // console.log(profiles)
-    // console.log(selectedCategories)
 
 
     function ChangeView({ center, zoom }: any) {
@@ -46,6 +46,11 @@ export default function Map() {
     }
 
 
+    const [height, setHeight] = useState<any>(window.innerHeight)
+
+    useEffect(() => {
+        window.addEventListener("resize", () => setHeight(window.innerHeight))
+    }, [])
 
     let categories = [
         { id: 3, label: "Στούντιο" },
@@ -57,8 +62,8 @@ export default function Map() {
     return (
         <div style={{ display: 'flex' }}>
 
-            <aside>
-                <select onChange={(e) => setCoordinates(e.target.value.split(','))}>
+            <aside className={CSS.sidebar}>
+                <select onChange={(e) => setCoordinates(e.target.value.split(','))} className={CSS.city_dropdown}>
                     {cities.map((city: any) => (
                         <option
                             key={city?.id}
@@ -68,41 +73,46 @@ export default function Map() {
                     ))}
                 </select>
 
+                <ul>
+                    {categories.map((category: any) => (
+                        <li key={category?.id} className='items-inline' style={{ gap: '5px' }}>
+                            <input
+                                type='checkbox'
+                                id={category.id}
+                                value={category?.id}
+                                className='cursor-pointer'
+                                onChange={(e) => handle_checkbox(setSelectedCategories, e.target)}
+                            />
+                            <label htmlFor={category?.id} className='cursor-pointer'>{category?.label}</label>
+                        </li>
+
+                    ))}
+                </ul>
 
             </aside>
 
 
-            {categories
-                .map((category: any, i: number) => (
-                    <div key={i}>
-                        <label>{category?.label}</label>
-                        <input type='checkbox'
-                            value={category?.id}
-                            onChange={(e) => handle_checkbox(setSelectedCategories, e.target)}
-                        />
-                    </div>
 
-                ))}
 
 
             <MapContainer
                 // @ts-ignore
                 center={[33.91907336973602, 35.51552625946782]}
                 zoom={13}
-                style={{ width: '100%', height: '400px' }} >
+                style={{ width: '100%', height: height - 55 }} >
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
                 <ChangeView center={[latitude || Number(coordinates?.[0]), longitude || Number(coordinates?.[1])]} />
 
                 {profiles
-       
-                    .filter((profile: any) => 
+
+                    .filter((profile: any) =>
                         selectedCategories.length === 0
                             ? !selectedCategories.includes(categories)
                             : selectedCategories.includes(profile?.category?.id.toString()))
 
 
-                    .map((item: any, i:number) => (
+                    .map((item: any, i: number) => (
                         <Marker key={i} position={[item?.latitude, item?.longitude]}>
                             <Popup>
 

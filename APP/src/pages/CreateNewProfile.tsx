@@ -11,9 +11,7 @@ import CreateNewProfileContext from '../context/CreateNewProfileContext'
 import CSS from '../css/CreateNewProfile/CreateNewProfile.module.sass'
 import { Link } from 'react-router-dom'
 import { MapContainer, Marker, TileLayer, Popup } from 'react-leaflet'
-import { useRef, useMemo, useCallback } from 'react'
 
-import { useMap } from 'react-leaflet'
 
 
 export default function CreateNewProfile() {
