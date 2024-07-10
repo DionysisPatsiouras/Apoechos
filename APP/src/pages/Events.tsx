@@ -24,7 +24,7 @@ const Events = forwardRef(function Events(props: any, ref: any) {
     const [modal, setModal] = useState<boolean>(false)
     const [content, setContent] = useState<any>()
     const [selectedCities, setSelectedCities] = useState<any[]>([])
-    const [filters, setFilters] = useState<boolean>(false)
+    const [openFilters, setOpenFilters] = useState<boolean>(false)
 
     const [height, setHeight] = useState<any>(100)
 
@@ -58,7 +58,7 @@ const Events = forwardRef(function Events(props: any, ref: any) {
             </Modal>
 
 
-            {filters &&
+            {openFilters &&
                 <ul className={`floating_filters shadow`}>
                     <h5>Πόλη</h5>
                     {cities.map((city: any, index: number) => (
@@ -99,7 +99,7 @@ const Events = forwardRef(function Events(props: any, ref: any) {
 
 
 
-            <FixedButton icon='filter' onClick={() => setFilters(!filters)} />
+            <FixedButton icon='filter' onClick={() => setOpenFilters(!openFilters)} />
 
         </section>
     )

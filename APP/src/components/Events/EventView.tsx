@@ -44,6 +44,7 @@ const EventView = forwardRef(function EventView(props: any, ref: any) {
             <div className={CSS.date}>
                 <p>{numeric_date(event.date)}</p>
                 <p>Έναρξη: {timestamp(event.date)}</p>
+                <p>{event?.profile_location?.city?.name}</p>
             </div>
 
 

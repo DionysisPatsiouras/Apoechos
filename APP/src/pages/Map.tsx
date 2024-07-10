@@ -1,11 +1,16 @@
 import { useState, useContext, useEffect } from 'react'
-import { MapContainer, Marker, TileLayer, Popup } from 'react-leaflet'
+import { MapContainer, Marker, TileLayer, Popup, useMap } from 'react-leaflet'
 import UtilsContext from '../context/UtilsContext'
-import { useMap } from 'react-leaflet'
+import logo from '../img/logo.png'
+import CSS from '../css/Map/Map.module.css'
+
+// utils
 import { handle_checkbox } from '../utils/functions/handle_checkbox'
 import Call from '../utils/Call'
 import { Routes } from '../utils/Routes'
-import CSS from '../css/Map/Map.module.css'
+
+// @ts-ignore
+import L from 'leaflet'
 
 export default function Map() {
 
@@ -20,6 +25,25 @@ export default function Map() {
     const [profiles, setProfiles] = useState<any[]>([])
 
 
+    const studioIcon = new L.Icon({
+        iconUrl: require("../img/studio.png"),
+        iconSize: [45, 45],
+        iconAnchor: [17, 46],
+        popupAnchor: [0, -46],
+    })
+    const storeIcon = new L.Icon({
+        iconUrl: require("../img/store.png"),
+        iconSize: [45, 45],
+        iconAnchor: [17, 46],
+        popupAnchor: [0, -46],
+    })
+    const stageIcon = new L.Icon({
+        iconUrl: require("../img/stage.png"),
+        iconSize: [45, 45],
+        iconAnchor: [17, 46],
+        popupAnchor: [0, -46],
+    })
+
     const call_profiles = new Call(Routes.profiles.all, 'GET')
 
     useEffect(() => {
@@ -31,7 +55,7 @@ export default function Map() {
         call_profiles
             .GET_NO_TOKEN()
             .then((res: any) =>
-                setProfiles(res?.[1])
+                setProfiles(res?.[1].filter((profile: any) => profile?.category?.id !== 1))
             )
             .catch((err: any) => console.warn(err))
 
@@ -45,6 +69,7 @@ export default function Map() {
         return null;
     }
 
+    console.log(profiles)
 
     const [height, setHeight] = useState<any>(window.innerHeight)
 
@@ -57,6 +82,7 @@ export default function Map() {
         { id: 4, label: "Καταστήματα" },
         { id: 5, label: "Σκηνές" }
     ]
+
 
 
     return (
@@ -113,7 +139,15 @@ export default function Map() {
 
 
                     .map((item: any, i: number) => (
-                        <Marker key={i} position={[item?.latitude, item?.longitude]}>
+
+                        <Marker key={i} position={[item?.latitude, item?.longitude]}
+                            // @ts-ignore
+                            icon={
+                                item?.category?.id === 3 ? studioIcon
+                                    : item?.category?.id === 4 ? storeIcon
+                                        : item?.category?.id === 5 && stageIcon
+
+                            }>
                             <Popup>
 
                                 {item?.name}
