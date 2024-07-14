@@ -114,7 +114,7 @@ export default function NewPost(props: any) {
 
                 <div className={CSS.bottom_section}>
                     <p>{wordCount}/{limit}</p>
-                    <button>Δημοσίευση</button>
+                    <button className='btn'>Δημοσίευση</button>
                 </div>
                 <br></br>
                 <FormError value={errors?.body} />

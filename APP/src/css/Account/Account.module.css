@@ -14,4 +14,18 @@
   width: 70%;
   color: red;
   text-align: center;
+}
+
+.deleteBody h3 {
+  font-size: 1.2rem;
+}
+.deleteBody p {
+  padding: 20px 0;
+}
+.deleteBody button {
+  width: 100px;
+}
+
+.cancelBtn {
+  color: #535353;
 }/*# sourceMappingURL=Account.module.css.map */

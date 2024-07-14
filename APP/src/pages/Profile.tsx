@@ -68,7 +68,6 @@ export default function Profile() {
 
     }, [updateDOM])
 
-
     return (
 
 
@@ -96,7 +95,7 @@ export default function Profile() {
             <section style={{ display: 'flex' }}>
 
 
-                {user?.user_id === currentProfile?.user &&
+                {user?.user_id === currentProfile?.user?.id &&
                     <aside className={CSS.my_profiles_list} style={{ height: height - 55 }}>
                         <ul>
                             {my_profiles.map((profile: any) => (
@@ -195,7 +194,7 @@ export default function Profile() {
 
                     </div>
                     <Activity
-                        canEdit={currentProfile.user === user?.user_id ? true : false}
+                        canEdit={currentProfile.user?.id === user?.user_id ? true : false}
                     />
                 </section>
 

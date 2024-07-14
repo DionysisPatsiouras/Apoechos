@@ -82,7 +82,7 @@ const UpdatePost = forwardRef(function UpdatePost(props: any, ref: any) {
 
                 <div className={CSS.bottom_section}>
                     <p>{wordCount}/{limit}</p>
-                    <button>Δημοσίευση</button>
+                    <button className='btn'>Δημοσίευση</button>
                 </div>
             </div>
 

@@ -32,4 +32,4 @@ class UpdateUserSerializer(serializers.ModelSerializer):
 class UserIsActiveSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ('is_active', )
+        fields = ('is_active', 'id', )

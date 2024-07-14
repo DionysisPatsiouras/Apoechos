@@ -73,7 +73,7 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
                         <Link to={`/profile/${post?.profile?.profileId}`}>
                             <h3 style={{ display: 'flex', alignItems: 'center' }}>
                                 {post?.profile?.name}
-                          
+
                             </h3>
                         </Link>
 
@@ -99,16 +99,17 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
 
     return (
         <>
-            <Modal open={deleteModal} close={() => setDeleteModal(false)}>
+            <Modal open={deleteModal} close={() => setDeleteModal(false)}  title='Διαγραφή Δημοσίευσης' btn>
                 <Confirmation
                     cancel={() => setDeleteModal(false)}
                     confirm={() => delete_post(selectedPost?.post_id)}
                     text='Είστε σίγουρος πως θέλετε να διαγράψετε την παρακάτω δημοσιεύση;'
                     body={PostView(selectedPost, false)}
                 />
+
             </Modal>
 
-            <Modal open={editModal} close={() => { setEditModal(false) }} withContainer title='Επεξεργασία Δημοσίευσης'>
+            <Modal open={editModal} close={() => { setEditModal(false) }} withContainer title='Επεξεργασία Δημοσίευσης' btn>
                 <UpdatePost post={selectedPost} close={() => {
                     setSelectedPost(undefined);
                     setEditModal(false);

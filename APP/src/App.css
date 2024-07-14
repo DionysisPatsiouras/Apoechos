@@ -51,6 +51,14 @@ li {
   background-color: #5F69C6;
 }
 
+.btn {
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+}
+
 .red_btn {
   background-color: #C65F5F;
 }

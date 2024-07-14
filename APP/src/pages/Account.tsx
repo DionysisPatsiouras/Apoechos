@@ -24,7 +24,7 @@ export default function Account() {
         let update_user = new Call(Routes.user.patch, 'PATCH', data)
         update_user.PATCH().then((res) => {
             console.log('User deleted sucessfully');
-            alert("O λογαριασμός σας διεγράφη με επιτυχία")
+            alert("O λογαριασμός σας απενεργοποιήθηκε με επιτυχία")
             logoutUser()
         }).catch((err) => console.warn(err))
     }
@@ -32,11 +32,27 @@ export default function Account() {
     return (
         <div className='space'>
 
-            <Modal open={modal} title={'Διαγραφή λογαριασμού'} withContainer>
-                Είστε σίγουρος πως θέλετε να διαγράψετε τον λογαριασμό σας;;
+            <Modal open={modal} title={'Απενεργοποίηση λογαριασμού'} withContainer >
+                <div className={CSS.deleteBody}>
 
-                <button className='red_btn' onClick={delete_account}>Διαγραφή</button>
-                <button onClick={() => setModal(false)}>Άκυρο</button>
+
+                    <h3>
+                        <strong>
+                            Είστε σίγουρος/η πως θέλετε να απενεργοποιήσετε τον λογαριασμό σας;
+                        </strong>
+                    </h3>
+                    <p>Αν θέλετε να ενεργοποιήσετε ξανά τον λογαριασμό σας, μπορείτε να συνδεθείτε εντός 30 ημερών.
+                        Μετά από 30 ημέρες η ενεργοποίηση είναι αδύνατη. </p>
+
+
+                    <div className='items-inline' style={{ gap: '5px' }}>
+
+
+                        <button className='red_btn btn' onClick={delete_account}>Διαγραφή</button>
+                        <button className={`${CSS.cancelBtn} btn`} onClick={() => setModal(false)}>Άκυρο</button>
+                    </div>
+
+                </div>
             </Modal>
 
             <div className='container'>
@@ -71,16 +87,16 @@ export default function Account() {
 
                         <FormError value={errors?.confirm_password} />
 
-                        <button className='blue_btn'>Ενημέρωση</button>
+                        <button className='blue_btn btn'>Ενημέρωση</button>
                     </form>
                 </section>
 
 
                 <hr className='divider'></hr>
                 <section className={CSS.box}>
-                    <h3>Διαγραφή λογαριασμού</h3>
+                    <h3>Απενεργοποίηση λογαριασμού</h3>
                     <strong>ΠΡΟΣΟΧΗ! <br></br>Αυτή η ενέργεια είναι οριστική. <br></br>Δεν θα μπορέσετε να επαναφέρετε το λογαριασμό σας</strong>
-                    <button className='red_btn' onClick={() => setModal(true)}>Διαγραφή</button>
+                    <button className='red_btn btn' onClick={() => setModal(true)}>Διαγραφή</button>
                 </section>
             </div>
 
