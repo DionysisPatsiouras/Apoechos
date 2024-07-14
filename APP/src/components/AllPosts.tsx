@@ -99,7 +99,7 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
 
     return (
         <>
-            <Modal open={deleteModal} close={() => setDeleteModal(false)}  title='Διαγραφή Δημοσίευσης' btn>
+            <Modal open={deleteModal} close={() => setDeleteModal(false)} title='Διαγραφή Δημοσίευσης' btn>
                 <Confirmation
                     cancel={() => setDeleteModal(false)}
                     confirm={() => delete_post(selectedPost?.post_id)}
@@ -119,13 +119,16 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
             </Modal>
 
 
-            {post
-                .map((post: any, index: number) =>
-                    <div key={index} style={{ display: 'flex' }}>
-                        {PostView(post, props?.all_posts ? false : true)}
-                    </div>
-                )}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '33vw', minWidth: '200px', maxWidth: '500px' }}>
 
+
+                {post
+                    .map((post: any, index: number) =>
+                        <div key={index} style={{ display: 'flex' }}>
+                            {PostView(post, props?.all_posts ? false : true)}
+                        </div>
+                    )}
+            </div>
 
 
         </>

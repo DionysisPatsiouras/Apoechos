@@ -26,6 +26,7 @@ export const Routes = {
         update: (profile_id: string) => `${url}/profile/update/${profile_id}/`,
         my_profiles: `${url}/profile/get/my_profiles/`,
         categories: `${url}/profile/get/categories/`,
+        stages : `${url}/profile/all/stages/`,
     },
 
 

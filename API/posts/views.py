@@ -9,7 +9,10 @@ from django.db.models import Q
 
 from profiles.models import *
 
+from django.utils import timezone
 
+
+current_date = timezone.now()
 
 # /posts/titles/all/
 @api_view(["GET"])
@@ -25,7 +28,7 @@ def all_titles(request):
 def all_posts(request):
 
     # posts = Post.objects.all()
-    posts = Post.objects.filter(is_deleted=False)
+    posts = Post.objects.filter(is_deleted=False).order_by('created_at')
     serializer = PostSerializer(posts, many=True)
 
     return Response(serializer.data)

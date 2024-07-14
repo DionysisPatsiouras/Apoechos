@@ -81,12 +81,12 @@ class Profile(models.Model):
 
     name = models.CharField(max_length=200, blank=False)
 
-    address = models.CharField(max_length=100, blank=True)
-    latitude = models.CharField(max_length=200, blank=True)
-    longitude = models.CharField(max_length=200, blank=True)
+    address = models.CharField(max_length=100, null=True)
+    latitude = models.CharField(max_length=200, null=True)
+    longitude = models.CharField(max_length=200, null=True)
 
-    bio = models.TextField(blank=True)
-    websiteLink = models.URLField(blank=True, max_length=100)
+    bio = models.TextField(null=True)
+    websiteLink = models.URLField(null=True, max_length=100)
     photo = models.ImageField(null=True, blank=True, upload_to="images/")
 
     genres = models.ManyToManyField("Genre", blank=True)

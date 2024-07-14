@@ -12,11 +12,18 @@ from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
 
 
-# /profile/all/
+# /profile/all/stages
+@api_view(["GET"])
+@permission_classes([])
+def all_stages(request):
+    profiles = Profile.objects.filter(category=5)
+    serializer = ProfileSerializer(profiles, many=True)
+
+    return Response([{"length": len(serializer.data)}, serializer.data])
+
 @api_view(["GET"])
 @permission_classes([])
 def all_profiles(request):
-    # profiles = Profile.objects.all()
     profiles = Profile.objects.filter(user__is_active=True)
     serializer = ProfileSerializer(profiles, many=True)
 

@@ -33,6 +33,9 @@ class Event(models.Model):
     is_deleted = models.BooleanField(default=False)
     photo = models.ImageField(null=True, blank=True, upload_to="images/")
 
+    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="city", blank=True, null=True)
+    address = models.CharField(max_length=200, blank=True, null=True)
+    location_name = models.CharField(max_length=200, blank=True, null=True)
 
     profile_location = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="profile_location", blank=True, null=True)
     created_by = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="created_by", blank=False) 

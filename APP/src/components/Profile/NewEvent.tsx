@@ -1,10 +1,11 @@
 
-import { forwardRef, useState } from 'react'
+import { forwardRef, useState, useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import CSS from '../../css/Event/NewEvent.module.css'
 import FormError from '../../utils/FormError'
 import { Routes } from '../../utils/Routes'
 import Call from '../../utils/Call'
+import UtilsContext from '../../context/UtilsContext'
 
 const NewEvent = forwardRef(function NewEvent(props: any, ref: any) {
 
@@ -12,9 +13,27 @@ const NewEvent = forwardRef(function NewEvent(props: any, ref: any) {
     const { register, handleSubmit, formState, watch } = form
     const { errors } = formState
 
+    let { get_cities, cities }: any = useContext(UtilsContext)
+
+
     const [file, setFile] = useState<any>()
+    const [existingLocation, setExistingLocation] = useState<boolean>(true)
+    const [stages, setStages] = useState<any[]>([])
 
     let required_message = 'Υποχρεωτικό πεδίο'
+
+    let get_stages = new Call(Routes.profiles.stages, 'GET')
+
+    useEffect(() => {
+
+        get_cities()
+
+        get_stages
+            .GET()
+            .then((res) => setStages(res?.[1]))
+            .catch((err) => console.warn(err))
+    }, [])
+    console.warn(stages)
 
     const onSubmit = (data: any) => {
 
@@ -24,6 +43,8 @@ const NewEvent = forwardRef(function NewEvent(props: any, ref: any) {
         console.log(data)
         // check if photo exists
         data?.file?.[0] && formData.append('photo', data?.file?.[0])
+
+        data?.profile_location && formData.append('profile_location', data?.profile_location)
 
         formData.append('title', data?.title)
         formData.append('description', data?.description)
@@ -41,7 +62,8 @@ const NewEvent = forwardRef(function NewEvent(props: any, ref: any) {
             .catch((err) => console.warn(err))
 
     }
-    // console.log(props)
+
+
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} noValidate className={CSS.new_event_form}>
@@ -75,13 +97,45 @@ const NewEvent = forwardRef(function NewEvent(props: any, ref: any) {
                         {/* <FormError value={errors.time}/> */}
                     </div>
 
-                    <input type='text' placeholder='Τοποθεσία' {...register('location', {
-                        required: required_message
-                    })} />
+
                     <FormError value={errors.location} />
                 </div>
             </div>
 
+
+            <button type='button' onClick={() => setExistingLocation(!existingLocation)}>change</button>
+            <h1>topothesia</h1>
+
+
+            {existingLocation ?
+                <>
+                    <select {...register('profile_location')}>
+                        <option selected></option>
+                        {stages.map((stage: any, index: number) => (
+                            <option key={index} value={stage?.profileId}>
+                        
+                                {stage?.name}
+                            </option>
+                        ))}
+                    </select>
+
+                </>
+
+                :
+                <>
+
+                    <select {...register('city')}>
+                        <option selected></option>
+                        {cities?.map((city: any) => (
+                            <option key={city.id} value={city.id}>{city.name}</option>
+                        ))}
+                    </select>
+
+
+                    <input type='text' placeholder='address' />
+                    <input type='text' placeholder='onoma' />
+                </>
+            }
 
 
             <label>Μέλη</label>

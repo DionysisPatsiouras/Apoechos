@@ -60,8 +60,8 @@ const FullEvent = forwardRef(function FullEvent(props: any, ref: any) {
             <div className={CSS.info}>
 
                 <div className='items-inline' >
-                    <Link to={event?.profile_location?.profileId}>
-                        <div className='items-inline' style={{gap: '10px'}}>
+                    <Link to={`/profile/${event?.profile_location?.profileId}`}>
+                        <div className='items-inline' style={{ gap: '10px' }}>
                             <img src={`http://127.0.0.1:8000/${event?.profile_location?.photo}`} alt='profile_photo' width={50} />
                             <div>
 
