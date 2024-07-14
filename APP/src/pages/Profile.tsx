@@ -68,6 +68,8 @@ export default function Profile() {
 
     }, [updateDOM])
 
+    console.log(currentProfile)
+
     return (
 
 
@@ -161,7 +163,7 @@ export default function Profile() {
                                 <p className={CSS.bio}>{currentProfile?.bio}</p>
                                 <div className='items-inline'>
                                     <SvgIcon id='location' />
-                                    <p>{currentProfile?.city?.name}{currentProfile.address && `, ${currentProfile.address}`} </p>
+                                    <p>{currentProfile?.city?.name}{currentProfile?.address && `, ${currentProfile.address}`} </p>
 
                                 </div>
 

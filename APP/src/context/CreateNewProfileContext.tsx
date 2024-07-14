@@ -123,11 +123,12 @@ export const CreateNewProfileProvider = ({ children }: any) => {
         // check if photo exists
         data?.file?.[0] && formData.append('photo', data?.file?.[0])
         formData.append('name', data?.name)
-        formData.append('address', data?.address)
         formData.append('user', me?.id)
         formData.append('category', category)
-        formData.append('latitude', markerPosition?.lat)
-        formData.append('longitude', markerPosition?.lng)
+
+        data?.address && formData.append('address', data?.address)
+        markerPosition &&  formData.append('latitude', markerPosition?.lat)
+        markerPosition && formData.append('longitude', markerPosition?.lng)
         formData.append('city', data?.city?.split(',')[2])
 
         for (let i = 0; i < genreArray.length; i++) {

@@ -55,7 +55,7 @@ export default function Map() {
         call_profiles
             .GET_NO_TOKEN()
             .then((res: any) =>
-                setProfiles(res?.[1].filter((profile: any) => profile?.category?.id !== 1))
+                setProfiles(res?.[1].filter((profile: any) => profile?.category?.id !== 1 && profile?.category?.id !== 2) )
             )
             .catch((err: any) => console.warn(err))
 

@@ -12,6 +12,8 @@ const FullEvent = forwardRef(function FullEvent(props: any, ref: any) {
 
     let event = props?.event
 
+    console.warn(event)
+
     return (
         <section>
 
@@ -57,11 +59,16 @@ const FullEvent = forwardRef(function FullEvent(props: any, ref: any) {
 
             <div className={CSS.info}>
 
-                <div className='items-inline'>
+                <div className='items-inline' >
                     <Link to={event?.profile_location?.profileId}>
-                        <div className='items-inline'>
+                        <div className='items-inline' style={{gap: '10px'}}>
                             <img src={`http://127.0.0.1:8000/${event?.profile_location?.photo}`} alt='profile_photo' width={50} />
-                            <p>{event?.profile_location?.name}</p>
+                            <div>
+
+
+                                <p>{event?.profile_location?.name}</p>
+                                <p>{event?.profile_location?.address}</p>
+                            </div>
                         </div>
 
                     </Link>
@@ -76,7 +83,7 @@ const FullEvent = forwardRef(function FullEvent(props: any, ref: any) {
             </div>
 
 
-        
+
             <p>{event?.description}</p>
 
 

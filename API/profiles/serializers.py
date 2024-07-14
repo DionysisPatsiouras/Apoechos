@@ -78,4 +78,4 @@ class Profile_Event_Serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ("profileId", "photo", "name", "city", )
+        fields = ("profileId", "photo", "name", "city", "address")

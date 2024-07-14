@@ -83,7 +83,7 @@ export default function Create() {
                 </div>
 
                 <div className={CSS.buttonSection}>Text here...
-                    <Link to={`/create/new_profile?category=${active}`}><button>Επόμενο</button></Link>
+                    <Link to={`/create/new_profile?category=${active}`}><button className='btn'>Επόμενο</button></Link>
                 </div>
 
 

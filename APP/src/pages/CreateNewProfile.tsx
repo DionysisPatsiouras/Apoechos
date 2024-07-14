@@ -279,7 +279,7 @@ export default function CreateNewProfile() {
 
 
                             <div className={CSS.buttonSection}>...
-                                <button type='submit'>Δημιουργία</button>
+                                <button type='submit' className='btn'>Δημιουργία</button>
                             </div>
                         </form>
 
