@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import *
+from users.serializers import *
 
 class InstrumentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -44,6 +45,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     genres = GenreSerializer(many=True)
     instruments = InstrumentSerializer(many=True)
     studio_services = Studio_Services_Serializers(many=True)
+    user = UserIsActiveSerializer(many=False)
 
     class Meta:
         model = Profile

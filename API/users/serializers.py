@@ -22,8 +22,14 @@ class UserSerializer(serializers.ModelSerializer):
             }
         }
 
-# I use this serializer to give only a few permission
+# I use this serializer to give only a few permissions
 class UpdateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = '__all__'
+
+
+class UserIsActiveSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ('is_active', )

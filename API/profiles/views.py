@@ -16,8 +16,8 @@ from django.http import JsonResponse
 @api_view(["GET"])
 @permission_classes([])
 def all_profiles(request):
-    profiles = Profile.objects.all()
-    # profiles = Profile.objects.filter(city=16)
+    # profiles = Profile.objects.all()
+    profiles = Profile.objects.filter(user__is_active=True)
     serializer = ProfileSerializer(profiles, many=True)
 
     return Response([{"length": len(serializer.data)}, serializer.data])
