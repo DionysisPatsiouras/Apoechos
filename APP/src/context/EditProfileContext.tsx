@@ -2,7 +2,6 @@ import { createContext, useState, useEffect, useContext } from "react"
 import Call from "../utils/Call"
 import { Routes } from "../utils/Routes"
 import { useForm } from 'react-hook-form'
-import { handle_checkbox } from "../utils/functions/handle_checkbox"
 import UtilsContext from "./UtilsContext"
 
 const EditProfileContext = createContext({})
@@ -37,15 +36,19 @@ export const EditProfileProvider = ({ children }: any) => {
     // const { errors } = formState
 
     const [tab, setTab] = useState<number>(1)
-    const [newName, setNewName] = useState<any>(children?.props?.profile?.name)
+    // const [newName, setNewName] = useState<any>(children?.props?.profile?.name)
 
 
     const [my_services, setMyServices] = useState<any[]>([])
     const [my_genres, setMyGenres] = useState<any[]>([])
     const [my_instruments, setMyInstruments] = useState<any[]>([])
+    const [my_name, setMyName] = useState<string>()
+    const [my_city, setMyCity] = useState<string>()
+    const [my_address, setMyAddress] = useState<string>()
+    const [my_bio, setMyBio] = useState<any>()
 
     const [newFile, setNewFile] = useState<any>()
-    // console.warn(profile)
+
 
 
     useEffect(() => {
@@ -58,8 +61,12 @@ export const EditProfileProvider = ({ children }: any) => {
         get_studio_services()
         get_instruments()
 
-    }, [children])
+        setMyName(children?.props?.profile?.name)
+        setMyCity(children?.props?.profile?.city?.id)
+        setMyBio(children?.props?.profile?.bio)
 
+    }, [children])
+    // console.warn(my_city)
 
 
 
@@ -72,16 +79,20 @@ export const EditProfileProvider = ({ children }: any) => {
 
 
     const updateProfile = (data: any) => {
-        
-        // console.log(children.props?.profile?.name)
+
+
         // console.warn(data)
+        // console.warn(my_city)
 
         let formData: any = new FormData()
 
-        data?.name !== "" && formData.append('name', data?.name)
-        data?.city !== "" && formData.append('city', data?.city)
-        data?.bio !== "" && formData.append('bio', data?.bio)
+        formData.append('name', my_name)
+        formData.append('city', my_city)
+        formData.append('bio', my_bio)
+
         data?.photo?.length !== 0 && formData.append('photo', data?.photo?.[0])
+
+
 
 
         for (let i = 0; i < my_services.length; i++) {
@@ -93,7 +104,7 @@ export const EditProfileProvider = ({ children }: any) => {
         for (let i = 0; i < my_instruments.length; i++) {
             formData.append('instruments', my_instruments[i])
         }
-        formData = new FormData()
+        // formData = new FormData()
 
         // resetField("name")
 
@@ -111,28 +122,28 @@ export const EditProfileProvider = ({ children }: any) => {
             .catch((err) => console.warn(err))
     }
     let contextData = {
+        tab,  setTab,
+        cities,
+        genres, 
+        studio_services,
         edit_menu,
-        handle_checkbox,
-        setTab,
+
         profile,
         handleSubmit,
-        tab,
-        studio_services,
-        setMyServices,
-        my_services,
+       
+        my_services, setMyServices,
         updateProfile,
-        genres,
-        setMyGenres,
+        
         register,
-        my_genres,
+        my_genres, setMyGenres,
         instruments,
-        setMyInstruments,
-        my_instruments,
-        cities,
-        setNewFile,
-        newFile,
-        setNewName,
-        newName
+        my_instruments, setMyInstruments,
+      
+        newFile, setNewFile,
+        my_name, setMyName,
+        my_city, setMyCity,
+        my_bio, setMyBio,
+        my_address, setMyAddress
 
     }
 

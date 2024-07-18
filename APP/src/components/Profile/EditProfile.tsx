@@ -10,6 +10,7 @@ import SvgIcon from '../SvgIcon'
 // utils
 import EditProfileContext from '../../context/EditProfileContext'
 // import { useDebounce } from 'use-debounce'
+import { handle_checkbox } from '../../utils/functions/handle_checkbox'
 
 
 
@@ -17,28 +18,28 @@ import EditProfileContext from '../../context/EditProfileContext'
 const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
 
     let {
+        tab, setTab,
+        cities,
+        genres,
+        studio_services,
         edit_menu,
-        handle_checkbox,
-        setTab,
+
         profile,
         handleSubmit,
-        tab,
-        studio_services,
-        setMyServices,
-        my_services,
+
+        my_services, setMyServices,
         updateProfile,
-        genres,
-        setMyGenres,
+
         register,
-        my_genres,
+        my_genres, setMyGenres,
         instruments,
-        setMyInstruments,
-        my_instruments,
-        cities,
-        setNewFile,
-        newFile,
-        setNewName,
-        newName
+        my_instruments, setMyInstruments,
+
+        newFile, setNewFile,
+        my_name, setMyName,
+        my_city, setMyCity,
+        my_bio, setMyBio,
+        my_address, setMyAddress
 
     }: any = useContext(EditProfileContext)
 
@@ -122,32 +123,38 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
                             </div>
 
                         </div>
-                        new-name:{newName}
-                        {/* {props?.profile?.name} */}
-                        {props?.profile?.name &&
-                            <>
-                                <input
-                                    type='text'
-                                    placeholder='Όνομα'
-                                    // defaultValue={profile?.name}
-                                    defaultValue={newName}
-                                    {...register('name', {
-                                        required: 'Υποχρεωτικό πεδίο',
-                                    })}
-                                />
-                                {/* <FormError value={errors?.name} /> */}
-                            </>
 
-                        }
-                        <select className={CSS.city_dropdown} {...register('city')}>
+
+
+                        <input
+                            type='text'
+                            placeholder='Όνομα'
+                            value={my_name}
+                            {...register('name', {
+                                required: 'Υποχρεωτικό πεδίο',
+                                onChange: (event: any) => setMyName(event.target.value)
+                            })}
+                        />
+                        {/* <FormError value={errors?.name} /> */}
+
+
+
+                        <select className={CSS.city_dropdown}
+                            {...register('city')}
+                            onChange={(e) => setMyCity(e.target.value)}>
                             {cities?.map((city: any) => (
-                                <option key={city.id} value={city.id}>{city.name}</option>
+                                <option key={city.id}
+                                    value={city.id}
+                                    selected={my_city === city?.id ? true : false}
+                                >{city.name}</option>
                             ))}
                         </select>
+
                         <textarea
-                            placeholder='Λίγα λόγια για εσάς..'
-                            defaultValue={profile?.bio}
                             {...register('bio')}
+                            onChangeCapture={(e: any) => setMyBio(e.target.value)}
+                            placeholder='Λίγα λόγια για εσάς..'
+                            value={my_bio}
                         />
                     </div>
 

@@ -68,7 +68,7 @@ export default function Profile() {
 
     }, [updateDOM])
 
-    console.log(currentProfile)
+    // console.log(currentProfile)
 
     return (
 
@@ -154,7 +154,7 @@ export default function Profile() {
                             <div>
                                 <div className='items-inline' >
                                     <strong> {currentProfile?.name} </strong>
-                                    {user?.user_id === currentProfile?.user &&
+                                    {user?.user_id === currentProfile?.user?.id &&
                                         <SvgIcon id='edit' color='#5b5b5b' onClick={() => setEditMode(true)} />
                                     }
 
