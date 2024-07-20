@@ -11,6 +11,7 @@ import NewPost from './NewPost'
 import { Routes } from '../../utils/Routes'
 import Call from '../../utils/Call'
 import AllPosts from '../AllPosts'
+import Location from './Location'
 
 
 export default function Activity(props: any) {
@@ -43,6 +44,8 @@ export default function Activity(props: any) {
                 setUpdateDOM(!updateDOM)
             })
             .catch((err) => console.warn(err))
+        
+        setActiveTab('posts')
 
 
     }, [props])
@@ -104,6 +107,11 @@ export default function Activity(props: any) {
 
                 {activeTab === 'posts' &&
                     <AllPosts id={profile?.profileId} can_edit={props?.canEdit} updateDOM={() => setUpdateDOM(!updateDOM)} />
+                }
+
+                {activeTab === 'location' && 
+                
+                    <Location latitude={profile?.latitude} longitude={profile?.longitude}/>
                 }
             </section>
 
