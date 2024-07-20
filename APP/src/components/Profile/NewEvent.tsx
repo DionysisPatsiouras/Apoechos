@@ -72,28 +72,35 @@ const NewEvent = forwardRef(function NewEvent(props: any, ref: any) {
             <div style={{ display: 'flex' }}>
 
 
-                <label htmlFor='picture' style={{ margin: '0 15px 0 0', width: '210px' }}>
+                {/* <label htmlFor='picture' style={{ margin: '0 15px 0 0', width: '210px' }}>
                     <img src={file} width={210} className={CSS.cover_photo} alt='cover'
                         height={297} />
-                </label>
+                </label> */}
 
-                <input
+                {/* <input
                     {...register('file')}
                     style={{ position: 'absolute', top: '-200000px' }}
                     type="file"
                     id="picture"
                     onChange={(file: any) => setFile(URL.createObjectURL(file.target.files[0]))}
-                />
+                /> */}
 
 
                 <div style={{ width: '100%' }}>
-                    <label>Βασικές πληροφορίες</label>
+
                     <input type='text' placeholder='Τίτλος' {...register('title')} />
-                    <div style={{ display: 'flex' }}>
-                        <input type='date' placeholder='Ημ/νία' style={{ marginRight: '10px' }} {...register('date')} />
-                        <input type='time' placeholder='Ώρα' {...register('time', {
-                            required: required_message
-                        })} />
+
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <div style={{ width: '49%' }}>
+                            <label>Ημερομηνία*</label>
+                            <input type='date' placeholder='Ημ/νία' style={{ marginRight: '10px' }} {...register('date')} />
+                        </div>
+                        <div style={{ width: '49%' }}>
+                            <label>Ώρα έναρξης*</label>
+                            <input type='time' placeholder='Ώρα' {...register('time', {
+                                required: required_message
+                            })} />
+                        </div>
                         {/* <FormError value={errors.time}/> */}
                     </div>
 
@@ -102,24 +109,35 @@ const NewEvent = forwardRef(function NewEvent(props: any, ref: any) {
                 </div>
             </div>
 
-
-            <button type='button' onClick={() => setExistingLocation(!existingLocation)}>change</button>
-            <h1>topothesia</h1>
+           
 
 
             {existingLocation ?
-                <>
-                    <select {...register('profile_location')}>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <label>Τοποθεσία</label>
+                    <ul>
+                        {stages.map((stage: any) => (
+                            <li className={`${CSS.profile_item} cursor-pointer`}>
+                                <img src={`http://127.0.0.1:8000/${stage.photo}`} className='circle_img' />
+                                <div>
+                                    <h3>{stage.name}</h3>
+                                    <h3 style={{color: 'grey'}}>{stage.city.name}</h3>
+                                </div>
+                                
+                            </li>
+                        ))}
+                    </ul>
+                    {/* <select {...register('profile_location')}>
                         <option selected></option>
                         {stages.map((stage: any, index: number) => (
                             <option key={index} value={stage?.profileId}>
-                        
+
                                 {stage?.name}
                             </option>
                         ))}
-                    </select>
+                    </select> */}
 
-                </>
+                </div>
 
                 :
                 <>
@@ -137,8 +155,19 @@ const NewEvent = forwardRef(function NewEvent(props: any, ref: any) {
                 </>
             }
 
+            <div className='inline'>
 
-            <label>Μέλη</label>
+                <input
+                    style={{ width: 'autο' }}
+                    type='checkbox'
+                    onChange={() => setExistingLocation(!existingLocation)}
+                    checked={existingLocation}
+                />
+
+                <span>Προσαρμοσμένη τοποθεσία</span>
+            </div>
+
+            <label>Support acts</label>
             <input type='text' />
 
             <label>Περισσότερες πληροφορίες</label>

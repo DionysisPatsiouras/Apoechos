@@ -22,4 +22,16 @@
   margin-top: 9px;
   width: 100%;
   box-sizing: border-box;
+}
+
+.profile_item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 5px;
+}
+
+.profile_item:hover {
+  background-color: #eeeeee;
+  border-radius: 4px;
 }/*# sourceMappingURL=NewEvent.module.css.map */
