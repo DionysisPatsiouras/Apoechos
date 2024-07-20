@@ -76,6 +76,10 @@ li {
   background-color: #949494;
 }
 
+.discard_btn {
+  background-color: grey;
+}
+
 .divider {
   border-top: 1px solid #DADADA;
   border-left: none;

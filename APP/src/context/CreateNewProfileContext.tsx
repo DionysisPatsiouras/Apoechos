@@ -119,6 +119,8 @@ export const CreateNewProfileProvider = ({ children }: any) => {
     const onSubmit = async (data: any) => {
 
         let formData: any = new FormData()
+        // console.log(data)
+
 
         // check if photo exists
         data?.file?.[0] && formData.append('photo', data?.file?.[0])
@@ -127,9 +129,13 @@ export const CreateNewProfileProvider = ({ children }: any) => {
         formData.append('category', category)
 
         data?.address && formData.append('address', data?.address)
-        markerPosition &&  formData.append('latitude', markerPosition?.lat)
-        markerPosition && formData.append('longitude', markerPosition?.lng)
         formData.append('city', data?.city?.split(',')[2])
+
+        if (has_natural_presence) {
+            formData.append('latitude', markerPosition?.lat || data?.city.split(',')[0])
+            formData.append('longitude', markerPosition?.lng || data?.city.split(',')[1])
+        }
+
 
         for (let i = 0; i < genreArray.length; i++) {
             formData.append('genres', genreArray[i])

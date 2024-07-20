@@ -72,7 +72,7 @@ const UpdatePost = forwardRef(function UpdatePost(props: any, ref: any) {
 
     }
 
-    console.log(title)
+    // console.log(title)
 
 
     return (

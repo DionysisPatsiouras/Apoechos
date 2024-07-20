@@ -167,8 +167,8 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
 
 
                 <div className={CSS.bottom_section}>
-                    <button type='submit'>Αποθήκευση</button>
-                    <button type='reset' style={{ 'backgroundColor': '#9A9A9A' }} onClick={() => { setTab(1); props?.close() }}>  Ακύρωση </button>
+                    <button type='submit' className='btn blue_btn'>Αποθήκευση</button>
+                    <button type='reset' className='btn discard_btn' style={{ 'backgroundColor': '#9A9A9A' }} onClick={() => { setTab(1); props?.close() }}>  Ακύρωση </button>
                 </div>
             </form>
 

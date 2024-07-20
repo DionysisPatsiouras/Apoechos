@@ -246,7 +246,10 @@ export default function CreateNewProfile() {
 
                                     <MapContainer
                                         // @ts-ignore
-                                        center={[33.91907336973602, 35.51552625946782]}
+                                        // center={[33.91907336973602, 35.51552625946782]}
+                                        center={[
+                                            markerPosition?.lat || Number(coordinates?.[0]) || latitude,
+                                            markerPosition?.lng || Number(coordinates?.[1]) || longitude]}
                                         zoom={13}
                                         style={{ width: '100%', height: '400px' }} >
                                         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />

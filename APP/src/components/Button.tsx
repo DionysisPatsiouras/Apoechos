@@ -17,7 +17,7 @@ import SvgIcon from './SvgIcon'
 // export default Button
 
 
-const Button = forwardRef(function Button(props: any) {
+const Button = forwardRef(function Button(props: any, ref:any) {
 
     let bg = props?.type === 'configure' && !props?.not_allowed
         ? '#5f69c6'

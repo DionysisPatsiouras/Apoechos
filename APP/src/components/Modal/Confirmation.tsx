@@ -18,8 +18,8 @@ const Confirmation = forwardRef(function Confirmation(props: any, ref: any) {
 
 
             <div className={CSS.button_section}>
-                <button onClick={props?.confirm}>Επιβεβαίωση</button>
-                <button className={'cancel_btn'} onClick={props?.cancel}>Ακύρωση</button>
+                <button className='btn red_btn' onClick={props?.confirm}>Διαγραφή</button>
+                <button className='cancel_btn' onClick={props?.cancel}>Ακύρωση</button>
             </div>
 
         </section>
