@@ -12,10 +12,10 @@ class TitleSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class NoIdTitleSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Post_Title
-        exclude = ("id",)
+# class NoIdTitleSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Post_Title
+#         exclude = ("id",)
 
 
 class NewPostSerializer(serializers.ModelSerializer):
@@ -27,7 +27,7 @@ class NewPostSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
 
     profile = Profile_Post_Serializer(many=False)
-    title = NoIdTitleSerializer(many=False)
+    title = TitleSerializer(many=False)
 
     class Meta:
         model = Post

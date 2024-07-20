@@ -51,7 +51,7 @@ li {
   background-color: #5F69C6;
 }
 
-.btn {
+.btn, .disabled_btn {
   border: none;
   padding: 10px;
   border-radius: 4px;
