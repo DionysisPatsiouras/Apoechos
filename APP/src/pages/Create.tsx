@@ -55,7 +55,7 @@ export default function Create() {
                     {/* needs to be fixed */}
                     {categories !== undefined && myProfiles &&
                         categories
-                            .filter((category: any) => hasMusician?.includes(true) ? category.name !== "Μουσικοί" : category.name !== "")
+                            // .filter((category: any) => hasMusician?.includes(true) ? category.name !== "Μουσικοί" : category.name !== "")
                             .map((category: any) => (
                                 <div key={category.id} className={CSS.selectionContainer}>
 

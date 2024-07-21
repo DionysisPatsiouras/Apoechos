@@ -20,6 +20,7 @@ admin.site.register(City)
 admin.site.register(Genre)
 admin.site.register(Studio_Service)
 admin.site.register(Store_Service)
+admin.site.register(Instrument)
 
 
 admin.site.register(Message)

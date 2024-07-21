@@ -137,6 +137,19 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
                         />
                         {/* <FormError value={errors?.name} /> */}
 
+                        {props?.profile?.address &&
+                            <input
+                                type='text'
+                                placeholder='Διεύθυνση'
+                                value={my_address}
+                                {...register('address', {
+                                    required: 'Υποχρεωτικό πεδίο',
+                                    onChange: (event: any) => setMyAddress(event.target.value)
+                                })}
+                            />
+
+                        }
+
 
 
                         <select className={CSS.city_dropdown}
@@ -155,7 +168,11 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
                             onChangeCapture={(e: any) => setMyBio(e.target.value)}
                             placeholder='Λίγα λόγια για εσάς..'
                             value={my_bio}
-                        />
+                        >
+                     
+                        </textarea>
+
+             
                     </div>
 
                 }

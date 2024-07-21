@@ -23,8 +23,12 @@ export const CreateNewProfileProvider = ({ children }: any) => {
         get_studio_services,
         get_instruments,
         instruments,
-        studio_services }: any = useContext(UtilsContext)
+        studio_services,
+        instrumentTypes, get_instrument_categories,
+        instrument_categories
+    }: any = useContext(UtilsContext)
 
+    console.log(instrument_categories)
 
     const [category, setCategory] = useState<number>()
     const [created, setCreated] = useState<boolean>(false)
@@ -71,6 +75,7 @@ export const CreateNewProfileProvider = ({ children }: any) => {
     }
 
 
+
     useEffect(() => {
 
         setLatitude(coordinates?.[0])
@@ -78,9 +83,7 @@ export const CreateNewProfileProvider = ({ children }: any) => {
 
         fetch_me
             .GET()
-            .then((res) => {
-                setMe(res)
-            })
+            .then((res) => setMe(res))
             .catch((err) => console.warn(err))
 
         setCreated(false)
@@ -90,6 +93,7 @@ export const CreateNewProfileProvider = ({ children }: any) => {
         get_genres()
         get_studio_services()
         get_instruments()
+        get_instrument_categories()
 
 
         switch (param) {
@@ -181,22 +185,21 @@ export const CreateNewProfileProvider = ({ children }: any) => {
         param,
         onSubmit,
         handle_checkbox,
-        setGenreArray,
-        setStudioServicesArray,
-        setInstrumentArray,
-        instrumentArray,
-        studio_services_array,
-        genreArray,
+        genreArray, setGenreArray,
+
+        instrumentArray, setInstrumentArray,
+        studio_services_array, setStudioServicesArray,
+
 
         created,
         profileId,
         latitude, setLatitude,
         longitude, setLongitude,
-        setCoordinates,
-        coordinates,
+        coordinates, setCoordinates,
         markerPosition,
         updatePosition,
-        ChangeView
+        ChangeView,
+        instrument_categories
     }
 
 

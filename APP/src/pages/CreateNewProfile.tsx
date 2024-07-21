@@ -50,10 +50,17 @@ export default function CreateNewProfile() {
         coordinates,
         markerPosition,
         updatePosition,
-        ChangeView
+        ChangeView,
+        instrument_categories
     }: any = useContext(CreateNewProfileContext)
 
 
+
+    const [activeCategory, setActiveCategory] = useState<string>(instrument_categories[0])
+
+    useEffect(() => {
+        setActiveCategory(instrument_categories[0])
+    }, [instrument_categories])
 
 
 
@@ -215,24 +222,38 @@ export default function CreateNewProfile() {
                                 <>
                                     <hr className='divider'></hr>
                                     <h2>Όργανα</h2>
-                                    <div className={CSS.checkboxes_section}>
-                                        {instruments.map((instr: any) => (
-                                            <div className={CSS.checkbox} key={instr.id}>
-                                                <input
-                                                    {...register('instruments', {
-                                                        required: 'Επιλέξτε τουλάχιστον 1 όργανο',
-                                                        maxLength: 2
-                                                    })}
-                                                    id={instr.id + instr.category}
-                                                    type='checkbox'
-                                                    value={instr.id}
 
-                                                    onChange={(event) => handle_checkbox(setInstrumentArray, event.target)}
-                                                    checked={instrumentArray.includes(instr.id.toString())}
-                                                />
-                                                <label htmlFor={instr.id + instr.category}>{instr.name}</label>
-                                            </div>
-                                        ))}
+                                    <ul className={CSS.categories_list}>
+                                        {instrument_categories
+                                            .map((item: any) => (
+                                                <li
+                                                    key={item}
+                                                    onClick={() => setActiveCategory(item)}>
+                                                    {item}
+                                                </li>
+                                            ))}
+                                    </ul>
+
+                                    <div className={CSS.checkboxes_section}>
+                                        {instruments
+                                            .filter((instr: any) => instr.category === activeCategory)
+                                            .map((instr: any) => (
+                                                <div className={CSS.checkbox} key={instr.id}>
+                                                    <input
+                                                        {...register('instruments', {
+                                                            required: 'Επιλέξτε τουλάχιστον 1 όργανο',
+                                                            maxLength: 2
+                                                        })}
+                                                        id={instr.id + instr.category}
+                                                        type='checkbox'
+                                                        value={instr.id}
+
+                                                        onChange={(event) => handle_checkbox(setInstrumentArray, event.target)}
+                                                        checked={instrumentArray.includes(instr.id.toString())}
+                                                    />
+                                                    <label htmlFor={instr.id + instr.category}>{instr.name}</label>
+                                                </div>
+                                            ))}
                                     </div>
                                     <FormError value={errors?.instruments} />
                                 </>

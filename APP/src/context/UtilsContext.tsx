@@ -19,12 +19,13 @@ export const UtilsProvider = ({ children }: any) => {
     let [instruments, setInstruments] = useState<any[]>([])
     let [studio_services, setStudioServices] = useState<any[]>([])
     let [categories, setCategories] = useState<any[]>([])
+    let [instrumentTypes, setInstrumentTypes] = useState<any[]>([])
 
 
 
     const get_categories = () => {
         const fetch_categories = new Call(Routes.profiles.categories, 'GET')
-        fetch_categories .GET_NO_TOKEN().then((res) => setCategories([...categories, ...res])) .catch((err: any) => console.warn(err))
+        fetch_categories.GET_NO_TOKEN().then((res) => setCategories([...categories, ...res])).catch((err: any) => console.warn(err))
     }
 
     const get_studio_services = () => {
@@ -48,17 +49,30 @@ export const UtilsProvider = ({ children }: any) => {
     }
 
 
+
+
+    function remove_doubles(data: any) {
+        return data.filter((value: any, index: any) => data.indexOf(value) === index)
+    }
+
+
+    const get_instrument_categories = () => {
+        const fetch_instrument_categories = new Call(Routes.profiles.instruments, 'GET')
+        fetch_instrument_categories.GET_NO_TOKEN().then((res) => setInstrumentTypes(res[1].map((type: any) => type.category))).catch((err) => console.warn(err))
+    }
+
+    let instrument_categories = remove_doubles(instrumentTypes)
+
+
     let contextData = {
-        cities,
-        get_cities,
-        get_genres,
-        genres,
-        get_studio_services,
-        get_instruments,
-        instruments,
-        studio_services,
-        get_categories,
-        categories
+        cities, get_cities,
+        genres, get_genres,
+        studio_services, get_studio_services,
+        instruments, get_instruments,
+        categories, get_categories,
+        instrumentTypes, get_instrument_categories,
+        instrument_categories
+
     }
 
 

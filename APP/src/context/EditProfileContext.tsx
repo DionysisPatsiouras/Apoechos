@@ -61,15 +61,15 @@ export const EditProfileProvider = ({ children }: any) => {
         get_studio_services()
         get_instruments()
 
-        setMyName(children?.props?.profile?.name)
-        setMyCity(children?.props?.profile?.city?.id)
-        setMyBio(children?.props?.profile?.bio)
+        setMyName(profile?.name)
+        setMyCity(profile?.city?.id)
+        setMyBio(profile?.bio)
+        setMyAddress(profile?.address)
 
-    }, [children])
-    // console.warn(my_city)
+    }, [children?.props])
 
 
-
+console.log(children)
     let edit_menu = [
         { icon: 'account', label: 'Στοιχεία', category: 'All', id: 1 },
         { icon: 'genres', label: 'Είδη', category: 'Μουσικοί', id: 2 },
@@ -90,6 +90,7 @@ export const EditProfileProvider = ({ children }: any) => {
         formData.append('city', my_city)
         formData.append('bio', my_bio)
 
+        my_address && formData.append('address', my_address)
         data?.photo?.length !== 0 && formData.append('photo', data?.photo?.[0])
 
 
