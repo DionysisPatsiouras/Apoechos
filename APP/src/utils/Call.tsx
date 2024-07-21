@@ -16,7 +16,12 @@ export default class Call {
             method: `${type}`,
             url: this.url,
             data: data,
-            headers: { Authorization: `Bearer ${this.token}` }
+            headers: {
+                Authorization: `Bearer ${this.token}`,
+                // "Accept": "application/json",
+                // 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PATCH'
+                // 'Access-Control-Allow-Methods': '*'
+            }
         }
 
         this.no_token_config = {
