@@ -74,7 +74,7 @@ export default function App() {
                   <Route path='/posts' element={<Posts />} />
                   <Route path='/events' element={<Events />} />
                   <Route path='/map' element={<Map />} />
-                  <Route path='/mystudio' element={<Messages />} />
+                  <Route path='/messages' element={<Messages />} />
                   {/* need to create this */}
                   {/* <Route path='/terms-and-conditions' element={<Messages />} /> */}
 

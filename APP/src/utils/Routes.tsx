@@ -29,6 +29,10 @@ export const Routes = {
         stages : `${url}/profile/all/stages/`,
     },
 
+    messages: {
+        get: (sender_id:string, receiver_id:string) => `${url}/chat/${sender_id}/${receiver_id}/`,
+        contacts: (profile_id:string) => `${url}/chat/contacts/all/${profile_id}`,
+    },
 
 
     posts: {
@@ -48,9 +52,6 @@ export const Routes = {
 
 
 
-    messages: {
-        profile_id: (profile_id: string) => `${url}/message/profile/${profile_id}`,
-    }
 
 
 }

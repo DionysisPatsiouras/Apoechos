@@ -78,15 +78,17 @@
   align-items: center;
 }
 .categories_list li {
-  padding: 15px 5px;
-  width: 75px;
-  height: 25px;
+  background-color: #5F69C6;
+  color: #fff;
+  padding: 15px;
+  height: 15px;
   margin: 0 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   border-radius: 4px;
+  text-transform: capitalize;
 }
 
 .image_preview {
