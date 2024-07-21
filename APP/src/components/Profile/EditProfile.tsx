@@ -13,6 +13,9 @@ import EditProfileContext from '../../context/EditProfileContext'
 import { handle_checkbox } from '../../utils/functions/handle_checkbox'
 
 
+// import CreateNewProfileContext from '../context/CreateNewProfileContext'
+import CreateNewProfileContext from '../../context/CreateNewProfileContext'
+import UtilsContext from '../../context/UtilsContext'
 
 // export default function EditProfile(props: any) {
 const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
@@ -39,23 +42,50 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
         my_name, setMyName,
         my_city, setMyCity,
         my_bio, setMyBio,
-        my_address, setMyAddress
+        my_address, setMyAddress,
+
 
     }: any = useContext(EditProfileContext)
 
-    // console.log(props.profile)
+    let { get_instrument_categories, instrument_categories }: any = useContext(UtilsContext)
+
+
+    const [activeCategory, setActiveCategory] = useState<string>(instrument_categories?.[0])
+
+    useEffect(() => {
+        get_instrument_categories()
+        setActiveCategory(instrument_categories?.[0])
+    }, [])
 
 
 
-    const update_array = (title: string, initial_Array: any, setState: any, myArray: any) => {
+    // console.warn(my_city)
+
+    const update_array = (title: string, initial_Array: any, setState: any, myArray: any, is_instruments: boolean) => {
 
         return (
 
             <div className={CSS.attributes}>
                 <h2>{title}</h2>
 
+                {is_instruments &&
+
+                    <ul className={CSS.categories_list}>
+                        {instrument_categories?.map((item: any) => (
+                            <li
+                                key={item}
+                                onClick={() => setActiveCategory(item)}>
+                                {item}
+                            </li>
+                        ))}
+                    </ul>
+                }
+
+
+
                 <ul>
                     {initial_Array
+                        .filter((i: any) => is_instruments ? i.category === activeCategory : i)
                         .map((i: any) => (
                             <li className='items-inline' key={i.id}>
                                 <input type='checkbox' value={i.id} id={i.id} style={{ width: 'unset' }}
@@ -152,34 +182,36 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
 
 
 
-                        <select className={CSS.city_dropdown}
+                        <select
+                            value={my_city}
+                            className={CSS.city_dropdown}
                             {...register('city')}
                             onChange={(e) => setMyCity(e.target.value)}>
                             {cities?.map((city: any) => (
                                 <option key={city.id}
                                     value={city.id}
-                                    selected={my_city === city?.id ? true : false}
+                                    // selected={my_city === city?.id ? true : false}
                                 >{city.name}</option>
                             ))}
                         </select>
 
-                        <textarea
+                        {/* <textarea
                             {...register('bio')}
                             onChangeCapture={(e: any) => setMyBio(e.target.value)}
                             placeholder='Λίγα λόγια για εσάς..'
                             value={my_bio}
                         >
-                     
-                        </textarea>
 
-             
+                        </textarea> */}
+
+
                     </div>
 
                 }
 
-                {tab === 2 && update_array('Είδη', genres, setMyGenres, my_genres)}
-                {tab === 3 && update_array('Υπηρεσίες', studio_services, setMyServices, my_services)}
-                {tab === 4 && update_array('Όργανα', instruments, setMyInstruments, my_instruments)}
+                {tab === 2 && update_array('Είδη', genres, setMyGenres, my_genres, false)}
+                {tab === 3 && update_array('Υπηρεσίες', studio_services, setMyServices, my_services, false)}
+                {tab === 4 && update_array('Όργανα', instruments, setMyInstruments, my_instruments, true)}
 
 
 

@@ -48,7 +48,7 @@ export default function NewPost(props: any) {
 
         const new_post = new Call(Routes.posts.new, 'POST', finalData)
 
-        if (data?.title === '0' || data?.title === undefined) {
+        if (data?.title === '0' || data?.title === undefined || data?.title === 0) {
 
             setCheckTitle("Παρακαλώ επιλέξτε κατηγορία")
         } else {

@@ -28,7 +28,7 @@ export const CreateNewProfileProvider = ({ children }: any) => {
         instrument_categories
     }: any = useContext(UtilsContext)
 
-    console.log(instrument_categories)
+    // console.log(instrument_categories)
 
     const [category, setCategory] = useState<number>()
     const [created, setCreated] = useState<boolean>(false)

@@ -18,7 +18,7 @@ const Location = forwardRef(function EditProfile(props: any, ref: any) {
 
     }, [props])
 
-    console.log(coordinates)
+    // console.log(coordinates)
 
     function ChangeView({ center, zoom }: any) {
         const map = useMap();

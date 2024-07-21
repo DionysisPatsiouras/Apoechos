@@ -56,6 +56,7 @@ export const EditProfileProvider = ({ children }: any) => {
         setMyServices(profile?.studio_services?.map((i: any) => i?.id?.toString()));
         setMyGenres(profile?.genres?.map((i: any) => i?.id?.toString()))
         setMyInstruments(profile?.instruments?.map((i: any) => i?.id?.toString()))
+
         get_cities()
         get_genres()
         get_studio_services()
@@ -69,7 +70,7 @@ export const EditProfileProvider = ({ children }: any) => {
     }, [children?.props])
 
 
-console.log(children)
+    // console.log(children.props)
     let edit_menu = [
         { icon: 'account', label: 'Στοιχεία', category: 'All', id: 1 },
         { icon: 'genres', label: 'Είδη', category: 'Μουσικοί', id: 2 },
@@ -123,23 +124,23 @@ console.log(children)
             .catch((err) => console.warn(err))
     }
     let contextData = {
-        tab,  setTab,
+        tab, setTab,
         cities,
-        genres, 
+        genres,
         studio_services,
         edit_menu,
 
         profile,
         handleSubmit,
-       
+
         my_services, setMyServices,
         updateProfile,
-        
+
         register,
         my_genres, setMyGenres,
         instruments,
         my_instruments, setMyInstruments,
-      
+
         newFile, setNewFile,
         my_name, setMyName,
         my_city, setMyCity,
