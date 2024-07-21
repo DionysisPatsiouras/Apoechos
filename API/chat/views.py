@@ -31,13 +31,6 @@ def contact_list(request, profile):
 
     # profile = "PROFILE4494356524428"
 
-    try:
-        profile = Profile.objects.get(pk=profile)
-    except Profile.DoesNotExist:
-        # return Response({"message": "Profile not found!"})
-        return Response({"message": "Profile not found!"}, status=404)
-    
-
     messages = Message.objects.filter(
         Q(sender_id=profile) | Q(receiver_id=profile)
     ).values_list("sender_id", "receiver_id")
@@ -54,8 +47,6 @@ def contact_list(request, profile):
 
     # # Serialize the profiles
     serializer = Profile_Post_Serializer(contacts, many=True)
-
-    # return Response({"contacts": serializer.data})
     
     return Response(serializer.data)
    
