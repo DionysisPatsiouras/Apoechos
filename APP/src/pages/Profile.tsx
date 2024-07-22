@@ -10,6 +10,7 @@ import CSS from '../css/Profile/Profile.module.sass'
 import AuthContext from '../context/AuthContext'
 import { EditProfileProvider } from '../context/EditProfileContext'
 
+
 // utils
 import { Routes } from '../utils/Routes'
 import Call from '../utils/Call'
@@ -18,14 +19,13 @@ import Call from '../utils/Call'
 import Modal from '../components/Modal'
 import SvgIcon from '../components/SvgIcon'
 import Activity from '../components/Profile/Activity'
-
-
-
 import EditProfile from '../components/Profile/EditProfile'
+
 
 export default function Profile() {
 
     let { user }: any = useContext(AuthContext)
+    // let { my_profiles, get_my_profiles }: any = useContext(UtilsContext)
 
     const [height, setHeight] = useState<any>(undefined)
 
@@ -54,7 +54,8 @@ export default function Profile() {
 
         setHeight(window.innerHeight)
         window.addEventListener("resize", () => setHeight(window.innerHeight))
-
+        // get_my_profiles()
+        // get_my_profiles()
         get_my_profiles
             .GET()
             .then((res) => setMyProfiles(res[1]))
@@ -68,7 +69,7 @@ export default function Profile() {
 
     }, [updateDOM])
 
-    // console.log(currentProfile)
+    // console.log(user)
 
     return (
 
@@ -129,6 +130,8 @@ export default function Profile() {
                     </aside>
 
                 }
+
+
 
 
                 <section className={CSS.right_content}>

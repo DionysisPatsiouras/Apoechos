@@ -17,7 +17,7 @@ import SvgIcon from './SvgIcon'
 // export default Button
 
 
-const Button = forwardRef(function Button(props: any, ref:any) {
+const Button = forwardRef(function Button(props: any, ref: any) {
 
     let bg = props?.type === 'configure' && !props?.not_allowed
         ? '#5f69c6'
@@ -31,9 +31,13 @@ const Button = forwardRef(function Button(props: any, ref:any) {
             style={{ backgroundColor: bg }}
             className={props?.not_allowed ? 'disabled_btn' : 'btn'}
             disabled={props?.not_allowed ? true : false} >
-            {props?.icon && <SvgIcon id={props?.icon} />}
+            <div className='items-inline' style={{justifyContent: 'space-between'}}>
+                {props?.icon && <SvgIcon id={props?.icon} color='#fff' width={16} height={16}/>}
 
-            {props?.label}
+
+
+                {props?.label}
+            </div>
         </button>
 
     )

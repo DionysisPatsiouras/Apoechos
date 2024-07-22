@@ -9,7 +9,7 @@
 // search, location, add_person, new_release, expand, edit
 // keys, strings, vocals, woodwind, percussion, delete
 // pinned, insert, remove, settings, genres, studio_services
-// check, clock, filter
+// check, clock, filter, send
 
 
 
@@ -20,6 +20,20 @@ export default function SvgIcon(props: any) {
     return (
 
         <>
+
+            {props?.id === 'send' &&
+
+                <svg
+                    width={props?.width || '24'}
+                    height={props?.height || '24'}
+                    onClick={props?.onClick}
+                    style={props?.style}
+                    viewBox="0 -960 960 960" fill="#5f6368"
+                >
+                    <path fill={props?.color || color} d="M176-183q-20 8-38-3.5T120-220v-180l320-80-320-80v-180q0-22 18-33.5t38-3.5l616 260q25 11 25 37t-25 37L176-183Z" />
+                </svg>
+
+            }
 
             {props?.id === 'filter' &&
                 <svg

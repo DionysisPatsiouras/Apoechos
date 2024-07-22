@@ -29,11 +29,16 @@ export default function UserMenu(props: any) {
 
     // console.log(myProfiles)
 
+    let profile_exists = myProfiles?.[1]?.[0]?.profileId !== undefined
+    let first_profile = myProfiles?.[1]?.[0]?.profileId
+
 
     return (
         <>
             <ul>
-                <Link to={myProfiles?.[1]?.[0]?.profileId !== undefined ? `/profile/${myProfiles?.[1]?.[0]?.profileId}` : '/create/'}>Προφίλ</Link>
+                <Link to={profile_exists
+                    ? `/profile/${first_profile}`
+                    : '/create/'}>Προφίλ</Link>
                 <Link to="/discover">Ανακάλυψε</Link>
                 <Link to="/posts">Δημοσιεύσεις</Link>
                 <Link to="/events">Εκδηλώσεις</Link>
@@ -44,17 +49,20 @@ export default function UserMenu(props: any) {
 
             <ul className={CSS.loggedUserMenu}>
 
-                {me?.musicianId &&
-                    <>
-                        <SvgIcon id='notifications' width={20} />
-                        <SvgIcon id='messages' width={25} />
-                    </>
-                }
+
+
+                {/* <SvgIcon id='notifications' width={20} /> */}
+                <Link to={profile_exists ? `/messages/${first_profile}` : '/create'}>
+                    <SvgIcon id='messages' width={25} />
+                </Link>
+
+
+
 
                 <SvgIcon id='account' width={25} onClick={() => setAccountModal(!accountModal)} />
 
 
-            </ul>
+            </ul >
 
 
             <div

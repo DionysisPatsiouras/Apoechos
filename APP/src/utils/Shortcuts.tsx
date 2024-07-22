@@ -23,4 +23,12 @@ export const timestamp = (value: string) =>
         minute: "numeric"
     });
 
-
+export const message_date = (value: string) =>
+    new Date(value).toLocaleDateString("el-GR", {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+        // weekday: "long",
+        hour: "numeric",
+        minute: "numeric"
+    })

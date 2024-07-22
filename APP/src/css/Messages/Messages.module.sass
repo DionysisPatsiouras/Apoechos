@@ -1,11 +1,12 @@
 
 .container
-    width: 600px
+    width: 800px
     margin: 20px auto 0 auto
     display: flex
 
     ul
         border-right: 1px solid #F2F2F2
+        width: 300px
 
 .title
     font-size: 1rem
@@ -37,8 +38,35 @@
 
 .allMessages
     padding: 20px
-    height: 200px
+    height: 400px
     overflow: auto
 
 .new_msg_section
-    margin: 13px
+    padding: 13px
+    border-top: 1px solid #F2F2F2
+    display: flex
+    justify-content: space-between
+    input
+        margin: 0
+        width: 77%
+        height: 50px
+    button
+        padding: 13px
+        min-width: 120px
+        max-width: 120px
+        width: 30%
+        height: 50px
+
+.img_and_text
+    margin: 20px 0
+    padding: 10px
+
+.msgBox
+    display: inline-flex
+    gap: 20px
+    padding: 10px
+.sender
+    color: #5F69C6
+    font-weight: 600
+.msg_date
+    color: #b1b1b1

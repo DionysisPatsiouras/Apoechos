@@ -11,9 +11,6 @@ export default UtilsContext
 export const UtilsProvider = ({ children }: any) => {
 
 
-    // let [updateDOM, setUpdateDOM] = useState<boolean>(false)
-
-
     let [cities, setCities] = useState<any[]>([])
     let [genres, setGenres] = useState<any[]>([])
     let [instruments, setInstruments] = useState<any[]>([])
@@ -21,6 +18,14 @@ export const UtilsProvider = ({ children }: any) => {
     let [categories, setCategories] = useState<any[]>([])
     let [instrumentTypes, setInstrumentTypes] = useState<any[]>([])
 
+    let [my_profiles, setMyProfiles] = useState<any>([])
+
+
+
+    const get_my_profiles = () => {
+        const get_my_profiles = new Call(Routes.profiles.my_profiles, 'GET')
+        get_my_profiles.GET().then((res) => setMyProfiles(res[1])).catch((err) => console.warn(err))
+    }
 
 
     const get_categories = () => {
@@ -71,7 +76,8 @@ export const UtilsProvider = ({ children }: any) => {
         instruments, get_instruments,
         categories, get_categories,
         instrumentTypes, get_instrument_categories,
-        instrument_categories
+        instrument_categories,
+        my_profiles, get_my_profiles
 
     }
 
