@@ -59,9 +59,10 @@ export default function News() {
 
                     {Loading(
                         data?.length !== 0,
-                        <AllPosts all_posts={data
-                            .filter((profile: any) => array.length === 0 ? !array.includes(labels) : array.includes(profile.title.title))
-                            .sort((a: any, b: any) => new Date(b.created_at) > new Date(a.created_at) ? 1 : -1)} />
+                        <AllPosts all_posts={
+                            data
+                                .filter((profile: any) => array.length === 0 ? !array.includes(labels) : array.includes(profile.title.title))
+                                .sort((a: any, b: any) => new Date(b.created_at) > new Date(a.created_at) ? 1 : -1)} />
                     )}
 
 
@@ -75,7 +76,7 @@ export default function News() {
                 <ul className='shadow floating_filters'>
                     <h5>Κατηγορία</h5>
 
-                    {labels.map((label: any, index: number) => (
+                    {labels?.map((label: any, index: number) => (
                         <li key={index} >
                             <input
                                 className='cursor-pointer'

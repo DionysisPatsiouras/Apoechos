@@ -1,14 +1,26 @@
-import { forwardRef, useEffect, useState, useContext } from 'react'
+import { forwardRef,  useState, useContext } from 'react'
+import { Link } from 'react-router-dom'
+
+// CSS
+import CSS from '../css/Post/Post.module.css'
+
+// context
+import ProfileContext from '../context/ProfileContext'
+
+// utils
 import Call from '../utils/Call'
 import { Routes } from '../utils/Routes'
-import CSS from '../css/Post/Post.module.css'
-import { Link } from 'react-router-dom'
-import SvgIcon from './SvgIcon'
 import { full_date } from '../utils/Shortcuts'
+
+// components
 import Modal from './Modal'
-import Confirmation from './Modal/Confirmation'
 import UpdatePost from './UpdatePost'
-import ProfileContext from '../context/ProfileContext'
+import Confirmation from './Modal/Confirmation'
+import SvgIcon from './SvgIcon'
+
+// This component may take up to 2 props
+// 1) can_edit -> is used in "Profile" page to check if the user owns the posts array
+// 2) all_posts -> is used on "Posts" page. In this case it returns any post array is provided with
 
 const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
 
@@ -21,7 +33,8 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
     const [selectedPost, setSelectedPost] = useState<any>()
 
 
-    // console.warn(props)
+
+    let posts_array = props?.all_posts ? props?.all_posts : posts
 
 
     const delete_post = (post_id: string) => {
@@ -31,7 +44,8 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
         }
         let patchPost = new Call(Routes.posts.update(post_id), 'PATCH', data)
 
-        patchPost.PATCH()
+        patchPost
+            .PATCH()
             .then(() => {
                 console.log('Post deleted successfully')
                 updateDOM()
@@ -112,7 +126,7 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '33vw', minWidth: '200px', maxWidth: '500px' }}>
 
 
-                {posts
+                {posts_array
                     .map((post: any, index: number) =>
                         <div key={index} style={{ display: 'flex' }}>
                             {PostView(post, props?.all_posts ? false : true)}

@@ -12,7 +12,7 @@ const FullEvent = forwardRef(function FullEvent(props: any, ref: any) {
 
     let event = props?.event
 
-    console.warn(event)
+    // console.warn(event)
 
     return (
         <section>

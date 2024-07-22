@@ -35,7 +35,7 @@ export default function UserMenu(props: any) {
 
     return (
         <>
-            <ul>
+            <ul className={CSS.mainNavigation}>
                 <Link to={profile_exists
                     ? `/profile/${first_profile}`
                     : '/create/'}>Προφίλ</Link>
@@ -53,13 +53,13 @@ export default function UserMenu(props: any) {
 
                 {/* <SvgIcon id='notifications' width={20} /> */}
                 <Link to={profile_exists ? `/messages/${first_profile}` : '/create'}>
-                    <SvgIcon id='messages' width={25} />
+                    <SvgIcon id='messages' width={25}  height={40}/>
                 </Link>
 
 
 
 
-                <SvgIcon id='account' width={25} onClick={() => setAccountModal(!accountModal)} />
+                <SvgIcon id='account' width={25} height={40}onClick={() => setAccountModal(!accountModal)} />
 
 
             </ul >

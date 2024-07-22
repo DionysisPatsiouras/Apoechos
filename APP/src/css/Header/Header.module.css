@@ -52,26 +52,26 @@
 }
 
 @media screen and (min-width: 768px) {
+  .mainNavigation a {
+    padding: 17px;
+  }
+  .mainNavigation a:hover {
+    background-color: #3E3E3E;
+    color: #ffffff;
+  }
   .desktopMenu {
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 54px;
   }
-  .desktopMenu ul a {
-    padding: 17px;
-  }
-  .desktopMenu ul a:hover {
-    background-color: #3E3E3E;
-    color: #ffffff;
-  }
   .loggedUserMenu {
     display: flex;
-    align-items: center;
+    gap: 20px;
+    padding-right: 10px;
   }
   .loggedUserMenu svg {
     cursor: pointer;
-    margin: 0 10px 0 0;
   }
   .account_dropdown {
     background-color: #F4F4F4;
