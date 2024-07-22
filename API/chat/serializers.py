@@ -6,7 +6,6 @@ from profiles.serializers import *
 
 class NewMessageSerializer(serializers.ModelSerializer):
 
-
     class Meta:
         model = Message
         fields = "__all__"

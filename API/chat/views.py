@@ -11,6 +11,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
 
 
+# /chat/:id/:id/
 @api_view(["GET"])
 def message_view(request, sender, receiver):
 
@@ -25,6 +26,7 @@ def message_view(request, sender, receiver):
     return Response(serializer.data)
 
 
+# /chat/contacts/all/:id/
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def contact_list(request, profile):
@@ -47,10 +49,11 @@ def contact_list(request, profile):
 
     # # Serialize the profiles
     serializer = Profile_Post_Serializer(contacts, many=True)
-    
-    return Response(serializer.data)
-   
 
+    return Response(serializer.data)
+
+
+# /chat/message/new
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def new_message(request):
