@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react"
+import { useEffect, useState, useContext, useRef } from "react"
 import Call from "../utils/Call"
 import { Routes } from "../utils/Routes"
 import CSS from "../css/Messages/Messages.module.css"
@@ -15,6 +15,7 @@ export default function Messages() {
     let { user }: any = useContext(AuthContext)
 
     let profile_id = window.location.pathname.replace('/messages/', '')
+    const divRef = useRef(null);
 
     const [contacts, setContacts] = useState<any[]>([])
     const [conversation, setConversation] = useState<any[]>([])
@@ -69,9 +70,20 @@ export default function Messages() {
 
         // keep contact's ID
         setReceiverId(contact_id)
+
+
     }
 
 
+
+
+
+
+    useEffect(() => {
+        // @ts-ignore
+        divRef && divRef?.current?.scrollIntoView({ behavior: 'auto' });
+
+    }, [conversation])
 
     useEffect(() => {
 
@@ -89,9 +101,10 @@ export default function Messages() {
             .then((res) => setContacts(res))
             .catch((err) => console.warn(err))
 
+
+
     }, [profile_id])
 
-    // console.log(contacts)
 
 
 
@@ -157,9 +170,10 @@ export default function Messages() {
 
                     <h3 className={CSS.title}>Συζήτηση</h3>
 
-                    <div className={CSS.allMessages}>
+                    <div className={CSS.allMessages} >
                         {conversation.length !== 0 && conversation.map((msg: any, index: number) => (
                             <div key={index}
+                                ref={divRef}
                                 className={CSS.img_and_text}
                                 style={{
                                     textAlign: profile_id === msg?.receiver?.profileId || msg?.senderId
@@ -179,7 +193,7 @@ export default function Messages() {
                                         <img className={CSS.contactImg} src={msg?.sender?.photo} />
                                     </div>
 
-                                    <div>
+                                    <div >
                                         <p className={CSS.sender}>{msg?.sender?.name} {msg?.sender?.profileId === profile_id && '(εγώ)'}</p>
                                         <p>{msg.message}</p>
                                         <p className={CSS.msg_date}>{message_date(msg.timestamp)}</p>
