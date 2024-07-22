@@ -50,3 +50,15 @@ def contact_list(request, profile):
     
     return Response(serializer.data)
    
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def new_message(request):
+
+    serializer = NewMessageSerializer(data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"message": "Created", "status": 201, "data": serializer.data})
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
