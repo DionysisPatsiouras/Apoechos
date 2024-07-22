@@ -18,9 +18,11 @@ export default class Call {
             data: data,
             headers: {
                 Authorization: `Bearer ${this.token}`,
+                // Location: ''
                 // "Accept": "application/json",
                 // 'Access-Control-Allow-Methods': 'GET, POST, DELETE, PATCH'
                 // 'Access-Control-Allow-Methods': '*'
+                
             }
         }
 

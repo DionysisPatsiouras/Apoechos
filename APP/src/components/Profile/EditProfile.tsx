@@ -27,7 +27,7 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
         studio_services,
         edit_menu,
 
-        profile,
+        currentProfile,
         handleSubmit,
 
         my_services, setMyServices,
@@ -59,7 +59,9 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
 
 
 
-    // console.warn(my_city)
+
+
+    // console.warn(currentProfile)
 
     const update_array = (title: string, initial_Array: any, setState: any, myArray: any, is_instruments: boolean) => {
 
@@ -80,8 +82,6 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
                         ))}
                     </ul>
                 }
-
-
 
                 <ul>
                     {initial_Array
@@ -110,7 +110,7 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
             <ul className={CSS.tabs}>
 
                 {edit_menu
-                    .filter((i: any) => i.category === profile?.category?.name || i.category === 'All')
+                    .filter((i: any) => i.category === currentProfile?.category?.name || i.category === 'All')
                     .map((item: any, index: number) => (
                         <li key={index}
                             style={{ width: '100%' }}
@@ -130,7 +130,7 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
                     <div className={CSS.info_stats}>
                         <div className='items-inline' style={{ gap: '25px', alignItems: 'flex-start' }}>
 
-                            <img src={newFile || `http://127.0.0.1:8000/${profile?.photo}`} width={200} alt='profile'
+                            <img src={newFile || `http://127.0.0.1:8000/${currentProfile?.photo}`} width={200} alt='profile'
                                 style={{ height: '218px', objectFit: 'cover', margin: '0 0 20px 0' }} />
 
                             <div className={CSS.updateImage}>
@@ -160,18 +160,19 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
                             type='text'
                             placeholder='Όνομα'
                             value={my_name}
+
                             {...register('name', {
                                 required: 'Υποχρεωτικό πεδίο',
                                 onChange: (event: any) => setMyName(event.target.value)
                             })}
                         />
-                        {/* <FormError value={errors?.name} /> */}
 
-                        {props?.profile?.address &&
+
+                        {currentProfile.address &&
                             <input
                                 type='text'
                                 placeholder='Διεύθυνση'
-                                value={my_address}
+                                value={currentProfile && my_address}
                                 {...register('address', {
                                     required: 'Υποχρεωτικό πεδίο',
                                     onChange: (event: any) => setMyAddress(event.target.value)
@@ -190,19 +191,12 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
                             {cities?.map((city: any) => (
                                 <option key={city.id}
                                     value={city.id}
-                                    // selected={my_city === city?.id ? true : false}
+                                // selected={my_city === city?.id ? true : false}
                                 >{city.name}</option>
                             ))}
                         </select>
 
-                        {/* <textarea
-                            {...register('bio')}
-                            onChangeCapture={(e: any) => setMyBio(e.target.value)}
-                            placeholder='Λίγα λόγια για εσάς..'
-                            value={my_bio}
-                        >
 
-                        </textarea> */}
 
 
                     </div>
@@ -217,12 +211,13 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
 
                 <div className={CSS.bottom_section}>
                     <button type='submit' className='btn blue_btn'>Αποθήκευση</button>
-                    <button type='reset' className='btn discard_btn' style={{ 'backgroundColor': '#9A9A9A' }} onClick={() => { setTab(1); props?.close() }}>  Ακύρωση </button>
+                    <button type='reset' className='btn discard_btn' style={{ 'backgroundColor': '#9A9A9A' }}
+                        onClick={() => { setTab(1); props?.close() }}>  Ακύρωση </button>
                 </div>
             </form>
 
         </section>
     )
-    // }
+
 })
 export default EditProfile

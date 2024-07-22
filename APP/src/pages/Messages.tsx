@@ -21,7 +21,7 @@ export default function Messages() {
 
     const [currentProfile, setCurrentProfile] = useState<any>([])
     const [my_profiles, setMyProfiles] = useState<any>([])
-    const [updateDOM, setUpdateDOM] = useState<boolean>(false)
+
 
     const [receiverId, setReceiverId] = useState<string>('')
     const [msg, setMsg] = useState<string>('')
@@ -43,7 +43,7 @@ export default function Messages() {
             message: msg
         }
 
-        console.log(data)
+        // console.log(data)
         const add_new_message = new Call(Routes.messages.new, 'POST', data)
 
         add_new_message
@@ -89,9 +89,7 @@ export default function Messages() {
             .then((res) => setContacts(res))
             .catch((err) => console.warn(err))
 
-
-
-    }, [profile_id, updateDOM])
+    }, [profile_id])
 
     // console.log(contacts)
 

@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useState } from 'react'
+import { forwardRef, useEffect, useState, useContext } from 'react'
 import Call from '../utils/Call'
 import { Routes } from '../utils/Routes'
 import CSS from '../css/Post/Post.module.css'
@@ -8,26 +8,17 @@ import { full_date } from '../utils/Shortcuts'
 import Modal from './Modal'
 import Confirmation from './Modal/Confirmation'
 import UpdatePost from './UpdatePost'
+import ProfileContext from '../context/ProfileContext'
 
 const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
 
-    const posts_by_id = new Call(Routes.posts.profile_id(props?.id), 'GET')
+    let { posts, updateDOM }: any = useContext(ProfileContext)
 
-    const [post, setPost] = useState<any[]>([])
     const [editModal, setEditModal] = useState<boolean>(false)
     const [deleteModal, setDeleteModal] = useState<boolean>(false)
 
-    // const [edit, setEdit] = useState<boolean>(false)
+
     const [selectedPost, setSelectedPost] = useState<any>()
-    const [updateDOM, setUpdateDOM] = useState<boolean>(false)
-
-
-    useEffect(() => {
-
-        props?.id && posts_by_id.GET().then((res) => setPost(res?.[1])).catch((err) => console.warn(err))
-        props?.all_posts && setPost(props?.all_posts)
-
-    }, [props])
 
 
     // console.warn(props)
@@ -42,8 +33,8 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
 
         patchPost.PATCH()
             .then(() => {
-                console.log('Post delete successfully')
-                props?.updateDOM();
+                console.log('Post deleted successfully')
+                updateDOM()
                 setDeleteModal(false)
             })
             .catch((err) => console.warn(err))
@@ -113,8 +104,7 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
                 <UpdatePost post={selectedPost} close={() => {
                     setSelectedPost(undefined);
                     setEditModal(false);
-                    props?.updateDOM();
-                    setUpdateDOM(!updateDOM)
+                    updateDOM()
                 }} />
             </Modal>
 
@@ -122,7 +112,7 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '33vw', minWidth: '200px', maxWidth: '500px' }}>
 
 
-                {post
+                {posts
                     .map((post: any, index: number) =>
                         <div key={index} style={{ display: 'flex' }}>
                             {PostView(post, props?.all_posts ? false : true)}

@@ -3,6 +3,7 @@ import Call from "../utils/Call"
 import { Routes } from "../utils/Routes"
 import { useForm } from 'react-hook-form'
 import UtilsContext from "./UtilsContext"
+import ProfileContext from "./ProfileContext"
 
 const EditProfileContext = createContext({})
 
@@ -13,26 +14,20 @@ export default EditProfileContext
 export const EditProfileProvider = ({ children }: any) => {
 
     let {
-        cities,
-        get_cities,
-        get_genres,
-        genres,
-        get_studio_services,
-        get_instruments,
-        instruments,
-        studio_services
+        cities, get_cities,
+        genres, get_genres,
+        instruments, get_instruments,
+        studio_services, get_studio_services
     }: any = useContext(UtilsContext)
 
-    // console.log(children.props)
-    let profile = children?.props?.profile
+    let { currentProfile, close_edit }: any = useContext(ProfileContext)
+
+
+
+
 
     // const form = useForm()
-    const { register, handleSubmit, formState, resetField } = useForm({
-        defaultValues: {
-            name: children?.props?.profile
-
-        }
-    })
+    const { register, handleSubmit, formState, resetField } = useForm()
     // const { errors } = formState
 
     const [tab, setTab] = useState<number>(1)
@@ -50,24 +45,28 @@ export const EditProfileProvider = ({ children }: any) => {
     const [newFile, setNewFile] = useState<any>()
 
 
-
     useEffect(() => {
-
-        setMyServices(profile?.studio_services?.map((i: any) => i?.id?.toString()));
-        setMyGenres(profile?.genres?.map((i: any) => i?.id?.toString()))
-        setMyInstruments(profile?.instruments?.map((i: any) => i?.id?.toString()))
-
         get_cities()
         get_genres()
         get_studio_services()
         get_instruments()
+    }, [])
 
-        setMyName(profile?.name)
-        setMyCity(profile?.city?.id)
-        setMyBio(profile?.bio)
-        setMyAddress(profile?.address)
 
-    }, [children?.props])
+    useEffect(() => {
+
+        setMyServices(currentProfile?.studio_services?.map((i: any) => i?.id?.toString()));
+        setMyGenres(currentProfile?.genres?.map((i: any) => i?.id?.toString()))
+        setMyInstruments(currentProfile?.instruments?.map((i: any) => i?.id?.toString()))
+
+        setMyName(currentProfile?.name)
+        setMyCity(currentProfile?.city?.id)
+        setMyBio(currentProfile?.bio)
+        setMyAddress(currentProfile?.address)
+
+
+    }, [currentProfile])
+
 
 
     // console.log(children.props)
@@ -79,10 +78,11 @@ export const EditProfileProvider = ({ children }: any) => {
     ]
 
 
-    const updateProfile = (data: any) => {
+
+    const updateProfile = (data: any, fun: any) => {
 
 
-        // console.warn(data)
+   
         // console.warn(my_city)
 
         let formData: any = new FormData()
@@ -106,20 +106,15 @@ export const EditProfileProvider = ({ children }: any) => {
         for (let i = 0; i < my_instruments.length; i++) {
             formData.append('instruments', my_instruments[i])
         }
-        // formData = new FormData()
 
-        // resetField("name")
 
-        const update_profile = new Call(Routes.profiles.update(profile?.profileId), 'PATCH', formData)
+        const update_profile = new Call(Routes.profiles.update(currentProfile?.profileId), 'PATCH', formData)
         update_profile
             .PATCH_MEDIA()
             .then((res) => {
-                console.log(res);
-                setTab(1);
-                children?.props?.close();
-                //    kinda works
-                // resetField("name")
-
+                // console.log(res);
+                setTab(1);  
+                close_edit(true)
             })
             .catch((err) => console.warn(err))
     }
@@ -130,7 +125,7 @@ export const EditProfileProvider = ({ children }: any) => {
         studio_services,
         edit_menu,
 
-        profile,
+        currentProfile,
         handleSubmit,
 
         my_services, setMyServices,

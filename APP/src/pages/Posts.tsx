@@ -1,7 +1,7 @@
 
 
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import Call from '../utils/Call'
 import { Routes } from '../utils/Routes'
 import CSS from '../css/News/News.module.css'
@@ -21,14 +21,27 @@ export default function News() {
     const get_labels = new Call(Routes.posts.titles, 'GET')
 
 
-    useEffect(() => {
+    const get_posts = useCallback(() => {
+        all_posts
+            .GET()
+            .then((res) => setData(res))
+            .catch((err) => console.warn(err))
+    }, [data])
+
+
+    const get_titles = useCallback(() => {
         get_labels
             .GET()
             .then((res) => { setLabels(res.map((i: any) => ({ value: i.id, label: i.title }))) })
             .catch((err) => console.warn(err))
+    }, [labels])
+
+    useEffect(() => {
 
 
-        all_posts.GET().then((res) => setData(res)).catch((err) => console.warn(err))
+        get_titles()
+        get_posts()
+
     }, [])
 
     // console.log(data)

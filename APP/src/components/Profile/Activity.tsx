@@ -1,29 +1,27 @@
+import { useState, useEffect, useContext } from 'react'
 
-import { useState, useEffect } from 'react'
-
-import Modal from '../Modal'
+// CSS
 import CSS from '../../css/Profile/Profile.module.sass'
 
-import NewEvent from './NewEvent'
-import NewPost from './NewPost'
-
-// utils
-import { Routes } from '../../utils/Routes'
-import Call from '../../utils/Call'
+// components
+import Modal from '../Modal'
 import AllPosts from '../AllPosts'
+import NewPost from './NewPost'
+import NewEvent from './NewEvent'
 import Location from './Location'
+
+// context
+import ProfileContext from '../../context/ProfileContext'
 
 
 export default function Activity(props: any) {
 
-    let profile_id = window.location.pathname.replace('/profile/', '')
 
-    const [profile, setProfile] = useState<any>()
+    let { profile_id, currentProfile }: any = useContext(ProfileContext)
+
 
     let [activeTab, setActiveTab] = useState<string>('posts')
-
     let [createNew, setCreateNew] = useState<boolean>(false)
-    let [updateDOM, setUpdateDOM] = useState<boolean>(false)
     let [modalTitle, setModalTitle] = useState<string>('')
 
 
@@ -32,23 +30,10 @@ export default function Activity(props: any) {
         setModalTitle(title)
     }
 
-    const get_profile = new Call(Routes.profiles.id(profile_id), 'GET')
 
-    // console.log(props)
     useEffect(() => {
-
-        get_profile
-            .GET()
-            .then((res: any) => {
-                setProfile(res);
-                setUpdateDOM(!updateDOM)
-            })
-            .catch((err) => console.warn(err))
-        
         setActiveTab('posts')
-
-
-    }, [props])
+    }, [profile_id])
 
     let tabs = [
         { id: [1, 2, 3, 4, 5], label: "Δημοσιεύσεις", tab: "posts", onClick: () => setActiveTab("posts") },
@@ -80,9 +65,9 @@ export default function Activity(props: any) {
                 title={modalTitle}
                 btn >
                 {modalTitle === 'Νέα Δημοσίευση' &&
-                    <NewPost category={profile?.category} close={() => setCreateNew(false)} profile_id={profile?.profileId} />}
+                    <NewPost category={currentProfile?.category} close={() => setCreateNew(false)} profile_id={currentProfile?.profileId} />}
 
-                {modalTitle === 'Νέα Εκδήλωση' && <NewEvent created_by={profile?.profileId}/>}
+                {/* {modalTitle === 'Νέα Εκδήλωση' && <NewEvent created_by={profile?.profileId} />} */}
 
             </Modal>
 
@@ -91,7 +76,7 @@ export default function Activity(props: any) {
 
 
                 {tabs
-                    .filter((tab: any) => tab.id.includes(profile?.category?.id))
+                    .filter((tab: any) => tab.id.includes(currentProfile?.category?.id))
                     .map((tab: any, index: number) => (
                         <li
                             key={index}
@@ -102,16 +87,16 @@ export default function Activity(props: any) {
                     ))}
             </ul>
 
-            <section style={{display: 'flex', width: '500px', gap: '20px', flexDirection: 'column'}}>
+            <section style={{ display: 'flex', width: '500px', gap: '20px', flexDirection: 'column' }}>
 
 
                 {activeTab === 'posts' &&
-                    <AllPosts id={profile?.profileId} can_edit={props?.canEdit} updateDOM={() => setUpdateDOM(!updateDOM)} />
+                    <AllPosts can_edit={props?.canEdit}  />
                 }
 
-                {activeTab === 'location' && 
-                
-                    <Location latitude={profile?.latitude} longitude={profile?.longitude}/>
+                {activeTab === 'location' &&
+
+                    <Location latitude={currentProfile?.latitude} longitude={currentProfile?.longitude} />
                 }
             </section>
 

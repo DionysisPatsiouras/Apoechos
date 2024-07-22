@@ -8,12 +8,7 @@ import CSS from '../css/Profile/Profile.module.sass'
 
 // context
 import AuthContext from '../context/AuthContext'
-import { EditProfileProvider } from '../context/EditProfileContext'
-
-
-// utils
-import { Routes } from '../utils/Routes'
-import Call from '../utils/Call'
+import ProfileContext from '../context/ProfileContext'
 
 // components
 import Modal from '../components/Modal'
@@ -25,22 +20,21 @@ import EditProfile from '../components/Profile/EditProfile'
 export default function Profile() {
 
     let { user }: any = useContext(AuthContext)
-    // let { my_profiles, get_my_profiles }: any = useContext(UtilsContext)
+    let {
+        my_profiles,
+        currentProfile,
+        updateDOM,
+        editMode, setEditMode }: any = useContext(ProfileContext)
+
 
     const [height, setHeight] = useState<any>(undefined)
 
-    const [currentProfile, setCurrentProfile] = useState<any>([])
-    const [my_profiles, setMyProfiles] = useState<any>([])
+
 
     const [modal, setModal] = useState<boolean>(false)
-    let [updateDOM, setUpdateDOM] = useState<boolean>(false)
-    let [editMode, setEditMode] = useState<boolean>(false)
+    // let [updateDOM, setUpdateDOM] = useState<boolean>(false)
+    // let [editMode, setEditMode] = useState<boolean>(false)
 
-    let profile_id = window.location.pathname.replace('/profile/', '')
-
-
-    const get_profile = new Call(Routes.profiles.id(profile_id), 'GET')
-    const get_my_profiles = new Call(Routes.profiles.my_profiles, 'GET')
 
 
     let lists = [
@@ -50,26 +44,16 @@ export default function Profile() {
     ]
 
 
+
     useEffect(() => {
 
         setHeight(window.innerHeight)
         window.addEventListener("resize", () => setHeight(window.innerHeight))
-        // get_my_profiles()
-        // get_my_profiles()
-        get_my_profiles
-            .GET()
-            .then((res) => setMyProfiles(res[1]))
-            .catch((err) => console.warn(err))
-
-        get_profile
-            .GET_NO_TOKEN()
-            .then((res: any) => setCurrentProfile(res))
-            .catch((err) => console.warn(err))
 
 
-    }, [updateDOM])
+    }, [])
 
-    // console.log(user)
+    // console.log(currentProfile)
 
     return (
 
@@ -81,19 +65,15 @@ export default function Profile() {
                 <img src={`http://127.0.0.1:8000/${currentProfile?.photo}` || img} alt='profile_photo' />
             </Modal>
 
-            <Modal
+             <Modal
                 open={editMode}
                 withContainer={true}
                 title={'Επεξεργασία προφίλ'}>
-                <EditProfileProvider>
-                    <EditProfile
-                        profile={currentProfile}
-                        close={() => {
-                            setUpdateDOM(!updateDOM);
-                            setEditMode(false)
-                        }} />
-                </EditProfileProvider>
-            </Modal>
+                <EditProfile
+                    profile={currentProfile}
+                    close={() => setEditMode(false)}
+                />
+            </Modal> 
 
             <section style={{ display: 'flex' }}>
 
@@ -102,7 +82,9 @@ export default function Profile() {
                     <aside className={CSS.my_profiles_list} style={{ height: height - 55 }}>
                         <ul>
                             {my_profiles.map((profile: any) => (
-                                <Link to={`/profile/${profile.profileId}`} onClick={() => setUpdateDOM(!updateDOM)} key={profile.profileId}>
+                                <Link to={`/profile/${profile.profileId}`}
+                                    key={profile.profileId}
+                                    onClick={() => updateDOM()} >
                                     <li
                                         className='items-inline'
                                         style={{

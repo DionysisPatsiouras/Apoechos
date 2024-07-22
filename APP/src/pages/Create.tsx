@@ -20,7 +20,7 @@ export default function Create() {
 
 
     const get_categories = new Call(Routes.profiles.categories, 'GET')
-    const [hasMusician, setHasMusician] = useState<any[]>([])
+    // const [hasMusician, setHasMusician] = useState<any[]>([])
     let my_profiles = myProfiles[1]
 
 
@@ -31,7 +31,7 @@ export default function Create() {
             .then((res) => setCategories(res))
             .catch((err) => console.warn(err))
 
-        setHasMusician(my_profiles && my_profiles.map((i: any) => i.category.name === "Μουσικοί" ? true : false))
+        // setHasMusician(my_profiles && my_profiles.map((i: any) => i.category.name === "Μουσικοί" ? true : false))
 
     }, [myProfiles])
 

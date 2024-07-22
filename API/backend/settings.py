@@ -17,6 +17,8 @@ import environ
 # EXPERIMENTAL
 import os
 
+from datetime import timedelta
+
 env = environ.Env()
 environ.Env.read_env()
 
@@ -73,8 +75,8 @@ REST_FRAMEWORK = {
     ),
 }
 
-from datetime import timedelta
 
+# APPEND_SLASH = True
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(seconds=10000000),
@@ -199,7 +201,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -226,5 +228,6 @@ CORS_ALLOWED_ORIGINS = [
 
 # EXPERIMENTAL
 MEDIA_URL = "/media/"
+STATIC_URL = "static/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)

@@ -1,10 +1,10 @@
-import { useState, useEffect, forwardRef } from 'react'
+import { useState, useEffect, forwardRef, useContext } from 'react'
 import CSS from '../css/Profile/NewPost.module.css'
 import { useForm } from 'react-hook-form'
 import Call from '../utils/Call'
 import { Routes } from '../utils/Routes'
 import Button from './Button'
-
+import ProfileContext from '../context/ProfileContext'
 
 
 
@@ -13,6 +13,8 @@ const UpdatePost = forwardRef(function UpdatePost(props: any, ref: any) {
     let data = props?.post
     let limit = 150
 
+
+    // let { labels, }:any = useContext(ProfileContext)
 
 
 
@@ -51,7 +53,7 @@ const UpdatePost = forwardRef(function UpdatePost(props: any, ref: any) {
 
     }, [props])
 
-
+    // console.log(labels)
 
     const onSubmit = () => {
 
@@ -109,7 +111,7 @@ const UpdatePost = forwardRef(function UpdatePost(props: any, ref: any) {
 
                 </textarea>
 
-                
+
 
 
                 <div className={CSS.bottom_section}>
@@ -118,7 +120,7 @@ const UpdatePost = forwardRef(function UpdatePost(props: any, ref: any) {
                         className={not_allowed ? 'btn_disabled' : 'btn'}
                         disabled={not_allowed ? true : false} >Δημοσίευση</button> */}
 
-                        <Button label='Δημοσίευση' not_allowed={not_allowed} type='configure'/>
+                    <Button label='Δημοσίευση' not_allowed={not_allowed} type='configure' />
                 </div>
             </div>
 

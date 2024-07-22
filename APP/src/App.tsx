@@ -19,6 +19,8 @@ import { UserProvider } from './context/UserContext'
 import { DiscoverProvider } from './context/DiscoverContext'
 import { CreateNewProfileProvider } from './context/CreateNewProfileContext'
 import { UtilsProvider } from './context/UtilsContext'
+import { ProfileProvider } from './context/ProfileContext'
+import { EditProfileProvider } from './context/EditProfileContext'
 
 // pages
 import Discover from './pages/Discover'
@@ -69,7 +71,12 @@ export default function App() {
                   <Route path='/login' element={<Login />} />
                   <Route path='/register' element={<Register />} />
                   <Route path='/' element={<Homepage />} />
-                  <Route path='/profile/:id/' element={<Profile />} />
+                  <Route path='/profile/:id' element={
+                    <ProfileProvider>
+                      <EditProfileProvider>
+                        <Profile />
+                      </EditProfileProvider>
+                    </ProfileProvider>} />
                   <Route path='/discover' element={<DiscoverProvider><Discover /></DiscoverProvider>} />
                   <Route path='/posts' element={<Posts />} />
                   <Route path='/events' element={<Events />} />
@@ -91,7 +98,7 @@ export default function App() {
 
                 </Routes>
               </UtilsProvider>
-    
+
             </UserProvider>
           </AuthProvider>
         </BrowserRouter>

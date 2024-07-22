@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react'
 import { MapContainer, Marker, TileLayer, Popup, useMap } from 'react-leaflet'
 import UtilsContext from '../context/UtilsContext'
-import logo from '../img/logo.png'
+// import logo from '../img/logo.png'
 import CSS from '../css/Map/Map.module.css'
 
 // utils
