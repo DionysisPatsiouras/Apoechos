@@ -21,11 +21,42 @@ export default function Messages() {
 
     const [currentProfile, setCurrentProfile] = useState<any>([])
     const [my_profiles, setMyProfiles] = useState<any>([])
+    const [updateDOM, setUpdateDOM] = useState<boolean>(false)
+
+    const [receiverId, setReceiverId] = useState<string>('')
+    const [msg, setMsg] = useState<string>('')
 
 
     const get_profile = new Call(Routes.profiles.id(profile_id), 'GET')
     const get_my_profiles = new Call(Routes.profiles.my_profiles, 'GET')
     const get_contacts = new Call(Routes.messages.contacts(profile_id), 'GET')
+
+
+
+    const Add_Message = () => {
+
+        // console.log(formData)
+        // console.log(contacts)
+        const data = {
+            sender: profile_id,
+            receiver: receiverId,
+            message: msg
+        }
+
+        console.log(data)
+        const add_new_message = new Call(Routes.messages.new, 'POST', data)
+
+        add_new_message
+            .POST()
+            .then((res) => {
+                console.log(res);
+                setMsg('');
+                // setUpdateDOM(!updateDOM)
+                get_current_conv(profile_id, receiverId)
+            })
+            .catch((err) => console.warn(err))
+
+    }
 
 
 
@@ -35,6 +66,9 @@ export default function Messages() {
             .GET()
             .then((res) => setConversation(res))
             .catch((err) => console.warn(err))
+
+        // keep contact's ID
+        setReceiverId(contact_id)
     }
 
 
@@ -57,7 +91,7 @@ export default function Messages() {
 
 
 
-    }, [profile_id])
+    }, [profile_id, updateDOM])
 
     // console.log(contacts)
 
@@ -146,9 +180,9 @@ export default function Messages() {
                                     <div>
                                         <img className={CSS.contactImg} src={msg?.sender?.photo} />
                                     </div>
-                         
+
                                     <div>
-                                        <p className={CSS.sender}>{msg?.sender?.name} {msg?.sender?.profileId === profile_id && '(εγώ)' }</p>
+                                        <p className={CSS.sender}>{msg?.sender?.name} {msg?.sender?.profileId === profile_id && '(εγώ)'}</p>
                                         <p>{msg.message}</p>
                                         <p className={CSS.msg_date}>{message_date(msg.timestamp)}</p>
                                     </div>
@@ -163,8 +197,12 @@ export default function Messages() {
 
                     {conversation.length !== 0 &&
                         <div className={CSS.new_msg_section}>
-                            <input type='text' placeholder="Γράψτε κάτι.." />
-                            <Button label='Αποστολή' type='configure' icon='send' />
+                            <input
+                                type='text'
+                                placeholder="Γράψτε κάτι.."
+                                value={msg}
+                                onChange={(e: any) => setMsg(e.target.value)} />
+                            <Button label='Αποστολή' type='configure' icon='send' onClick={() => Add_Message()} />
                         </div>
                     }
 

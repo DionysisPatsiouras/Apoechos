@@ -28,11 +28,12 @@ const Button = forwardRef(function Button(props: any, ref: any) {
     return (
 
         <button
+            onClick={props?.onClick}
             style={{ backgroundColor: bg }}
             className={props?.not_allowed ? 'disabled_btn' : 'btn'}
             disabled={props?.not_allowed ? true : false} >
-            <div className='items-inline' style={{justifyContent: 'space-between'}}>
-                {props?.icon && <SvgIcon id={props?.icon} color='#fff' width={16} height={16}/>}
+            <div className='items-inline' style={{ justifyContent: 'space-between' }}>
+                {props?.icon && <SvgIcon id={props?.icon} color='#fff' width={16} height={16} />}
 
 
 

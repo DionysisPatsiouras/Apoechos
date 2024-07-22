@@ -32,6 +32,7 @@ export const Routes = {
     messages: {
         get: (sender_id:string, receiver_id:string) => `${url}/chat/${sender_id}/${receiver_id}/`,
         contacts: (profile_id:string) => `${url}/chat/contacts/all/${profile_id}`,
+        new:`${url}/chat/message/new`,
     },
 
 
