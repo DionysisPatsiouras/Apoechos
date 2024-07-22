@@ -4,7 +4,7 @@ from django.urls import path, include
 
 
 urlpatterns = [
-    path("<str:sender>/<str:receiver>/", views.message_view),
-    path("contacts/all/<str:profile>/", views.contact_list),
-    path("message/new", views.new_message),
+    path("<str:sender>/<str:receiver>/", views.message_view), # chat/:id/:id/
+    path("contacts/all/<str:profile>/", views.contact_list), # chat/contacts/all/:id/
+    path("message/new/", views.new_message), # chat/message/new/
 ]
