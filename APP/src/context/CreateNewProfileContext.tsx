@@ -56,10 +56,9 @@ export const CreateNewProfileProvider = ({ children }: any) => {
 
     const fetch_me = new Call(Routes.user.me, 'GET')
 
-    // const [coordinates, setCoordinates] = useState<any>([37.983810, 23.727539])
-    // const [latitude, setLatitude] = useState<any>(coordinates?.[0])
-    // const [longitude, setLongitude] = useState<any>(coordinates?.[1])
-    const [city, setCity] = useState<any>()
+
+    const [fetchedCity, setFetchedCity] = useState<any>()
+    const [city, setCity] = useState<any>(1)
     const [position, setPosition] = useState([37.9744464, 23.7478837])
     const [address, setAddress] = useState('')
 
@@ -80,12 +79,11 @@ export const CreateNewProfileProvider = ({ children }: any) => {
 
 
 
-console.log(position)
+// console.log(position)
 
     useEffect(() => {
 
-        // setLatitude(coordinates?.[0])
-        // setLongitude(coordinates?.[1])
+
 
         fetch_me
             .GET()
@@ -125,12 +123,13 @@ console.log(position)
     // }, [coordinates])
     }, [position])
 
+  
     const onSubmit = async (data: any) => {
 
         let formData: any = new FormData()
-        // console.log(data)
+  
 
-        let correct_city = cities.filter((i:any) => i.name === city)        
+        let correct_city = cities.filter((i:any) => i.name === fetchedCity)        
 
         // check if photo exists
         data?.file?.[0] && formData.append('photo', data?.file?.[0])
@@ -138,13 +137,14 @@ console.log(position)
         formData.append('user', me?.id)
         formData.append('category', category)
 
-    
 
         if (has_natural_presence) {
             formData.append('latitude', position?.[0])
             formData.append('longitude', position?.[1])
             formData.append('address', address)
             formData.append('city', correct_city?.[0]?.id || 1)
+        }else{
+            formData.append('city', city)
         }
 
 
@@ -207,7 +207,8 @@ console.log(position)
         instrument_categories,
         city, setCity,
         position, setPosition,
-        address, setAddress
+        address, setAddress,
+        fetchedCity, setFetchedCity
     }
 
 

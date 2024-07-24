@@ -101,8 +101,6 @@ export default function Discover() {
 
                 <section className={CSS.all_cards}>
 
-
-
                     {filteredData?.map((item: any, index: number) => (
                         <Card key={index} data={item} />
                     ))}

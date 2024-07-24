@@ -48,13 +48,14 @@ export default function CreateNewProfile() {
         instrument_categories,
         city, setCity,
         position, setPosition,
-        address, setAddress
+        address, setAddress,
+        fetchedCity, setFetchedCity
     }: any = useContext(CreateNewProfileContext)
 
 
 
     const [activeCategory, setActiveCategory] = useState<string>(instrument_categories[0])
-  
+
 
     useEffect(() => {
         setActiveCategory(instrument_categories[0])
@@ -70,7 +71,7 @@ export default function CreateNewProfile() {
             // console.log(response_city?.data?.city)
             setAddress(`${response?.data?.address?.road} ${response?.data?.address?.house_number !== undefined ? response?.data?.address?.house_number : ''}`)
             setPosition([response?.data?.lat, response?.data?.lon])
-            setCity(response_city?.data?.city)
+            setFetchedCity(response_city?.data?.city)
         } catch (error) {
             console.error('Error fetching the address:', error);
         }
@@ -173,14 +174,17 @@ export default function CreateNewProfile() {
 
                                     <select className={CSS.city_dropdown}
                                         {...register('city')}
-                                        
-                                        onChange={(e) =>
+
+                                        onChange={(e) => {
+                                            setCity([e?.target?.value.split(",")[2]])
+
                                             setPosition([e?.target?.value.split(",")[0], e?.target?.value.split(",")[1]])
+                                        }
                                         }>
                                         {cities
                                             .map((city: any) => (
                                                 <option
-                                            
+
                                                     key={city.id}
                                                     value={[city?.latitude, city?.longitude, city?.id]}
                                                 >
