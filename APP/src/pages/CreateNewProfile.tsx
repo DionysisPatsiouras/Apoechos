@@ -44,8 +44,6 @@ export default function CreateNewProfile() {
         studio_services_array,
         created,
         profileId,
-
-        // updatePosition,
         ChangeView,
         instrument_categories,
         city, setCity,
@@ -179,7 +177,6 @@ export default function CreateNewProfile() {
                                         onChange={(e) =>
                                             setPosition([e?.target?.value.split(",")[0], e?.target?.value.split(",")[1]])
                                         }>
-                                        <option selected></option>
                                         {cities
                                             .map((city: any) => (
                                                 <option

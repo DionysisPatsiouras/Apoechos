@@ -200,9 +200,7 @@ console.log(position)
 
         created,
         profileId,
-        // latitude, setLatitude,
-        // longitude, setLongitude,
-        // coordinates, setCoordinates,
+
         markerPosition,
         updatePosition,
         ChangeView,
