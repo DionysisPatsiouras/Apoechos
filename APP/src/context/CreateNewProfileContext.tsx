@@ -56,9 +56,12 @@ export const CreateNewProfileProvider = ({ children }: any) => {
 
     const fetch_me = new Call(Routes.user.me, 'GET')
 
-    const [coordinates, setCoordinates] = useState<any>([37.983810, 23.727539])
-    const [latitude, setLatitude] = useState<any>(coordinates?.[0])
-    const [longitude, setLongitude] = useState<any>(coordinates?.[1])
+    // const [coordinates, setCoordinates] = useState<any>([37.983810, 23.727539])
+    // const [latitude, setLatitude] = useState<any>(coordinates?.[0])
+    // const [longitude, setLongitude] = useState<any>(coordinates?.[1])
+    const [city, setCity] = useState<any>()
+    const [position, setPosition] = useState([37.9744464, 23.7478837])
+    const [address, setAddress] = useState('')
 
     const [markerPosition, setMarkerPosition] = useState<any>()
 
@@ -76,10 +79,13 @@ export const CreateNewProfileProvider = ({ children }: any) => {
 
 
 
+
+console.log(position)
+
     useEffect(() => {
 
-        setLatitude(coordinates?.[0])
-        setLongitude(coordinates?.[1])
+        // setLatitude(coordinates?.[0])
+        // setLongitude(coordinates?.[1])
 
         fetch_me
             .GET()
@@ -116,15 +122,15 @@ export const CreateNewProfileProvider = ({ children }: any) => {
                 break;
         }
 
-    }, [coordinates])
-
-
+    // }, [coordinates])
+    }, [position])
 
     const onSubmit = async (data: any) => {
 
         let formData: any = new FormData()
         // console.log(data)
 
+        let correct_city = cities.filter((i:any) => i.name === city)        
 
         // check if photo exists
         data?.file?.[0] && formData.append('photo', data?.file?.[0])
@@ -132,12 +138,13 @@ export const CreateNewProfileProvider = ({ children }: any) => {
         formData.append('user', me?.id)
         formData.append('category', category)
 
-        data?.address && formData.append('address', data?.address)
-        formData.append('city', data?.city?.split(',')[2])
+    
 
         if (has_natural_presence) {
-            formData.append('latitude', markerPosition?.lat || data?.city.split(',')[0])
-            formData.append('longitude', markerPosition?.lng || data?.city.split(',')[1])
+            formData.append('latitude', position?.[0])
+            formData.append('longitude', position?.[1])
+            formData.append('address', address)
+            formData.append('city', correct_city?.[0]?.id || 1)
         }
 
 
@@ -193,13 +200,16 @@ export const CreateNewProfileProvider = ({ children }: any) => {
 
         created,
         profileId,
-        latitude, setLatitude,
-        longitude, setLongitude,
-        coordinates, setCoordinates,
+        // latitude, setLatitude,
+        // longitude, setLongitude,
+        // coordinates, setCoordinates,
         markerPosition,
         updatePosition,
         ChangeView,
-        instrument_categories
+        instrument_categories,
+        city, setCity,
+        position, setPosition,
+        address, setAddress
     }
 
 

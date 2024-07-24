@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState, useRef } from 'react'
 // import { Navigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 
@@ -10,7 +10,8 @@ import FormError from '../utils/FormError'
 import CreateNewProfileContext from '../context/CreateNewProfileContext'
 import CSS from '../css/CreateNewProfile/CreateNewProfile.module.sass'
 import { Link } from 'react-router-dom'
-import { MapContainer, Marker, TileLayer, Popup } from 'react-leaflet'
+import { MapContainer, Marker, TileLayer, Popup, useMapEvents } from 'react-leaflet'
+import axios from 'axios'
 
 
 
@@ -19,7 +20,6 @@ export default function CreateNewProfile() {
     const form = useForm()
     const { register, handleSubmit, formState } = form
     const { errors } = formState
-
 
 
     const [uploadedFile, setUploadedFile] = useState<any>()
@@ -44,25 +44,69 @@ export default function CreateNewProfile() {
         studio_services_array,
         created,
         profileId,
-        latitude,
-        longitude,
-        setCoordinates,
-        coordinates,
-        markerPosition,
-        updatePosition,
+
+        // updatePosition,
         ChangeView,
-        instrument_categories
+        instrument_categories,
+        city, setCity,
+        position, setPosition,
+        address, setAddress
     }: any = useContext(CreateNewProfileContext)
 
 
 
     const [activeCategory, setActiveCategory] = useState<string>(instrument_categories[0])
+  
 
     useEffect(() => {
         setActiveCategory(instrument_categories[0])
     }, [instrument_categories])
 
 
+    const getAddress = async (lat: any, lng: any) => {
+        try {
+            const response = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`)
+
+            const response_city = await axios.get(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=el`)
+
+            // console.log(response_city?.data?.city)
+            setAddress(`${response?.data?.address?.road} ${response?.data?.address?.house_number !== undefined ? response?.data?.address?.house_number : ''}`)
+            setPosition([response?.data?.lat, response?.data?.lon])
+            setCity(response_city?.data?.city)
+        } catch (error) {
+            console.error('Error fetching the address:', error);
+        }
+    };
+
+    const LocationMarker = () => {
+        useMapEvents({
+            click(e) {
+                setPosition([e?.latlng?.lat, e?.latlng.lng]);
+                getAddress(e?.latlng?.lat, e?.latlng.lng);
+            },
+
+        })
+
+        return position === null ? null : (
+
+            <Marker
+                //   @ts-ignore
+                position={position}
+                draggable={true}
+                eventHandlers={{
+                    dragend: (e: any) => {
+                        setPosition([e?.target?._latlng?.lat, e?.target?._latlng?.lng]);
+                        getAddress(e?.target?._latlng?.lat, e?.target?._latlng?.lng);
+                    }
+                }}
+            >
+            </Marker>
+        )
+    }
+    // console.log('-------------------------')
+    // console.log(city)
+    // console.log(address)
+    // console.log(position)
 
     return (
         <div className='space'>
@@ -89,7 +133,7 @@ export default function CreateNewProfile() {
                         <h2>Νέο προφίλ</h2>
                         <hr className='divider'></hr>
 
-                        <form onSubmit={handleSubmit(onSubmit)}>
+                        <form onSubmit={handleSubmit(onSubmit)} noValidate>
 
                             <div className={CSS.personal_info}>
                                 <div className={CSS.group} style={{ cursor: 'pointer' }}>
@@ -131,14 +175,20 @@ export default function CreateNewProfile() {
 
                                     <select className={CSS.city_dropdown}
                                         {...register('city')}
-                                        onChange={(e) => setCoordinates(e.target.value.split(','))}>
-
-                                        {cities.map((city: any) => (
-                                            <option key={city.id}
-                                                value={[city?.latitude, city?.longitude, city?.id]}
-                                            >
-                                                {city.name}</option>
-                                        ))}
+                                        
+                                        onChange={(e) =>
+                                            setPosition([e?.target?.value.split(",")[0], e?.target?.value.split(",")[1]])
+                                        }>
+                                        <option selected></option>
+                                        {cities
+                                            .map((city: any) => (
+                                                <option
+                                            
+                                                    key={city.id}
+                                                    value={[city?.latitude, city?.longitude, city?.id]}
+                                                >
+                                                    {city.name}</option>
+                                            ))}
 
                                     </select>
                                     <FormError value={errors?.city} />
@@ -149,9 +199,13 @@ export default function CreateNewProfile() {
                                         <>
                                             <label>Διεύθυνση</label>
                                             <input
+                                                value={address}
+
                                                 type='text'
                                                 {...register('address', {
-                                                    required: 'Αυτό το πεδίο είναι υποχρεωτικό'
+
+                                                    // required: 'Αυτό το πεδίο είναι υποχρεωτικό',
+                                                    onChange: (e: any) => setAddress(e.target.value)
                                                 })}
                                             />
                                             <FormError value={errors?.address} />
@@ -265,35 +319,19 @@ export default function CreateNewProfile() {
                                     <hr className='divider'></hr>
                                     <h2>Τοποθεσία</h2>
 
+
+
                                     <MapContainer
-                                        // @ts-ignore
-                                        // center={[33.91907336973602, 35.51552625946782]}
-                                        center={[
-                                            markerPosition?.lat || Number(coordinates?.[0]) || latitude,
-                                            markerPosition?.lng || Number(coordinates?.[1]) || longitude]}
-                                        zoom={13}
-                                        style={{ width: '100%', height: '400px' }} >
-                                        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                                        center={[position?.[0], position?.[1]]}
+                                        zoom={13} style={{ height: "50vh", width: "100%" }}>
 
-                                        <ChangeView center={[
-                                            markerPosition?.lat || Number(coordinates?.[0]) || latitude,
-                                            markerPosition?.lng || Number(coordinates?.[1]) || longitude]} />
+                                        <TileLayer
+                                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                            attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+                                        />
 
-                                        <Marker
-                                            position={[
-                                                markerPosition?.lat || Number(coordinates?.[0]) || latitude,
-                                                markerPosition?.lng || Number(coordinates?.[1]) || longitude]}
-                                            // @ts-ignore
-                                            draggable={true}
-                                            eventHandlers={{
-                                                dragend: (event: any) => updatePosition(event),
-                                            }}
-                                        >
-
-
-                                        </Marker>
-
-
+                                        <ChangeView center={[position?.[0], position?.[1]]} />
+                                        <LocationMarker />
 
                                     </MapContainer>
                                 </>
