@@ -22,9 +22,6 @@ export default function CreateNewProfile() {
     const { errors } = formState
 
 
-    const [uploadedFile, setUploadedFile] = useState<any>()
-
-
     let {
         is_musician,
         has_genres,
@@ -49,7 +46,9 @@ export default function CreateNewProfile() {
         city, setCity,
         position, setPosition,
         address, setAddress,
-        fetchedCity, setFetchedCity
+        fetchedCity, setFetchedCity,
+        uploadedFile, setUploadedFile,
+        check_img_type
     }: any = useContext(CreateNewProfileContext)
 
 
@@ -63,13 +62,7 @@ export default function CreateNewProfile() {
 
     const [genreSearch, setGenreSearch] = useState<string>('')
 
-    const check_img_type = (file: any) => {
-        setUploadedFile(
-            file?.target?.files?.[0]?.type === "image/jpeg" ||
-                file?.target?.files?.[0]?.type === "image/jpg"
-                ? URL.createObjectURL(file?.target?.files?.[0])
-                : alert('Μη επιτρεπόμενη μορφή αρχείου\nΕπιτρεπόμενες μορφές: .jpg, .jpeg'))
-    }
+
 
 
     const getAddress = async (lat: any, lng: any) => {
@@ -83,9 +76,9 @@ export default function CreateNewProfile() {
             setPosition([response?.data?.lat, response?.data?.lon])
             setFetchedCity(response_city?.data?.city)
         } catch (error) {
-            console.error('Error fetching the address:', error);
+            console.error('Error fetching the address:', error)
         }
-    };
+    }
 
     const LocationMarker = () => {
         useMapEvents({
@@ -171,9 +164,12 @@ export default function CreateNewProfile() {
                                         {...register('file')}
                                         type="file"
                                         id="picture"
+                                         accept="image/png, image/jpeg"
                                         onChange={(file: any) => check_img_type(file)}
                                         style={{ position: 'absolute', top: '-20000px' }}
                                     />
+                                    <FormError value={errors?.file} />
+
 
                                 </div>
                                 <br></br>
@@ -278,7 +274,7 @@ export default function CreateNewProfile() {
                                     <hr className='divider'></hr>
 
                                     <h2>Είδη</h2>
-                   
+
                                     <input type='search' placeholder='Αναζήτηση..' className={CSS.searchService} onChange={(e: any) => setGenreSearch(e.target.value)} />
 
 

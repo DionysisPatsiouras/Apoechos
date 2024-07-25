@@ -35,6 +35,7 @@ export const CreateNewProfileProvider = ({ children }: any) => {
     const [profileId, setProfileId] = useState<string>('')
     const [me, setMe] = useState<any>()
 
+    const [uploadedFile, setUploadedFile] = useState<any>()
 
     // arrays
     const [genreArray, setGenreArray] = useState<any[]>([])
@@ -77,9 +78,18 @@ export const CreateNewProfileProvider = ({ children }: any) => {
     }
 
 
+    const check_img_type = (file: any) => {
+        setUploadedFile(
+            file?.target?.files?.[0]?.type === "image/jpeg" ||
+                file?.target?.files?.[0]?.type === "image/jpg" ||
+                file?.target?.files?.[0]?.type === "image/png"
+                ? URL.createObjectURL(file?.target?.files?.[0])
+                : alert('Μη επιτρεπόμενη μορφή αρχείου\nΕπιτρεπόμενες μορφές: .png, .jpg, .jpeg'))
+    }
 
 
-// console.log(position)
+
+    // console.log(position)
 
     useEffect(() => {
 
@@ -120,19 +130,19 @@ export const CreateNewProfileProvider = ({ children }: any) => {
                 break;
         }
 
-    // }, [coordinates])
+        // }, [coordinates])
     }, [position])
 
-  
+
     const onSubmit = async (data: any) => {
 
         let formData: any = new FormData()
-  
 
-        let correct_city = cities.filter((i:any) => i.name === fetchedCity)        
+        // console.warn(data)
+        let correct_city = cities.filter((i: any) => i.name === fetchedCity)
 
-        // check if photo exists
-        data?.file?.[0] && formData.append('photo', data?.file?.[0])
+
+        formData.append('photo', data?.file?.[0])
         formData.append('name', data?.name)
         formData.append('user', me?.id)
         formData.append('category', category)
@@ -143,7 +153,7 @@ export const CreateNewProfileProvider = ({ children }: any) => {
             formData.append('longitude', position?.[1])
             formData.append('address', address)
             formData.append('city', correct_city?.[0]?.id || 1)
-        }else{
+        } else {
             formData.append('city', city)
         }
 
@@ -160,16 +170,18 @@ export const CreateNewProfileProvider = ({ children }: any) => {
 
         const create_profile = new Call(Routes.profiles.new, 'POST', formData)
 
-
-        create_profile
-            .POST_MEDIA()
-            .then((res) => {
-                console.log(res);
-                setProfileId(res?.data?.profileId)
-                setUpdateDOM(!updateDOM)
-                setCreated(true)
-            })
-            .catch((err) => console.warn(err))
+        uploadedFile === undefined ?
+            alert('Παρακαλώ ανεβάστε εικόνα')
+            :
+            create_profile
+                .POST_MEDIA()
+                .then((res) => {
+                    console.log(res);
+                    setProfileId(res?.data?.profileId)
+                    setUpdateDOM(!updateDOM)
+                    setCreated(true)
+                })
+                .catch((err) => console.warn(err))
 
     }
 
@@ -208,7 +220,9 @@ export const CreateNewProfileProvider = ({ children }: any) => {
         city, setCity,
         position, setPosition,
         address, setAddress,
-        fetchedCity, setFetchedCity
+        fetchedCity, setFetchedCity,
+        uploadedFile, setUploadedFile,
+        check_img_type
     }
 
 
