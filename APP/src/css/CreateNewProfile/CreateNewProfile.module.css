@@ -12,6 +12,10 @@
   flex-direction: column;
 }
 
+.checkbox {
+  width: 156px;
+}
+
 .checkbox input {
   min-width: auto;
   cursor: pointer;
@@ -32,12 +36,17 @@
 }
 
 .checkboxes_section {
-  display: flex;
+  display: ruby;
   height: 150px;
   overflow-y: scroll;
-  width: 78%;
-  flex-direction: column;
-  flex-wrap: wrap;
+  width: 82%;
+}
+
+.searchService {
+  width: 70%;
+  padding: 5px;
+  background-color: #fff;
+  text-align: center;
 }
 
 .buttonSection {
@@ -59,7 +68,6 @@
 }
 
 .city_dropdown {
-  width: 263px;
   height: 49px;
   background-color: #efeeee;
   border: none;
@@ -73,9 +81,35 @@
   font-size: 16px;
 }
 
+.photo_and_name {
+  display: flex;
+  align-items: center;
+  margin: 30px 0;
+  width: 100%;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+}
+
+.uploadPhoto {
+  display: flex;
+  flex-direction: column;
+}
+
+.bg {
+  background-image: url("/img/photo.png");
+  background-size: contain;
+}
+
 .categories_list {
   display: flex;
   align-items: center;
+  padding-bottom: 20px;
 }
 .categories_list li {
   background-color: #5F69C6;
@@ -91,6 +125,12 @@
   text-transform: capitalize;
 }
 
+.uploadLabel {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
 .image_preview {
   width: 150px;
   height: 150px;
@@ -98,6 +138,7 @@
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 5px;
+  background-image: url("/img/logo.png");
 }
 
 .space_around {
@@ -123,6 +164,10 @@
   color: #fff;
 }
 
+.extraMargin {
+  margin-top: 20px;
+}
+
 @media screen and (min-width: 768px) {
   .genre_list {
     display: flex;
@@ -130,5 +175,14 @@
   }
   .personal_info {
     flex-direction: row;
+  }
+  .searchService {
+    width: 150px;
+    position: relative;
+    top: -57px;
+    left: 174px;
+  }
+  .extraMargin {
+    margin-top: -40px;
   }
 }/*# sourceMappingURL=CreateNewProfile.module.css.map */

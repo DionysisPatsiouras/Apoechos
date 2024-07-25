@@ -33,7 +33,7 @@ export default function Messages() {
     const get_my_profiles = new Call(Routes.profiles.my_profiles, 'GET')
     const get_contacts = new Call(Routes.messages.contacts(profile_id), 'GET')
 
-    console.log(unread)
+    // console.log(unread)
 
     const check_for_unread_messages = () => {
         for (let index = 0; index < contacts.length; index++) {

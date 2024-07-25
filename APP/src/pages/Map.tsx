@@ -27,19 +27,19 @@ export default function Map() {
 
     const studioIcon = new L.Icon({
         iconUrl: require("../img/studio.png"),
-        iconSize: [45, 45],
+        iconSize: [25, 41],
         iconAnchor: [17, 46],
         popupAnchor: [0, -46],
     })
     const storeIcon = new L.Icon({
         iconUrl: require("../img/store.png"),
-        iconSize: [45, 45],
+        iconSize: [25, 41],
         iconAnchor: [17, 46],
         popupAnchor: [0, -46],
     })
     const stageIcon = new L.Icon({
         iconUrl: require("../img/stage.png"),
-        iconSize: [45, 45],
+        iconSize: [25, 41],
         iconAnchor: [17, 46],
         popupAnchor: [0, -46],
     })

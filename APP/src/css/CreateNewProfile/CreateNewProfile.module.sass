@@ -10,7 +10,8 @@
     display: flex
     flex-direction: column
 
-
+.checkbox
+    width: 156px
 .checkbox input
     min-width: auto
     cursor: pointer
@@ -23,18 +24,23 @@
     display: flex
     flex-wrap: wrap
     flex-direction: column
-    
+
     height: 65vh
     align-content: center
     max-width: 300px
 
 .checkboxes_section
-    display: flex
+    // display: flex
+    display: ruby
     height: 150px
     overflow-y: scroll
-    width: 78%
-    flex-direction: column
-    flex-wrap: wrap
+    width: 82%
+
+.searchService
+    width: 70%
+    padding: 5px
+    background-color: #fff
+    text-align: center
 
 .buttonSection
     display: flex
@@ -53,7 +59,7 @@
     font-size: 16px
 
 .city_dropdown
-    width: 263px
+    // width: 406px
     height: 49px
     background-color: #efeeee
     border: none
@@ -65,10 +71,32 @@
 .city_dropdown *
     font-size: 16px
 
+.photo_and_name
+    display: flex
+    align-items: center
+    margin: 30px 0
+    width: 100%
+    justify-content: space-evenly
+    flex-direction: column
 
+.field
+    display: flex
+    flex-direction: column
+    // width: 70%
+    width: 400px
+
+.uploadPhoto
+    display: flex
+    flex-direction: column
+    // background-image: url('/src/img/logo.png')
+
+.bg
+    background-image: url('/img/photo.png')
+    background-size: contain
 .categories_list
     display: flex
     align-items: center
+    padding-bottom: 20px
 
     li
         background-color: #5F69C6
@@ -76,7 +104,7 @@
         padding: 15px
         // width: 75px
         height: 15px
-        
+
         margin: 0 4px
         display: flex
         align-items: center
@@ -85,6 +113,10 @@
         border-radius: 4px
         text-transform: capitalize
 
+.uploadLabel
+    display: flex
+    align-items: center
+    justify-content: space-around
 
 .image_preview
     width: 150px
@@ -92,13 +124,11 @@
     border: 1px solid grey
     object-fit: cover
     border-radius: 5px
-
+    background-image: url('/img/logo.png')
 
 .space_around
     display: flex
     justify-content: space-around
-
-    
 
 .created
     display: flex
@@ -116,8 +146,10 @@
         border: none
         border-radius: 4px
         color: #fff
+.extraMargin
+    margin-top: 20px
 
-
+// DESKTOP
 @media screen and ( min-width: 768px )
 
     .genre_list
@@ -125,3 +157,13 @@
         height: 225px
     .personal_info
         flex-direction: row
+
+    .searchService
+        width: 150px
+        position: relative
+        top: -57px
+        left: 174px
+        
+
+    .extraMargin
+        margin-top: -40px

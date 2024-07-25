@@ -12,7 +12,7 @@ import CSS from '../css/CreateNewProfile/CreateNewProfile.module.sass'
 import { Link } from 'react-router-dom'
 import { MapContainer, Marker, TileLayer, Popup, useMapEvents } from 'react-leaflet'
 import axios from 'axios'
-
+import SearchValidation from '../utils/SearchValidation'
 
 
 export default function CreateNewProfile() {
@@ -60,6 +60,16 @@ export default function CreateNewProfile() {
     useEffect(() => {
         setActiveCategory(instrument_categories[0])
     }, [instrument_categories])
+
+    const [genreSearch, setGenreSearch] = useState<string>('')
+
+    const check_img_type = (file: any) => {
+        setUploadedFile(
+            file?.target?.files?.[0]?.type === "image/jpeg" ||
+                file?.target?.files?.[0]?.type === "image/jpg"
+                ? URL.createObjectURL(file?.target?.files?.[0])
+                : alert('Μη επιτρεπόμενη μορφή αρχείου\nΕπιτρεπόμενες μορφές: .jpg, .jpeg'))
+    }
 
 
     const getAddress = async (lat: any, lng: any) => {
@@ -134,19 +144,26 @@ export default function CreateNewProfile() {
 
                         <form onSubmit={handleSubmit(onSubmit)} noValidate>
 
-                            <div className={CSS.personal_info}>
-                                <div className={CSS.group} style={{ cursor: 'pointer' }}>
 
+                            <div className={CSS.photo_and_name}>
 
-                                    <label htmlFor='picture'>
-                                        <img className={CSS.image_preview} src={uploadedFile} width={20} height={20} alt='' />
+                                <div className={CSS.uploadPhoto} >
 
+                                    <label htmlFor='picture' className='cursor-pointer'>
+                                        <div className={CSS.bg}><img className={CSS.image_preview} src={uploadedFile} width={20} height={20} alt='' /> </div>
                                     </label>
 
                                     {uploadedFile ?
-                                        <p className={CSS.space_around} onClick={() => setUploadedFile(undefined)}><SvgIcon id={'delete'} /> Διαγραφή</p>
+                                        <p
+                                            className={`${CSS.space_around} cursor-pointer`}
+                                            onClick={() => setUploadedFile(undefined)}>
+                                            <SvgIcon id={'delete'} />
+                                            Διαγραφή
+                                        </p>
                                         :
-                                        <p className={CSS.space_around}><SvgIcon id={'upload-image'} /> Μεταφόρτωση</p>
+                                        <label
+                                            className={`${CSS.uploadLabel} cursor-pointer`}
+                                            htmlFor='picture'><SvgIcon id={'upload-image'} /> Μεταφόρτωση</label>
                                     }
 
 
@@ -154,13 +171,16 @@ export default function CreateNewProfile() {
                                         {...register('file')}
                                         type="file"
                                         id="picture"
-                                        onChange={(file: any) => setUploadedFile(URL.createObjectURL(file.target.files[0]))}
+                                        onChange={(file: any) => check_img_type(file)}
                                         style={{ position: 'absolute', top: '-20000px' }}
                                     />
 
                                 </div>
-
-                                <div className={CSS.group}>
+                                <br></br>
+                                <br></br>
+                                <br></br>
+                                <div className={CSS.field}>
+                                    {/* <div className={CSS.group}> */}
                                     <label>Όνομα</label>
                                     <input
                                         type='text'
@@ -170,33 +190,39 @@ export default function CreateNewProfile() {
                                     />
                                     <FormError value={errors?.name} />
 
-                                    <label>Πόλη</label>
+                                    {/* <label>Πόλη</label> */}
+                                    {!has_natural_presence &&
+                                        <div className={CSS.field}>
+                                            <label>Πόλη</label>
+                                            <select className={CSS.city_dropdown}
+                                                {...register('city')}
 
-                                    <select className={CSS.city_dropdown}
-                                        {...register('city')}
+                                                onChange={(e) => {
+                                                    setCity([e?.target?.value.split(",")[2]])
 
-                                        onChange={(e) => {
-                                            setCity([e?.target?.value.split(",")[2]])
+                                                    setPosition([e?.target?.value.split(",")[0], e?.target?.value.split(",")[1]])
+                                                }
+                                                }>
+                                                {cities
+                                                    .map((city: any) => (
+                                                        <option
 
-                                            setPosition([e?.target?.value.split(",")[0], e?.target?.value.split(",")[1]])
-                                        }
-                                        }>
-                                        {cities
-                                            .map((city: any) => (
-                                                <option
+                                                            key={city.id}
+                                                            value={[city?.latitude, city?.longitude, city?.id]}
+                                                        >
+                                                            {city.name}</option>
+                                                    ))}
 
-                                                    key={city.id}
-                                                    value={[city?.latitude, city?.longitude, city?.id]}
-                                                >
-                                                    {city.name}</option>
-                                            ))}
+                                            </select>
+                                            <FormError value={errors?.city} />
+                                        </div>
 
-                                    </select>
-                                    <FormError value={errors?.city} />
+                                    }
 
-                                    {errors?.city?.message}
 
-                                    {has_natural_presence &&
+                                    {/* {errors?.city?.message} */}
+
+                                    {/* {has_natural_presence &&
                                         <>
                                             <label>Διεύθυνση</label>
                                             <input
@@ -212,7 +238,7 @@ export default function CreateNewProfile() {
                                             <FormError value={errors?.address} />
 
                                         </>
-                                    }
+                                    } */}
 
 
 
@@ -250,24 +276,36 @@ export default function CreateNewProfile() {
                             {has_genres === true &&
                                 <>
                                     <hr className='divider'></hr>
+
                                     <h2>Είδη</h2>
-                                    <div className={CSS.checkboxes_section}>
-                                        {genres.map((genre: any) => (
-                                            <div className={CSS.checkbox} key={genre.id}>
-                                                <input
-                                                    {...register('genres', {
-                                                        required: 'Επιλέξτε τουλάχιστον 1 είδος'
-                                                    })}
-                                                    id={genre.id}
-                                                    type='checkbox'
-                                                    value={genre.id}
-                                                    onChange={(event) => handle_checkbox(setGenreArray, event.target)}
-                                                    checked={genreArray.includes(genre.id.toString())}
-                                                />
-                                                <label htmlFor={genre.id}>{genre.name}</label>
-                                            </div>
-                                        ))}
+                   
+                                    <input type='search' placeholder='Αναζήτηση..' className={CSS.searchService} onChange={(e: any) => setGenreSearch(e.target.value)} />
+
+
+                                    <div className={`${CSS.checkboxes_section} ${CSS.extraMargin}`} >
+
+                                        {genres
+                                            .filter((genre: any) =>
+                                                genreSearch === ''
+                                                    ? !genreSearch.includes(genre.name)
+                                                    : SearchValidation(genre.name, genreSearch))
+                                            .map((genre: any) => (
+                                                <div className={CSS.checkbox} key={genre.id}>
+                                                    <input
+                                                        {...register('genres', {
+                                                            required: 'Επιλέξτε τουλάχιστον 1 είδος'
+                                                        })}
+                                                        id={genre.id}
+                                                        type='checkbox'
+                                                        value={genre.id}
+                                                        onChange={(event) => handle_checkbox(setGenreArray, event.target)}
+                                                        checked={genreArray.includes(genre.id.toString())}
+                                                    />
+                                                    <label htmlFor={genre.id}>{genre.name}</label>
+                                                </div>
+                                            ))}
                                     </div>
+
                                     <FormError value={errors?.genres} />
                                 </>
                             }
@@ -275,7 +313,7 @@ export default function CreateNewProfile() {
 
                             {is_musician === true &&
                                 <>
-                                    <hr className='divider'></hr>
+                                    <hr className='divider' style={{ marginTop: '20px' }}></hr>
                                     <h2>Όργανα</h2>
 
                                     <ul className={CSS.categories_list}>
@@ -335,13 +373,63 @@ export default function CreateNewProfile() {
                                         <LocationMarker />
 
                                     </MapContainer>
+
+                                    <div className='items-inline' style={{ gap: '20px', width: '100%' }}>
+
+
+
+                                        <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+                                            <label>Πόλη</label>
+
+                                            <select
+                                                style={{ width: '200px' }}
+                                                className={CSS.city_dropdown}
+                                                {...register('city')}
+
+                                                onChange={(e) => {
+                                                    setCity([e?.target?.value.split(",")[2]])
+
+                                                    setPosition([e?.target?.value.split(",")[0], e?.target?.value.split(",")[1]])
+                                                }
+                                                }>
+                                                {cities
+                                                    .map((city: any) => (
+                                                        <option
+
+                                                            key={city.id}
+                                                            value={[city?.latitude, city?.longitude, city?.id]}
+                                                        >
+                                                            {city.name}</option>
+                                                    ))}
+
+                                            </select>
+                                        </div>
+
+                                        <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+                                            <label>Διεύθυνση</label>
+                                            <input
+                                                style={{ width: '200px' }}
+                                                value={address}
+
+                                                type='text'
+                                                {...register('address', {
+
+                                                    // required: 'Αυτό το πεδίο είναι υποχρεωτικό',
+                                                    onChange: (e: any) => setAddress(e.target.value)
+                                                })}
+                                            />
+                                            <FormError value={errors?.address} />
+
+                                        </div>
+                                    </div>
                                 </>
+
                             }
 
 
 
 
-                            <div className={CSS.buttonSection}>...
+                            <div className={CSS.buttonSection} style={{ marginTop: '20px' }}>...
                                 <button type='submit' className='btn'>Δημιουργία</button>
                             </div>
                         </form>
@@ -352,6 +440,6 @@ export default function CreateNewProfile() {
                     </div>
                 }
             </div>
-        </div >
+        </div>
     )
 }

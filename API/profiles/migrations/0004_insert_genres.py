@@ -12,11 +12,12 @@ class Migration(migrations.Migration):
         Genre = apps.get_model("profiles", "Genre")
 
         names = [
-            "Rock",
-            "Metal",
+            "Rock N' Roll",
+            "Hard Rock",
+            "Heavy Metal",
             "Jazz",
             "Country",
-            "Punk",
+            "Punk Rock",
             "Alternative",
             "Pop",
             "Blues",
@@ -25,6 +26,25 @@ class Migration(migrations.Migration):
             "Classical",
             "Garage",
             "Instrumental",
+            "Rhythm & Blues",
+            "Reggae",
+            "New-age",
+            "Indie rock",
+            "Gupsy Jazz",
+            "Ska",
+            "Post-rock",
+            "Post-punk",
+            "Stoner",
+            "Doom",
+            "Surf Rock",
+            "Funk",
+            "Swing",
+            "Black Metal",
+            "Death Metal",
+            "Epic Metal",
+            "Speed Metal",
+            "Thrash Metal"
+
         ]
 
         for index in range(len(names)):
