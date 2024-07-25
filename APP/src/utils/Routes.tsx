@@ -26,13 +26,14 @@ export const Routes = {
         update: (profile_id: string) => `${url}/profile/update/${profile_id}/`,
         my_profiles: `${url}/profile/get/my_profiles/`,
         categories: `${url}/profile/get/categories/`,
-        stages : `${url}/profile/all/stages/`,
+        stages: `${url}/profile/all/stages/`,
     },
 
     messages: {
-        get: (sender_id:string, receiver_id:string) => `${url}/chat/${sender_id}/${receiver_id}/`,
-        contacts: (profile_id:string) => `${url}/chat/contacts/all/${profile_id}`,
-        new:`${url}/chat/message/new`,
+        get: (sender_id: string, receiver_id: string) => `${url}/chat/${sender_id}/${receiver_id}/`,
+        contacts: (profile_id: string) => `${url}/chat/contacts/all/${profile_id}`,
+        new: `${url}/chat/message/new`,
+        unread: (sender_id: string, receiver_id: string) => `${url}/chat/message/unread/${sender_id}/${receiver_id}`,
     },
 
 

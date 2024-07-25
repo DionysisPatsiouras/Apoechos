@@ -10,6 +10,19 @@ from django.db.models import Q
 from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
 
+@api_view(["GET"])
+def unread(request, sender, receiver):
+
+    messages = Message.objects.filter(
+        Q(sender_id=sender, receiver_id=receiver)
+        | Q(sender_id=receiver, receiver_id=sender)
+    ).filter(is_read=False)
+
+
+    serializer = MessageSerializer(messages, many=True, context={"request": request})
+
+    return Response(serializer.data)
+
 
 # /chat/:id/:id/
 @api_view(["GET"])
@@ -20,9 +33,9 @@ def message_view(request, sender, receiver):
         | Q(sender_id=receiver, receiver_id=sender)
     )
     serializer = MessageSerializer(messages, many=True, context={"request": request})
-    for message in messages:
-        message.is_read = True
-        message.save()
+    # for message in messages:
+    #     message.is_read = True
+    #     message.save()
     return Response(serializer.data)
 
 
@@ -31,7 +44,6 @@ def message_view(request, sender, receiver):
 @permission_classes([IsAuthenticated])
 def contact_list(request, profile):
 
-    # profile = "PROFILE4494356524428"
 
     messages = Message.objects.filter(
         Q(sender_id=profile) | Q(receiver_id=profile)
