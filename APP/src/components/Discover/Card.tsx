@@ -1,15 +1,12 @@
-import { forwardRef, useState } from 'react'
+import { forwardRef, useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import CSS from '../../css/Discover/Card.module.css'
 import SvgIcon from '../SvgIcon'
 import img from '../../utils/img/default_img.png'
 import Modal from '../Modal'
-import { useForm } from 'react-hook-form'
-import Button from '../Button'
-import Call from '../../utils/Call'
-import { Routes } from '../../utils/Routes'
 
+import NewMessageWindow from '../Messages/NewMessageWindow'
 
 const Card = forwardRef(function Card(props: any, ref) {
 
@@ -17,59 +14,13 @@ const Card = forwardRef(function Card(props: any, ref) {
     let profile = props?.data
     const [modal, setModal] = useState<boolean>(false)
 
-    const form = useForm()
-    const { register, handleSubmit, formState, watch } = form
-    const { errors } = formState
 
-    // console.log(modal)
-
-    const send_Message = (formData:any) => {
-        console.log(formData)
-
-        const data = {
-            ...formData,
-            sender: 'PROFILE10804455090',
-            receiver: profile?.profileId,
-            
-        }
-
-        // console.log(data)
-        const add_new_message = new Call(Routes.messages.new, 'POST', data)
-
-        add_new_message
-            .POST()
-            .then((res) => {
-                console.log(res);
-                
-   
-               
-            })
-            .catch((err) => console.warn(err))
-        
-    }
-
-    console.log(profile?.profileId)
 
     return (
         <div className={CSS.card} style={{ 'backgroundColor': profile?.category?.color }}>
 
-      
-
             <Modal open={modal} withContainer title='Νέο μήνυμα' btn close={() => setModal(false)}>
-
-                apostolh ws: 
-                <form  onSubmit={handleSubmit(send_Message)} noValidate >
-                {profile?.name}
-                    <input type='text' {...register('message', {
-
-                        required: "Υποχρεωτικό πεδίο"
-                    }
-                    )} />
-                    {/* <button type='submit' className='blue_btn btn'>Αποστολή μηνύματος</button> */}
-                    <Button label='Αποστολή' icon='send' type='configure'/>
-                </form>
-
-
+                <NewMessageWindow receiver={profile} close={() => setModal(false)}/>
             </Modal>
 
 
@@ -101,8 +52,11 @@ const Card = forwardRef(function Card(props: any, ref) {
 
 
                 <div className={CSS.btn_section}>
-                    <div className='cursor-pointer blue_btn' onClick={() => setModal(!modal)}>
-                        <SvgIcon id='messages' color='#fff' />
+                    <div
+                        className={`${CSS.messageIcon} cursor-pointer blue_btn`}
+
+                        onClick={() => setModal(!modal)}>
+                        <SvgIcon id='messages' color='#fff' width={20} />
                     </div>
 
                     <Link to={`/profile/${profile?.profileId}`} >

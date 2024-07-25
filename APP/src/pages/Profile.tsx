@@ -15,7 +15,7 @@ import Modal from '../components/Modal'
 import SvgIcon from '../components/SvgIcon'
 import Activity from '../components/Profile/Activity'
 import EditProfile from '../components/Profile/EditProfile'
-
+import NewMessageWindow from '../components/Messages/NewMessageWindow'
 
 export default function Profile() {
 
@@ -32,8 +32,7 @@ export default function Profile() {
 
 
     const [modal, setModal] = useState<boolean>(false)
-    // let [updateDOM, setUpdateDOM] = useState<boolean>(false)
-    // let [editMode, setEditMode] = useState<boolean>(false)
+    const [newMsg, setNewMsg] = useState<boolean>(false)
 
 
 
@@ -65,7 +64,7 @@ export default function Profile() {
                 <img src={`http://127.0.0.1:8000/${currentProfile?.photo}` || img} alt='profile_photo' />
             </Modal>
 
-             <Modal
+            <Modal
                 open={editMode}
                 withContainer={true}
                 title={'Επεξεργασία προφίλ'}>
@@ -73,7 +72,12 @@ export default function Profile() {
                     profile={currentProfile}
                     close={() => setEditMode(false)}
                 />
-            </Modal> 
+            </Modal>
+
+
+            <Modal open={newMsg} withContainer title='Νέο μήνυμα' btn close={() => setNewMsg(false)}>
+                <NewMessageWindow receiver={currentProfile} close={() => setNewMsg(false)} />
+            </Modal>
 
             <section style={{ display: 'flex' }}>
 
@@ -139,8 +143,12 @@ export default function Profile() {
                             <div>
                                 <div className='items-inline' >
                                     <strong> {currentProfile?.name} </strong>
-                                    {user?.user_id === currentProfile?.user?.id &&
+                                    {user?.user_id === currentProfile?.user?.id ?
                                         <SvgIcon id='edit' color='#5b5b5b' onClick={() => setEditMode(true)} />
+
+                                        :
+                                        <SvgIcon id='messages' onClick={() => setNewMsg(!newMsg)} width={20}/>
+                           
                                     }
 
                                 </div>
