@@ -30,7 +30,8 @@ export const UtilsProvider = ({ children }: any) => {
 
     const get_categories = () => {
         const fetch_categories = new Call(Routes.profiles.categories, 'GET')
-        fetch_categories.GET_NO_TOKEN().then((res) => setCategories([...categories, ...res])).catch((err: any) => console.warn(err))
+        // fetch_categories.GET_NO_TOKEN().then((res) => setCategories([...categories, ...res])).catch((err: any) => console.warn(err))
+        fetch_categories.GET_NO_TOKEN().then((res) => setCategories(res)).catch((err: any) => console.warn(err))
     }
 
     const get_studio_services = () => {
