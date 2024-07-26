@@ -17,7 +17,7 @@ import ProfileContext from '../../context/ProfileContext'
 export default function Activity(props: any) {
 
 
-    let { profile_id, currentProfile }: any = useContext(ProfileContext)
+    let { profile_id, currentProfile, DOM, setDOM }: any = useContext(ProfileContext)
 
 
     let [activeTab, setActiveTab] = useState<string>('posts')
@@ -65,7 +65,13 @@ export default function Activity(props: any) {
                 title={modalTitle}
                 btn >
                 {modalTitle === 'Νέα Δημοσίευση' &&
-                    <NewPost category={currentProfile?.category} close={() => setCreateNew(false)} profile_id={currentProfile?.profileId} />}
+                    <NewPost category={currentProfile?.category}
+                        close={() => {
+                            // setDOM(!DOM);
+                            setDOM(!DOM)
+                            setCreateNew(false)
+                        }}
+                        profile_id={currentProfile?.profileId} />}
 
                 {/* {modalTitle === 'Νέα Εκδήλωση' && <NewEvent created_by={profile?.profileId} />} */}
 
@@ -91,7 +97,7 @@ export default function Activity(props: any) {
 
 
                 {activeTab === 'posts' &&
-                    <AllPosts can_edit={props?.canEdit}  />
+                    <AllPosts can_edit={props?.canEdit} />
                 }
 
                 {activeTab === 'location' &&

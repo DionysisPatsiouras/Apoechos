@@ -74,7 +74,7 @@ export const ProfileProvider = ({ children }: any) => {
     useEffect(() => {
         fetch_my_profiles()
 
-    }, [])
+    }, [DOM])
 
     useEffect(() => {
         fetch_current_profile()
@@ -92,7 +92,8 @@ export const ProfileProvider = ({ children }: any) => {
         posts,
         updateDOM,
         editMode, setEditMode,
-        close_edit
+        close_edit,
+        DOM, setDOM
 
     }
 
