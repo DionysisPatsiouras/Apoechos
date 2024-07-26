@@ -23,7 +23,7 @@ const FullEvent = forwardRef(function FullEvent(props: any, ref: any) {
 
 
                 {event?.main_bands.map((band: any) => (
-                    <Link to={band.profileId} key={band.profileId}>
+                    <Link to={`/profile/${band.profileId}`} key={band.profileId}>
                         <h1>{band.name}</h1>
                     </Link>
 
@@ -33,7 +33,7 @@ const FullEvent = forwardRef(function FullEvent(props: any, ref: any) {
                     <div className={CSS.support_section}>
                         <p>Support Acts</p>
                         {event?.support_acts.map((band: any) => (
-                            <Link to={band.profileId} key={band.profileId}>
+                            <Link to={`/profile/${band.profileId}`} key={band.profileId}>
                                 <h2>{band.name}</h2>
                             </Link>
                         ))}
