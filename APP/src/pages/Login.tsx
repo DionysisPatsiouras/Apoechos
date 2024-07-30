@@ -20,7 +20,7 @@ export default function Login() {
     const { errors } = formState
 
     useEffect(() => {
-       document.title = 'Apoechos - Σύνδεση'
+        document.title = 'Apoechos - Σύνδεση'
     }, [])
 
 
@@ -75,7 +75,7 @@ export default function Login() {
                     <button className={CSS.form_btn} type='submit'>Σύνδεση</button>
                 </form>
 
-
+                <br></br>
                 <section>
                     Δεν έχεις λογαριασμό;
                     <br></br>

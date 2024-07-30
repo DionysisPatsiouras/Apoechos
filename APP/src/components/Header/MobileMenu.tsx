@@ -19,8 +19,9 @@ export default function MobileMenu(props: any) {
                 onClick={() => setNavMenu(false)}>
                 <nav>
                     <ul>
-                        <Link to="/">Εκδηλώσεις - Ροή</Link>
-                        <Link to="/discover">Ανακάλυψε</Link>
+                        <Link to="/">Αρχική</Link>
+                        <Link to="/events">Εκδηλώσεις</Link>
+                        <Link to="/map">Χάρτης</Link>
                     </ul>
                 </nav>
             </div>
@@ -41,8 +42,8 @@ export default function MobileMenu(props: any) {
                         </ul>
                         :
                         <ul>
-                            <Link to="/login">Login</Link>
-                            <Link to="/register">Register</Link>
+                            <Link to="/login">Σύνδεση</Link>
+                            <Link to="/register">Εγγραφή</Link>
                         </ul>
                     }
 

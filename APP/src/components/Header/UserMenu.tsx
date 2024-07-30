@@ -1,12 +1,19 @@
+import { useContext, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import AuthContext from '../../context/AuthContext'
+
 import SvgIcon from '../SvgIcon'
 import CSS from '../../css/Header/Header.module.css'
-import { useContext, useState, useEffect } from 'react'
-import UserContext from '../../context/UserContext'
+
+
+// utils
 import Call from '../../utils/Call'
 import { Routes } from '../../utils/Routes'
 
+// context
+import UserContext from '../../context/UserContext'
+import AuthContext from '../../context/AuthContext'
+
+import logo from '../../img/logo.png'
 
 export default function UserMenu(props: any) {
 
@@ -36,6 +43,7 @@ export default function UserMenu(props: any) {
     return (
         <>
             <ul className={CSS.mainNavigation}>
+                <img src={logo} width={40} style={{margin:'0 10px'}}/>
                 <Link to={profile_exists
                     ? `/profile/${first_profile}`
                     : '/create/'}>Προφίλ</Link>
@@ -50,17 +58,12 @@ export default function UserMenu(props: any) {
             <ul className={CSS.loggedUserMenu}>
 
 
-
                 {/* <SvgIcon id='notifications' width={20} /> */}
                 <Link to={profile_exists ? `/messages/${first_profile}` : '/create'}>
                     <SvgIcon id='messages' width={25}  height={40}/>
                 </Link>
 
-
-
-
                 <SvgIcon id='account' width={25} height={40}onClick={() => setAccountModal(!accountModal)} />
-
 
             </ul >
 

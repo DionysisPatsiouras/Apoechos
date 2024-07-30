@@ -4,7 +4,7 @@
 }
 
 .title {
-  font-size: 36px;
+  font-size: 30px;
   color: #565656;
   margin: 20px 0;
 }
@@ -12,12 +12,15 @@
 .form_btn {
   color: #ffffff;
   background-color: #4CA054;
-  border: none;
-  border-radius: 3px;
-  font-size: 18px;
-  height: 50px;
+  font-size: 16px;
+  height: 40px;
   margin-top: 9px;
   cursor: pointer;
+  transition: 0.7s;
+}
+
+.form_btn:hover {
+  background-color: #50bb5b;
 }
 
 form {
@@ -33,7 +36,7 @@ form {
 }
 
 .container label, .inputs, .form_btn {
-  width: 264px;
+  width: 220px;
 }
 
 .terms {
