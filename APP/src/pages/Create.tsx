@@ -21,7 +21,7 @@ export default function Create() {
 
     const get_categories = new Call(Routes.profiles.categories, 'GET')
     // const [hasMusician, setHasMusician] = useState<any[]>([])
-    let my_profiles = myProfiles[1]
+    // let my_profiles = myProfiles[1]
 
 
     useEffect(() => {

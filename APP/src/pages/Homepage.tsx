@@ -50,7 +50,7 @@ export default function Homepage() {
     <div>
 
       <section className={`${CSS.head} `} >
-        <img src={full_logo} width={300} />
+        <img src={full_logo} width={300} alt='apoechos logo' />
         <a href='#description'>
           <button className='blue_btn btn'>Γνωρίστε τον <b>apoechos.gr</b> </button>
         </a>

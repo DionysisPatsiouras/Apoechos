@@ -12,7 +12,7 @@ export default function Account() {
 
     let { logoutUser }: any = useContext(AuthContext)
     const form = useForm()
-    const { register, handleSubmit, formState, watch } = form
+    const { register, formState, watch } = form
     const { errors } = formState
 
 

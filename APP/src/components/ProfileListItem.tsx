@@ -1,8 +1,8 @@
 
 import { forwardRef } from 'react'
-import CSS from '../css/Modal/Modal.module.sass'
-import SvgIcon from './SvgIcon'
-import { Img } from 'react-optimized-image'
+// import CSS from '../css/Modal/Modal.module.sass'
+// import SvgIcon from './SvgIcon'
+// import { Img } from 'react-optimized-image'
 // import { Image } from "@mts-pjsc/image-optimize";
 // import { Img } from 'react-image';
 
@@ -13,7 +13,7 @@ const ProfileListItem = forwardRef(function ProfileListItem(props: any, ref: any
 
     let profile = props?.profile
 
-    const img: any = `http://127.0.0.1:8000/${profile?.photo}`
+    // const img: any = `http://127.0.0.1:8000/${profile?.photo}`
 
 
 

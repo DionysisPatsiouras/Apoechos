@@ -8,7 +8,7 @@ import { Routes } from "../utils/Routes"
 import UtilsContext from "../context/UtilsContext"
 import SearchValidation from "../utils/SearchValidation"
 import ProfileListItem from "../components/ProfileListItem"
-import { Img } from "react-optimized-image"
+// import { Img } from "react-optimized-image"
 
 
 export default function NewEvent() {
@@ -26,7 +26,7 @@ export default function NewEvent() {
     const [stages, setStages] = useState<any[]>([])
     const [selectedStage, setSelectedStage] = useState<any[]>([])
     const [selectedBands, setSelectedBands] = useState<any[]>([])
-    const [selectedSupportActs, setSelectedSupportActs] = useState<any[]>([])
+    // const [selectedSupportActs, setSelectedSupportActs] = useState<any[]>([])
 
 
     let stepInfo = [
@@ -133,7 +133,7 @@ export default function NewEvent() {
                         <div className={CSS.uploadPhoto} >
                             <label htmlFor='picture' className='cursor-pointer'>
                                 <div className={CSS.bg}>
-                                    <img className={CSS.image_preview} src={uploadedFile} width={20} height={20} alt='' />
+                                    <img className={CSS.image_preview} src={uploadedFile} width={20} height={20} alt='uploaded image' />
                                 </div>
                             </label>
                             {uploadedFile ?

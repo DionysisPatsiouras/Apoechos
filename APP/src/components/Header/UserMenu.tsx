@@ -11,7 +11,7 @@ import { Routes } from '../../utils/Routes'
 export default function UserMenu(props: any) {
 
     let { logoutUser }: any = useContext(AuthContext)
-    let { me, updateDOM }: any = useContext(UserContext)
+    let { updateDOM }: any = useContext(UserContext)
 
     const [accountModal, setAccountModal] = useState<boolean>(false)
     const [myProfiles, setMyProfiles] = useState<any[]>([])

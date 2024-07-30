@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState, forwardRef } from 'react'
-import { MapContainer, Marker, TileLayer, Popup, useMap } from 'react-leaflet'
+import {  useEffect, useState, forwardRef } from 'react'
+import { MapContainer, Marker, TileLayer, useMap } from 'react-leaflet'
 
 const Location = forwardRef(function EditProfile(props: any, ref: any) {
 

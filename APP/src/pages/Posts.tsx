@@ -1,14 +1,18 @@
-
-
-
 import { useCallback, useEffect, useState } from 'react'
+
+// CSS
+import CSS from '../css/News/News.module.css'
+
+// components
+import AllPosts from '../components/AllPosts'
+import FixedButton from '../components/FixedButton'
+
+// utils
 import Call from '../utils/Call'
 import { Routes } from '../utils/Routes'
-import CSS from '../css/News/News.module.css'
-import AllPosts from '../components/AllPosts'
-import { handle_checkbox } from '../utils/functions/handle_checkbox'
-import FixedButton from '../components/FixedButton'
 import { Loading } from '../utils/functions/loading'
+import { handle_checkbox } from '../utils/functions/handle_checkbox'
+
 
 export default function News() {
     const [data, setData] = useState<any[]>([])

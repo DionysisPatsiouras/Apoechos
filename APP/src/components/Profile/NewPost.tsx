@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 // utils
@@ -8,7 +8,7 @@ import { Routes } from '../../utils/Routes'
 
 import CSS from '../../css/Profile/NewPost.module.css'
 import FormError from '../../utils/FormError'
-import ProfileContext from '../../context/ProfileContext'
+// import ProfileContext from '../../context/ProfileContext'
 export default function NewPost(props: any) {
 
 
@@ -20,7 +20,7 @@ export default function NewPost(props: any) {
     const [checkTitle, setCheckTitle] = useState<string>('')
     let limit = 150
 
-    let { DOM, setDOM }:any = useContext(ProfileContext)
+
 
     const get_labels = new Call(Routes.posts.titles, 'GET')
 

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, useRef } from 'react'
+import { useContext, useEffect, useState } from 'react'
 // import { Navigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 
@@ -10,7 +10,7 @@ import FormError from '../utils/FormError'
 import CreateNewProfileContext from '../context/CreateNewProfileContext'
 import CSS from '../css/CreateNewProfile/CreateNewProfile.module.sass'
 import { Link } from 'react-router-dom'
-import { MapContainer, Marker, TileLayer, Popup, useMapEvents } from 'react-leaflet'
+import { MapContainer, Marker, TileLayer, useMapEvents } from 'react-leaflet'
 import axios from 'axios'
 import SearchValidation from '../utils/SearchValidation'
 
@@ -43,10 +43,10 @@ export default function CreateNewProfile() {
         profileId,
         ChangeView,
         instrument_categories,
-        city, setCity,
+        setCity,
         position, setPosition,
         address, setAddress,
-        fetchedCity, setFetchedCity,
+        setFetchedCity,
         uploadedFile, setUploadedFile,
         check_img_type
     }: any = useContext(CreateNewProfileContext)
@@ -312,7 +312,7 @@ export default function CreateNewProfile() {
                                     <hr className='divider' style={{ marginTop: '20px' }}></hr>
                                     <h2>Όργανα</h2>
 
-                                    <ul className={CSS.categories_list} style={{ display: 'flex', justifyContent: 'center'}}>
+                                    <ul className={CSS.categories_list} style={{ display: 'flex', justifyContent: 'center' }}>
                                         {instrument_categories
                                             .map((item: any) => (
                                                 <li

@@ -1,4 +1,4 @@
-import { forwardRef, useContext, useEffect, useState } from 'react'
+import { forwardRef,  useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import CSS from '../../css/Discover/Card.module.css'

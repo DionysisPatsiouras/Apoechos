@@ -26,7 +26,7 @@ export default function Messages() {
 
     const [receiverId, setReceiverId] = useState<string>('')
     const [msg, setMsg] = useState<string>('')
-    const [unread, setUnread] = useState<any[]>([])
+    // const [unread, setUnread] = useState<any[]>([])
 
 
     const get_profile = new Call(Routes.profiles.id(profile_id), 'GET')
@@ -35,19 +35,19 @@ export default function Messages() {
 
     // console.log(unread)
 
-    const check_for_unread_messages = () => {
-        for (let index = 0; index < contacts.length; index++) {
-            const get_unread = new Call(Routes.messages.unread(profile_id, contacts?.[index]?.profileId), 'GET')
+    // const check_for_unread_messages = () => {
+    //     for (let index = 0; index < contacts.length; index++) {
+    //         const get_unread = new Call(Routes.messages.unread(profile_id, contacts?.[index]?.profileId), 'GET')
 
-            get_unread
-                .GET()
+    //         get_unread
+    //             .GET()
 
-                .then((res) => setUnread((prev) =>
-                    [...prev, res?.[0]?.sender?.profileId]
-                ))
-                .catch((err) => console.warn(err))
-        }
-    }
+    //             .then((res) => setUnread((prev) =>
+    //                 [...prev, res?.[0]?.sender?.profileId]
+    //             ))
+    //             .catch((err) => console.warn(err))
+    //     }
+    // }
 
     const Add_Message = () => {
 
@@ -175,7 +175,7 @@ export default function Messages() {
                                 }}
                                 className={`${CSS.profile_item} items-inline cursor-pointer`}
                                 onClick={() => get_current_conv(profile_id, contact.profileId)}>
-                                <img className={CSS.contactImg} src={`http://127.0.0.1:8000/${contact?.photo}`} />
+                                <img className={CSS.contactImg} src={`http://127.0.0.1:8000/${contact?.photo}`} alt='contact image'/>
                                 <div>
                                     <h3>{contact.name}</h3>
                                     {/* <p className={CSS.unreadAlert}>
@@ -211,7 +211,7 @@ export default function Messages() {
                                             : 'row',
                                     }}>
                                     <div>
-                                        <img className={CSS.contactImg} src={msg?.sender?.photo} />
+                                        <img className={CSS.contactImg} src={msg?.sender?.photo}  alt='contact image'/>
                                     </div>
 
                                     <div >

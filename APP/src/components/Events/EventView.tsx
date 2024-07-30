@@ -2,7 +2,7 @@
 import { forwardRef } from 'react'
 import CSS from '../../css/Event/EventView.module.css'
 import { numeric_date, timestamp } from '../../utils/Shortcuts'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 
 
 const EventView = forwardRef(function EventView(props: any, ref: any) {

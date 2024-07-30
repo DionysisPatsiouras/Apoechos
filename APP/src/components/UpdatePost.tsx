@@ -1,12 +1,12 @@
-import { useState, useEffect, forwardRef, useContext } from 'react'
+import { useState, useEffect, forwardRef } from 'react'
 import CSS from '../css/Profile/NewPost.module.css'
 import { useForm } from 'react-hook-form'
+
+import Button from './Button'
+
+// utils
 import Call from '../utils/Call'
 import { Routes } from '../utils/Routes'
-import Button from './Button'
-import ProfileContext from '../context/ProfileContext'
-
-
 
 const UpdatePost = forwardRef(function UpdatePost(props: any, ref: any) {
 
@@ -14,7 +14,7 @@ const UpdatePost = forwardRef(function UpdatePost(props: any, ref: any) {
     let limit = 150
 
 
-    // let { labels, }:any = useContext(ProfileContext)
+
 
 
 

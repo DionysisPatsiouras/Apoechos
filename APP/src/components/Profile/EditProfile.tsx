@@ -13,8 +13,8 @@ import EditProfileContext from '../../context/EditProfileContext'
 import { handle_checkbox } from '../../utils/functions/handle_checkbox'
 
 
-// import CreateNewProfileContext from '../context/CreateNewProfileContext'
-import CreateNewProfileContext from '../../context/CreateNewProfileContext'
+
+// import CreateNewProfileContext from '../../context/CreateNewProfileContext'
 import UtilsContext from '../../context/UtilsContext'
 
 // export default function EditProfile(props: any) {
@@ -41,7 +41,7 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
         newFile, setNewFile,
         my_name, setMyName,
         my_city, setMyCity,
-        my_bio, setMyBio,
+        // my_bio, setMyBio,
         my_address, setMyAddress,
 
 
@@ -57,7 +57,7 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
         setActiveCategory(instrument_categories?.[0])
     }, [props])
 
-    console.log(instrument_categories)
+
 
 
 
