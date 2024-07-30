@@ -9,8 +9,8 @@
 .signature
     width: 200px
     height: 200px
-    margin: 0 0 -200px 0
-    border-radius: 4px
+    margin: 0
+    border-radius: 200px
 
 .wall_list
     display: flex
@@ -31,8 +31,9 @@
 
 .right_content
 
-    padding: 40px 40px 0 40px
-    width: 100%
+    padding: 70px 
+    // width: 100%
+    border-right: 2px solid #ebebeb
 
     strong
         color: #5F69C6
@@ -55,7 +56,7 @@
             display: flex
 
     .bio
-        width: 500px
+        // width: 500px
         margin: 10px 0
         color: #999999
 
@@ -73,10 +74,9 @@
             margin: 0 5px 0 0
 
 .profileInfo
-    display: flex
-    // border-bottom: 1px solid #DCD6D6
+    text-align: center
     padding: 0 0 20px 0
-    justify-content: space-between
+
 
 .attr
     display: flex
@@ -97,7 +97,8 @@
         text-align: center
 
 .profile_photo
-    border-radius: 4px 100px 4px 4px
+    border-radius: 100px
+    border: 2px solid #D7D7D7
     width: 200px
     height: 200px
     object-fit: cover
@@ -107,15 +108,48 @@
     width: 500px
 
 .my_profiles_list
-
+    // width: 100vw !important
+    height: 100%
     background-color: #F8F8F8
-    width: 300px
+    transition: 1s
+
 
     li
         padding: 10px
 
+.toggleIcon
+    position: absolute
+    bottom: 0
+    padding: 20px
+
+.myProfilesContainer
+    display: flex
+    overflow-x: auto
+
+.profileName, .categoryIcon, .toggleIcon
+    display: none
+
+.mainContainer
+    display: flex
+    flex-direction: column
+
 // DESKTOP
 @media screen and ( min-width: 768px )
+
+    .mainContainer
+        flex-direction: row
+    .my_profiles_list
+        // width: auto !important
+        // width: 250px !important
+
+    .profileName, .categoryIcon, .toggleIcon
+        display: block
+
+    .myProfilesContainer
+
+        flex-direction: column
+        height: 70vh
+        overflow-y: auto
 
     .container
         flex-direction: row

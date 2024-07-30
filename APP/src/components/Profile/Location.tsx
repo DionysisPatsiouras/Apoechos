@@ -33,7 +33,7 @@ const Location = forwardRef(function EditProfile(props: any, ref: any) {
             // @ts-ignore
             center={[coordinates.latitude, coordinates.longitude]}
             zoom={13}
-            style={{ width: '100%', height: '200px' }}
+            style={{ width: '100%', height: '500px' }}
         >
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
             <ChangeView center={[coordinates.latitude, coordinates.longitude]} />

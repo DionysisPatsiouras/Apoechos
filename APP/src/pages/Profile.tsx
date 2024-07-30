@@ -16,6 +16,7 @@ import SvgIcon from '../components/SvgIcon'
 import Activity from '../components/Profile/Activity'
 import EditProfile from '../components/Profile/EditProfile'
 import NewMessageWindow from '../components/Messages/NewMessageWindow'
+import IconButton from '../components/IconButton'
 
 export default function Profile() {
 
@@ -28,10 +29,14 @@ export default function Profile() {
 
 
     const [height, setHeight] = useState<any>(undefined)
+    const [width, setWidth] = useState<any>(undefined)
 
+    let isMobile = width >= 768
+    let threshold = width <= 1500
 
 
     const [modal, setModal] = useState<boolean>(false)
+    const [fullBar, setFullBar] = useState<boolean>(false)
     const [newMsg, setNewMsg] = useState<boolean>(false)
 
 
@@ -46,15 +51,21 @@ export default function Profile() {
 
     useEffect(() => {
 
+        setWidth(window.innerWidth)
+        window.addEventListener("resize", () => setWidth(window.innerWidth))
+        setFullBar(threshold ? false : true)
+        document.title = 'Apoechos - Προφίλ'
+
+    }, [width])
+
+    useEffect(() => {
+
         setHeight(window.innerHeight)
         window.addEventListener("resize", () => setHeight(window.innerHeight))
 
-        document.title = 'Apoechos - Προφίλ'
 
+    }, [height])
 
-    }, [])
-
-    // console.log(currentProfile)
 
     return (
 
@@ -66,7 +77,7 @@ export default function Profile() {
                 <img src={`http://127.0.0.1:8000/${currentProfile?.photo}` || img} alt='profile_photo' />
             </Modal>
 
-            <Modal
+            {/* <Modal
                 open={editMode}
                 withContainer={true}
                 title={'Επεξεργασία προφίλ'}>
@@ -74,23 +85,30 @@ export default function Profile() {
                     profile={currentProfile}
                     close={() => setEditMode(false)}
                 />
-            </Modal>
+            </Modal> */}
 
 
-            <Modal open={newMsg} withContainer title='Νέο μήνυμα' btn close={() => setNewMsg(false)}>
+             <Modal open={newMsg} withContainer title='Νέο μήνυμα' btn close={() => setNewMsg(false)}>
                 <NewMessageWindow receiver={currentProfile} close={() => setNewMsg(false)} />
-            </Modal>
+            </Modal> 
 
-            <section style={{ display: 'flex' }}>
+            <section className={CSS.mainContainer}>
 
 
                 {user?.user_id === currentProfile?.user?.id &&
-                    <aside className={CSS.my_profiles_list} style={{ height: height - 55 }}>
-                        <ul>
+                    <aside className={CSS.my_profiles_list}
+                        style={{
+                            height: isMobile ? height - 55 : '100%',
+                            width: fullBar && isMobile ? '320px' : '82px'
+                        }}>
+
+
+                        <ul className={CSS.myProfilesContainer} style={{ width: isMobile ? 'auto' : '100vw' }}>
                             {my_profiles.map((profile: any) => (
                                 <Link to={`/profile/${profile.profileId}`}
                                     key={profile.profileId}
                                     onClick={() => updateDOM()} >
+
                                     <li
                                         className='items-inline'
                                         style={{
@@ -99,22 +117,33 @@ export default function Profile() {
                                             justifyContent: 'space-between'
                                         }}
                                     >
-                                        {profile.name}
-                                        <SvgIcon id={profile.category.icon}
-                                            color={profile.profileId === currentProfile?.profileId ? '#fff' : '#646464'}
-                                        />
+                                        <div className='items-inline' style={{ gap: '10px' }}>
+                                            <img src={`http://127.0.0.1:8000/${profile.photo}`} className='circle_img' width={10} />
+                                            {fullBar && <p className={CSS.profileName}>{profile.name}</p>}
+                                        </div>
+                                        {fullBar && <div className={CSS.categoryIcon}>
+                                            <SvgIcon id={profile.category.icon}
+                                                color={profile.profileId === currentProfile?.profileId ? '#fff' : '#646464'}
+                                            />
+                                        </div>}
                                     </li>
+
                                 </Link>
                             ))}
 
                             <Link to='/create/'>
 
                                 <li className='items-inline' style={{ justifyContent: 'space-between' }}>
-                                    Νέο Προφίλ
+
+                                    {fullBar && 'Νέο Προφίλ'}
                                     <SvgIcon id='add' color='#646464' />
                                 </li>
                             </Link>
                         </ul>
+                        <div className={CSS.toggleIcon}>
+                            <SvgIcon id='burger' onClick={() => setFullBar(!fullBar)} width={20} />
+                        </div>
+
                     </aside>
 
                 }
@@ -122,44 +151,56 @@ export default function Profile() {
 
 
 
-                <section className={CSS.right_content}>
+                <section className={CSS.right_content} >
+                    {/* <div className={CSS.profileInfo}> */}
                     <div className={CSS.profileInfo}>
 
-                        <div style={{ display: 'flex', gap: '20px' }}>
+                        {/* <div style={{ display: 'flex', gap: '20px' }}> */}
+                        <div>
+                            {/* <div className={CSS.signature} style={{ backgroundColor: currentProfile?.category?.color }}>
+                                <SvgIcon id={currentProfile?.category?.icon} style={{ margin: '5px  0 0 172px' }} color={'#fff'} />
+                            </div> */}
 
+                            <img
+                                src={`http://127.0.0.1:8000/${currentProfile.photo}`}
+                                alt='currentProfile'
+                                className={CSS.profile_photo}
+                                width={150}
+                                height={150}
+                                onClick={() => setModal(!modal)} />
+                            {/* <div className={CSS.signature} style={{ backgroundColor: currentProfile?.category?.color }}> */}
+                            <SvgIcon id={currentProfile?.category?.icon}
+                                style={{
+                                    padding: '10px',
+                                    borderRadius: '200px',
+                                    marginLeft: '-55px',
+                                    backgroundColor: currentProfile?.category?.color
+                                }}
+                                color='#fff' width={20} height={20} />
+                            {/* </div> */}
 
                             <div>
-                                <div className={CSS.signature} style={{ backgroundColor: currentProfile?.category?.color }}>
-                                    <SvgIcon id={currentProfile?.category?.icon} style={{ margin: '5px  0 0 172px' }} color={'#fff'} />
-                                </div>
-
-                                <img
-                                    src={currentProfile?.photo !== null ? `http://127.0.0.1:8000/${currentProfile.photo}` : img}
-                                    alt='currentProfile'
-                                    className={CSS.profile_photo}
-                                    width={150}
-                                    height={150}
-                                    onClick={() => setModal(!modal)} />
-                            </div>
-
-                            <div>
-                                <div className='items-inline' >
+                                <div className='items-inline' style={{ justifyContent: 'center' }}>
                                     <strong> {currentProfile?.name} </strong>
-                                    {user?.user_id === currentProfile?.user?.id ?
-                                        <SvgIcon id='edit' color='#5b5b5b' onClick={() => setEditMode(true)} />
 
-                                        :
-                                        <SvgIcon id='messages' onClick={() => setNewMsg(!newMsg)} width={20} />
-
-                                    }
 
                                 </div>
 
-                                <p className={CSS.bio}>{currentProfile?.bio}</p>
-                                <div className='items-inline'>
-                                    <SvgIcon id='location' />
-                                    <p>{currentProfile?.city?.name}{currentProfile?.address && `, ${currentProfile.address}`} </p>
+                                {/* <p className={CSS.bio}>{currentProfile?.bio}</p> */}
+                                <div className='items-inline' style={{ justifyContent: 'center' }}>
 
+                                    <div className='column' style={{ alignItems: 'center', marginTop: '15px' }}>
+                                        <b>{currentProfile?.city?.name} </b>
+                                        <p style={{ color: '#A4A4A4' }}>{currentProfile?.address && `${currentProfile.address}`}</p>
+                                        <br></br>
+                                        {user?.user_id === currentProfile?.user?.id
+                                            ?
+                                            <IconButton icon='edit' onClick={() => setEditMode(true)} />
+                                            :
+                                            <IconButton icon='messages' onClick={() => setNewMsg(!newMsg)} />
+                                        }
+
+                                    </div>
                                 </div>
 
                             </div>
@@ -184,17 +225,16 @@ export default function Profile() {
                                                 ))}
                                             </div>
 
-
                                         </li>
                                     ))}
                         </div>
 
                     </div>
-                    <Activity
-                        canEdit={currentProfile.user?.id === user?.user_id ? true : false}
-                    />
-                </section>
 
+                </section>
+                <Activity
+                    canEdit={currentProfile.user?.id === user?.user_id ? true : false}
+                />
 
             </section>
 

@@ -47,7 +47,7 @@ export default function Activity(props: any) {
     return (
 
 
-        <section >
+        <section style={{width: '50%', padding: '10px 40px'}}>
             {/* FIXED BUTTONS */}
             {props?.canEdit &&
                 <div className={CSS.create_new}>
@@ -93,7 +93,7 @@ export default function Activity(props: any) {
                     ))}
             </ul>
 
-            <section style={{ display: 'flex', width: '500px', gap: '20px', flexDirection: 'column' }}>
+            <section style={{ display: 'flex', width: '100%', gap: '20px', flexDirection: 'column' }}>
 
 
                 {activeTab === 'posts' &&
