@@ -378,7 +378,7 @@ export default function SvgIcon(props: any) {
                     width={props?.width || '32'}
                     height={props?.height || '33'}
                     viewBox="0 0 32 33"
-                    style={{ 'cursor': 'pointer' }}
+                    style={{ ...props?.style, 'cursor': 'pointer' }}
                     onClick={props?.onClick}
                 >
                     <rect y="28.7332" width="39.5789" height="5.05263" rx="2.52632" transform="rotate(-45 0 28.7332)" fill={props?.color || color} />

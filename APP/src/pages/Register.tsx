@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Navigate, Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import AuthContext from '../context/AuthContext'
@@ -24,9 +24,13 @@ export default function Register() {
     const navigate = useNavigate();
 
 
+    useEffect(() => {
+        document.title = 'Apoechos - Εγγραφή'
+    }, [])
+
     const onSubmit = (data: any) => {
 
-       
+
 
         const registerUser = new Call(Routes.auth.register, 'POST', data)
 

@@ -72,6 +72,22 @@ class Profile_Post_Serializer(serializers.ModelSerializer):
             "category",
         )
 
+class Stages_Serializer(serializers.ModelSerializer):
+
+    category = CategorySerializer(many=False)
+    city = CitiesSerializer(many=False)
+
+    class Meta:
+        model = Profile
+        fields = (
+            "profileId",
+            "photo",
+            "name",
+            "category",
+            "address",
+            "city"
+        )
+
 class Profile_Event_Serializer(serializers.ModelSerializer):
 
     city = CitiesSerializer(many=False)

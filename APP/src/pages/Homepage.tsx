@@ -26,6 +26,8 @@ export default function Homepage() {
 
   useEffect(() => {
 
+    document.title = 'Apoechos - Αρχική'
+
     setWidth(window.innerWidth)
     window.addEventListener("resize", () => setWidth(window.innerWidth))
 

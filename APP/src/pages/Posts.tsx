@@ -38,7 +38,7 @@ export default function News() {
 
     useEffect(() => {
 
-
+        document.title = 'Apoechos - Δημοσιεύσεις'
         get_titles()
         get_posts()
 

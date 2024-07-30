@@ -12,6 +12,7 @@ import Register from '../src/pages/Register'
 import Account from './pages/Account'
 import Create from './pages/Create'
 
+import NewEvent from './pages/NewEvent'
 
 // context
 import { AuthProvider } from './context/AuthContext'
@@ -80,6 +81,7 @@ export default function App() {
                   <Route path='/discover' element={<DiscoverProvider><Discover /></DiscoverProvider>} />
                   <Route path='/posts' element={<Posts />} />
                   <Route path='/events' element={<Events />} />
+                  <Route path='/events/new' element={<NewEvent />} />
                   <Route path='/map' element={<Map />} />
                   <Route path='/messages/:id/' element={<Messages />} />
                   {/* need to create this */}

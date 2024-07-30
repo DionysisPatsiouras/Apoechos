@@ -13,19 +13,21 @@ a {
 }
 
 input, select {
-  padding: 16px 16px;
+  padding: 12px 12px;
   background-color: #EFEEEE;
   border: none;
   border-radius: 4px;
   color: #6B6767;
   margin: 9px 0;
+  font-size: 0.7rem;
   box-sizing: border-box;
 }
 
 .circle_img {
   border-radius: 20000px;
-  width: 50px;
-  height: 50px;
+  width: 50px !important;
+  height: 50px !important;
+  border: 2px solid #cfcfcf;
   -o-object-fit: cover;
      object-fit: cover;
 }
@@ -144,6 +146,27 @@ li {
   animation-name: rotation;
   animation-duration: 5s;
   animation-iteration-count: infinite;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.stageListItem {
+  gap: 10px;
+  margin-bottom: 10px;
+  padding: 5px 15px;
+  border-radius: 4px;
+}
+
+.stageListItem:hover {
+  background-color: #5F69C6;
+  color: #fff;
+}
+
+.white {
+  color: #fff;
 }
 
 @keyframes rotation {

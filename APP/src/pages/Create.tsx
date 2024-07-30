@@ -33,6 +33,8 @@ export default function Create() {
 
         // setHasMusician(my_profiles && my_profiles.map((i: any) => i.category.name === "Μουσικοί" ? true : false))
 
+        document.title = 'Apoechos - Νέο προφίλ'
+
     }, [myProfiles])
 
 
@@ -51,7 +53,7 @@ export default function Create() {
                 <hr className='divider'></hr>
 
                 <div style={{ 'padding': '35px' }}>
-                    
+
                     {/* needs to be fixed */}
                     {categories !== undefined && myProfiles &&
                         categories

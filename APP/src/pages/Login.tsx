@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Navigate, Link } from 'react-router-dom'
@@ -18,6 +18,10 @@ export default function Login() {
     const form = useForm<any>()
     const { register, handleSubmit, formState } = form
     const { errors } = formState
+
+    useEffect(() => {
+       document.title = 'Apoechos - Σύνδεση'
+    }, [])
 
 
     const onSubmit = (data: { email: any, password: any }) => {

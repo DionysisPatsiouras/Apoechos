@@ -17,7 +17,7 @@ from django.http import JsonResponse
 @permission_classes([])
 def all_stages(request):
     profiles = Profile.objects.filter(category=5)
-    serializer = ProfileSerializer(profiles, many=True)
+    serializer = Stages_Serializer(profiles, many=True)
 
     return Response([{"length": len(serializer.data)}, serializer.data])
 

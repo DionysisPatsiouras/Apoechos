@@ -73,7 +73,7 @@ export default function Activity(props: any) {
                         }}
                         profile_id={currentProfile?.profileId} />}
 
-                {/* {modalTitle === 'Νέα Εκδήλωση' && <NewEvent created_by={profile?.profileId} />} */}
+                {modalTitle === 'Νέα Εκδήλωση' && <NewEvent created_by={currentProfile?.profileId} />}
 
             </Modal>
 

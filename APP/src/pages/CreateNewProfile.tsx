@@ -164,7 +164,7 @@ export default function CreateNewProfile() {
                                         {...register('file')}
                                         type="file"
                                         id="picture"
-                                         accept="image/png, image/jpeg"
+                                        accept="image/png, image/jpeg"
                                         onChange={(file: any) => check_img_type(file)}
                                         style={{ position: 'absolute', top: '-20000px' }}
                                     />
@@ -312,7 +312,7 @@ export default function CreateNewProfile() {
                                     <hr className='divider' style={{ marginTop: '20px' }}></hr>
                                     <h2>Όργανα</h2>
 
-                                    <ul className={CSS.categories_list}>
+                                    <ul className={CSS.categories_list} style={{ display: 'flex', justifyContent: 'center'}}>
                                         {instrument_categories
                                             .map((item: any) => (
                                                 <li

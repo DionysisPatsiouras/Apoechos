@@ -55,8 +55,9 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
     useEffect(() => {
         get_instrument_categories()
         setActiveCategory(instrument_categories?.[0])
-    }, [])
+    }, [props])
 
+    console.log(instrument_categories)
 
 
 
@@ -72,30 +73,33 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
 
                 {is_instruments &&
 
-                    <ul className={CSS.categories_list}>
+                    <div className={CSS.categories_list}
+                        style={{ display: 'flex', justifyContent: 'center', marginBottom: '10px', gap: '10px' }}>
                         {instrument_categories?.map((item: any) => (
-                            <li
+                            <div
+                                style={{ backgroundColor: '#5F69C6', display: 'flex', padding: '10px', color: '#fff' }}
                                 key={item}
                                 onClick={() => setActiveCategory(item)}>
                                 {item}
-                            </li>
+                            </div>
                         ))}
-                    </ul>
+                    </div>
                 }
 
-                <ul>
+
+                <div style={{ display: 'ruby-text', height: '200px', overflowY: 'scroll', width: '82%', margin: '0 auto' }}>
                     {initial_Array
                         .filter((i: any) => is_instruments ? i.category === activeCategory : i)
                         .map((i: any) => (
-                            <li className='items-inline' key={i.id}>
+                            <div className='items-inline' key={i.id} style={{ width: '150px' }}>
                                 <input type='checkbox' value={i.id} id={i.id} style={{ width: 'unset' }}
                                     onChange={(event: any) => handle_checkbox(setState, event.target)}
                                     checked={myArray?.includes(i?.id?.toString())}
                                 />
                                 <label htmlFor={i.id}>{i.name}</label>
-                            </li>
+                            </div>
                         ))}
-                </ul>
+                </div>
             </div>
         )
 

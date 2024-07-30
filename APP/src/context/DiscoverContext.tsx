@@ -92,6 +92,8 @@ export const DiscoverProvider = ({ children }: any) => {
             })
             .catch((err: any) => console.warn(err))
 
+        document.title = 'Apoechos - Ανακάλυψε'
+
 
     }, [])
 

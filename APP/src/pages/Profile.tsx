@@ -49,6 +49,8 @@ export default function Profile() {
         setHeight(window.innerHeight)
         window.addEventListener("resize", () => setHeight(window.innerHeight))
 
+        document.title = 'Apoechos - Προφίλ'
+
 
     }, [])
 
@@ -147,8 +149,8 @@ export default function Profile() {
                                         <SvgIcon id='edit' color='#5b5b5b' onClick={() => setEditMode(true)} />
 
                                         :
-                                        <SvgIcon id='messages' onClick={() => setNewMsg(!newMsg)} width={20}/>
-                           
+                                        <SvgIcon id='messages' onClick={() => setNewMsg(!newMsg)} width={20} />
+
                                     }
 
                                 </div>

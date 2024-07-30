@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import CSS from '../css/Account/Account.module.css'
 import Modal from '../components/Modal'
@@ -28,6 +28,10 @@ export default function Account() {
             logoutUser()
         }).catch((err) => console.warn(err))
     }
+
+    useEffect(() => {
+        document.title = 'Apoechos - Λογαριασμός'
+    }, [])
 
     return (
         <div className='space'>

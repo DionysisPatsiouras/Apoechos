@@ -32,15 +32,11 @@ const Events = forwardRef(function Events(props: any, ref: any) {
     // let fetch_cities = new Call(Routes.profiles.cities, 'GET')
 
     useEffect(() => {
-
+        document.title = 'Apoechos - Εκδηλώσεις'
         fetch_events.GET_NO_TOKEN().then((res) => setEvents(res)).catch((err) => console.warn(err))
-
         get_cities()
-
-
         setHeight(window.innerHeight)
         window.addEventListener("resize", () => setHeight(window.innerHeight))
-
     }, [])
 
 

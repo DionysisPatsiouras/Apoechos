@@ -47,6 +47,8 @@ export default function Map() {
     const call_profiles = new Call(Routes.profiles.all, 'GET')
 
     useEffect(() => {
+
+        document.title = 'Apoechos - Χάρτης'
         get_cities()
 
         setLatitude(coordinates?.[0])
@@ -55,7 +57,7 @@ export default function Map() {
         call_profiles
             .GET_NO_TOKEN()
             .then((res: any) =>
-                setProfiles(res?.[1].filter((profile: any) => profile?.category?.id !== 1 && profile?.category?.id !== 2) )
+                setProfiles(res?.[1].filter((profile: any) => profile?.category?.id !== 1 && profile?.category?.id !== 2))
             )
             .catch((err: any) => console.warn(err))
 
