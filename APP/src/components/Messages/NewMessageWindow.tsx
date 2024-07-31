@@ -26,12 +26,12 @@ const NewMessageWindow = forwardRef(function NewMessageWindow(props: any, ref: a
     const form = useForm()
     const { register, handleSubmit, formState, resetField, watch } = form
     const { errors } = formState
-    
+
 
 
     useEffect(() => {
         get_my_profiles()
- 
+
     }, [])
 
     let receiver = props?.receiver
@@ -65,7 +65,7 @@ const NewMessageWindow = forwardRef(function NewMessageWindow(props: any, ref: a
             <div className={CSS.mailHead}>
                 <div className={CSS.mailProfile}>
                     <h3> Αποστολή ως:</h3>
-                    <div className='items-inline' style={{ gap: '10px' }}>
+                    <div className='items-inline' style={{ gap: '10px', flexWrap: 'wrap', flexDirection: 'row', paddingBottom: '16px' }}>
                         {my_profiles.map((i: any, index: number) => (
                             <div
                                 key={index}

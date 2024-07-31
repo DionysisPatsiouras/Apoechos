@@ -134,9 +134,8 @@ export default function Profile() {
                             <Link to='/create/'>
 
                                 <li className='items-inline' style={{ justifyContent: 'space-between' }}>
-
                                     {fullBar && 'Νέο Προφίλ'}
-                                    <SvgIcon id='add' color='#646464' />
+                                    <SvgIcon id='add' color='#646464'/>
                                 </li>
                             </Link>
                         </ul>

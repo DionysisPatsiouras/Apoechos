@@ -1,0 +1,46 @@
+.wall_list
+    display: flex
+    padding: 10px 0 10px 7px
+    position: fixed
+    bottom: 0
+    background-color: #5f69c6
+    width: 100%
+    justify-content: center
+    z-index: 99999
+
+    li
+        padding: 10px
+        cursor: pointer
+        margin: 0 5px 0 0
+        min-width: 100px
+        text-align: center
+        font-weight: 600
+        color: #bdbdbd
+    p
+        display: none
+
+.active
+    color: #5F69C6 !important
+    border-bottom: 2px solid #5F69C6
+
+.activityBody
+    padding: 40px
+    // DESKTOP
+@media screen and ( min-width: 768px )
+
+    .wall_list
+        position: unset
+        background-color: unset
+        width: 50%
+        padding: 10px 40px
+        justify-content: unset
+        p
+            display: block
+        svg
+            display: none
+
+    .activityBody
+        display: flex
+        width: 100%
+        padding: 20px
+        flex-direction: column

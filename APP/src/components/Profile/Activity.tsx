@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 
 // CSS
-import CSS from '../../css/Profile/Profile.module.sass'
+import CSS from '../../css/Profile/Activity.module.css'
 
 // components
 import Modal from '../Modal'
@@ -9,6 +9,7 @@ import AllPosts from '../AllPosts'
 import NewPost from './NewPost'
 import NewEvent from './NewEvent'
 import Location from './Location'
+import SvgIcon from '../SvgIcon'
 
 // context
 import ProfileContext from '../../context/ProfileContext'
@@ -36,9 +37,9 @@ export default function Activity(props: any) {
     }, [profile_id])
 
     let tabs = [
-        { id: [1, 2, 3, 4, 5], label: "Δημοσιεύσεις", tab: "posts", onClick: () => setActiveTab("posts") },
-        { id: [1, 2, 5], label: "Εκδηλώσεις", tab: "events", onClick: () => setActiveTab("events") },
-        { id: [3, 4, 5], label: "Τοποθεσία", tab: "location", onClick: () => setActiveTab("location") },
+        { id: [1, 2, 3, 4, 5], label: "Δημοσιεύσεις", tab: "posts", onClick: () => setActiveTab("posts"), icon: 'location' },
+        { id: [1, 2, 5], label: "Εκδηλώσεις", tab: "events", onClick: () => setActiveTab("events"), icon: 'location' },
+        { id: [3, 4, 5], label: "Τοποθεσία", tab: "location", onClick: () => setActiveTab("location"), icon: 'location' },
     ]
 
     // console.log(profile)
@@ -47,14 +48,14 @@ export default function Activity(props: any) {
     return (
 
 
-        <section style={{width: '50%', padding: '10px 40px'}}>
+        <section className={CSS.activityContainer}>
             {/* FIXED BUTTONS */}
-            {props?.canEdit &&
+            {/* {props?.canEdit &&
                 <div className={CSS.create_new}>
                     <p onClick={() => new_entry('Νέα Δημοσίευση')}>+ Νέα δημοσίευση</p>
                     <p onClick={() => new_entry('Νέα Εκδήλωση')}>+ Νέα εκδήλωση</p>
                 </div>
-            }
+            } */}
 
 
             {/* CREATE NEW SECTION */}
@@ -79,8 +80,6 @@ export default function Activity(props: any) {
 
 
             <ul className={CSS.wall_list}>
-
-
                 {tabs
                     .filter((tab: any) => tab.id.includes(currentProfile?.category?.id))
                     .map((tab: any, index: number) => (
@@ -88,12 +87,13 @@ export default function Activity(props: any) {
                             key={index}
                             className={activeTab === tab?.tab ? CSS.active : undefined}
                             onClick={tab?.onClick}>
-                            {tab.label}
+                            <p>{tab.label}</p>
+                            <SvgIcon id={tab.icon} color='#fff' />
                         </li>
                     ))}
             </ul>
 
-            <section style={{ display: 'flex', width: '100%', gap: '20px', flexDirection: 'column' }}>
+            <section className={CSS.activityBody} >
 
 
                 {activeTab === 'posts' &&
