@@ -41,7 +41,7 @@ const ProfileListItem = forwardRef(function ProfileListItem(props: any, ref: any
             /> */}
             <div>
                 <p>{profile.name}</p>
-                <p style={{ color: '#c1c1c1' }}>{`${profile?.city?.name}, ${profile?.address}`} </p>
+                <p style={{ color: '#c1c1c1', fontSize: '12px' }}>{`${profile?.city?.name}, ${profile?.address}`} </p>
             </div>
         </div>
 

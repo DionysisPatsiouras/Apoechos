@@ -77,7 +77,7 @@ export default function Profile() {
                 <img src={`http://127.0.0.1:8000/${currentProfile?.photo}` || img} alt='profile_photo' />
             </Modal>
 
-            {/* <Modal
+            <Modal
                 open={editMode}
                 withContainer={true}
                 title={'Επεξεργασία προφίλ'}>
@@ -85,7 +85,7 @@ export default function Profile() {
                     profile={currentProfile}
                     close={() => setEditMode(false)}
                 />
-            </Modal> */}
+            </Modal>
 
 
             <Modal open={newMsg} withContainer title='Νέο μήνυμα' btn close={() => setNewMsg(false)}>
@@ -225,9 +225,8 @@ export default function Profile() {
 
                                                 <div style={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'column' }}>
                                                     {currentProfile?.[list.id]?.map((i: any, index: number) => (
-                                                        <div key={index} style={{ margin: '0 3px 0 0' }}>
+                                                        <div key={index} style={{ margin: '0 3px 0 0', textAlign: 'left' }}>
                                                             {i?.name}
-                                                            {index !== currentProfile?.[list?.id]?.length - 1 && ','}
                                                         </div>
                                                     ))}
                                                 </div>
@@ -238,17 +237,11 @@ export default function Profile() {
                                 </>
                             }
 
-
-
-
                         </div>
-
                     </div>
 
                 </section>
-                <Activity
-                    canEdit={currentProfile.user?.id === user?.user_id ? true : false}
-                />
+                <Activity canEdit={currentProfile.user?.id === user?.user_id ? true : false} />
 
             </section>
 

@@ -140,7 +140,7 @@ export default function NewEvent() {
                                 <p
                                     className={`${CSS.space_around} cursor-pointer`}
                                     onClick={() => setUploadedFile(undefined)}>
-                                    <SvgIcon id={'delete'} />
+                                    <SvgIcon id='delete' />
                                     Διαγραφή
                                 </p>
                                 :
