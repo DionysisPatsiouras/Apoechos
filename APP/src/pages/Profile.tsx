@@ -88,9 +88,9 @@ export default function Profile() {
             </Modal> */}
 
 
-             <Modal open={newMsg} withContainer title='Νέο μήνυμα' btn close={() => setNewMsg(false)}>
+            <Modal open={newMsg} withContainer title='Νέο μήνυμα' btn close={() => setNewMsg(false)}>
                 <NewMessageWindow receiver={currentProfile} close={() => setNewMsg(false)} />
-            </Modal> 
+            </Modal>
 
             <section className={CSS.mainContainer}>
 
@@ -135,7 +135,7 @@ export default function Profile() {
 
                                 <li className='items-inline' style={{ justifyContent: 'space-between' }}>
                                     {fullBar && 'Νέο Προφίλ'}
-                                    <SvgIcon id='add' color='#646464'/>
+                                    <SvgIcon id='add' color='#646464' />
                                 </li>
                             </Link>
                         </ul>
@@ -155,7 +155,7 @@ export default function Profile() {
                     <div className={CSS.profileInfo}>
 
                         {/* <div style={{ display: 'flex', gap: '20px' }}> */}
-                        <div>
+                        <div style={{ padding: '40px 70px' }}>
                             {/* <div className={CSS.signature} style={{ backgroundColor: currentProfile?.category?.color }}>
                                 <SvgIcon id={currentProfile?.category?.icon} style={{ margin: '5px  0 0 172px' }} color={'#fff'} />
                             </div> */}
@@ -206,26 +206,41 @@ export default function Profile() {
                         </div>
 
                         <div>
-                            {currentProfile?.length !== 0 &&
-                                lists
-                                    .filter((list: any) => list.category === currentProfile?.category?.id)
-                                    .map((list: any) => (
-                                        <li key={list.id} className={CSS.attr}>
-                                            {currentProfile?.[list?.id]?.length !== 0 &&
-                                                <SvgIcon id={list?.icon} style={{ minWidth: '24px', minHeight: '24px' }} color='#414141' />
-                                            }
+                            {currentProfile?.length !== 0 && lists.filter((list: any) => list.category === currentProfile?.category?.id).length !== 0 &&
+                                <>
 
-                                            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                                                {currentProfile?.[list.id]?.map((i: any, index: number) => (
-                                                    <div key={index} style={{ margin: '0 3px 0 0' }}>
-                                                        {i?.name}
-                                                        {index !== currentProfile?.[list?.id]?.length - 1 && ','}
-                                                    </div>
-                                                ))}
-                                            </div>
+                                    <div style={{ padding: '20px', background: '#E9E9E9', display: 'flex', justifyContent: 'space-around' }}>
+                                        {lists
+                                            .filter((list: any) => list.category === currentProfile?.category?.id)
+                                            .map((i: any) => (
+                                                <SvgIcon id={i?.icon} style={{ minWidth: '24px', minHeight: '24px' }} color='#414141' />
+                                            ))}
+                                    </div>
+                                    <div style={{ display: 'flex', justifyContent: 'space-around', paddingTop: '20px' }}>
 
-                                        </li>
-                                    ))}
+
+                                        {lists
+                                            .filter((list: any) => list.category === currentProfile?.category?.id)
+                                            .map((list: any) => (
+
+                                                <div style={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'column' }}>
+                                                    {currentProfile?.[list.id]?.map((i: any, index: number) => (
+                                                        <div key={index} style={{ margin: '0 3px 0 0' }}>
+                                                            {i?.name}
+                                                            {index !== currentProfile?.[list?.id]?.length - 1 && ','}
+                                                        </div>
+                                                    ))}
+                                                </div>
+
+                                            ))
+                                        }
+                                    </div>
+                                </>
+                            }
+
+
+
+
                         </div>
 
                     </div>

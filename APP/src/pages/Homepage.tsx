@@ -35,7 +35,12 @@ export default function Homepage() {
     window.addEventListener("resize", () => setHeight(window.innerHeight))
 
     get_categories()
+  // }, [height])
   }, [height])
+
+
+  
+  // console.log(categories)
 
   let background = [
     { id: 1, bg: musicianBg },

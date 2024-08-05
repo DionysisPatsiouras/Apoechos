@@ -3,7 +3,7 @@ import { MapContainer, Marker, TileLayer, Popup, useMap } from 'react-leaflet'
 import UtilsContext from '../context/UtilsContext'
 // import logo from '../img/logo.png'
 import CSS from '../css/Map/Map.module.css'
-
+import { Link } from 'react-router-dom'
 // utils
 import { handle_checkbox } from '../utils/functions/handle_checkbox'
 import Call from '../utils/Call'
@@ -11,6 +11,9 @@ import { Routes } from '../utils/Routes'
 
 // @ts-ignore
 import L from 'leaflet'
+import SvgIcon from '../components/SvgIcon'
+import NewMessageWindow from '../components/Messages/NewMessageWindow'
+import Modal from '../components/Modal'
 
 export default function Map() {
 
@@ -23,21 +26,23 @@ export default function Map() {
     const [longitude, setLongitude] = useState<any>(coordinates?.[1])
     const [selectedCategories, setSelectedCategories] = useState<any[]>([])
     const [profiles, setProfiles] = useState<any[]>([])
+    const [selectedProfile, setSelectedProfile] = useState<any>({})
+    const [modal, setModal] = useState<boolean>(false)
 
 
-    const studioIcon = new L.Icon({
+    const studioIcon: any = new L.Icon({
         iconUrl: require("../img/studio.png"),
         iconSize: [25, 41],
         iconAnchor: [17, 46],
         popupAnchor: [0, -46],
     })
-    const storeIcon = new L.Icon({
+    const storeIcon: any = new L.Icon({
         iconUrl: require("../img/store.png"),
         iconSize: [25, 41],
         iconAnchor: [17, 46],
         popupAnchor: [0, -46],
     })
-    const stageIcon = new L.Icon({
+    const stageIcon: any = new L.Icon({
         iconUrl: require("../img/stage.png"),
         iconSize: [25, 41],
         iconAnchor: [17, 46],
@@ -71,7 +76,7 @@ export default function Map() {
         return null;
     }
 
-    console.log(profiles)
+    console.log(selectedProfile)
 
     const [height, setHeight] = useState<any>(window.innerHeight)
 
@@ -88,80 +93,120 @@ export default function Map() {
 
 
     return (
-        <div style={{ display: 'flex' }}>
+        <div className='items-column'>
+
+            <Modal open={modal} close={() => setModal(!modal)} withContainer title='Νέο μήνυμα' btn>
+                <NewMessageWindow receiver={selectedProfile} />
+
+            </Modal>
 
             <aside className={CSS.sidebar}>
-                <select onChange={(e) => setCoordinates(e.target.value.split(','))} className={CSS.city_dropdown}>
-                    {cities.map((city: any) => (
-                        <option
-                            key={city?.id}
-                            value={[city?.latitude, city?.longitude]} >
-                            {city.name}
-                        </option>
-                    ))}
-                </select>
+                <div className='items-inline' style={{ gap: '20px' }}>
 
-                <ul>
-                    {categories.map((category: any) => (
-                        <li key={category?.id} className='items-inline' style={{ gap: '5px' }}>
-                            <input
-                                type='checkbox'
-                                id={category.id}
-                                value={category?.id}
-                                className='cursor-pointer'
-                                onChange={(e) => handle_checkbox(setSelectedCategories, e.target)}
-                            />
-                            <label htmlFor={category?.id} className='cursor-pointer'>{category?.label}</label>
-                        </li>
 
-                    ))}
-                </ul>
+                    <select onChange={(e) => { setSelectedProfile({}); setCoordinates(e.target.value.split(',')) }} className={CSS.city_dropdown}>
+                        {cities.map((city: any) => (
+                            <option
+                                key={city?.id}
+                                value={[city?.latitude, city?.longitude]} >
+                                {city.name}
+                            </option>
+                        ))}
+                    </select>
 
+                    <ul className='items-inline' style={{gap: '20px'}}>
+                        {categories.map((category: any) => (
+                            <li key={category?.id} className='items-inline' style={{ gap: '5px' }}>
+                                <input
+                                    type='checkbox'
+                                    id={category.id}
+                                    value={category?.id}
+                                    className='cursor-pointer'
+                                    onChange={(e) => handle_checkbox(setSelectedCategories, e.target)}
+                                />
+                                <label htmlFor={category?.id} className='cursor-pointer'>{category?.label}</label>
+                            </li>
+
+                        ))}
+                    </ul>
+                </div>
             </aside>
 
+            <section className='items-inline' style={{ alignItems: 'flex-start' }}>
 
 
 
 
-            <MapContainer
-                // @ts-ignore
-                center={[33.91907336973602, 35.51552625946782]}
-                zoom={13}
-                style={{ width: '100%', height: height - 55 }} >
-                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-                <ChangeView center={[latitude || Number(coordinates?.[0]), longitude || Number(coordinates?.[1])]} />
+                <MapContainer
+                    // @ts-ignore
+                    center={[33.91907336973602, 35.51552625946782]}
+                    zoom={13}
+                    style={{ width: '100%', height: height - 87 - 55 }} >
+                    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-                {profiles
+                    <ChangeView center={[selectedProfile?.latitude || latitude || Number(coordinates?.[0]), selectedProfile?.longitude || longitude || Number(coordinates?.[1])]} />
 
-                    .filter((profile: any) =>
-                        selectedCategories.length === 0
-                            ? !selectedCategories.includes(categories)
-                            : selectedCategories.includes(profile?.category?.id.toString()))
+                    {profiles
 
-
-                    .map((item: any, i: number) => (
-
-                        <Marker key={i} position={[item?.latitude, item?.longitude]}
-                            // @ts-ignore
-                            icon={
-                                item?.category?.id === 3 ? studioIcon
-                                    : item?.category?.id === 4 ? storeIcon
-                                        : item?.category?.id === 5 && stageIcon
-
-                            }>
-                            <Popup>
-
-                                {item?.name}
-                            </Popup>
-                        </Marker>
-
-                    ))}
+                        .filter((profile: any) =>
+                            selectedCategories.length === 0
+                                ? !selectedCategories.includes(categories)
+                                : selectedCategories.includes(profile?.category?.id.toString()))
 
 
-            </MapContainer>
+                        .map((item: any, i: number) => (
+
+                            <Marker key={i} position={[item?.latitude, item?.longitude]}
+                                eventHandlers={{ click: () => { setSelectedProfile(item) } }}
+                                icon={
+                                    item?.category?.id === 3 ? studioIcon
+                                        : item?.category?.id === 4 ? storeIcon
+                                            : item?.category?.id === 5 && stageIcon
+                                }>
+
+                            </Marker>
+
+                        ))}
 
 
+                </MapContainer>
+
+
+                {selectedProfile.name &&
+                    <aside className={`${CSS.selectedProfile} items-column`}>
+                        <SvgIcon id='close' width={15} onClick={() => setSelectedProfile({})} />
+                        <img
+                            className='circle_img'
+                            src={`http://127.0.0.1:8000/${selectedProfile?.photo}`}
+                            width={184} height={184}
+                            alt='Profile photo' />
+
+                        <SvgIcon
+                            className={CSS.categoryIcon}
+                            id={selectedProfile?.category?.icon}
+                            width={20}
+                            height={20}
+                            color='#fff'
+                            style={{ backgroundColor: selectedProfile?.category?.color }} />
+                        <div className={CSS.info}>
+                            <h2>{selectedProfile?.name}</h2>
+                            <b>{selectedProfile?.city?.name}</b>
+                            <span>{selectedProfile?.address}</span>
+                            <br></br>
+                            <Link to={`/profile/${selectedProfile?.profileId}`}>
+                                <button type='button' className='btn blue_btn' style={{ width: '70%', margin: '0 auto' }} >Προβολή</button>
+                            </Link>
+                            
+                            <button type='button' onClick={() => setModal(true)} className='btn blue_btn' style={{ width: '70%', margin: '10px auto 0 auto', }} >Μήνυμα</button>
+
+
+                        </div>
+                    </aside>
+                }
+
+
+            </section>
 
         </div>
     )
