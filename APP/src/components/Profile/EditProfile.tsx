@@ -39,10 +39,6 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
         my_instruments, setMyInstruments,
 
         newFile, setNewFile,
-        my_name, setMyName,
-        my_city, setMyCity,
-        // my_bio, setMyBio,
-        my_address, setMyAddress,
 
 
     }: any = useContext(EditProfileContext)
@@ -87,7 +83,7 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
                 }
 
 
-                <div style={{ display: 'ruby-text', height: '200px', overflowY: 'scroll', width: '82%', margin: '0 auto' }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', height: '200px', overflowY: 'scroll', width: '82%', margin: '0 auto' }}>
                     {initial_Array
                         .filter((i: any) => is_instruments ? i.category === activeCategory : i)
                         .map((i: any) => (
@@ -146,14 +142,14 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
                                 </label>
 
                                 <input
-                                    {...register('photo')}
+                                    {...register('file')}
                                     id='photo' type='file' style={{ position: 'absolute', top: '-20000px' }}
                                     onChange={(file: any) => setNewFile(URL.createObjectURL(file.target.files[0]))}
                                 />
 
-                                <label onClick={() => setNewFile(undefined)} style={{ background: '#C65F5F' }}>
+                                {/* <label onClick={() => setNewFile(undefined)} style={{ background: '#C65F5F' }}>
                                     <SvgIcon id={'close'} color='#fff' width={20} />Κατάργηση
-                                </label>
+                                </label> */}
                             </div>
 
                         </div>
@@ -163,12 +159,7 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
                         <input
                             type='text'
                             placeholder='Όνομα'
-                            value={my_name}
-
-                            {...register('name', {
-                                required: 'Υποχρεωτικό πεδίο',
-                                onChange: (event: any) => setMyName(event.target.value)
-                            })}
+                            {...register('name', { required: 'Υποχρεωτικό πεδίο' })}
                         />
 
 
@@ -176,11 +167,7 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
                             <input
                                 type='text'
                                 placeholder='Διεύθυνση'
-                                value={currentProfile && my_address}
-                                {...register('address', {
-                                    required: 'Υποχρεωτικό πεδίο',
-                                    onChange: (event: any) => setMyAddress(event.target.value)
-                                })}
+                                {...register('address', { required: 'Υποχρεωτικό πεδίο' })}
                             />
 
                         }
@@ -188,15 +175,13 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
 
 
                         <select
-                            value={my_city}
                             className={CSS.city_dropdown}
-                            {...register('city')}
-                            onChange={(e) => setMyCity(e.target.value)}>
+                            {...register('city')}>
                             {cities?.map((city: any) => (
                                 <option key={city.id}
-                                    value={city.id}
-                                // selected={my_city === city?.id ? true : false}
-                                >{city.name}</option>
+                                    value={city.id}>
+                                    {city.name}
+                                </option>
                             ))}
                         </select>
 

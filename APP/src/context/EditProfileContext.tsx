@@ -24,23 +24,16 @@ export const EditProfileProvider = ({ children }: any) => {
 
 
 
-
-
-    // const form = useForm()
-    const { register, handleSubmit, formState, resetField } = useForm()
-    // const { errors } = formState
+    const { register, handleSubmit, setValue } = useForm()
 
     const [tab, setTab] = useState<number>(1)
-    // const [newName, setNewName] = useState<any>(children?.props?.profile?.name)
 
 
     const [my_services, setMyServices] = useState<any[]>([])
     const [my_genres, setMyGenres] = useState<any[]>([])
     const [my_instruments, setMyInstruments] = useState<any[]>([])
-    const [my_name, setMyName] = useState<string>()
-    const [my_city, setMyCity] = useState<string>()
     const [my_address, setMyAddress] = useState<string>()
-    const [my_bio, setMyBio] = useState<any>()
+
 
     const [newFile, setNewFile] = useState<any>()
 
@@ -53,19 +46,20 @@ export const EditProfileProvider = ({ children }: any) => {
     }, [])
 
 
+
     useEffect(() => {
 
         setMyServices(currentProfile?.studio_services?.map((i: any) => i?.id?.toString()));
         setMyGenres(currentProfile?.genres?.map((i: any) => i?.id?.toString()))
         setMyInstruments(currentProfile?.instruments?.map((i: any) => i?.id?.toString()))
 
-        setMyName(currentProfile?.name)
-        setMyCity(currentProfile?.city?.id)
-        setMyBio(currentProfile?.bio)
-        setMyAddress(currentProfile?.address)
+        setValue('name', currentProfile?.name)
+        setValue('city', currentProfile?.city?.id)
+        setValue('bio', currentProfile?.bio)
+        setValue('address', currentProfile?.address)
 
 
-    }, [currentProfile])
+    }, [currentProfile?.profileId])
 
 
 
@@ -79,21 +73,23 @@ export const EditProfileProvider = ({ children }: any) => {
 
 
 
-    const updateProfile = (data: any, fun: any) => {
+    const updateProfile = (data: any) => {
 
+        console.log("🚀 ~ updateProfile ~ data:", data)
 
-   
         // console.warn(my_city)
+
 
         let formData: any = new FormData()
 
-        formData.append('name', my_name)
-        formData.append('city', my_city)
-        formData.append('bio', my_bio)
+        formData.append('name', data?.name)
+        formData.append('city', data?.city)
+        formData.append('bio', data?.bio)
 
         my_address && formData.append('address', my_address)
-        data?.photo?.length !== 0 && formData.append('photo', data?.photo?.[0])
-
+        data?.photo?.length !== 0 && formData.append('photo', data?.file?.[0])
+        // formData.append('photo', data?.file?.[0])
+        // formData.append('photo', data?.file?.[0])
 
 
 
@@ -107,18 +103,23 @@ export const EditProfileProvider = ({ children }: any) => {
             formData.append('instruments', my_instruments[i])
         }
 
+        
+
 
         const update_profile = new Call(Routes.profiles.update(currentProfile?.profileId), 'PATCH', formData)
+        console.log("🚀 ~ updateProfile ~ formData:", formData)
         update_profile
             .PATCH_MEDIA()
             .then((res) => {
                 // console.log(res);
-                setTab(1);  
+                setTab(1);
                 close_edit(true)
             })
             .catch((err) => console.warn(err))
     }
     let contextData = {
+
+
         tab, setTab,
         cities,
         genres,
@@ -137,10 +138,6 @@ export const EditProfileProvider = ({ children }: any) => {
         my_instruments, setMyInstruments,
 
         newFile, setNewFile,
-        my_name, setMyName,
-        my_city, setMyCity,
-        my_bio, setMyBio,
-        my_address, setMyAddress
 
     }
 

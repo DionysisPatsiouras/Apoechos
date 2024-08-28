@@ -212,8 +212,8 @@ export default function Profile() {
                                     <div style={{ padding: '20px', background: '#E9E9E9', display: 'flex', justifyContent: 'space-around' }}>
                                         {lists
                                             .filter((list: any) => list.category === currentProfile?.category?.id)
-                                            .map((i: any) => (
-                                                <SvgIcon key={i} id={i?.icon} style={{ minWidth: '24px', minHeight: '24px' }} color='#414141' />
+                                            .map((i: any, index: number) => (
+                                                <SvgIcon key={index} id={i?.icon} style={{ minWidth: '24px', minHeight: '24px' }} color='#414141' />
                                             ))}
                                     </div>
                                     <div style={{ display: 'flex', justifyContent: 'space-around', paddingTop: '20px' }}>
@@ -221,9 +221,9 @@ export default function Profile() {
 
                                         {lists
                                             .filter((list: any) => list.category === currentProfile?.category?.id)
-                                            .map((list: any) => (
+                                            .map((list: any, index: number) => (
 
-                                                <div style={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'column' }}>
+                                                <div key={index} style={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'column' }}>
                                                     {currentProfile?.[list.id]?.map((i: any, index: number) => (
                                                         <div key={index} style={{ margin: '0 3px 0 0', textAlign: 'left' }}>
                                                             {i?.name}
