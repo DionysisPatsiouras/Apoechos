@@ -41,25 +41,28 @@ export const UserProvider = ({ children }: any) => {
 
 
     useEffect(() => {
-        
+
         if (user) {
             fetchMyProfiles()
             fetchMe()
         }
         // console.log('me', me)
 
-      
+
     }, [user])
 
 
 
     let contextData = {
-        me: me,
-        myProfiles: myProfiles,
-        fetchMyProfiles: fetchMyProfiles,
-        fetchMe: fetchMe,
-        updateDOM: updateDOM,
-        setUpdateDOM: setUpdateDOM
+        me, fetchMe,
+        myProfiles, fetchMyProfiles,
+        updateDOM, setUpdateDOM
+        // me: me,
+        // myProfiles: myProfiles,
+        // fetchMyProfiles: fetchMyProfiles,
+        // fetchMe: fetchMe,
+        // updateDOM: updateDOM,
+        // setUpdateDOM: setUpdateDOM
     }
 
 

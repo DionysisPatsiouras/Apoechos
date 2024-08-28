@@ -8,6 +8,7 @@ import { Routes } from "../utils/Routes"
 import UtilsContext from "../context/UtilsContext"
 import SearchValidation from "../utils/SearchValidation"
 import ProfileListItem from "../components/ProfileListItem"
+import UserContext from "../context/UserContext"
 // import { Img } from "react-optimized-image"
 
 
@@ -18,6 +19,8 @@ export default function NewEvent() {
     const form = useForm()
     const { register, handleSubmit, formState } = form
     const { errors }: any = formState
+
+    const { me, fetchMe }: any = useContext(UserContext)
 
 
     const [uploadedFile, setUploadedFile] = useState<any>()
@@ -45,6 +48,7 @@ export default function NewEvent() {
     let { get_cities, cities }: any = useContext(UtilsContext)
 
     useEffect(() => {
+        fetchMe()
         get_stages
             .GET()
             .then((res) => setStages(res?.[1]))
@@ -54,6 +58,8 @@ export default function NewEvent() {
         document.title = 'Apoechos - Νέα εκδήλωση'
 
     }, [])
+
+    console.log(me.id)
 
     const check_img_type = (file: any) => {
         setUploadedFile(
@@ -95,7 +101,7 @@ export default function NewEvent() {
             }
 
 
-            formData.append('created_by', 'PROFILE9425190008754')
+            formData.append('created_by', me.id)
             let post_event = new Call(Routes.events.new, 'POST', formData)
 
             post_event
@@ -341,7 +347,7 @@ export default function NewEvent() {
                                                 </div>
                                                 <div className='items-inline white' style={{ gap: '5px' }}>
 
-                                                    <input type='radio' id={band?.profileId} value={'support'} name={band?.profileId}/>
+                                                    <input type='radio' id={band?.profileId} value={'support'} name={band?.profileId} />
                                                     <label htmlFor={band?.profileId}>Support act</label>
                                                 </div>
                                             </div>

@@ -50,7 +50,7 @@ export default function Register() {
                 setEmailInUse('To email χρησιμοποιείται ήδη')
             })
 
-        console.log('Form submitted', data)
+        // console.log('Form submitted', data)
 
     }
 
