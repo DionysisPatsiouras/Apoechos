@@ -213,7 +213,7 @@ export default function Profile() {
                                         {lists
                                             .filter((list: any) => list.category === currentProfile?.category?.id)
                                             .map((i: any) => (
-                                                <SvgIcon id={i?.icon} style={{ minWidth: '24px', minHeight: '24px' }} color='#414141' />
+                                                <SvgIcon key={i} id={i?.icon} style={{ minWidth: '24px', minHeight: '24px' }} color='#414141' />
                                             ))}
                                     </div>
                                     <div style={{ display: 'flex', justifyContent: 'space-around', paddingTop: '20px' }}>

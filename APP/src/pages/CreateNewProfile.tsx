@@ -71,7 +71,7 @@ export default function CreateNewProfile() {
 
             const response_city = await axios.get(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=el`)
 
-            // console.log(response_city?.data?.city)
+            // console.log(response?.data)
             setAddress(`${response?.data?.address?.road} ${response?.data?.address?.house_number !== undefined ? response?.data?.address?.house_number : ''}`)
             setPosition([response?.data?.lat, response?.data?.lon])
             setFetchedCity(response_city?.data?.city)
@@ -180,9 +180,7 @@ export default function CreateNewProfile() {
                                     <label>Όνομα</label>
                                     <input
                                         type='text'
-                                        {...register('name', {
-                                            required: 'Αυτό το πεδίο είναι υποχρεωτικό'
-                                        })}
+                                        {...register('name', { required: 'Αυτό το πεδίο είναι υποχρεωτικό' })}
                                     />
                                     <FormError value={errors?.name} />
 
@@ -212,34 +210,10 @@ export default function CreateNewProfile() {
                                             </select>
                                             <FormError value={errors?.city} />
                                         </div>
-
                                     }
 
 
-                                    {/* {errors?.city?.message} */}
-
-                                    {/* {has_natural_presence &&
-                                        <>
-                                            <label>Διεύθυνση</label>
-                                            <input
-                                                value={address}
-
-                                                type='text'
-                                                {...register('address', {
-
-                                                    // required: 'Αυτό το πεδίο είναι υποχρεωτικό',
-                                                    onChange: (e: any) => setAddress(e.target.value)
-                                                })}
-                                            />
-                                            <FormError value={errors?.address} />
-
-                                        </>
-                                    } */}
-
-
-
                                 </div>
-
                             </div>
 
 
@@ -370,52 +344,48 @@ export default function CreateNewProfile() {
 
                                     </MapContainer>
 
-                                    <div className='items-inline' style={{ gap: '20px', width: '100%' }}>
+                                    <div className='items-inline' style={{ gap: '20px', width: '100%', marginTop: '25px' }}>
+
+                                        <div style={{ display: 'flex', gap: '15px', flexDirection: 'row', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                                            <div style={{ display: 'flex', flexDirection: 'column' }}>
+
+                                                <label>Πόλη</label>
+                                                <select
+                                                    style={{ width: '200px' }}
+                                                    className={CSS.city_dropdown}
+                                                    {...register('city')}
+
+                                                    onChange={(e) => {
+                                                        setCity([e?.target?.value.split(",")[2]])
+                                                        setPosition([e?.target?.value.split(",")[0], e?.target?.value.split(",")[1]])
+                                                    }}>
+                                                    {cities
+                                                        .map((city: any) => (
+                                                            <option
+                                                                key={city.id}
+                                                                value={[city?.latitude, city?.longitude, city?.id]}>
+                                                                {city.name}
+                                                            </option>
+                                                        ))}
+                                                </select>
+                                            </div>
 
 
+                                            <div style={{ display: 'flex', flexDirection: 'column', }}>
+                                                <label>Διεύθυνση</label>
+                                                <input
+                                                    style={{ width: '200px', height: '49px' }}
+                                                    value={address}
 
-                                        <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-                                            <label>Πόλη</label>
+                                                    type='text'
+                                                    {...register('address', {
+                                                        // required: 'Αυτό το πεδίο είναι υποχρεωτικό',
+                                                        onChange: (e: any) => setAddress(e.target.value)
+                                                    })}
+                                                />
+                                                <FormError value={errors?.address} />
 
-                                            <select
-                                                style={{ width: '200px' }}
-                                                className={CSS.city_dropdown}
-                                                {...register('city')}
-
-                                                onChange={(e) => {
-                                                    setCity([e?.target?.value.split(",")[2]])
-
-                                                    setPosition([e?.target?.value.split(",")[0], e?.target?.value.split(",")[1]])
-                                                }
-                                                }>
-                                                {cities
-                                                    .map((city: any) => (
-                                                        <option
-
-                                                            key={city.id}
-                                                            value={[city?.latitude, city?.longitude, city?.id]}
-                                                        >
-                                                            {city.name}</option>
-                                                    ))}
-
-                                            </select>
-                                        </div>
-
-                                        <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-                                            <label>Διεύθυνση</label>
-                                            <input
-                                                style={{ width: '200px' }}
-                                                value={address}
-
-                                                type='text'
-                                                {...register('address', {
-
-                                                    // required: 'Αυτό το πεδίο είναι υποχρεωτικό',
-                                                    onChange: (e: any) => setAddress(e.target.value)
-                                                })}
-                                            />
-                                            <FormError value={errors?.address} />
-
+                                            </div>
                                         </div>
                                     </div>
                                 </>
