@@ -30,6 +30,7 @@ export default function Map() {
     const [modal, setModal] = useState<boolean>(false)
 
 
+
     const studioIcon: any = new L.Icon({
         iconUrl: require("../img/studio.png"),
         iconSize: [25, 41],
@@ -76,7 +77,7 @@ export default function Map() {
         return null;
     }
 
-    console.log(selectedProfile)
+    // console.log(selectedProfile)
 
     const [height, setHeight] = useState<any>(window.innerHeight)
 
@@ -102,9 +103,12 @@ export default function Map() {
 
             <aside className={CSS.sidebar}>
                 <div className='items-inline' style={{ gap: '20px' }}>
-
-
-                    <select onChange={(e) => { setSelectedProfile({}); setCoordinates(e.target.value.split(',')) }} className={CSS.city_dropdown}>
+                    <select
+                        onChange={(e) => {
+                            setSelectedProfile({});
+                            setCoordinates(e.target.value.split(','));
+                        }}
+                        className={CSS.city_dropdown}>
                         {cities.map((city: any) => (
                             <option
                                 key={city?.id}
@@ -114,7 +118,7 @@ export default function Map() {
                         ))}
                     </select>
 
-                    <ul className='items-inline' style={{gap: '20px'}}>
+                    <ul className='items-inline' style={{ gap: '20px' }}>
                         {categories.map((category: any) => (
                             <li key={category?.id} className='items-inline' style={{ gap: '5px' }}>
                                 <input
@@ -141,7 +145,7 @@ export default function Map() {
                 <MapContainer
                     // @ts-ignore
                     center={[33.91907336973602, 35.51552625946782]}
-                    zoom={13}
+                    zoom={7}
                     style={{ width: '100%', height: height - 87 - 55 }} >
                     <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
@@ -197,7 +201,7 @@ export default function Map() {
                             <Link to={`/profile/${selectedProfile?.profileId}`}>
                                 <button type='button' className='btn blue_btn' style={{ width: '70%', margin: '0 auto' }} >Προβολή</button>
                             </Link>
-                            
+
                             <button type='button' onClick={() => setModal(true)} className='btn blue_btn' style={{ width: '70%', margin: '10px auto 0 auto', }} >Μήνυμα</button>
 
 

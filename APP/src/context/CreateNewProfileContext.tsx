@@ -157,16 +157,16 @@ export const CreateNewProfileProvider = ({ children }: any) => {
             formData.append('city', city)
         }
 
+        for (let index in genreArray) {
+            formData.append('genres', genreArray[index])
+        }
+        for (let index in studio_services_array) {
+            formData.append('studio_services', studio_services_array[index])
+        }
+        for (let index in instrumentArray) {
+            formData.append('instruments', instrumentArray[index])
+        }
 
-        for (let i = 0; i < genreArray.length; i++) {
-            formData.append('genres', genreArray[i])
-        }
-        for (let i = 0; i < studio_services_array.length; i++) {
-            formData.append('studio_services', studio_services_array[i])
-        }
-        for (let i = 0; i < instrumentArray.length; i++) {
-            formData.append('instruments', instrumentArray[i])
-        }
 
         const create_profile = new Call(Routes.profiles.new, 'POST', formData)
 
