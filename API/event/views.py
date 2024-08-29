@@ -30,17 +30,18 @@ def new_event(request):
 
 
 # /event/<str:id>/
-# @api_view(["GET"])
-# def event_by_id(request, id):
+@api_view(["GET"])
+def event_by_id(request, id):
 
-#     try:
-#         musician = Event.objects.get(pk=id)
-#     except Event.DoesNotExist:
-#         return Response(["error", "not exist"])
+    try:
+        event = Event.objects.get(pk=id)
+    except Event.DoesNotExist:
+        return Response(["error", "not exist"])
 
-#     serializer = MusicianSerializer(musician)
+    serializer = EventSerializer(event)
 
-#     return Response(serializer.data)
+    return Response(serializer.data)
+
 
 
 # /event/patch/:id/

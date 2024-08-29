@@ -1,0 +1,66 @@
+.container {
+  padding: 20px;
+  align-items: flex-start;
+  gap: 20px;
+  flex-direction: column;
+}
+
+.leftSector {
+  margin: 0 auto;
+}
+
+.iconsSection {
+  flex-wrap: wrap;
+}
+
+.cover_photo {
+  height: 297px;
+  width: 210px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.rightSector {
+  width: 100%;
+}
+
+.title {
+  font-size: 32px;
+  color: #5F69C6;
+  text-align: center;
+}
+
+.description_title {
+  font-size: 13px;
+  color: #8B8B8B;
+  font-weight: 400;
+  padding-bottom: 15px;
+}
+
+.description_text {
+  font-size: 15px;
+}
+
+.divider {
+  margin: 20px 0;
+  border: 0;
+  border-top: 1px solid #DBDBDB;
+}
+
+.bandTitle {
+  font-size: 20px;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    padding: 50px;
+    flex-direction: row;
+  }
+  .cover_photo {
+    height: 297px;
+    width: 210px;
+  }
+  .title {
+    text-align: left;
+  }
+}/*# sourceMappingURL=EventView.module.css.map */
