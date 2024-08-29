@@ -19,7 +19,7 @@ export default function NewEvent(props: any) {
     const [step, setStep] = useState<number>(1)
 
     const form = useForm()
-    const { register, handleSubmit, formState } = form
+    const { register, handleSubmit, formState, resetField } = form
     const { errors }: any = formState
 
 
@@ -116,6 +116,13 @@ export default function NewEvent(props: any) {
                     console.log('Event uploaded successfully')
                     snackbar('Η εκδήλωση δημοσιεύτηκε')
                     props?.closeModal()
+                    resetField('file')
+                    resetField('title')
+                    resetField('description')
+                    resetField('date')
+                    resetField('location_name')
+                    resetField('address')
+                    resetField('profileId')
                 })
                 .catch((err) => console.warn(err))
 
@@ -143,11 +150,13 @@ export default function NewEvent(props: any) {
                 {step === 1 &&
                     <section className={`${CSS.step1Container} items-inline`} >
                         <div className={CSS.uploadPhoto} >
-                            <label htmlFor='picture' className='cursor-pointer'>
+                            <label  className={CSS.uploadPhoto} htmlFor='picture'  style={{border: '1px solid #C9C9C9'}}>
                                 <div className={CSS.bg}>
                                     <img className={CSS.image_preview} src={uploadedFile} width={20} height={20} alt='uploaded file' />
                                 </div>
                             </label>
+
+                   
                             {uploadedFile ?
                                 <p
                                     className={`${CSS.space_around} cursor-pointer`}

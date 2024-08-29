@@ -23,6 +23,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-width: 210px;
+  height: 297px;
 }
 .uploadPhoto img {
   width: 210px;
