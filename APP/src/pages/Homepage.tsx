@@ -5,6 +5,8 @@ import { useContext, useEffect, useState } from 'react'
 import CSS from '../css/Homepage/Homepage.module.css'
 import SvgIcon from '../components/SvgIcon'
 
+import parse from 'html-react-parser'
+
 // images
 import musicianBg from '../img/backgrounds/musician.jpg'
 import bandBg from '../img/backgrounds/band.jpg'
@@ -22,8 +24,6 @@ export default function Homepage() {
   const [width, setWidth] = useState<any>(undefined)
   const [height, setHeight] = useState<any>(undefined)
 
-
-
   useEffect(() => {
 
     document.title = 'Apoechos - Αρχική'
@@ -34,13 +34,14 @@ export default function Homepage() {
     setHeight(window.innerHeight)
     window.addEventListener("resize", () => setHeight(window.innerHeight))
 
-    get_categories()
-  // }, [height])
+
+    // }, [height])
   }, [height])
 
+  useEffect(() => {
+    get_categories()
+  }, [])
 
-  
-  // console.log(categories)
 
   let background = [
     { id: 1, bg: musicianBg },
@@ -49,6 +50,8 @@ export default function Homepage() {
     { id: 4, bg: storeBg },
     { id: 5, bg: stageBg },
   ]
+
+  // let htmlStr = categories?.[4]?.icon
 
 
   return (
@@ -60,6 +63,10 @@ export default function Homepage() {
           <button className='blue_btn btn'>Γνωρίστε τον <b>apoechos.gr</b> </button>
         </a>
       </section>
+
+    {/* {categories.length !== 0 && parse(htmlStr)} */}
+
+
 
 
       <section className={`${CSS.all_slides} items-inline`}>

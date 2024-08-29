@@ -67,7 +67,7 @@ export default function Profile() {
             onClick: () => { setPostModal(true); setActions(false) }
         },
         {
-            icon: 'new event', text: 'Νέο εκδήλωση', category: [1],
+            icon: 'new event', text: 'Νέα εκδήλωση', category: [1],
             onClick: () => { setEventModal(!eventModal); setActions(false) }
         },
     ]

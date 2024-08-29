@@ -20,7 +20,7 @@ export default function Map() {
 
     let { cities, get_cities }: any = useContext(UtilsContext)
 
-    const [coordinates, setCoordinates] = useState<any>([37.983810, 23.727539])
+    const [coordinates, setCoordinates] = useState<any>([38.083810, 23.727539])
 
     const [latitude, setLatitude] = useState<any>(coordinates?.[0])
     const [longitude, setLongitude] = useState<any>(coordinates?.[1])
