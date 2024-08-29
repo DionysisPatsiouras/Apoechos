@@ -33,7 +33,7 @@ const NewEvent = forwardRef(function NewEvent(props: any, ref: any) {
             .then((res) => setStages(res?.[1]))
             .catch((err) => console.warn(err))
     }, [])
-    console.warn(stages)
+    // console.warn(stages)
 
     const onSubmit = (data: any) => {
 
@@ -101,7 +101,7 @@ const NewEvent = forwardRef(function NewEvent(props: any, ref: any) {
                                 required: required_message
                             })} />
                         </div>
-                        {/* <FormError value={errors.time}/> */}
+                        <FormError value={errors.time}/>
                     </div>
 
 

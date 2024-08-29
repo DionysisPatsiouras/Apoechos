@@ -17,6 +17,9 @@ import Activity from '../components/Profile/Activity'
 import EditProfile from '../components/Profile/EditProfile'
 import NewMessageWindow from '../components/Messages/NewMessageWindow'
 import IconButton from '../components/IconButton'
+import NewPost from '../components/Profile/NewPost'
+import { useSnackbarContext } from '../context/SnackbarContext'
+
 
 export default function Profile() {
 
@@ -26,7 +29,7 @@ export default function Profile() {
         currentProfile,
         updateDOM,
         editMode, setEditMode }: any = useContext(ProfileContext)
-
+    let { snackbar }: any = useSnackbarContext()
 
     const [height, setHeight] = useState<any>(undefined)
     const [width, setWidth] = useState<any>(undefined)
@@ -38,13 +41,35 @@ export default function Profile() {
     const [modal, setModal] = useState<boolean>(false)
     const [fullBar, setFullBar] = useState<boolean>(false)
     const [newMsg, setNewMsg] = useState<boolean>(false)
+    const [actions, setActions] = useState<boolean>(false)
+    const [postModal, setPostModal] = useState<boolean>(false)
 
-
+    let my_category = currentProfile?.category?.id
 
     let lists = [
         { id: 'studio_services', icon: 'studio', category: 3 },
         { id: 'instruments', icon: 'musician', category: 1 },
         { id: 'genres', icon: 'genres', category: 1 },
+    ]
+    const url = window.location.href;
+
+    let my_action = [
+        {
+            icon: 'edit', text: 'Επεξεργασία', category: [1, 2, 3, 4, 5],
+            onClick: () => { setEditMode(!editMode); setActions(false) }
+        },
+        {
+            icon: 'url', text: 'Αντιγραφή URL', category: [1, 2, 3, 4, 5],
+            onClick: () => { navigator.clipboard.writeText(url); setActions(false); snackbar('Ο σύνδεσμος αντιγράφηκε') }
+        },
+        {
+            icon: 'post', text: 'Νέα δημοσίευση', category: [1, 2, 3, 4, 5],
+            onClick: () => { setPostModal(true); setActions(false) }
+        },
+        {
+            icon: 'new event', text: 'Νέο εκδήλωση', category: [1],
+            onClick: () => alert('new event')
+        },
     ]
 
 
@@ -56,15 +81,18 @@ export default function Profile() {
         setFullBar(threshold ? false : true)
         document.title = 'Apoechos - Προφίλ'
 
+
     }, [width])
 
     useEffect(() => {
-
         setHeight(window.innerHeight)
         window.addEventListener("resize", () => setHeight(window.innerHeight))
-
-
     }, [height])
+
+
+
+
+
 
 
     return (
@@ -72,19 +100,24 @@ export default function Profile() {
 
         <div className={CSS.container}>
 
+    
 
-            <Modal open={modal} close={() => setModal(false)} closeButton={true}>
+            <Modal open={modal} close={() => setModal(false)} closeButton>
                 <img src={`http://127.0.0.1:8000/${currentProfile?.photo}` || img} alt='profile_photo' />
             </Modal>
 
-            <Modal
-                open={editMode}
-                withContainer={true}
-                title={'Επεξεργασία προφίλ'}>
-                <EditProfile
-                    profile={currentProfile}
-                    close={() => setEditMode(false)}
-                />
+            <Modal open={editMode} withContainer title={'Επεξεργασία προφίλ'}>
+                <EditProfile profile={currentProfile} close={() => setEditMode(false)} />
+            </Modal>
+
+
+            <Modal open={postModal} close={() => setPostModal(false)} withContainer title='Νέα δημοσίευση' btn>
+                <NewPost category={currentProfile?.category} profile_id={currentProfile?.profileId}
+                    close={() => {
+                        updateDOM()
+                        setPostModal(false)
+                        snackbar('Επιτυχής δημοσίευση')
+                    }} />
             </Modal>
 
 
@@ -132,7 +165,6 @@ export default function Profile() {
                             ))}
 
                             <Link to='/create/'>
-
                                 <li className='items-inline' style={{ justifyContent: 'space-between' }}>
                                     {fullBar && 'Νέο Προφίλ'}
                                     <SvgIcon id='add' color='#646464' />
@@ -151,14 +183,11 @@ export default function Profile() {
 
 
                 <section className={CSS.right_content} >
-                    {/* <div className={CSS.profileInfo}> */}
+
                     <div className={CSS.profileInfo}>
 
-                        {/* <div style={{ display: 'flex', gap: '20px' }}> */}
                         <div style={{ padding: '40px 70px' }}>
-                            {/* <div className={CSS.signature} style={{ backgroundColor: currentProfile?.category?.color }}>
-                                <SvgIcon id={currentProfile?.category?.icon} style={{ margin: '5px  0 0 172px' }} color={'#fff'} />
-                            </div> */}
+
 
                             <img
                                 src={`http://127.0.0.1:8000/${currentProfile.photo}`}
@@ -167,7 +196,7 @@ export default function Profile() {
                                 width={150}
                                 height={150}
                                 onClick={() => setModal(!modal)} />
-                            {/* <div className={CSS.signature} style={{ backgroundColor: currentProfile?.category?.color }}> */}
+
                             <SvgIcon id={currentProfile?.category?.icon}
                                 style={{
                                     padding: '10px',
@@ -176,28 +205,21 @@ export default function Profile() {
                                     backgroundColor: currentProfile?.category?.color
                                 }}
                                 color='#fff' width={20} height={20} />
-                            {/* </div> */}
+
 
                             <div>
                                 <div className='items-inline' style={{ justifyContent: 'center' }}>
                                     <strong> {currentProfile?.name} </strong>
-
-
                                 </div>
 
-                                {/* <p className={CSS.bio}>{currentProfile?.bio}</p> */}
+
                                 <div className='items-inline' style={{ justifyContent: 'center' }}>
 
                                     <div className='column' style={{ alignItems: 'center', marginTop: '15px' }}>
                                         <b>{currentProfile?.city?.name} </b>
                                         <p style={{ color: '#A4A4A4' }}>{currentProfile?.address && `${currentProfile.address}`}</p>
                                         <br></br>
-                                        {user?.user_id === currentProfile?.user?.id
-                                            ?
-                                            <IconButton icon='edit' onClick={() => setEditMode(true)} />
-                                            :
-                                            <IconButton icon='messages' onClick={() => setNewMsg(!newMsg)} />
-                                        }
+                                        {user?.user_id !== currentProfile?.user?.id && <IconButton icon='messages' onClick={() => setNewMsg(!newMsg)} />}
 
                                     </div>
                                 </div>
@@ -246,6 +268,29 @@ export default function Profile() {
             </section>
 
 
+            {/* FIXED BUTTONS */}
+            {user?.user_id === currentProfile?.user?.id &&
+
+                <section className={CSS.actionsButton}>
+
+                    {actions &&
+                        <ul className={CSS.actionsContainer}>
+                            {my_action
+                                .filter((action: any) => action.category.includes(my_category))
+                                .map((action: any) => (
+                                    <li className='items-inline' onClick={action.onClick} key={action.text}>
+                                        <p className={`${CSS.label} shadow`}>{action.text}</p>
+                                        <SvgIcon id={action.icon} color='#fff' />
+                                    </li>
+                                ))}
+                        </ul>
+                    }
+                    <div className={CSS.toggleButton} onClick={() => setActions(!actions)}>
+                        <SvgIcon id='settings' width={35} height={35} color='#fff' />
+                    </div>
+
+                </section>
+            }
 
 
         </div>

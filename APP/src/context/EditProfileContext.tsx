@@ -87,7 +87,7 @@ export const EditProfileProvider = ({ children }: any) => {
         formData.append('bio', data?.bio)
 
         my_address && formData.append('address', my_address)
-        data?.photo?.length !== 0 && formData.append('photo', data?.file?.[0])
+        // data?.photo?.length !== 0 && formData.append('photo', data?.file?.[0])
         // formData.append('photo', data?.file?.[0])
         // formData.append('photo', data?.file?.[0])
 

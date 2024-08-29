@@ -10,6 +10,7 @@ import SearchValidation from "../utils/SearchValidation"
 import ProfileListItem from "../components/ProfileListItem"
 import UserContext from "../context/UserContext"
 // import { Img } from "react-optimized-image"
+// import { useDebounce } from "use-debounce"
 
 
 export default function NewEvent() {
@@ -26,10 +27,12 @@ export default function NewEvent() {
     const [uploadedFile, setUploadedFile] = useState<any>()
     const [costumLocation, setCostumLocation] = useState<boolean>(false)
     const [search, setSearch] = useState<string>('')
+
     const [stages, setStages] = useState<any[]>([])
     const [selectedStage, setSelectedStage] = useState<any[]>([])
     const [selectedBands, setSelectedBands] = useState<any[]>([])
     // const [selectedSupportActs, setSelectedSupportActs] = useState<any[]>([])
+
 
 
     let stepInfo = [
@@ -45,7 +48,9 @@ export default function NewEvent() {
     let get_stages = new Call(Routes.profiles.all, 'GET')
 
 
-    let { get_cities, cities }: any = useContext(UtilsContext)
+    let { get_cities, cities,
+        //  my_profiles, get_my_profiles 
+    }: any = useContext(UtilsContext)
 
     useEffect(() => {
         fetchMe()
@@ -55,11 +60,13 @@ export default function NewEvent() {
             .catch((err) => console.warn(err))
 
         get_cities()
+        // get_my_profiles()
         document.title = 'Apoechos - Νέα εκδήλωση'
 
     }, [])
 
-    console.log(me.id)
+    // console.log(me)
+    // console.log(my_profiles)
 
     const check_img_type = (file: any) => {
         setUploadedFile(
@@ -114,7 +121,7 @@ export default function NewEvent() {
             // console.log(selectedStage)
         }
     }
-    console.log(selectedBands)
+    // console.log(selectedBands)
 
     return (
         <div>
@@ -132,14 +139,12 @@ export default function NewEvent() {
             <form onSubmit={handleSubmit(Post_event)} noValidate >
 
 
-
-
                 {step === 1 &&
                     <section className={`${CSS.step1Container} items-inline`} >
                         <div className={CSS.uploadPhoto} >
                             <label htmlFor='picture' className='cursor-pointer'>
                                 <div className={CSS.bg}>
-                                    <img className={CSS.image_preview} src={uploadedFile} width={20} height={20} alt='uploaded image' />
+                                    <img className={CSS.image_preview} src={uploadedFile} width={20} height={20} alt='uploaded file' />
                                 </div>
                             </label>
                             {uploadedFile ?
@@ -234,7 +239,9 @@ export default function NewEvent() {
                             </div>
 
                             {!costumLocation && selectedStage.length === 0 &&
-                                <input type='search' placeholder='Αναζήτηση σκηνής..' onChange={(e: any) => setSearch(e.target.value)} />
+                                <input type='search' placeholder='Αναζήτηση σκηνής..'
+                                    onChange={(e: any) => setSearch(e.target.value)}
+                                />
                             }
 
                         </section>

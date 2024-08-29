@@ -13,6 +13,40 @@
   border-radius: 200px;
 }
 
+.actionsButton {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+.actionsButton .toggleButton, .actionsButton .actionsContainer li {
+  background-color: #5F69C6;
+  border-radius: 200px;
+  display: flex;
+  padding: 10px;
+  margin: 3px;
+  cursor: pointer;
+}
+
+.actionsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.toggleButton {
+  width: auto;
+  height: auto;
+}
+
+.label {
+  position: fixed;
+  right: 82px;
+  padding: 10px;
+  border-radius: 7px;
+  font-size: 12px;
+  background-color: #fff;
+}
+
 .right_content strong {
   color: #5F69C6;
   font-size: 1.3rem;

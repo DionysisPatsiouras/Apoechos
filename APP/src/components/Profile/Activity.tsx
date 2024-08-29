@@ -4,10 +4,10 @@ import { useState, useEffect, useContext } from 'react'
 import CSS from '../../css/Profile/Activity.module.css'
 
 // components
-import Modal from '../Modal'
+// import Modal from '../Modal'
 import AllPosts from '../AllPosts'
-import NewPost from './NewPost'
-import NewEvent from './NewEvent'
+// import NewPost from './NewPost'
+// import NewEvent from './NewEvent'
 import Location from './Location'
 import SvgIcon from '../SvgIcon'
 
@@ -22,14 +22,10 @@ export default function Activity(props: any) {
 
 
     let [activeTab, setActiveTab] = useState<string>('posts')
-    let [createNew, setCreateNew] = useState<boolean>(false)
-    let [modalTitle, setModalTitle] = useState<string>('')
+    // let [createNew, setCreateNew] = useState<boolean>(false)
+    // let [modalTitle, setModalTitle] = useState<string>('')
 
 
-    const new_entry = (title: string) => {
-        setCreateNew(true)
-        setModalTitle(title)
-    }
 
 
     useEffect(() => {
@@ -49,17 +45,10 @@ export default function Activity(props: any) {
 
 
         <section className={CSS.activityContainer}>
-            {/* FIXED BUTTONS */}
-            {/* {props?.canEdit &&
-                <div className={CSS.create_new}>
-                    <p onClick={() => new_entry('Νέα Δημοσίευση')}>+ Νέα δημοσίευση</p>
-                    <p onClick={() => new_entry('Νέα Εκδήλωση')}>+ Νέα εκδήλωση</p>
-                </div>
-            } */}
 
 
             {/* CREATE NEW SECTION */}
-            <Modal
+            {/* <Modal
                 open={createNew}
                 close={() => setCreateNew(false)}
                 withContainer={true}
@@ -76,7 +65,7 @@ export default function Activity(props: any) {
 
                 {modalTitle === 'Νέα Εκδήλωση' && <NewEvent created_by={currentProfile?.profileId} />}
 
-            </Modal>
+            </Modal> */}
 
 
             <ul className={CSS.wall_list}>

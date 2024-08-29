@@ -17,6 +17,7 @@ import Modal from './Modal'
 import UpdatePost from './UpdatePost'
 import Confirmation from './Modal/Confirmation'
 import SvgIcon from './SvgIcon'
+import { useSnackbarContext } from '../context/SnackbarContext'
 
 // This component may take up to 2 props
 // 1) can_edit -> is used in "Profile" page to check if the user owns the posts array
@@ -25,6 +26,7 @@ import SvgIcon from './SvgIcon'
 const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
 
     let { posts, updateDOM }: any = useContext(ProfileContext)
+    let { snackbar }: any = useSnackbarContext()
 
     const [editModal, setEditModal] = useState<boolean>(false)
     const [deleteModal, setDeleteModal] = useState<boolean>(false)
@@ -50,6 +52,7 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
                 console.log('Post deleted successfully')
                 updateDOM()
                 setDeleteModal(false)
+                snackbar('Η δημοσίευση διεγράφη')
             })
             .catch((err) => console.warn(err))
     }

@@ -143,7 +143,9 @@
     height: auto;
     max-height: 500px;
     overflow-y: auto;
-    display: ruby-text;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
   .step2Head {
     width: 100%;
