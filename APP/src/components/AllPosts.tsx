@@ -1,4 +1,4 @@
-import { forwardRef,  useState, useContext } from 'react'
+import { forwardRef, useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 
 // CSS
@@ -94,8 +94,8 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
                 </div>
                 {with_icons && props?.can_edit &&
                     <ul>
-                        <li> <SvgIcon id='edit' width={20} height={20} onClick={() => { setEditModal(!editModal); setSelectedPost(post) }} /> </li>
-                        <li> <SvgIcon id='delete' onClick={() => { setDeleteModal(!deleteModal); setSelectedPost(post) }} /></li>
+                        <li> <SvgIcon id='edit' color='#e2e2e2' width={18} height={18} onClick={() => { setEditModal(!editModal); setSelectedPost(post) }} /> </li>
+                        <li> <SvgIcon id='delete' color='#e2e2e2' width={18} height={18} onClick={() => { setDeleteModal(!deleteModal); setSelectedPost(post) }} /></li>
                     </ul>
                 }
 

@@ -69,7 +69,7 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
 
                 {is_instruments &&
 
-                    <div className={CSS.categories_list}
+                    <div className={`${CSS.categories_list} cursor-pointer`}
                         style={{ display: 'flex', justifyContent: 'center', marginBottom: '10px', gap: '10px' }}>
                         {instrument_categories?.map((item: any) => (
                             <div
@@ -83,7 +83,7 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
                 }
 
 
-                <div style={{ display: 'flex', flexWrap: 'wrap', height: '200px', overflowY: 'scroll', width: '82%', margin: '0 auto' }}>
+                <div className='cursor-pointer'style={{ display: 'flex', flexWrap: 'wrap', height: '200px', overflowY: 'scroll', width: '82%', margin: '0 auto' }}>
                     {initial_Array
                         .filter((i: any) => is_instruments ? i.category === activeCategory : i)
                         .map((i: any) => (

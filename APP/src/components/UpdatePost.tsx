@@ -8,14 +8,15 @@ import Button from './Button'
 import Call from '../utils/Call'
 import { Routes } from '../utils/Routes'
 
+import { useSnackbarContext } from '../context/SnackbarContext'
+
 const UpdatePost = forwardRef(function UpdatePost(props: any, ref: any) {
+
+    let { snackbar }: any = useSnackbarContext()
+
 
     let data = props?.post
     let limit = 150
-
-
-
-
 
 
     const [title, setTitle] = useState<any>()
@@ -69,6 +70,7 @@ const UpdatePost = forwardRef(function UpdatePost(props: any, ref: any) {
             .then(() => {
                 console.log('Post updated successfully')
                 props?.close()
+                snackbar('Η δημοσίευσή σας ενημερώθηκε')
             })
             .catch((err) => console.warn(err))
 

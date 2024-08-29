@@ -1,17 +1,18 @@
-import { forwardRef, useContext, useEffect, useState, useCallback } from 'react'
+import { forwardRef, useContext, useEffect, useState } from 'react'
 
 import CSS from '../../css/Discover/Card.module.css'
-import img from '../../utils/img/default_img.png'
 import { useForm } from 'react-hook-form'
 import Button from '../Button'
 
 import UtilsContext from '../../context/UtilsContext'
+import { useSnackbarContext } from '../../context/SnackbarContext'
 
 
 // utils
 import Call from '../../utils/Call'
 import { Routes } from '../../utils/Routes'
 import FormError from '../../utils/FormError'
+
 
 
 // props => receiver, close
@@ -22,6 +23,7 @@ const NewMessageWindow = forwardRef(function NewMessageWindow(props: any, ref: a
     const [senderId, setSenderId] = useState<string>('')
 
     let { my_profiles, get_my_profiles }: any = useContext(UtilsContext)
+    let { snackbar }: any = useSnackbarContext()
 
     const form = useForm()
     const { register, handleSubmit, formState, resetField, watch } = form
@@ -54,6 +56,7 @@ const NewMessageWindow = forwardRef(function NewMessageWindow(props: any, ref: a
                 resetField('message');
                 props?.close()
                 setSenderId('')
+                snackbar('Το μήνυμα εστάλη')
             })
             .catch((err) => console.warn(err))
 

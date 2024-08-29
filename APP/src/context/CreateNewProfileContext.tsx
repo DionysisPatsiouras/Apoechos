@@ -8,6 +8,10 @@ import UserContext from './UserContext'
 import UtilsContext from './UtilsContext'
 import { handle_checkbox } from '../utils/functions/handle_checkbox'
 import { useMap } from 'react-leaflet'
+
+import { useSnackbarContext } from '../context/SnackbarContext'
+
+
 const CreateNewProfileContext = createContext({})
 export default CreateNewProfileContext
 
@@ -27,6 +31,8 @@ export const CreateNewProfileProvider = ({ children }: any) => {
         instrumentTypes, get_instrument_categories,
         instrument_categories
     }: any = useContext(UtilsContext)
+
+    let { snackbar }: any = useSnackbarContext()
 
     // console.log(instrument_categories)
 
@@ -133,7 +139,7 @@ export const CreateNewProfileProvider = ({ children }: any) => {
         // }, [coordinates])
     }, [position])
 
-
+    // Create Profile
     const onSubmit = async (data: any) => {
 
         let formData: any = new FormData()
@@ -180,6 +186,7 @@ export const CreateNewProfileProvider = ({ children }: any) => {
                     setProfileId(res?.data?.profileId)
                     setUpdateDOM(!updateDOM)
                     setCreated(true)
+                    // snackbar('Το προφίλ δημιουργήθηκε')
                 })
                 .catch((err) => console.warn(err))
 

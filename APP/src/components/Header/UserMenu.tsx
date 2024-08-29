@@ -12,7 +12,6 @@ import { Routes } from '../../utils/Routes'
 // context
 import UserContext from '../../context/UserContext'
 import AuthContext from '../../context/AuthContext'
-
 import logo from '../../img/logo.png'
 
 export default function UserMenu(props: any) {

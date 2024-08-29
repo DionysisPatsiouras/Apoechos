@@ -4,6 +4,7 @@ import { Routes } from "../utils/Routes"
 import { useForm } from 'react-hook-form'
 import UtilsContext from "./UtilsContext"
 import ProfileContext from "./ProfileContext"
+import { useSnackbarContext } from "./SnackbarContext"
 
 const EditProfileContext = createContext({})
 
@@ -21,6 +22,7 @@ export const EditProfileProvider = ({ children }: any) => {
     }: any = useContext(UtilsContext)
 
     let { currentProfile, close_edit }: any = useContext(ProfileContext)
+    let { snackbar }: any = useSnackbarContext()
 
 
 
@@ -103,17 +105,18 @@ export const EditProfileProvider = ({ children }: any) => {
             formData.append('instruments', my_instruments[i])
         }
 
-        
+
 
 
         const update_profile = new Call(Routes.profiles.update(currentProfile?.profileId), 'PATCH', formData)
-        console.log("🚀 ~ updateProfile ~ formData:", formData)
+     
         update_profile
             .PATCH_MEDIA()
             .then((res) => {
                 // console.log(res);
                 setTab(1);
                 close_edit(true)
+                snackbar('Επιτυχής ενημέρωση')
             })
             .catch((err) => console.warn(err))
     }

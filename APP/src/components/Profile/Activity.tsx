@@ -18,13 +18,10 @@ import ProfileContext from '../../context/ProfileContext'
 export default function Activity(props: any) {
 
 
-    let { profile_id, currentProfile, DOM, setDOM }: any = useContext(ProfileContext)
+    let { profile_id, currentProfile }: any = useContext(ProfileContext)
 
 
     let [activeTab, setActiveTab] = useState<string>('posts')
-    // let [createNew, setCreateNew] = useState<boolean>(false)
-    // let [modalTitle, setModalTitle] = useState<string>('')
-
 
 
 
@@ -45,27 +42,6 @@ export default function Activity(props: any) {
 
 
         <section className={CSS.activityContainer}>
-
-
-            {/* CREATE NEW SECTION */}
-            {/* <Modal
-                open={createNew}
-                close={() => setCreateNew(false)}
-                withContainer={true}
-                title={modalTitle}
-                btn >
-                {modalTitle === 'Νέα Δημοσίευση' &&
-                    <NewPost category={currentProfile?.category}
-                        close={() => {
-                            // setDOM(!DOM);
-                            setDOM(!DOM)
-                            setCreateNew(false)
-                        }}
-                        profile_id={currentProfile?.profileId} />}
-
-                {modalTitle === 'Νέα Εκδήλωση' && <NewEvent created_by={currentProfile?.profileId} />}
-
-            </Modal> */}
 
 
             <ul className={CSS.wall_list}>

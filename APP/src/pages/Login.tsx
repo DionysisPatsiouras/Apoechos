@@ -9,10 +9,12 @@ import CSS from '../css/Login/Login.module.css'
 import { email_regex } from '../utils/Regex'
 import FormError from '../utils/FormError'
 
+
 export default function Login() {
 
 
     let { loginUser, user }: any = useContext(AuthContext)
+
 
 
     const form = useForm<any>()
@@ -61,9 +63,7 @@ export default function Login() {
                         // value={'123'}
                         className={CSS.inputs}
                         type='password'
-                        {...register('password', {
-                            required: 'Υποχρεωτικό πεδίο'
-                        })}
+                        {...register('password', { required: 'Υποχρεωτικό πεδίο' })}
                     />
 
 

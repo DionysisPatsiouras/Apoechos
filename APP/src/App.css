@@ -171,6 +171,21 @@ input, select {
   color: #fff;
 }
 
+.iconButton {
+  background-color: #5F69C6;
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 1s;
+}
+
+.iconButton:hover {
+  background-color: #6b75d3;
+}
+
 @keyframes rotation {
   0% {
     transform: rotate(0deg);

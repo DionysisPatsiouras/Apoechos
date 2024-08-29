@@ -29,6 +29,8 @@ export default function Profile() {
         currentProfile,
         updateDOM,
         editMode, setEditMode }: any = useContext(ProfileContext)
+
+
     let { snackbar }: any = useSnackbarContext()
 
     const [height, setHeight] = useState<any>(undefined)
@@ -36,7 +38,6 @@ export default function Profile() {
 
     let isMobile = width >= 768
     let threshold = width <= 1500
-
 
     const [modal, setModal] = useState<boolean>(false)
     const [fullBar, setFullBar] = useState<boolean>(false)
@@ -100,7 +101,7 @@ export default function Profile() {
 
         <div className={CSS.container}>
 
-    
+
 
             <Modal open={modal} close={() => setModal(false)} closeButton>
                 <img src={`http://127.0.0.1:8000/${currentProfile?.photo}` || img} alt='profile_photo' />
@@ -186,7 +187,7 @@ export default function Profile() {
 
                     <div className={CSS.profileInfo}>
 
-                        <div style={{ padding: '40px 70px' }}>
+                        <div style={{ padding: '40px 70px 20px 70px' }}>
 
 
                             <img
