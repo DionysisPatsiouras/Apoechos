@@ -9,11 +9,12 @@ import UtilsContext from "../context/UtilsContext"
 import SearchValidation from "../utils/SearchValidation"
 import ProfileListItem from "../components/ProfileListItem"
 import UserContext from "../context/UserContext"
+import { useSnackbarContext } from '../context/SnackbarContext'
 // import { Img } from "react-optimized-image"
 // import { useDebounce } from "use-debounce"
 
 
-export default function NewEvent() {
+export default function NewEvent(props: any) {
 
     const [step, setStep] = useState<number>(1)
 
@@ -21,7 +22,8 @@ export default function NewEvent() {
     const { register, handleSubmit, formState } = form
     const { errors }: any = formState
 
-    const { me, fetchMe }: any = useContext(UserContext)
+
+    const { snackbar }: any = useSnackbarContext()
 
 
     const [uploadedFile, setUploadedFile] = useState<any>()
@@ -48,12 +50,9 @@ export default function NewEvent() {
     let get_stages = new Call(Routes.profiles.all, 'GET')
 
 
-    let { get_cities, cities,
-        //  my_profiles, get_my_profiles 
-    }: any = useContext(UtilsContext)
+    let { get_cities, cities, }: any = useContext(UtilsContext)
 
     useEffect(() => {
-        fetchMe()
         get_stages
             .GET()
             .then((res) => setStages(res?.[1]))
@@ -82,10 +81,9 @@ export default function NewEvent() {
 
         let formData: any = new FormData()
 
-        uploadedFile === undefined && alert('Παρακαλώ ανεβάστε εικόνα')
+        uploadedFile === undefined && alert('Ανεβάστε εικόνα')
 
         if (step !== 3 && uploadedFile !== undefined) {
-            // if (step !== 3) {
             setStep(step + 1)
         } else {
 
@@ -103,29 +101,32 @@ export default function NewEvent() {
                 formData.append('city', formdata.city)
                 formData.append('address', formdata.address)
             }
-            for (let i = 0; i < selectedBands.length; i++) {
-                formData.append('main_bands', selectedBands[i]?.profileId)
+            for (let index in selectedBands) {
+                formData.append('main_bands', selectedBands[index]?.profileId)
+
             }
+            formData.append('created_by', props?.profileId)
 
-
-            formData.append('created_by', me.id)
             let post_event = new Call(Routes.events.new, 'POST', formData)
 
             post_event
                 .POST_MEDIA()
-                .then((res) => console.log(res))
+                .then((res) => {
+                    // console.log(res)
+                    console.log('Event uploaded successfully')
+                    snackbar('Η εκδήλωση δημοσιεύτηκε')
+                    props?.closeModal()
+                })
                 .catch((err) => console.warn(err))
 
-            // console.log(formdata)
-            // console.log(selectedBands)
-            // console.log(selectedStage)
+
         }
     }
     // console.log(selectedBands)
 
     return (
         <div>
-            <section className={`${CSS.head} items-inline`}>
+            {/* <section className={`${CSS.head} items-inline`}>
                 <div>
                     <h1 className={CSS.stepTitle}> {stepInfo[step - 1]?.title}</h1>
                     <br></br>
@@ -133,7 +134,7 @@ export default function NewEvent() {
                 </div>
 
                 <h2>Βήμα {step} / 3</h2>
-            </section>
+            </section> */}
 
 
             <form onSubmit={handleSubmit(Post_event)} noValidate >

@@ -56,7 +56,7 @@ const Card = forwardRef(function Card(props: any, ref) {
                         className={`${CSS.messageIcon} cursor-pointer blue_btn`}
 
                         onClick={() => setModal(!modal)}>
-                        <SvgIcon id='messages' color='#fff' width={20} />
+                        <SvgIcon id='send' color='#fff' width={20} />
                     </div>
 
                     <Link to={`/profile/${profile?.profileId}`} >

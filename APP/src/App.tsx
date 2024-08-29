@@ -86,7 +86,6 @@ export default function App() {
                     <Route path='/discover' element={<DiscoverProvider><Discover /></DiscoverProvider>} />
                     <Route path='/posts' element={<Posts />} />
                     <Route path='/events' element={<Events />} />
-                    <Route path='/events/new' element={<NewEvent />} />
                     <Route path='/map' element={<Map />} />
                     <Route path='/messages/:id/' element={<Messages />} />
                     {/* need to create this */}

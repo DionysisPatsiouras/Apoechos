@@ -12,9 +12,7 @@ export default ProfileContext
 export const ProfileProvider = ({ children }: any) => {
 
 
-
     let profile_id = window.location.pathname.replace('/profile/', '')
-    // console.log("🚀 ~ ProfileProvider ~ profile_id:", profile_id)
 
 
     const [my_profiles, setMyProfiles] = useState<any>([])

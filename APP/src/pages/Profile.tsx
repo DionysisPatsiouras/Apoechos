@@ -19,18 +19,14 @@ import NewMessageWindow from '../components/Messages/NewMessageWindow'
 import IconButton from '../components/IconButton'
 import NewPost from '../components/Profile/NewPost'
 import { useSnackbarContext } from '../context/SnackbarContext'
+import NewEvent from './NewEvent'
+import FullModal from '../components/FullModal'
 
 
 export default function Profile() {
 
     let { user }: any = useContext(AuthContext)
-    let {
-        my_profiles,
-        currentProfile,
-        updateDOM,
-        editMode, setEditMode }: any = useContext(ProfileContext)
-
-
+    let { my_profiles, currentProfile, updateDOM, editMode, setEditMode }: any = useContext(ProfileContext)
     let { snackbar }: any = useSnackbarContext()
 
     const [height, setHeight] = useState<any>(undefined)
@@ -38,21 +34,24 @@ export default function Profile() {
 
     let isMobile = width >= 768
     let threshold = width <= 1500
+    let my_category = currentProfile?.category?.id
+    let url = window.location.href;
 
     const [modal, setModal] = useState<boolean>(false)
     const [fullBar, setFullBar] = useState<boolean>(false)
     const [newMsg, setNewMsg] = useState<boolean>(false)
     const [actions, setActions] = useState<boolean>(false)
     const [postModal, setPostModal] = useState<boolean>(false)
+    const [eventModal, setEventModal] = useState<boolean>(false)
 
-    let my_category = currentProfile?.category?.id
+  
 
     let lists = [
         { id: 'studio_services', icon: 'studio', category: 3 },
         { id: 'instruments', icon: 'musician', category: 1 },
         { id: 'genres', icon: 'genres', category: 1 },
     ]
-    const url = window.location.href;
+    
 
     let my_action = [
         {
@@ -69,20 +68,17 @@ export default function Profile() {
         },
         {
             icon: 'new event', text: 'Νέο εκδήλωση', category: [1],
-            onClick: () => alert('new event')
+            onClick: () => { setEventModal(!eventModal); setActions(false) }
         },
     ]
 
 
 
     useEffect(() => {
-
         setWidth(window.innerWidth)
         window.addEventListener("resize", () => setWidth(window.innerWidth))
         setFullBar(threshold ? false : true)
         document.title = 'Apoechos - Προφίλ'
-
-
     }, [width])
 
     useEffect(() => {
@@ -92,17 +88,15 @@ export default function Profile() {
 
 
 
-
-
-
-
     return (
 
 
         <div className={CSS.container}>
 
 
-
+            <FullModal open={eventModal} close={() => setEventModal(false)} title='Νέα εκδήλωση'>
+                <NewEvent profileId={currentProfile?.profileId} closeModal={() => setEventModal(false)} />
+            </FullModal>
             <Modal open={modal} close={() => setModal(false)} closeButton>
                 <img src={`http://127.0.0.1:8000/${currentProfile?.photo}` || img} alt='profile_photo' />
             </Modal>
@@ -209,7 +203,7 @@ export default function Profile() {
 
 
                             <div>
-                                <div className='items-inline' style={{ justifyContent: 'center' }}>
+                                <div className='items-inline' style={{ justifyContent: 'center', width: '200px' }}>
                                     <strong> {currentProfile?.name} </strong>
                                 </div>
 
