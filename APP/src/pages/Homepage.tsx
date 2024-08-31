@@ -33,18 +33,18 @@ export default function Homepage() {
   const handleSetHeight = useCallback(() => { console.log('height'); setHeight(height + 10) }, [height])
   const handleSetAge = useCallback(() => { console.log('age'); setAge(age + 1) }, [age])
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  //   document.title = 'Apoechos - Αρχική'
+    document.title = 'Apoechos - Αρχική'
 
-  //   setWidth(window.innerWidth)
-  //   window.addEventListener("resize", () => setWidth(window.innerWidth))
+    setWidth(window.innerWidth)
+    window.addEventListener("resize", () => setWidth(window.innerWidth))
 
-  //   setHeight(window.innerHeight)
-  //   window.addEventListener("resize", () => setHeight(window.innerHeight))
+    setHeight(window.innerHeight)
+    window.addEventListener("resize", () => setHeight(window.innerHeight))
 
 
-  //   // }, [height])
+    }, [height])
   // }, [height])
 
   useEffect(() => {
@@ -65,8 +65,7 @@ export default function Homepage() {
 
   return (
     <div>
-      <button onClick={handleSetHeight}>height</button>
-      <button onClick={handleSetAge}>age</button>
+    
 
       <section className={`${CSS.head} `} >
         <img src={full_logo} width={300} alt='apoechos logo' />
