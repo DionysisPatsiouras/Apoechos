@@ -132,6 +132,7 @@ input, select {
   max-height: 400px;
   overflow: auto;
   background-color: #fff;
+  z-index: 9832190751;
 }
 .floating_filters h5 {
   border-bottom: 1px solid #e3e3e3;

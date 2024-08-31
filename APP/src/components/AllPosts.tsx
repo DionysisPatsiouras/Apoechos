@@ -18,6 +18,7 @@ import UpdatePost from './UpdatePost'
 import Confirmation from './Modal/Confirmation'
 import SvgIcon from './SvgIcon'
 import { useSnackbarContext } from '../context/SnackbarContext'
+import ProfileImage from './ProfileImage'
 
 // This component may take up to 2 props
 // 1) can_edit -> is used in "Profile" page to check if the user owns the posts array
@@ -65,7 +66,15 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
 
             <div className={CSS.top}>
                 <div style={{ display: 'flex' }}>
-                    <img
+
+
+
+                    <ProfileImage
+                        photo={post?.profile?.photo}
+                        category={post?.profile?.category}
+                        size={100}
+                    />
+                    {/* <img
                         src={`http://127.0.0.1:8000/${post?.profile?.photo}`}
                         className={CSS.profile_photo}
                         width={100}
@@ -74,7 +83,7 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
 
                     <div className={CSS.category_container} style={{ backgroundColor: post?.profile?.category?.color }} >
                         <SvgIcon id={post?.profile?.category?.icon} color={'#fff'} width={20} />
-                    </div>
+                    </div> */}
 
                     <div className={CSS.content}>
 

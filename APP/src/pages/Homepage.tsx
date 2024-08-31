@@ -1,7 +1,7 @@
 
 import UtilsContext from '../context/UtilsContext'
 
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState, useCallback } from 'react'
 import CSS from '../css/Homepage/Homepage.module.css'
 import SvgIcon from '../components/SvgIcon'
 
@@ -22,21 +22,30 @@ export default function Homepage() {
 
   let threshold = 768
   const [width, setWidth] = useState<any>(undefined)
-  const [height, setHeight] = useState<any>(undefined)
+  // const [height, setHeight] = useState<any>(undefined)
 
-  useEffect(() => {
+  const [height, setHeight] = useState(100)
+  const [age, setAge] = useState(3)
 
-    document.title = 'Apoechos - Αρχική'
+  // const handleSetHeight = () => { console.log('setheight triggered'); setHeight(height + 10) }
+  // const handleSetAge = () => { console.log('setage triggered'); setAge(age + 1) }
 
-    setWidth(window.innerWidth)
-    window.addEventListener("resize", () => setWidth(window.innerWidth))
+  const handleSetHeight = useCallback(() => { console.log('height'); setHeight(height + 10) }, [height])
+  const handleSetAge = useCallback(() => { console.log('age'); setAge(age + 1) }, [age])
 
-    setHeight(window.innerHeight)
-    window.addEventListener("resize", () => setHeight(window.innerHeight))
+  // useEffect(() => {
+
+  //   document.title = 'Apoechos - Αρχική'
+
+  //   setWidth(window.innerWidth)
+  //   window.addEventListener("resize", () => setWidth(window.innerWidth))
+
+  //   setHeight(window.innerHeight)
+  //   window.addEventListener("resize", () => setHeight(window.innerHeight))
 
 
-    // }, [height])
-  }, [height])
+  //   // }, [height])
+  // }, [height])
 
   useEffect(() => {
     get_categories()
@@ -56,6 +65,8 @@ export default function Homepage() {
 
   return (
     <div>
+      <button onClick={handleSetHeight}>height</button>
+      <button onClick={handleSetAge}>age</button>
 
       <section className={`${CSS.head} `} >
         <img src={full_logo} width={300} alt='apoechos logo' />
@@ -64,7 +75,7 @@ export default function Homepage() {
         </a>
       </section>
 
-    {/* {categories.length !== 0 && parse(htmlStr)} */}
+      {/* {categories.length !== 0 && parse(htmlStr)} */}
 
 
 

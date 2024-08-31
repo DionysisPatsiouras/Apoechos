@@ -21,6 +21,7 @@ import NewPost from '../components/Profile/NewPost'
 import { useSnackbarContext } from '../context/SnackbarContext'
 import NewEvent from './NewEvent'
 import FullModal from '../components/FullModal'
+import ProfileImage from '../components/ProfileImage'
 
 
 export default function Profile() {
@@ -44,14 +45,14 @@ export default function Profile() {
     const [postModal, setPostModal] = useState<boolean>(false)
     const [eventModal, setEventModal] = useState<boolean>(false)
 
-  
+
 
     let lists = [
         { id: 'studio_services', icon: 'studio', category: 3 },
         { id: 'instruments', icon: 'musician', category: 1 },
         { id: 'genres', icon: 'genres', category: 1 },
     ]
-    
+
 
     let my_action = [
         {
@@ -183,23 +184,12 @@ export default function Profile() {
 
                         <div style={{ padding: '40px 70px 20px 70px' }}>
 
-
-                            <img
-                                src={`http://127.0.0.1:8000/${currentProfile.photo}`}
-                                alt='currentProfile'
-                                className={CSS.profile_photo}
-                                width={150}
-                                height={150}
-                                onClick={() => setModal(!modal)} />
-
-                            <SvgIcon id={currentProfile?.category?.icon}
-                                style={{
-                                    padding: '10px',
-                                    borderRadius: '200px',
-                                    marginLeft: '-55px',
-                                    backgroundColor: currentProfile?.category?.color
-                                }}
-                                color='#fff' width={20} height={20} />
+                            <ProfileImage
+                                photo={currentProfile?.photo}
+                                category={currentProfile?.category}
+                                onClick={() => setModal(!modal)}
+                                size={180}
+                            />
 
 
                             <div>

@@ -14,6 +14,7 @@ import L from 'leaflet'
 import SvgIcon from '../components/SvgIcon'
 import NewMessageWindow from '../components/Messages/NewMessageWindow'
 import Modal from '../components/Modal'
+import ProfileImage from '../components/ProfileImage'
 
 export default function Map() {
 
@@ -180,7 +181,15 @@ export default function Map() {
                 {selectedProfile.name &&
                     <aside className={`${CSS.selectedProfile} items-column`}>
                         <SvgIcon id='close' width={15} onClick={() => setSelectedProfile({})} />
-                        <img
+
+
+                        <ProfileImage
+                            photo={selectedProfile?.photo}
+                            category={selectedProfile?.category}
+                            onClick={() => setModal(!modal)}
+                            size={184}
+                        />
+                        {/* <img
                             className='circle_img'
                             src={`http://127.0.0.1:8000/${selectedProfile?.photo}`}
                             width={184} height={184}
@@ -192,7 +201,7 @@ export default function Map() {
                             width={20}
                             height={20}
                             color='#fff'
-                            style={{ backgroundColor: selectedProfile?.category?.color }} />
+                            style={{ backgroundColor: selectedProfile?.category?.color }} /> */}
                         <div className={CSS.info}>
                             <h2>{selectedProfile?.name}</h2>
                             <b>{selectedProfile?.city?.name}</b>

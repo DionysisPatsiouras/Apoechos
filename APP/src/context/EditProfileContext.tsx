@@ -77,7 +77,7 @@ export const EditProfileProvider = ({ children }: any) => {
 
     const updateProfile = (data: any) => {
 
-        console.log("🚀 ~ updateProfile ~ data:", data)
+        // console.log("🚀 ~ updateProfile ~ data:", data)
 
         // console.warn(my_city)
 
@@ -94,22 +94,19 @@ export const EditProfileProvider = ({ children }: any) => {
         // formData.append('photo', data?.file?.[0])
 
 
-
-        for (let i = 0; i < my_services.length; i++) {
-            formData.append('studio_services', my_services[i])
+        for (let index in my_services) {
+            formData.append('studio_services', my_services[index])
         }
-        for (let i = 0; i < my_genres.length; i++) {
-            formData.append('genres', my_genres[i])
+        for (let index in my_genres) {
+            formData.append('genres', my_genres[index])
         }
-        for (let i = 0; i < my_instruments.length; i++) {
-            formData.append('instruments', my_instruments[i])
+        for (let index in my_instruments) {
+            formData.append('instruments', my_instruments[index])
         }
-
-
 
 
         const update_profile = new Call(Routes.profiles.update(currentProfile?.profileId), 'PATCH', formData)
-     
+
         update_profile
             .PATCH_MEDIA()
             .then((res) => {
