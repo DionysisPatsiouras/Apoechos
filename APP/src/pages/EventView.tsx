@@ -78,18 +78,21 @@ export default function EventView() {
                 <div className={`${CSS.iconsSection} items-inline`} style={{ gap: '30px', marginTop: '30px' }}>
 
                     <div className='items-inline' style={{ gap: '10px' }}>
-                        <SvgIcon id='clock' color={svg_color} />
-                        <p>Έναρξη: {timestamp(event?.date)}</p>
+                        <SvgIcon id='location' color={svg_color} />
+                        <p>{event?.profile_location?.city?.name || event?.location}</p>
                     </div>
+
 
                     <div className='items-inline' style={{ gap: '10px' }}>
                         <SvgIcon id='calendar' color={svg_color} />
                         <p>{numeric_date(event?.date)}</p>
                     </div>
+
                     <div className='items-inline' style={{ gap: '10px' }}>
-                        <SvgIcon id='location' color={svg_color} />
-                        <p>{event?.profile_location?.city?.name || event?.location}</p>
+                        <SvgIcon id='clock' color={svg_color} />
+                        <p>Έναρξη: {timestamp(event?.date)}</p>
                     </div>
+
                 </div>
 
 
@@ -116,7 +119,7 @@ export default function EventView() {
 
                     <div>
                         <p className={CSS.description_title}>Δημιουργήθηκε από:</p>
-                        
+
                         <Link to={`/profile/${event?.created_by?.profileId}`}>
                             <div className='items-inline' style={{ gap: '10px' }}>
                                 <ProfileImage
