@@ -2,8 +2,7 @@
 import { forwardRef } from 'react'
 import CSS from '../../css/Event/EventView.module.css'
 import { numeric_date, timestamp } from '../../utils/Shortcuts'
-// import { Link } from 'react-router-dom'
-
+import { Link } from 'react-router-dom'
 
 const EventView = forwardRef(function EventView(props: any, ref: any) {
 
@@ -12,6 +11,8 @@ const EventView = forwardRef(function EventView(props: any, ref: any) {
 
 
     return (
+
+
         <div className={`${CSS.content} cursor-pointer`} onClick={props?.onClick}>
 
 
@@ -25,7 +26,10 @@ const EventView = forwardRef(function EventView(props: any, ref: any) {
                         // <Link to={`/profile/${band.profileId}`} key={index}>
                         //     <h2 >{band?.name}</h2>
                         // </Link>
-                        <h2 key={index}>{band?.name}</h2>
+                        // <Link to={`/profile/${band?.name}`}>
+                            <h2 key={index}>{band?.name}</h2>
+                        // </Link>
+
 
                     ))}
             </div>
@@ -52,6 +56,7 @@ const EventView = forwardRef(function EventView(props: any, ref: any) {
 
 
         </div>
+
     )
 })
 

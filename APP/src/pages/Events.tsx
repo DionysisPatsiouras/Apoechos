@@ -11,6 +11,7 @@ import { handle_checkbox } from '../utils/functions/handle_checkbox'
 import FixedButton from '../components/FixedButton'
 import UtilsContext from '../context/UtilsContext'
 import { Loading } from '../utils/functions/loading'
+import { Link } from 'react-router-dom'
 
 const Events = forwardRef(function Events(props: any, ref: any) {
 
@@ -49,9 +50,9 @@ const Events = forwardRef(function Events(props: any, ref: any) {
     return (
         <section>
 
-            <Modal open={modal} title='Εκδήλωση' withContainer btn close={() => toggle_modal(false, undefined)}>
+            {/* <Modal open={modal} title='Εκδήλωση' withContainer btn close={() => toggle_modal(false, undefined)}>
                 <FullEvent event={content} />
-            </Modal>
+            </Modal> */}
 
 
             {openFilters &&
@@ -87,7 +88,10 @@ const Events = forwardRef(function Events(props: any, ref: any) {
 
                         )
                         .map((event: any) => (
-                            <EventView key={event.eventId} event={event} onClick={() => toggle_modal(true, event)} />
+                            <Link to={`/events/${event?.eventId}`} target='_blank' >
+
+                                <EventView key={event.eventId} event={event} onClick={() => toggle_modal(true, event)} />
+                            </Link>
                         ))}
 
                 </div>)}

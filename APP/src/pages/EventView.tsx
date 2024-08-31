@@ -60,7 +60,7 @@ export default function EventView() {
 
             <section className={CSS.rightSector}>
                 {event?.title && <h1 className={CSS.title}>{event?.title}</h1>}
-                
+
                 <h2 className={CSS.description_title}>Συγκροτήματα</h2>
                 <div className='items-inline' style={{ gap: '10px' }}>
                     {event?.main_bands.map((band: any, index: number) => (
@@ -96,43 +96,47 @@ export default function EventView() {
                 <hr className={CSS.divider}></hr>
 
                 <section className={`${CSS.footer} items-inline`} style={{ gap: '100px' }}>
-                <div>
-                    <p className={CSS.description_title}>Τοποθεσία</p>
+                    <div>
+                        <p className={CSS.description_title}>Τοποθεσία</p>
+                        <Link to={`/profile/${event?.profile_location?.profileId}`}>
+                            <div className='items-inline' style={{ gap: '10px' }}>
+                                <ProfileImage
+                                    photo={event?.profile_location?.photo}
+                                    style={{ margin: '0' }}
+                                    size={60}
+                                />
+                                <div>
+                                    <p>{event?.profile_location?.name}</p>
+                                    <small>{event?.profile_location?.address}</small>
+                                </div>
 
-                    <div className='items-inline' style={{ gap: '10px' }}>
-                        <ProfileImage
-                            photo={event?.profile_location?.photo}
-                            style={{ margin: '0' }}
-                            size={60}
-                        />
-                        <div>
-                            <p>{event?.profile_location?.name}</p>
-                            <small>{event?.profile_location?.address}</small>
-                        </div>
+                            </div>
+                        </Link>
                     </div>
-                </div>
 
-                <div>
-                    <p className={CSS.description_title}>Δημιουργήθηκε από:</p>
-
-                    <div className='items-inline' style={{ gap: '10px' }}>
-                        <ProfileImage
-                            photo={event?.created_by?.photo}
-                            category={event?.created_by?.category}
-                            style={{ margin: '0' }}
-                            size={60}
-                        />
-                        <div>
-                            <p>{event?.created_by?.name}</p>
-                        </div>
+                    <div>
+                        <p className={CSS.description_title}>Δημιουργήθηκε από:</p>
+                        
+                        <Link to={`/profile/${event?.created_by?.profileId}`}>
+                            <div className='items-inline' style={{ gap: '10px' }}>
+                                <ProfileImage
+                                    photo={event?.created_by?.photo}
+                                    // category={event?.created_by?.category}
+                                    style={{ margin: '0' }}
+                                    size={60}
+                                />
+                                <div>
+                                    <p>{event?.created_by?.name}</p>
+                                </div>
+                            </div>
+                        </Link>
                     </div>
-                </div>
+
+                </section>
+
+
 
             </section>
-
-
-
-        </section>
 
 
 
