@@ -90,7 +90,7 @@ export default function EventView() {
                 <hr className={CSS.divider}></hr>
 
                 <h2 className={CSS.description_title}>Περιγραφή</h2>
-                <p className={CSS.description_text}>{event?.description}</p>
+                <article className={CSS.description_text}>{event?.description}</article>
 
                 <div className={`${CSS.iconsSection} items-inline`} style={{ gap: '30px', marginTop: '30px' }}>
 
@@ -135,7 +135,7 @@ export default function EventView() {
                     </div>
 
                     <div>
-                        <p className={CSS.description_title}>Δημιουργήθηκε από:</p>
+                        <p className={CSS.description_title}>Δημιουργήθηκε από</p>
 
                         <Link to={`/profile/${event?.created_by?.profileId}`}>
                             <div className='items-inline' style={{ gap: '10px' }}>
