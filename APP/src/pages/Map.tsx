@@ -98,7 +98,7 @@ export default function Map() {
         <div className='items-column'>
 
             <Modal open={modal} close={() => setModal(!modal)} withContainer title='Νέο μήνυμα' btn>
-                <NewMessageWindow receiver={selectedProfile} />
+                <NewMessageWindow receiver={selectedProfile} close={() => setModal(false)}/>
 
             </Modal>
 
