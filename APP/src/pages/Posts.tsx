@@ -10,8 +10,9 @@ import FixedButton from '../components/FixedButton'
 // utils
 import Call from '../utils/Call'
 import { Routes } from '../utils/Routes'
-import { Loading } from '../utils/functions/loading'
+// import { Loading } from '../utils/functions/loading'
 import { handle_checkbox } from '../utils/functions/handle_checkbox'
+import Loader from '../utils/Loader'
 
 
 export default function News() {
@@ -50,6 +51,9 @@ export default function News() {
 
     // console.log(data)
 
+    let posts = new Loader(data)
+   
+
 
 
     return (
@@ -60,15 +64,14 @@ export default function News() {
 
                 <div className={CSS.allPosts} >
 
-
-                    {Loading(
-                        data?.length !== 0,
-                        <AllPosts all_posts={
-                            data
-                                .filter((profile: any) => array.length === 0 ? !array.includes(labels) : array.includes(profile.title.title))
-                                .sort((a: any, b: any) => new Date(b.created_at) > new Date(a.created_at) ? 1 : -1)} />
+                    {posts.logo_loader(
+                        <AllPosts
+                            all_posts={
+                                data
+                                    .filter((profile: any) => array.length === 0 ? !array.includes(labels) : array.includes(profile.title.title))
+                                    .sort((a: any, b: any) => new Date(b.created_at) > new Date(a.created_at) ? 1 : -1)}
+                        />
                     )}
-
 
 
 

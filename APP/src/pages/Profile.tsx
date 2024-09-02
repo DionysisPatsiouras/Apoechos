@@ -22,6 +22,7 @@ import { useSnackbarContext } from '../context/SnackbarContext'
 import NewEvent from './NewEvent'
 import FullModal from '../components/FullModal'
 import ProfileImage from '../components/ProfileImage'
+import Loader from '../utils/Loader'
 
 
 export default function Profile() {
@@ -88,11 +89,15 @@ export default function Profile() {
     }, [height])
 
 
+    let loading = new Loader(currentProfile)
+    console.log("🚀 ~ Profile ~ currentProfile:", currentProfile)
 
     return (
 
 
         <div className={CSS.container}>
+
+           
 
 
             <FullModal open={eventModal} close={() => setEventModal(false)} title='Νέα εκδήλωση'>
@@ -194,15 +199,19 @@ export default function Profile() {
 
                             <div>
                                 <div className='items-inline' style={{ justifyContent: 'center', width: '200px' }}>
-                                    <strong> {currentProfile?.name} </strong>
+                                    {/* <strong> {currentProfile?.name} </strong> */}
+                                    <strong>{loading.string_load(currentProfile.name)}</strong>
                                 </div>
-
+                                
+                            
+                              
 
                                 <div className='items-inline' style={{ justifyContent: 'center' }}>
 
                                     <div className='column' style={{ alignItems: 'center', marginTop: '15px' }}>
                                         <b>{currentProfile?.city?.name} </b>
                                         <p style={{ color: '#A4A4A4' }}>{currentProfile?.address && `${currentProfile.address}`}</p>
+                                        <p>{loading.string_load(currentProfile.address)}</p>
                                         <br></br>
                                         {user?.user_id !== currentProfile?.user?.id && <IconButton icon='messages' onClick={() => setNewMsg(!newMsg)} />}
 

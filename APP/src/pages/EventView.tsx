@@ -62,11 +62,27 @@ export default function EventView() {
                 {event?.title && <h1 className={CSS.title}>{event?.title}</h1>}
 
                 <h2 className={CSS.description_title}>Συγκροτήματα</h2>
-                <div className='items-inline' style={{ gap: '10px' }}>
+                <div className='items-inline' style={{ gap: '25px', flexWrap: 'wrap' }}>
                     {event?.main_bands.map((band: any, index: number) => (
+
+
                         <Link to={`/profile/${band?.profileId}`} key={index}>
-                            <p className={CSS.bandTitle}>{band?.name}</p>
+                            <div className='items-inline' style={{gap: '10px'}}>
+
+
+                                <ProfileImage
+                                    photo={band?.photo}
+                                    size={60}
+                                    style={{ margin: '0' }}
+                                    key={index}
+                                />
+                                <h2>{band?.name}</h2>
+                                <p>{band?.location?.city}</p>
+                            </div>
                         </Link>
+                        // <Link to={`/profile/${band?.profileId}`} key={index}>
+                        //     <p className={CSS.bandTitle}>{band?.name}</p>
+                        // </Link>
                     ))}
                 </div>
 
