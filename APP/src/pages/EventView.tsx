@@ -67,7 +67,7 @@ export default function EventView() {
 
 
                         <Link to={`/profile/${band?.profileId}`} key={index}>
-                            <div className='items-inline' style={{gap: '10px'}}>
+                            <div className='items-inline' style={{ gap: '10px' }}>
 
 
                                 <ProfileImage
@@ -76,13 +76,14 @@ export default function EventView() {
                                     style={{ margin: '0' }}
                                     key={index}
                                 />
-                                <h2>{band?.name}</h2>
-                                <p>{band?.location?.city}</p>
+                                <div>
+                                    <h2>{band?.name}</h2>
+                                    <small>{band?.city?.name}</small>
+                                </div>
+
                             </div>
                         </Link>
-                        // <Link to={`/profile/${band?.profileId}`} key={index}>
-                        //     <p className={CSS.bandTitle}>{band?.name}</p>
-                        // </Link>
+                  
                     ))}
                 </div>
 

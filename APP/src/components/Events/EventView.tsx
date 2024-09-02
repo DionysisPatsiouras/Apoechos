@@ -22,13 +22,8 @@ const EventView = forwardRef(function EventView(props: any, ref: any) {
             <div className={CSS.main_bands}>
                 {event?.main_bands
                     .map((band: any, index: number) => (
-                        // <Link to={`/profile/${band.profileId}`} key={index}>
-                        //     <h2 >{band?.name}</h2>
-                        // </Link>
-                        // <Link to={`/profile/${band?.name}`}>
-                            <h2 key={index}>{band?.name}</h2>
-                        // </Link>
 
+                        <h2 key={index}>{band?.name}</h2>
 
                     ))}
             </div>
