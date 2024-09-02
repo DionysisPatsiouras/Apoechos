@@ -4,8 +4,6 @@ import { forwardRef, useEffect, useState, useContext } from 'react'
 import Call from '../utils/Call'
 import { Routes } from '../utils/Routes'
 import EventView from '../components/Events/EventView'
-import Modal from '../components/Modal'
-import FullEvent from '../components/Events/FullEvent'
 import { handle_checkbox } from '../utils/functions/handle_checkbox'
 
 import FixedButton from '../components/FixedButton'
@@ -22,8 +20,7 @@ const Events = forwardRef(function Events(props: any, ref: any) {
     }: any = useContext(UtilsContext)
 
     let [events, setEvents] = useState<any[]>([])
-    const [modal, setModal] = useState<boolean>(false)
-    const [content, setContent] = useState<any>()
+
     const [selectedCities, setSelectedCities] = useState<any[]>([])
     const [openFilters, setOpenFilters] = useState<boolean>(false)
 
@@ -41,19 +38,13 @@ const Events = forwardRef(function Events(props: any, ref: any) {
     }, [])
 
 
-    const toggle_modal = (state: boolean, content: any) => {
-        setModal(state)
-        setContent(content)
-    }
+
 
 
     return (
         <section>
 
-            {/* <Modal open={modal} title='Εκδήλωση' withContainer btn close={() => toggle_modal(false, undefined)}>
-                <FullEvent event={content} />
-            </Modal> */}
-
+  
 
             {openFilters &&
                 <ul className={`floating_filters shadow`}>
@@ -88,9 +79,9 @@ const Events = forwardRef(function Events(props: any, ref: any) {
 
                         )
                         .map((event: any) => (
-                            <Link to={`/events/${event?.eventId}`} target='_blank' >
+                            <Link to={`/events/${event?.eventId}`} target='_blank' key={event.eventId}>
 
-                                <EventView key={event.eventId} event={event} onClick={() => toggle_modal(true, event)} />
+                                <EventView event={event} />
                             </Link>
                         ))}
 

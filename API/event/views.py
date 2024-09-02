@@ -5,6 +5,11 @@ from rest_framework import status
 from .serializers import *
 from .models import *
 from rest_framework.permissions import IsAuthenticated
+import datetime
+
+
+from datetime import date, timedelta, datetime
+
 
 
 # /event/
@@ -12,7 +17,17 @@ from rest_framework.permissions import IsAuthenticated
 @permission_classes([])
 def all_events(request):
 
-    events = Event.objects.all()
+    events = (
+        Event.objects.filter(is_deleted=False)
+        .order_by("date")
+        
+        # __lt stands for "less than"
+        # this line excludes the previous days, but keep the current day
+        .exclude(date__lt=datetime.today())
+
+        # this line of code excludes previous days but keeps today AND yesterday
+        # .exclude(date__lte=datetime.today() - timedelta(days=1))
+    )
     serializer = EventSerializer(events, many=True)
 
     return Response(serializer.data)
@@ -41,7 +56,6 @@ def event_by_id(request, id):
     serializer = EventSerializer(event)
 
     return Response(serializer.data)
-
 
 
 # /event/patch/:id/
