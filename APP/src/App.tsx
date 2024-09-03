@@ -65,14 +65,10 @@ export default function App() {
             <UserProvider>
               <SnackbarContextProvider>
 
-
-
                 <Header />
                 <UtilsProvider>
+
                   <Routes>
-
-
-
                     <Route path='/login' element={<Login />} />
                     <Route path='/register' element={<Register />} />
                     <Route path='/' element={<Homepage />} />

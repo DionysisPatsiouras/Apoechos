@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, forwardRef } from 'react'
+import { useContext, useEffect, useState, forwardRef, } from 'react'
 
 // CSS
 import CSS from '../../css/Profile/EditProfile.module.sass'
@@ -12,11 +12,15 @@ import EditProfileContext from '../../context/EditProfileContext'
 // import { useDebounce } from 'use-debounce'
 import { handle_checkbox } from '../../utils/functions/handle_checkbox'
 
-
+// import { useForm, Controller } from "react-hook-form"
 
 // import CreateNewProfileContext from '../../context/CreateNewProfileContext'
 import UtilsContext from '../../context/UtilsContext'
 
+// import Select from 'react-select'
+import { MapContainer, TileLayer } from 'react-leaflet'
+
+import { Marker } from 'react-leaflet'
 // export default function EditProfile(props: any) {
 const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
 
@@ -39,6 +43,8 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
         my_instruments, setMyInstruments,
 
         newFile, setNewFile,
+        control, LocationMarker,
+        position, ChangeView
 
 
     }: any = useContext(EditProfileContext)
@@ -53,9 +59,32 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
         setActiveCategory(instrument_categories?.[0])
     }, [props])
 
+    // function DraggableMarker() {
 
-
-
+    //     const markerRef = useRef(null)
+    
+    //     const eventHandlers = () => ({
+    //       dragend() {
+    //         const marker = markerRef.current
+    //         if (marker != null) {
+    //           // @ts-ignore
+    //           setPosition(marker.getLatLng())
+    //           // @ts-ignore
+    //           props?.setPosition([marker.getLatLng().lat, marker.getLatLng().lng])
+    //         }
+    //       },
+    //     })
+    
+    //     return (
+    //       <Marker
+    //         draggable={true}
+    //         eventHandlers={eventHandlers()}
+    //         position={position}
+    //         ref={markerRef}>
+    //       </Marker>
+    //     )
+    //   }
+ 
 
 
     // console.warn(currentProfile)
@@ -83,7 +112,7 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
                 }
 
 
-                <div className='cursor-pointer'style={{ display: 'flex', flexWrap: 'wrap', height: '200px', overflowY: 'scroll', width: '82%', margin: '0 auto' }}>
+                <div className='cursor-pointer' style={{ display: 'flex', flexWrap: 'wrap', height: '200px', overflowY: 'scroll', width: '82%', margin: '0 auto' }}>
                     {initial_Array
                         .filter((i: any) => is_instruments ? i.category === activeCategory : i)
                         .map((i: any) => (
@@ -101,7 +130,7 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
 
     }
 
-    // console.warn(props.profile)
+
 
 
     return (
@@ -172,6 +201,68 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
 
                         }
 
+                        {currentProfile.latitude &&
+                            <MapContainer
+                                // @ts-ignore
+                                center={[currentProfile.latitude, currentProfile.longitude]}
+                                zoom={13}
+                                style={{ width: '100%', height: '500px' }}
+                            >
+                                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                                {/* <ChangeView center={[currentProfile.latitude, currentProfile.longitude]} /> */}
+
+                                {/* <Marker position={[currentProfile?.latitude, currentProfile?.longitude]}>
+                                </Marker> */}
+                                <LocationMarker />
+
+
+                            </MapContainer>
+
+                        }
+                        {/* <Controller
+                            // control={control}
+                            name="ReactDatepicker"
+                            render={({ field: { onChange, onBlur, value, ref } }) => (
+                                <Select
+                                    className="basic-single"
+                                    classNamePrefix="select"
+                                    // defaultValue={colourOptions[0]}
+                                    // placeholder={''}
+                                    name="color"
+                                    options={cities.map((i: any) => ({ value: i.id, label: i.name }))}
+                                />
+                            )}
+                        /> */}
+
+                        {/* <Controller
+                            name="city"
+                            control={control}
+                            rules={{ required: true }}
+                            render={({ field }) =>
+                                <Select
+                                    {...field}
+                                    options={cities.map((i: any) => ({ value: i.id, label: i.name }))}
+                                 
+                                    // value={{
+                                    //     value: currentProfile?.city?.id,
+                                    //     label: currentProfile?.city?.name
+                                    // }}
+                                    noOptionsMessage={() => 'Ο πόλη δεν βρέθηκε.'}
+                                    // placeholder="Αναζήτηση ΦΔΛ"
+                                    onChange={(e) => console.log(e)}
+                                    styles={{
+                                        control: (baseStyles) => ({
+                                            ...baseStyles,
+                                            backgroundColor: '#f1f5f9',
+                                            border: 'none',
+                                            textAlign: 'left',
+                                            padding: '5px',
+                                            overflow: 'none'
+                                        }),
+                                    }}
+                                />
+                            }
+                        /> */}
 
 
                         <select

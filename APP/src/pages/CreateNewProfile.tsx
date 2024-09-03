@@ -72,6 +72,7 @@ export default function CreateNewProfile() {
             const response_city = await axios.get(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=el`)
 
             // console.log(response?.data)
+            // console.log(response_city?.data)
             setAddress(`${response?.data?.address?.road} ${response?.data?.address?.house_number !== undefined ? response?.data?.address?.house_number : ''}`)
             setPosition([response?.data?.lat, response?.data?.lon])
             setFetchedCity(response_city?.data?.city)

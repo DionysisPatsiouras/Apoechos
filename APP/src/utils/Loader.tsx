@@ -1,5 +1,8 @@
 import { useState } from "react"
 import AnimatedLogo from "../components/AnimatedLogo"
+// import { LinearProgress, Box } from "@mui/material"
+import LinearProgress from '@mui/material/LinearProgress'
+import Box from '@mui/material/Box';
 
 export default class Loader {
 
@@ -31,15 +34,15 @@ export default class Loader {
 
     public string_load = (value: any) => {
 
-        let is_empty = undefined 
 
-        return value === is_empty ? '.......' : value
+        let is_empty = undefined
+
+        return value === is_empty ? <LinearProgress color="info" sx={{height: '5px'}}/> : value
+
+
+
+
     }
-
-
-
-
-
 
 
 }

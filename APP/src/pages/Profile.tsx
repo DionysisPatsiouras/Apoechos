@@ -24,7 +24,8 @@ import FullModal from '../components/FullModal'
 import ProfileImage from '../components/ProfileImage'
 import Loader from '../utils/Loader'
 
-
+import LinearProgress from '@mui/material/LinearProgress';
+import Box from '@mui/material/Box';
 export default function Profile() {
 
     let { user }: any = useContext(AuthContext)
@@ -90,14 +91,14 @@ export default function Profile() {
 
 
     let loading = new Loader(currentProfile)
-    console.log("🚀 ~ Profile ~ currentProfile:", currentProfile)
+    // console.log("🚀 ~ Profile ~ currentProfile:", currentProfile)
 
     return (
 
 
         <div className={CSS.container}>
 
-           
+
 
 
             <FullModal open={eventModal} close={() => setEventModal(false)} title='Νέα εκδήλωση'>
@@ -127,6 +128,8 @@ export default function Profile() {
             </Modal>
 
             <section className={CSS.mainContainer}>
+
+
 
 
                 {user?.user_id === currentProfile?.user?.id &&
@@ -202,16 +205,16 @@ export default function Profile() {
                                     {/* <strong> {currentProfile?.name} </strong> */}
                                     <strong>{loading.string_load(currentProfile.name)}</strong>
                                 </div>
-                                
-                            
-                              
+
+
+
 
                                 <div className='items-inline' style={{ justifyContent: 'center' }}>
 
                                     <div className='column' style={{ alignItems: 'center', marginTop: '15px' }}>
                                         <b>{currentProfile?.city?.name} </b>
-                                        <p style={{ color: '#A4A4A4' }}>{currentProfile?.address && `${currentProfile.address}`}</p>
-                                        <p>{loading.string_load(currentProfile.address)}</p>
+                                        {/* <p style={{ color: '#A4A4A4' }}>{currentProfile?.address && `${currentProfile.address}`}</p> */}
+                                        <div style={{ width: '200%', color: '#A4A4A4' }}>{loading.string_load(currentProfile.address)}</div>
                                         <br></br>
                                         {user?.user_id !== currentProfile?.user?.id && <IconButton icon='messages' onClick={() => setNewMsg(!newMsg)} />}
 

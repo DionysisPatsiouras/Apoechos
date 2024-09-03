@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form'
 import UtilsContext from "./UtilsContext"
 import ProfileContext from "./ProfileContext"
 import { useSnackbarContext } from "./SnackbarContext"
+import { Marker, useMapEvents,useMap } from "react-leaflet"
+import axios from "axios"
 
 const EditProfileContext = createContext({})
 
@@ -26,7 +28,7 @@ export const EditProfileProvider = ({ children }: any) => {
 
 
 
-    const { register, handleSubmit, setValue } = useForm()
+    const { register, handleSubmit, setValue, control } = useForm()
 
     const [tab, setTab] = useState<number>(1)
 
@@ -72,6 +74,60 @@ export const EditProfileProvider = ({ children }: any) => {
         { icon: 'studio_services', label: 'Υπηρεσίες', category: 'Στούντιο', id: 3 },
         { icon: 'keys', label: 'Όργανα', category: 'Μουσικοί', id: 4 },
     ]
+
+    const [fetchedCity, setFetchedCity] = useState<any>()
+    const [city, setCity] = useState<any>(1)
+    const [position, setPosition] = useState([37.9744464, 23.7478837])
+    const [address, setAddress] = useState('')
+
+
+    const getAddress = async (lat: any, lng: any) => {
+        try {
+            const response = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`)
+
+            const response_city = await axios.get(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=el`)
+
+            // console.log(response?.data)
+            // console.log(response_city?.data)
+            setAddress(`${response?.data?.address?.road} ${response?.data?.address?.house_number !== undefined ? response?.data?.address?.house_number : ''}`)
+            setPosition([response?.data?.lat, response?.data?.lon])
+            setFetchedCity(response_city?.data?.city)
+        } catch (error) {
+            console.error('Error fetching the address:', error)
+        }
+    }
+    
+
+    function ChangeView({ center, zoom }: any) {
+        const map = useMap();
+        map.setView(center, zoom);
+        return null;
+    }
+    const LocationMarker = () => {
+        useMapEvents({
+            click(e) {
+                setPosition([e?.latlng?.lat, e?.latlng.lng]);
+                getAddress(e?.latlng?.lat, e?.latlng.lng);
+            },
+
+        })
+
+        return position === null ? null : (
+
+            <Marker
+                //   @ts-ignore
+                position={position}
+                // draggable={true}
+                eventHandlers={{
+                    dragend: (e: any) => {
+                        setPosition([e?.target?._latlng?.lat, e?.target?._latlng?.lng]);
+                        getAddress(e?.target?._latlng?.lat, e?.target?._latlng?.lng);
+                    }
+                }}
+            >
+            </Marker>
+        )
+    }
 
 
 
@@ -138,7 +194,8 @@ export const EditProfileProvider = ({ children }: any) => {
         my_instruments, setMyInstruments,
 
         newFile, setNewFile,
-
+        control, LocationMarker,
+        position, ChangeView
     }
 
 
