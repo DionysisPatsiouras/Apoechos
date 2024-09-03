@@ -55,36 +55,6 @@ def event_by_id(request, id):
     return Response(serializer.data)
 
 
-# /event/patch/:id/
-# @api_view(["PATCH"])
-# @permission_classes([IsAuthenticated])
-# def update_event(request, id):
-#     user = request.user
-
-#     try:
-#         musician = Event.objects.get(pk=id)
-#     except Event.DoesNotExist:
-#         return Response({"message": "Event not found!"})
-
-#     serializer = MusicianSerializer(musician, data=request.data, partial=True)
-
-#     if serializer.is_valid():
-#         if user.id == musician.user_id:
-#             serializer.save()
-#             return Response(
-#                 {
-#                     "message": "ok",
-#                     "status": 200,
-#                     "message": "Updated Successfully!",
-#                     "updated entities": request.data,
-#                 }
-#             )
-#         else:
-#             return Response(
-#                 {
-#                     "message": "You don't have permission",
-#                 }
-# )
 
 
 # /event/profile/<str:id>/
@@ -92,7 +62,6 @@ def event_by_id(request, id):
 def event_by_profile(request, id):
 
     try:
-        # event = Event.objects.filter(created_by=id, is_deleted=False)
         event = Event.objects.filter(Q(created_by=id) | Q(profile_location=id), is_deleted=False)
 
     except Event.DoesNotExist:
