@@ -27,7 +27,6 @@ def all_titles(request):
 @api_view(["GET"])
 def all_posts(request):
 
-    # posts = Post.objects.all()
     posts = Post.objects.filter(is_deleted=False).order_by('created_at')
     serializer = PostSerializer(posts, many=True)
 

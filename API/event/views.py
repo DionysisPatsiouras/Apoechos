@@ -7,9 +7,9 @@ from .models import *
 from rest_framework.permissions import IsAuthenticated
 import datetime
 
+from django.db.models import Q
 
 from datetime import date, timedelta, datetime
-
 
 
 # /event/
@@ -18,13 +18,10 @@ from datetime import date, timedelta, datetime
 def all_events(request):
 
     events = (
-        Event.objects.filter(is_deleted=False)
-        .order_by("date")
-        
+        Event.objects.filter(is_deleted=False).order_by("date")
         # __lt stands for "less than"
         # this line excludes the previous days, but keep the current day
         .exclude(date__lt=datetime.today())
-
         # this line of code excludes previous days but keeps today AND yesterday
         # .exclude(date__lte=datetime.today() - timedelta(days=1))
     )
@@ -88,3 +85,19 @@ def event_by_id(request, id):
 #                     "message": "You don't have permission",
 #                 }
 # )
+
+
+# /event/profile/<str:id>/
+@api_view(["GET"])
+def event_by_profile(request, id):
+
+    try:
+        # event = Event.objects.filter(created_by=id, is_deleted=False)
+        event = Event.objects.filter(Q(created_by=id) | Q(profile_location=id), is_deleted=False)
+
+    except Event.DoesNotExist:
+        return Response(["Message", "Profile not exist!"])
+
+    serializer = EventSerializer(event, many=True)
+
+    return Response([{"length": len(serializer.data)}, serializer.data])
