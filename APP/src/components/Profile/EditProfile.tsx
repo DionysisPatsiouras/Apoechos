@@ -59,35 +59,8 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
         setActiveCategory(instrument_categories?.[0])
     }, [props])
 
-    // function DraggableMarker() {
-
-    //     const markerRef = useRef(null)
-    
-    //     const eventHandlers = () => ({
-    //       dragend() {
-    //         const marker = markerRef.current
-    //         if (marker != null) {
-    //           // @ts-ignore
-    //           setPosition(marker.getLatLng())
-    //           // @ts-ignore
-    //           props?.setPosition([marker.getLatLng().lat, marker.getLatLng().lng])
-    //         }
-    //       },
-    //     })
-    
-    //     return (
-    //       <Marker
-    //         draggable={true}
-    //         eventHandlers={eventHandlers()}
-    //         position={position}
-    //         ref={markerRef}>
-    //       </Marker>
-    //     )
-    //   }
- 
 
 
-    // console.warn(currentProfile)
 
     const update_array = (title: string, initial_Array: any, setState: any, myArray: any, is_instruments: boolean) => {
 
@@ -208,11 +181,9 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
                                 zoom={13}
                                 style={{ width: '100%', height: '500px' }}
                             >
+                                
                                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                                {/* <ChangeView center={[currentProfile.latitude, currentProfile.longitude]} /> */}
-
-                                {/* <Marker position={[currentProfile?.latitude, currentProfile?.longitude]}>
-                                </Marker> */}
+                                <ChangeView center={position} />
                                 <LocationMarker />
 
 

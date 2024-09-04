@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import UtilsContext from "./UtilsContext"
 import ProfileContext from "./ProfileContext"
 import { useSnackbarContext } from "./SnackbarContext"
-import { Marker, useMapEvents,useMap } from "react-leaflet"
+import { Marker, useMapEvents, useMap } from "react-leaflet"
 import axios from "axios"
 
 const EditProfileContext = createContext({})
@@ -87,8 +87,9 @@ export const EditProfileProvider = ({ children }: any) => {
 
             const response_city = await axios.get(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=el`)
 
-            // console.log(response?.data)
+            console.log(response?.data)
             // console.log(response_city?.data)
+            setValue('address', `${response?.data?.address?.road} ${response?.data?.address?.house_number !== undefined ? response?.data?.address?.house_number : ''}`)
             setAddress(`${response?.data?.address?.road} ${response?.data?.address?.house_number !== undefined ? response?.data?.address?.house_number : ''}`)
             setPosition([response?.data?.lat, response?.data?.lon])
             setFetchedCity(response_city?.data?.city)
@@ -96,13 +97,14 @@ export const EditProfileProvider = ({ children }: any) => {
             console.error('Error fetching the address:', error)
         }
     }
-    
+
 
     function ChangeView({ center, zoom }: any) {
         const map = useMap();
         map.setView(center, zoom);
         return null;
     }
+
     const LocationMarker = () => {
         useMapEvents({
             click(e) {
@@ -117,7 +119,7 @@ export const EditProfileProvider = ({ children }: any) => {
             <Marker
                 //   @ts-ignore
                 position={position}
-                // draggable={true}
+                draggable={true}
                 eventHandlers={{
                     dragend: (e: any) => {
                         setPosition([e?.target?._latlng?.lat, e?.target?._latlng?.lng]);
@@ -136,6 +138,7 @@ export const EditProfileProvider = ({ children }: any) => {
         // console.log("🚀 ~ updateProfile ~ data:", data)
 
         // console.warn(my_city)
+        console.log(address)
 
 
         let formData: any = new FormData()
@@ -144,7 +147,8 @@ export const EditProfileProvider = ({ children }: any) => {
         formData.append('city', data?.city)
         formData.append('bio', data?.bio)
 
-        my_address && formData.append('address', my_address)
+        currentProfile?.address && formData.append('address', address)
+        // my_address && formData.append('address', my_address)
         // data?.photo?.length !== 0 && formData.append('photo', data?.file?.[0])
         // formData.append('photo', data?.file?.[0])
         // formData.append('photo', data?.file?.[0])

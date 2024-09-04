@@ -106,17 +106,12 @@ export default function CreateNewProfile() {
             </Marker>
         )
     }
-    // console.log('-------------------------')
-    // console.log(city)
-    // console.log(address)
-    // console.log(position)
+
 
     return (
         <div className='space'>
 
             {/* {userData?.musicianId !== null && <Navigate to='/create' />} */}
-
-
 
             <div className='container'>
 
@@ -329,15 +324,13 @@ export default function CreateNewProfile() {
                                     <hr className='divider'></hr>
                                     <h2>Τοποθεσία</h2>
 
-
-
                                     <MapContainer
                                         center={[position?.[0], position?.[1]]}
                                         zoom={13} style={{ height: "50vh", width: "100%" }}>
 
                                         <TileLayer
                                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                            attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+                                 
                                         />
 
                                         <ChangeView center={[position?.[0], position?.[1]]} />

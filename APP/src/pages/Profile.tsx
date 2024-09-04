@@ -25,8 +25,7 @@ import ProfileImage from '../components/ProfileImage'
 import Loader from '../utils/Loader'
 import FixedButton from '../components/FixedButton'
 
-// import LinearProgress from '@mui/material/LinearProgress'
-// import Box from '@mui/material/Box'
+
 export default function Profile() {
 
     let { user }: any = useContext(AuthContext)
@@ -203,7 +202,6 @@ export default function Profile() {
 
                             <div>
                                 <div className='items-inline' style={{ justifyContent: 'center', width: '200px' }}>
-                                    {/* <strong> {currentProfile?.name} </strong> */}
                                     <strong>{loading.string_load(currentProfile.name)}</strong>
                                 </div>
 
@@ -217,7 +215,7 @@ export default function Profile() {
                                         {/* <p style={{ color: '#A4A4A4' }}>{currentProfile?.address && `${currentProfile.address}`}</p> */}
                                         <div style={{ width: '200%', color: '#A4A4A4' }}>{loading.string_load(currentProfile.address)}</div>
                                         <br></br>
-                                        {user?.user_id !== currentProfile?.user?.id && <IconButton icon='messages' onClick={() => setNewMsg(!newMsg)} />}
+                                        {user?.user_id !== currentProfile?.user?.id && <IconButton icon='send' onClick={() => setNewMsg(!newMsg)} />}
 
                                     </div>
                                 </div>
@@ -285,7 +283,7 @@ export default function Profile() {
                                 ))}
                         </ul>
                     }
-                    
+
                     <FixedButton icon='settings' onClick={() => setActions(!actions)}/>
 
                 </section>

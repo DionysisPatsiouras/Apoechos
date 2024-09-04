@@ -1,14 +1,14 @@
 import { createContext, useState, useEffect, useContext } from 'react'
-import Call from '../utils/Call'
-import { Routes } from '../utils/Routes'
-
-import UserContext from './UserContext'
-// import { patchUser } from '../utils/functions/patchUser'
-// import AuthContext from '../context/AuthContext'
-import UtilsContext from './UtilsContext'
-import { handle_checkbox } from '../utils/functions/handle_checkbox'
 import { useMap } from 'react-leaflet'
 
+// utils
+import Call from '../utils/Call'
+import { Routes } from '../utils/Routes'
+import UtilsContext from './UtilsContext'
+import { handle_checkbox } from '../utils/functions/handle_checkbox'
+
+// context
+import UserContext from './UserContext'
 import { useSnackbarContext } from '../context/SnackbarContext'
 
 

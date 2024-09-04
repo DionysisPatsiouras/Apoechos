@@ -4,10 +4,7 @@ import { useState, useEffect, useContext } from 'react'
 import CSS from '../../css/Profile/Activity.module.css'
 
 // components
-// import Modal from '../Modal'
 import AllPosts from '../AllPosts'
-// import NewPost from './NewPost'
-// import NewEvent from './NewEvent'
 import Location from './Location'
 import SvgIcon from '../SvgIcon'
 
@@ -19,10 +16,7 @@ export default function Activity(props: any) {
 
 
     let { profile_id, currentProfile }: any = useContext(ProfileContext)
-
-
     let [activeTab, setActiveTab] = useState<string>('posts')
-
 
 
     useEffect(() => {
