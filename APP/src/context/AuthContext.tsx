@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom"
 
 import Call from "../utils/Call"
 import { Routes } from "../utils/Routes"
+import { patchUser } from "../utils/functions/patchUser"
+import { full_date, numeric_date } from "../utils/Shortcuts"
 
 const AuthContext = createContext({})
 
@@ -14,6 +16,7 @@ export const AuthProvider = ({ children }: any) => {
 
     const navigate = useNavigate()
 
+    let today = new Date()
 
 
     let [authTokens, setAuthTokens] = useState<any>(() => localStorage.getItem('auth-token') ? JSON.parse(localStorage.getItem('auth-token')!) : null)
@@ -41,15 +44,17 @@ export const AuthProvider = ({ children }: any) => {
                 } else {
                     localStorage.setItem('auth-token', JSON.stringify(res?.access))
                     setUser(jwtDecode(res?.access))
+                    patchUser('last_login', today.toISOString())
+               
                     navigate('/discover')
                 }
             })
 
             .catch((err: any) => {
                 // alert(err?.response?.data?.detail || err)
-                if(err?.response?.data?.detail){
+                if (err?.response?.data?.detail) {
                     alert("Δεν βρέθηκε λογαριασμός με αυτά τα στοιχεία")
-                }else{
+                } else {
                     alert("Προέκυψε κάποιο σφάλμα, δοκιμάστε αργότερα",)
                 }
                 // console.warn(err)
