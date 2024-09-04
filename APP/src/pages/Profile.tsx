@@ -23,9 +23,10 @@ import NewEvent from './NewEvent'
 import FullModal from '../components/FullModal'
 import ProfileImage from '../components/ProfileImage'
 import Loader from '../utils/Loader'
+import FixedButton from '../components/FixedButton'
 
-import LinearProgress from '@mui/material/LinearProgress';
-import Box from '@mui/material/Box';
+// import LinearProgress from '@mui/material/LinearProgress'
+// import Box from '@mui/material/Box'
 export default function Profile() {
 
     let { user }: any = useContext(AuthContext)
@@ -268,6 +269,8 @@ export default function Profile() {
             {/* FIXED BUTTONS */}
             {user?.user_id === currentProfile?.user?.id &&
 
+
+
                 <section className={CSS.actionsButton}>
 
                     {actions &&
@@ -282,9 +285,8 @@ export default function Profile() {
                                 ))}
                         </ul>
                     }
-                    <div className={CSS.toggleButton} onClick={() => setActions(!actions)}>
-                        <SvgIcon id='settings' width={35} height={35} color='#fff' />
-                    </div>
+                    
+                    <FixedButton icon='settings' onClick={() => setActions(!actions)}/>
 
                 </section>
             }

@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react"
 import { useForm } from 'react-hook-form'
-import CSS from '../css/Event/NewEvent.module.css'
+import CSS from '../css/Events/NewEvent.module.css'
 import SvgIcon from "../components/SvgIcon"
 import FormError from "../utils/FormError"
 import Call from "../utils/Call"
@@ -8,7 +8,7 @@ import { Routes } from "../utils/Routes"
 import UtilsContext from "../context/UtilsContext"
 import SearchValidation from "../utils/SearchValidation"
 import ProfileListItem from "../components/ProfileListItem"
-import UserContext from "../context/UserContext"
+// import UserContext from "../context/UserContext"
 import { useSnackbarContext } from '../context/SnackbarContext'
 // import { Img } from "react-optimized-image"
 // import { useDebounce } from "use-debounce"

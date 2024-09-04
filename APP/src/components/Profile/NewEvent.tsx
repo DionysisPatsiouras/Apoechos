@@ -1,7 +1,7 @@
 
 import { forwardRef, useState, useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import CSS from '../../css/Event/NewEvent.module.css'
+import CSS from '../../css/Events/NewEvent.module.css'
 import FormError from '../../utils/FormError'
 import { Routes } from '../../utils/Routes'
 import Call from '../../utils/Call'

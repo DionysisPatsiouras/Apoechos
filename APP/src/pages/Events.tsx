@@ -3,26 +3,28 @@ import { forwardRef, useEffect, useState, useContext } from 'react'
 
 import Call from '../utils/Call'
 import { Routes } from '../utils/Routes'
-import EventView from '../components/Events/EventView'
+// import EventView from '../components/Events/EventView'
 import { handle_checkbox } from '../utils/functions/handle_checkbox'
+// import CSS from '../css/'
+import {  timestamp, day_date } from '../utils/Shortcuts'
 
 import FixedButton from '../components/FixedButton'
 import UtilsContext from '../context/UtilsContext'
 import { Loading } from '../utils/functions/loading'
 import { Link } from 'react-router-dom'
+import CSS from '../css/Events/Events.module.css'
+import SvgIcon from '../components/SvgIcon'
 
 const Events = forwardRef(function Events(props: any, ref: any) {
 
-
-    let {
-        cities,
-        get_cities
-    }: any = useContext(UtilsContext)
+    let { cities, get_cities }: any = useContext(UtilsContext)
 
     let [events, setEvents] = useState<any[]>([])
+    console.log("🚀 ~ events:", events)
 
     const [selectedCities, setSelectedCities] = useState<any[]>([])
     const [openFilters, setOpenFilters] = useState<boolean>(false)
+    const [active, setActive] = useState<string>('')
 
     const [height, setHeight] = useState<any>(100)
 
@@ -44,7 +46,7 @@ const Events = forwardRef(function Events(props: any, ref: any) {
     return (
         <section>
 
-  
+
 
             {openFilters &&
                 <ul className={`floating_filters shadow`}>
@@ -81,7 +83,57 @@ const Events = forwardRef(function Events(props: any, ref: any) {
                         .map((event: any) => (
                             <Link to={`/events/${event?.eventId}`} target='_blank' key={event.eventId}>
 
-                                <EventView event={event} />
+
+                                <div className={`${CSS.content} cursor-pointer`} onClick={props?.onClick}
+                                    onMouseEnter={() => setActive(event?.eventId)}
+                                    onMouseLeave={() => setActive('')}
+                                >
+
+                                    <div className={CSS.coverInfo}
+                                        style={{
+                                            backgroundImage: `url(http://127.0.0.1:8000/${event?.photo})`,
+
+                                        }}>
+                                        {active === event?.eventId &&
+
+                                            <div className={CSS.infoOverlay}>
+                                                {event?.title &&
+                                                    <h2 className={CSS.eventTitle}> {event?.title}</h2>
+                                                }
+
+                                                <ul className={CSS.listOfBands}>
+                                                    {event?.main_bands.map((band: any) => (
+                                                        <li key={band?.profileId}>{band?.name}</li>
+                                                    ))}
+                                                </ul>
+
+                                                <div className='items-inline' style={{ gap: '10px', marginBottom: '5px', padding: '0 10px' }}>
+                                                    <SvgIcon id='location' color='#fff' width={20} />
+                                                    <small>{event?.profile_location?.city?.name || event?.location}</small>
+                                                </div>
+
+
+                                                <div className='items-inline' style={{ gap: '10px', marginBottom: '5px', padding: '0 10px' }}>
+                                                    <SvgIcon id='calendar' color='#fff' width={20} />
+                                                    <small>{day_date(event?.date)}</small>
+                                                </div>
+
+                                                <div className='items-inline' style={{ gap: '10px', marginBottom: '5px', padding: '0 10px' }}>
+                                                    <SvgIcon id='clock' color='#fff' width={20} />
+                                                    <small>{timestamp(event?.date)}</small>
+                                                </div>
+
+                                                <button className={CSS.redirectButton}>Προβολή</button>
+                                            </div>
+                                        }
+                                    </div>
+
+
+
+
+
+                                </div>
+
                             </Link>
                         ))}
 

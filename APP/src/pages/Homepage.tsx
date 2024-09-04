@@ -21,17 +21,11 @@ export default function Homepage() {
   let { categories, get_categories }: any = useContext(UtilsContext)
 
   let threshold = 768
+
   const [width, setWidth] = useState<any>(undefined)
-  // const [height, setHeight] = useState<any>(undefined)
-
   const [height, setHeight] = useState(100)
-  const [age, setAge] = useState(3)
 
-  // const handleSetHeight = () => { console.log('setheight triggered'); setHeight(height + 10) }
-  // const handleSetAge = () => { console.log('setage triggered'); setAge(age + 1) }
 
-  const handleSetHeight = useCallback(() => { console.log('height'); setHeight(height + 10) }, [height])
-  const handleSetAge = useCallback(() => { console.log('age'); setAge(age + 1) }, [age])
 
   useEffect(() => {
 
