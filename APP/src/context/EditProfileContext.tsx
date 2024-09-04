@@ -27,17 +27,17 @@ export const EditProfileProvider = ({ children }: any) => {
     let { snackbar }: any = useSnackbarContext()
 
 
-
     const { register, handleSubmit, setValue, control } = useForm()
 
     const [tab, setTab] = useState<number>(1)
 
-
     const [my_services, setMyServices] = useState<any[]>([])
     const [my_genres, setMyGenres] = useState<any[]>([])
     const [my_instruments, setMyInstruments] = useState<any[]>([])
-    // const [my_address, setMyAddress] = useState<string>()
 
+    const [new_city, setNewCity] = useState<any>(1)
+    const [position, setPosition] = useState<number[]>([])
+    const [new_address, setNewAddress] = useState('')
 
     const [newFile, setNewFile] = useState<any>()
 
@@ -80,9 +80,7 @@ export const EditProfileProvider = ({ children }: any) => {
 
     // const [fetchedCity, setFetchedCity] = useState<any>()
 
-    const [new_city, setNewCity] = useState<any>(1)
-    const [position, setPosition] = useState<number[]>([])
-    const [new_address, setNewAddress] = useState('')
+
 
 
     const getAddress = async (lat: any, lng: any) => {

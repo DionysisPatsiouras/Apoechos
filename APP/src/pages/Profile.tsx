@@ -108,7 +108,7 @@ export default function Profile() {
                 <img src={`http://127.0.0.1:8000/${currentProfile?.photo}`} alt='profile_photo' />
             </Modal>
 
-            <FullModal open={editMode} withContainer title='Επεξεργασία προφίλ'>
+            <FullModal open={editMode} withContainer title='Επεξεργασία προφίλ' close={() => setEditMode(false)}>
                 <EditProfile profile={currentProfile} close={() => setEditMode(false)} />
             </FullModal>
 
