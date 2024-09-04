@@ -108,6 +108,7 @@ input, select {
 
 .circle {
   display: flex;
+  align-items: center;
   position: fixed;
   right: 20px;
   bottom: 20px;

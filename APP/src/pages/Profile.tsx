@@ -70,7 +70,7 @@ export default function Profile() {
             onClick: () => { setPostModal(true); setActions(false) }
         },
         {
-            icon: 'new event', text: 'Νέα εκδήλωση', category: [1],
+            icon: 'new event', text: 'Νέα εκδήλωση', category: [1, 2, 5],
             onClick: () => { setEventModal(!eventModal); setActions(false) }
         },
     ]
@@ -135,7 +135,7 @@ export default function Profile() {
                 {user?.user_id === currentProfile?.user?.id &&
                     <aside className={CSS.my_profiles_list}
                         style={{
-                            height: isMobile ? height - 55 : '100%',
+                            height: isMobile ? height - 55 : '100vh',
                             width: fullBar && isMobile ? '320px' : '82px'
                         }}>
 
@@ -151,12 +151,18 @@ export default function Profile() {
                                         style={{
                                             backgroundColor: profile.profileId === currentProfile?.profileId ? profile?.category?.color : 'unset',
                                             color: profile.profileId === currentProfile?.profileId ? '#fff' : '#646464',
-                                            justifyContent: 'space-between'
+                                            justifyContent: fullBar ? 'space-between' : 'center'
                                         }}
                                     >
                                         <div className='items-inline' style={{ gap: '10px' }}>
                                             <img src={`http://127.0.0.1:8000/${profile.photo}`} className='circle_img' width={10} />
-                                            {fullBar && <p className={CSS.profileName}>{profile.name}</p>}
+                                            {fullBar &&
+                                                <div>
+                                                    <p className={CSS.profileName}>{profile.name} </p>
+                                                    <small style={{ color: '#d3d3d3' }} className={CSS.profileName}> {profile?.address}</small>
+                                                </div>
+
+                                            }
                                         </div>
                                         {fullBar && <div className={CSS.categoryIcon}>
                                             <SvgIcon id={profile.category.icon}
@@ -169,7 +175,7 @@ export default function Profile() {
                             ))}
 
                             <Link to='/create/'>
-                                <li className='items-inline' style={{ justifyContent: 'space-between' }}>
+                                <li className='items-inline' style={{ justifyContent: 'space-between', alignItems: 'center', flexDirection: fullBar ? 'row' : 'column' }}>
                                     {fullBar && 'Νέο Προφίλ'}
                                     <SvgIcon id='add' color='#646464' />
                                 </li>
@@ -284,7 +290,7 @@ export default function Profile() {
                         </ul>
                     }
 
-                    <FixedButton icon='settings' onClick={() => setActions(!actions)}/>
+                    <FixedButton icon='settings' onClick={() => setActions(!actions)} />
 
                 </section>
             }

@@ -85,11 +85,11 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
                 }
 
 
-                <div className='cursor-pointer' style={{ display: 'flex', flexWrap: 'wrap', height: '200px', overflowY: 'scroll', width: '82%', margin: '0 auto' }}>
+                <div className='cursor-pointer' style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', overflowY: 'auto', width: '82%', margin: '0 auto' }}>
                     {initial_Array
                         .filter((i: any) => is_instruments ? i.category === activeCategory : i)
                         .map((i: any) => (
-                            <div className='items-inline' key={i.id} style={{ width: '150px' }}>
+                            <div className='items-inline' key={i.id} style={{ width: '150px', height: '30px' }}>
                                 <input type='checkbox' value={i.id} id={i.id} style={{ width: 'unset' }}
                                     onChange={(event: any) => handle_checkbox(setState, event.target)}
                                     checked={myArray?.includes(i?.id?.toString())}
@@ -232,7 +232,7 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
                 }
 
                 <div className={CSS.bottom_section}>
-                    <button type='submit' className='btn blue_btn'>Αποθήκευση</button>
+                    <button type='submit' className='btn blue_btn'>Ενημέρωση</button>
                     <button type='reset' className='btn discard_btn' style={{ 'backgroundColor': '#9A9A9A' }}
                         onClick={() => { setTab(1); props?.close() }}>  Ακύρωση </button>
                 </div>
