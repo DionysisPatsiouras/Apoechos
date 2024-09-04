@@ -506,7 +506,7 @@ export default function SvgIcon(props: any) {
                 <svg
                     width={props?.width || '30'}
                     height={props?.height || '28'}
-                    viewBox="0 0 30 28"
+                    viewBox="3 0 20 28"
                     fill="none"
                     style={props?.style}
                     onClick={props?.onClick}
