@@ -107,12 +107,12 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
 
 
     return (
-        <section style={{ margin: '-30px' }}>
+        <section>
 
             <ul className={CSS.tabs}>
 
                 {edit_menu
-                    .filter((i: any) => i.category === currentProfile?.category?.name || i.category === 'All')
+                    .filter((i: any) => i.category.includes(currentProfile?.category?.id))
                     .map((item: any, index: number) => (
                         <li key={index}
                             style={{ width: '100%' }}
@@ -154,98 +154,35 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
                                 </label> */}
                             </div>
 
-                        </div>
-
-
-
-                        <input
-                            type='text'
-                            placeholder='Όνομα'
-                            {...register('name', { required: 'Υποχρεωτικό πεδίο' })}
-                        />
-
-
-                        {currentProfile.address &&
                             <input
                                 type='text'
-                                placeholder='Διεύθυνση'
-                                {...register('address', { required: 'Υποχρεωτικό πεδίο' })}
+                                placeholder='Όνομα'
+                                {...register('name', { required: 'Υποχρεωτικό πεδίο' })}
                             />
 
-                        }
-
-                        {currentProfile.latitude &&
-                            <MapContainer
-                                // @ts-ignore
-                                center={[currentProfile.latitude, currentProfile.longitude]}
-                                zoom={13}
-                                style={{ width: '100%', height: '500px' }}
-                            >
-                                
-                                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                                <ChangeView center={position} />
-                                <LocationMarker />
 
 
-                            </MapContainer>
-
-                        }
-                        {/* <Controller
-                            // control={control}
-                            name="ReactDatepicker"
-                            render={({ field: { onChange, onBlur, value, ref } }) => (
-                                <Select
-                                    className="basic-single"
-                                    classNamePrefix="select"
-                                    // defaultValue={colourOptions[0]}
-                                    // placeholder={''}
-                                    name="color"
-                                    options={cities.map((i: any) => ({ value: i.id, label: i.name }))}
-                                />
-                            )}
-                        /> */}
-
-                        {/* <Controller
-                            name="city"
-                            control={control}
-                            rules={{ required: true }}
-                            render={({ field }) =>
-                                <Select
-                                    {...field}
-                                    options={cities.map((i: any) => ({ value: i.id, label: i.name }))}
-                                 
-                                    // value={{
-                                    //     value: currentProfile?.city?.id,
-                                    //     label: currentProfile?.city?.name
-                                    // }}
-                                    noOptionsMessage={() => 'Ο πόλη δεν βρέθηκε.'}
-                                    // placeholder="Αναζήτηση ΦΔΛ"
-                                    onChange={(e) => console.log(e)}
-                                    styles={{
-                                        control: (baseStyles) => ({
-                                            ...baseStyles,
-                                            backgroundColor: '#f1f5f9',
-                                            border: 'none',
-                                            textAlign: 'left',
-                                            padding: '5px',
-                                            overflow: 'none'
-                                        }),
-                                    }}
-                                />
-                            }
-                        /> */}
+                            <select
+                                className={CSS.city_dropdown}
+                                {...register('city')}>
+                                {cities?.map((city: any) => (
+                                    <option key={city.id}
+                                        value={city.id}>
+                                        {city.name}
+                                    </option>
+                                ))}
+                            </select>
 
 
-                        <select
-                            className={CSS.city_dropdown}
-                            {...register('city')}>
-                            {cities?.map((city: any) => (
-                                <option key={city.id}
-                                    value={city.id}>
-                                    {city.name}
-                                </option>
-                            ))}
-                        </select>
+                            <input
+                                type='text'
+                                placeholder='Όνομα'
+                                {...register('bio', { required: 'Υποχρεωτικό πεδίο' })}
+                            />
+
+
+                        </div>
+
 
 
 
@@ -258,7 +195,41 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
                 {tab === 3 && update_array('Υπηρεσίες', studio_services, setMyServices, my_services, false)}
                 {tab === 4 && update_array('Όργανα', instruments, setMyInstruments, my_instruments, true)}
 
+                {tab === 5 &&
 
+                    <div style={{ width: '70%' }}>
+
+                        <div className='items-inline' style={{ gap: '20px' }}>
+                            <input type='text' />
+
+
+                            <select
+                                className={CSS.city_dropdown}
+                                {...register('city')}>
+                                {cities?.map((city: any) => (
+                                    <option key={city.id}
+                                        value={city.id}>
+                                        {city.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <MapContainer
+                            // @ts-ignore
+                            center={[currentProfile.latitude, currentProfile.longitude]}
+                            zoom={13}
+                            style={{ width: '100%', height: '500px', margin: '20px 0' }}
+                        >
+
+                            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                            <ChangeView center={position} />
+                            <LocationMarker />
+
+
+                        </MapContainer>
+                    </div>
+                }
 
                 <div className={CSS.bottom_section}>
                     <button type='submit' className='btn blue_btn'>Αποθήκευση</button>

@@ -36,7 +36,7 @@ export const EditProfileProvider = ({ children }: any) => {
     const [my_services, setMyServices] = useState<any[]>([])
     const [my_genres, setMyGenres] = useState<any[]>([])
     const [my_instruments, setMyInstruments] = useState<any[]>([])
-    const [my_address, setMyAddress] = useState<string>()
+    // const [my_address, setMyAddress] = useState<string>()
 
 
     const [newFile, setNewFile] = useState<any>()
@@ -62,6 +62,8 @@ export const EditProfileProvider = ({ children }: any) => {
         setValue('bio', currentProfile?.bio)
         setValue('address', currentProfile?.address)
 
+        setPosition([currentProfile?.latitude, currentProfile?.longitude])
+
 
     }, [currentProfile?.profileId])
 
@@ -69,16 +71,18 @@ export const EditProfileProvider = ({ children }: any) => {
 
     // console.log(children.props)
     let edit_menu = [
-        { icon: 'account', label: 'Στοιχεία', category: 'All', id: 1 },
-        { icon: 'genres', label: 'Είδη', category: 'Μουσικοί', id: 2 },
-        { icon: 'studio_services', label: 'Υπηρεσίες', category: 'Στούντιο', id: 3 },
-        { icon: 'keys', label: 'Όργανα', category: 'Μουσικοί', id: 4 },
+        { icon: 'account', label: 'Στοιχεία', category: [1, 2, 3, 4, 5], id: 1 },
+        { icon: 'genres', label: 'Είδη', category: [1], id: 2 },
+        { icon: 'studio_services', label: 'Υπηρεσίες', category: [3], id: 3 },
+        { icon: 'keys', label: 'Όργανα', category: [1], id: 4 },
+        { icon: 'location', label: 'Τοποθεσία', category: [3, 4, 5], id: 5 },
     ]
 
-    const [fetchedCity, setFetchedCity] = useState<any>()
-    const [city, setCity] = useState<any>(1)
-    const [position, setPosition] = useState([37.9744464, 23.7478837])
-    const [address, setAddress] = useState('')
+    // const [fetchedCity, setFetchedCity] = useState<any>()
+
+    const [new_city, setNewCity] = useState<any>(1)
+    const [position, setPosition] = useState<number[]>([])
+    const [new_address, setNewAddress] = useState('')
 
 
     const getAddress = async (lat: any, lng: any) => {
@@ -87,12 +91,12 @@ export const EditProfileProvider = ({ children }: any) => {
 
             const response_city = await axios.get(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=el`)
 
-            console.log(response?.data)
+            // console.log(response?.data)
             // console.log(response_city?.data)
             setValue('address', `${response?.data?.address?.road} ${response?.data?.address?.house_number !== undefined ? response?.data?.address?.house_number : ''}`)
-            setAddress(`${response?.data?.address?.road} ${response?.data?.address?.house_number !== undefined ? response?.data?.address?.house_number : ''}`)
+            setNewAddress(`${response?.data?.address?.road} ${response?.data?.address?.house_number !== undefined ? response?.data?.address?.house_number : ''}`)
             setPosition([response?.data?.lat, response?.data?.lon])
-            setFetchedCity(response_city?.data?.city)
+            setNewCity(response_city?.data?.city)
         } catch (error) {
             console.error('Error fetching the address:', error)
         }
@@ -135,11 +139,9 @@ export const EditProfileProvider = ({ children }: any) => {
 
     const updateProfile = (data: any) => {
 
-        // console.log("🚀 ~ updateProfile ~ data:", data)
 
-        // console.warn(my_city)
-        console.log(address)
-
+        // console.log(new_address)
+        let correct_city = cities.filter((i: any) => i.name === new_city)
 
         let formData: any = new FormData()
 
@@ -147,8 +149,14 @@ export const EditProfileProvider = ({ children }: any) => {
         formData.append('city', data?.city)
         formData.append('bio', data?.bio)
 
-        currentProfile?.address && formData.append('address', address)
-        // my_address && formData.append('address', my_address)
+        if (currentProfile?.category?.id !== 1 || currentProfile?.category?.id !== 2) {
+            formData.append('address', new_address)
+            formData.append('latitude', position[0])
+            formData.append('longitude', position[1])
+            formData.append('city', correct_city?.[0]?.id || 1)
+        }
+
+
         // data?.photo?.length !== 0 && formData.append('photo', data?.file?.[0])
         // formData.append('photo', data?.file?.[0])
         // formData.append('photo', data?.file?.[0])

@@ -105,12 +105,12 @@ export default function Profile() {
                 <NewEvent profileId={currentProfile?.profileId} closeModal={() => setEventModal(false)} />
             </FullModal>
             <Modal open={modal} close={() => setModal(false)} closeButton>
-                <img src={`http://127.0.0.1:8000/${currentProfile?.photo}` || img} alt='profile_photo' />
+                <img src={`http://127.0.0.1:8000/${currentProfile?.photo}`} alt='profile_photo' />
             </Modal>
 
-            <Modal open={editMode} withContainer title={'Επεξεργασία προφίλ'}>
+            <FullModal open={editMode} withContainer title='Επεξεργασία προφίλ'>
                 <EditProfile profile={currentProfile} close={() => setEditMode(false)} />
-            </Modal>
+            </FullModal>
 
 
             <Modal open={postModal} close={() => setPostModal(false)} withContainer title='Νέα δημοσίευση' btn>
