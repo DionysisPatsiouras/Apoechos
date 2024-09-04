@@ -17,6 +17,7 @@
   position: fixed;
   bottom: 85px;
   right: 20px;
+  z-index: 99999999999;
 }
 .actionsButton .toggleButton, .actionsButton .actionsContainer li {
   background-color: #5F69C6;

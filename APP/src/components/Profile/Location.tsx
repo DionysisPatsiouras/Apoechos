@@ -1,5 +1,5 @@
-import {  useEffect, useState, forwardRef } from 'react'
-import { MapContainer, Marker, TileLayer, useMap } from 'react-leaflet'
+import { useEffect, useState, forwardRef } from 'react'
+import { MapContainer, Marker, TileLayer, useMap, Popup } from 'react-leaflet'
 
 const Location = forwardRef(function EditProfile(props: any, ref: any) {
 
@@ -8,6 +8,14 @@ const Location = forwardRef(function EditProfile(props: any, ref: any) {
         latitude: props?.latitude,
         longitude: props?.longitude
     })
+
+    const [height, setHeight] = useState<any>(window.innerHeight)
+    const [width, setWidth] = useState<any>(window.innerWidth)
+
+    useEffect(() => {
+        window.addEventListener("resize", () => setHeight(window.innerHeight))
+        window.addEventListener("resize", () => setWidth(window.innerWidth))
+    }, [window.innerHeight])
 
     useEffect(() => {
 
@@ -32,13 +40,19 @@ const Location = forwardRef(function EditProfile(props: any, ref: any) {
         <MapContainer
             // @ts-ignore
             center={[coordinates.latitude, coordinates.longitude]}
-            zoom={13}
-            style={{ width: '100%', height: '500px' }}
+            zoom={14}
+            style={{ width: width - 800, height: height - 200 }}
         >
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
             <ChangeView center={[coordinates.latitude, coordinates.longitude]} />
 
             <Marker position={[coordinates?.latitude, coordinates?.longitude]}>
+                {props?.description &&
+                    <Popup>
+                        {props?.description}
+                    </Popup>
+                }
+
             </Marker>
 
 

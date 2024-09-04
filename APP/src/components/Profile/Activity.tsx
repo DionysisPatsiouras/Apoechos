@@ -61,7 +61,11 @@ export default function Activity(props: any) {
 
                 {activeTab === 'location' &&
 
-                    <Location latitude={currentProfile?.latitude} longitude={currentProfile?.longitude} />
+                    <Location
+                        latitude={currentProfile?.latitude}
+                        longitude={currentProfile?.longitude}
+                        description={currentProfile?.address}
+                    />
                 }
             </section>
 
