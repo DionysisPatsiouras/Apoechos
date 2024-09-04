@@ -49,7 +49,8 @@ def new_post(request):
 def post_by_profile_id(request, id):
 
     try:
-        post = Post.objects.filter(profile=id).filter(is_deleted=False)
+        # the "-" symbol means that the posts with fetched in reversed order
+        post = Post.objects.filter(profile=id).filter(is_deleted=False).order_by('-created_at')
     except Post.DoesNotExist:
         return Response(["Message", "Profile not exist!"])
 
