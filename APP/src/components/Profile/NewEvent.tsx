@@ -71,7 +71,6 @@ const NewEvent = forwardRef(function NewEvent(props: any, ref: any) {
 
             <div style={{ display: 'flex' }}>
 
-
                 {/* <label htmlFor='picture' style={{ margin: '0 15px 0 0', width: '210px' }}>
                     <img src={file} width={210} className={CSS.cover_photo} alt='cover'
                         height={297} />

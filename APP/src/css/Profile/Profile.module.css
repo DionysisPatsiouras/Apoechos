@@ -17,7 +17,7 @@
   position: fixed;
   bottom: 85px;
   right: 20px;
-  z-index: 99999999999;
+  z-index: 999;
 }
 .actionsButton .toggleButton, .actionsButton .actionsContainer li {
   background-color: #5F69C6;
@@ -26,6 +26,12 @@
   padding: 10px;
   margin: 3px;
   cursor: pointer;
+}
+.actionsButton .actionsContainer li {
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
 }
 
 .actionsContainer {

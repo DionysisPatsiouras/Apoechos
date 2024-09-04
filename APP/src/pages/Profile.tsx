@@ -25,8 +25,11 @@ import ProfileImage from '../components/ProfileImage'
 import Loader from '../utils/Loader'
 import FixedButton from '../components/FixedButton'
 
+import { useNavigate } from "react-router-dom"
+
 
 export default function Profile() {
+
 
     let { user }: any = useContext(AuthContext)
     let { my_profiles, currentProfile, updateDOM, editMode, setEditMode }: any = useContext(ProfileContext)
@@ -34,6 +37,8 @@ export default function Profile() {
 
     const [height, setHeight] = useState<any>(undefined)
     const [width, setWidth] = useState<any>(undefined)
+
+    const navigate = useNavigate()
 
     let isMobile = width >= 768
     let threshold = width <= 1500
@@ -58,6 +63,10 @@ export default function Profile() {
 
     let my_action = [
         {
+            icon: 'add', text: 'Νέο Προφίλ', category: [1, 2, 3, 4, 5],
+            onClick: () => { navigate('/create'); setActions(false) }
+        },
+        {
             icon: 'edit', text: 'Επεξεργασία', category: [1, 2, 3, 4, 5],
             onClick: () => { setEditMode(!editMode); setActions(false) }
         },
@@ -73,6 +82,7 @@ export default function Profile() {
             icon: 'new event', text: 'Νέα εκδήλωση', category: [1, 2, 5],
             onClick: () => { setEventModal(!eventModal); setActions(false) }
         },
+
     ]
 
 

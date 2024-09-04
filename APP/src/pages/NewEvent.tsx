@@ -36,17 +36,6 @@ export default function NewEvent(props: any) {
     // const [selectedSupportActs, setSelectedSupportActs] = useState<any[]>([])
 
 
-
-    // let stepInfo = [
-    //     { id: 1, title: 'Βασικές πληροφορίες', info: 'Προσθέστε τις βασικές πληροφορίες της εκδήλωσης. Τα κελιά με την ένδειξη: "*" είναι υποχρεωτικά' },
-    //     {
-    //         id: 2, title: 'Επιλογή Σκηνής',
-    //         info: 'Επιλέξτε τη σκηνή στην οποία θα πάρει μέρος η εκδήλωση. Στην περίπτωση που η σκηνή δεν είναι μέλος του apoechos.gr επιλέξτε "Προσαρμοσμένη τοποθεσία" ',
-    //     },
-    //     { id: 3, title: 'Συμμετέχοντες', info: 'Διαλέξτε της βασικούς συμμετέχοντες της εκδήλωσης' }
-    // ]
-
-
     let get_stages = new Call(Routes.profiles.all, 'GET')
 
 
