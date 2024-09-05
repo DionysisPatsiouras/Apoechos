@@ -1,9 +1,8 @@
-import { forwardRef,  useState } from 'react'
+import { forwardRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import CSS from '../../css/Discover/Card.module.css'
 import SvgIcon from '../SvgIcon'
-import img from '../../utils/img/default_img.png'
 import Modal from '../Modal'
 
 import NewMessageWindow from '../Messages/NewMessageWindow'
@@ -20,7 +19,7 @@ const Card = forwardRef(function Card(props: any, ref) {
         <div className={CSS.card} style={{ 'backgroundColor': profile?.category?.color }}>
 
             <Modal open={modal} withContainer title='Νέο μήνυμα' btn close={() => setModal(false)}>
-                <NewMessageWindow receiver={profile} close={() => setModal(false)}/>
+                <NewMessageWindow receiver={profile} close={() => setModal(false)} />
             </Modal>
 
 
@@ -42,24 +41,35 @@ const Card = forwardRef(function Card(props: any, ref) {
 
                     <b className={CSS.profileTitle}>{profile?.name}</b>
                     <small className={CSS.location}>{profile?.city?.name}</small>
-                
+
 
                 </div>
 
-           
+
 
 
                 <div className={CSS.btn_section}>
-                    <div
-                        className={`${CSS.messageIcon} cursor-pointer blue_btn`}
+                    <div style={{width: '100%', borderRight: '1px solid grey'}}>
+                        <SvgIcon id='send' color='#5F69C6' width={20} />
+                    </div>
+                    <div style={{width: '100%'}}>
+                        <SvgIcon id='send' color='#5F69C6' width={20} />
+                    </div>
+                    {/* <div style={{width: '100%'}}>
+                        <p>Προβολή</p>
+                    </div> */}
 
+
+
+                    {/* <div
+                        className={`${CSS.messageIcon} cursor-pointer blue_btn`}
                         onClick={() => setModal(!modal)}>
                         <SvgIcon id='send' color='#fff' width={20} />
                     </div>
 
                     <Link to={`/profile/${profile?.profileId}`} >
                         <button className={'cursor-pointer blue_btn'}>Προβολή</button>
-                    </Link>
+                    </Link> */}
                 </div>
 
 
