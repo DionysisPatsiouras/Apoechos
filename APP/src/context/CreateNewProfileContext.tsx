@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, useContext } from 'react'
-import { useMap } from 'react-leaflet'
+// import { useMap } from 'react-leaflet'
 
 // utils
 import Call from '../utils/Call'
@@ -9,7 +9,6 @@ import { handle_checkbox } from '../utils/functions/handle_checkbox'
 
 // context
 import UserContext from './UserContext'
-import { useSnackbarContext } from '../context/SnackbarContext'
 
 
 const CreateNewProfileContext = createContext({})
@@ -28,11 +27,11 @@ export const CreateNewProfileProvider = ({ children }: any) => {
         get_instruments,
         instruments,
         studio_services,
-        instrumentTypes, get_instrument_categories,
+        get_instrument_categories,
         instrument_categories
     }: any = useContext(UtilsContext)
 
-    let { snackbar }: any = useSnackbarContext()
+
 
     // console.log(instrument_categories)
 
@@ -77,11 +76,11 @@ export const CreateNewProfileProvider = ({ children }: any) => {
     }
 
 
-    function ChangeView({ center, zoom }: any) {
-        const map = useMap();
-        map.setView(center, zoom);
-        return null;
-    }
+    // function ChangeView({ center, zoom }: any) {
+    //     const map = useMap();
+    //     map.setView(center, zoom);
+    //     return null;
+    // }
 
 
     const check_img_type = (file: any) => {
@@ -186,7 +185,6 @@ export const CreateNewProfileProvider = ({ children }: any) => {
                     setProfileId(res?.data?.profileId)
                     setUpdateDOM(!updateDOM)
                     setCreated(true)
-                    // snackbar('Το προφίλ δημιουργήθηκε')
                 })
                 .catch((err) => console.warn(err))
 
@@ -222,7 +220,6 @@ export const CreateNewProfileProvider = ({ children }: any) => {
 
         markerPosition,
         updatePosition,
-        ChangeView,
         instrument_categories,
         city, setCity,
         position, setPosition,

@@ -104,11 +104,11 @@ export const EditProfileProvider = ({ children }: any) => {
     }
 
 
-    function ChangeView({ center, zoom }: any) {
-        const map = useMap();
-        map.setView(center, zoom);
-        return null;
-    }
+    // function ChangeView({ center, zoom }: any) {
+    //     const map = useMap();
+    //     map.setView(center, zoom);
+    //     return null;
+    // }
 
     const LocationMarker = () => {
         useMapEvents({
@@ -142,7 +142,7 @@ export const EditProfileProvider = ({ children }: any) => {
 
 
         let correct_city = cities.filter((i: any) => i.name === new_city)
- 
+
 
         let formData: any = new FormData()
 
@@ -212,7 +212,7 @@ export const EditProfileProvider = ({ children }: any) => {
         newFile, setNewFile,
         control, LocationMarker,
         position, setPosition,
-        ChangeView, new_address
+        new_address
     }
 
 

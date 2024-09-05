@@ -9,18 +9,14 @@ import SvgIcon from '../SvgIcon'
 
 // utils
 import EditProfileContext from '../../context/EditProfileContext'
-// import { useDebounce } from 'use-debounce'
 import { handle_checkbox } from '../../utils/functions/handle_checkbox'
-
-// import { useForm, Controller } from "react-hook-form"
-
-// import CreateNewProfileContext from '../../context/CreateNewProfileContext'
 import UtilsContext from '../../context/UtilsContext'
+import { ChangeView } from '../../utils/functions/ChangeView'
 
-// import Select from 'react-select'
 import { MapContainer, TileLayer } from 'react-leaflet'
 
-import { Marker } from 'react-leaflet'
+
+
 // export default function EditProfile(props: any) {
 const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
 
@@ -43,9 +39,10 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
         my_instruments, setMyInstruments,
 
         newFile, setNewFile,
-        control, LocationMarker,
+        LocationMarker,
         position, setPosition,
-        ChangeView, new_address
+
+        new_address
 
 
     }: any = useContext(EditProfileContext)
@@ -172,7 +169,7 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
                                         <option key={city.id}
                                             // value={city.id}
                                             value={[city?.latitude, city?.longitude, city?.id]}
-                                            >
+                                        >
                                             {city.name}
                                         </option>
                                     ))}

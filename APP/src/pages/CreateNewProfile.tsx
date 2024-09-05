@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom'
 import { MapContainer, Marker, TileLayer, useMapEvents } from 'react-leaflet'
 import axios from 'axios'
 import SearchValidation from '../utils/SearchValidation'
+import { ChangeView } from '../utils/functions/ChangeView'
 
 
 export default function CreateNewProfile() {
@@ -41,7 +42,7 @@ export default function CreateNewProfile() {
         studio_services_array,
         created,
         profileId,
-        ChangeView,
+        // ChangeView,
         instrument_categories,
         setCity,
         position, setPosition,
