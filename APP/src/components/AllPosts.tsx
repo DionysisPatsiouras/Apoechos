@@ -74,16 +74,7 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
                         category={post?.profile?.category}
                         size={100}
                     />
-                    {/* <img
-                        src={`http://127.0.0.1:8000/${post?.profile?.photo}`}
-                        className={CSS.profile_photo}
-                        width={100}
-                        height={100}
-                        alt='profile_image' />
-
-                    <div className={CSS.category_container} style={{ backgroundColor: post?.profile?.category?.color }} >
-                        <SvgIcon id={post?.profile?.category?.icon} color={'#fff'} width={20} />
-                    </div> */}
+          
 
                     <div className={CSS.content}>
 

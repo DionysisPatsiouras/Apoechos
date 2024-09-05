@@ -1,7 +1,7 @@
 
 import { useEffect, useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
-import img from '../utils/img/default_img.png'
+
 
 // css
 import CSS from '../css/Profile/Profile.module.sass'
@@ -19,7 +19,7 @@ import NewMessageWindow from '../components/Messages/NewMessageWindow'
 import IconButton from '../components/IconButton'
 import NewPost from '../components/Profile/NewPost'
 import { useSnackbarContext } from '../context/SnackbarContext'
-import NewEvent from './NewEvent'
+import NewEvent from '../components/Events/NewEvent'
 import FullModal from '../components/FullModal'
 import ProfileImage from '../components/ProfileImage'
 import Loader from '../utils/Loader'

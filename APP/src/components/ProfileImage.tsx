@@ -24,7 +24,9 @@ const ProfileImage = forwardRef(function ProfileImage({ photo, category, onClick
                 style={{
                     borderRadius: '200px',
                     border: '2px solid #D7D7D7',
-                    objectFit: 'cover'
+                    objectFit: 'cover',
+                    width: `${size} !important`,
+                    height: `${size} !important`
                 }}
                 width={size}
                 height={size}
