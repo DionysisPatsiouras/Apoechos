@@ -129,60 +129,58 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
 
                 {tab === 1 &&
                     <div className={CSS.info_stats}>
-                        <div className='items-inline' style={{ gap: '25px', alignItems: 'flex-start' }}>
+                        <div className='items-inline' style={{ gap: '25px', alignItems: 'flex-start', justifyContent: 'center' }}>
 
                             <img src={newFile || `http://127.0.0.1:8000/${currentProfile?.photo}`} width={200} alt='profile'
-                                style={{ height: '218px', objectFit: 'cover', margin: '0 0 20px 0' }} />
+                                style={{ height: '218px', objectFit: 'cover' }} />
+                            {/* <label htmlFor='photo'>
+                                <SvgIcon id={'upload-image'} color='#fff' />
+                                Ανέβασμα
+                            </label>
 
-                            <div className={CSS.updateImage}>
+                            <input
+                                {...register('file')}
+                                id='photo' type='file' style={{ position: 'absolute', top: '-20000px' }}
+                                onChange={(file: any) => setNewFile(URL.createObjectURL(file.target.files[0]))}
+                            /> */}
+
+                            <div style={{ display: 'flex', gap: '20px', flexDirection: 'column' }}>
 
 
-                                <label htmlFor='photo'>
-                                    <SvgIcon id={'upload-image'} color='#fff' />
-                                    Ανέβασμα
-                                </label>
 
-                                <input
-                                    {...register('file')}
-                                    id='photo' type='file' style={{ position: 'absolute', top: '-20000px' }}
-                                    onChange={(file: any) => setNewFile(URL.createObjectURL(file.target.files[0]))}
-                                />
+                                <div className={CSS.updateImage}>
 
-                                {/* <label onClick={() => setNewFile(undefined)} style={{ background: '#C65F5F' }}>
-                                    <SvgIcon id={'close'} color='#fff' width={20} />Κατάργηση
-                                </label> */}
+
+
+
+
+                                </div>
+                                <div className='items-inline' style={{ gap: '20px' }}>
+                                    <input
+                                        type='text'
+                                        placeholder='Όνομα'
+                                        {...register('name', { required: 'Υποχρεωτικό πεδίο' })}
+                                    />
+
+
+
+                                    {!has_natural_presence &&
+                                        <select
+                                            className={CSS.city_dropdown}
+                                            {...register('city')}>
+                                            {cities?.map((city: any) => (
+                                                <option key={city.id} value={[city?.latitude, city?.longitude, city?.id]} >
+                                                    {city.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    }
+
+                                </div>
+
+
+                                <textarea {...register('bio')}> </textarea>
                             </div>
-
-                            <input
-                                type='text'
-                                placeholder='Όνομα'
-                                {...register('name', { required: 'Υποχρεωτικό πεδίο' })}
-                            />
-
-                            {/* {!has_na} */}
-
-                            {!has_natural_presence &&
-                                <select
-                                    className={CSS.city_dropdown}
-                                    {...register('city')}>
-                                    {cities?.map((city: any) => (
-                                        <option key={city.id}
-                                            // value={city.id}
-                                            value={[city?.latitude, city?.longitude, city?.id]}
-                                        >
-                                            {city.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            }
-
-
-
-                            <input
-                                type='text'
-                                placeholder='Όνομα'
-                                {...register('bio', { required: 'Υποχρεωτικό πεδίο' })}
-                            />
 
 
                         </div>

@@ -20,7 +20,7 @@ const Events = forwardRef(function Events(props: any, ref: any) {
     let { cities, get_cities }: any = useContext(UtilsContext)
 
     let [events, setEvents] = useState<any[]>([])
-    console.log("🚀 ~ events:", events)
+    // console.log("🚀 ~ events:", events)
 
     const [selectedCities, setSelectedCities] = useState<any[]>([])
     const [openFilters, setOpenFilters] = useState<boolean>(false)

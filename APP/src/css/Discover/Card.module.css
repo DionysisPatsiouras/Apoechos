@@ -1,45 +1,50 @@
+.card, .cardWhitePart {
+  width: 200px;
+  height: 240px;
+  padding: 50px 20px;
+}
+
 .card {
-  width: 350px;
-  height: 200px;
   box-shadow: rgba(0, 0, 0, 0.15) 1px 2px 11px;
   border-radius: 5px;
   margin: 10px;
-  padding: 20px;
 }
 
 .cardWhitePart {
-  width: 350px;
-  height: 200px;
-  margin: -20px 0 0 -20px;
+  margin: -50px 0 0 -20px;
   background-color: #ffffff;
-  padding: 20px;
   border-radius: 4px 143px 4px 4px;
-}
-
-.card h6 {
-  color: #5F69C6;
-  font-size: 1rem;
 }
 
 .signatureIcon {
   float: right;
-  margin-top: -5px;
+  margin-top: -35px;
   margin-right: -5px;
 }
 
 .profileInfo {
   display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .profileInfo img {
   -o-object-fit: cover;
      object-fit: cover;
-  border-radius: 4px;
+  border-radius: 400px;
   border: 1px solid #818181;
+  width: 110px;
+  height: 110px;
 }
 
 .profileTitle {
-  padding: 0 0 0 10px;
+  text-align: center;
+  color: #5F69C6;
+  font-size: 1rem;
+  padding-top: 13px;
+  height: 45px;
+  display: flex;
+  align-items: center;
 }
 
 .seeProfileButton {
@@ -57,8 +62,8 @@
 
 .btn_section {
   display: flex;
-  justify-content: flex-end;
-  margin: 37px 0 0 0;
+  justify-content: center;
+  padding-top: 25px;
 }
 .btn_section button {
   width: auto;

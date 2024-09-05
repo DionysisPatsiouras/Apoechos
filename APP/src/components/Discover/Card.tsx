@@ -36,19 +36,17 @@ const Card = forwardRef(function Card(props: any, ref) {
                 <div className={CSS.profileInfo}>
 
                     <img
-                        srcSet={profile.photo != null ? `http://127.0.0.1:8000/${profile?.photo}` : img}
+                        src={`http://127.0.0.1:8000/${profile?.photo}`}
                         width={84} height={84}
                         alt='Profile' />
 
-
-                    <h6 className={CSS.profileTitle}>{profile?.name}</h6>
-
+                    <b className={CSS.profileTitle}>{profile?.name}</b>
+                    <small className={CSS.location}>{profile?.city?.name}</small>
+                
 
                 </div>
 
-                <section className={CSS.location}>
-                    {profile?.city?.name}
-                </section>
+           
 
 
                 <div className={CSS.btn_section}>
