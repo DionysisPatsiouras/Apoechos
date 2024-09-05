@@ -44,7 +44,8 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
 
         newFile, setNewFile,
         control, LocationMarker,
-        position, ChangeView
+        position, setPosition,
+        ChangeView, new_address
 
 
     }: any = useContext(EditProfileContext)
@@ -53,6 +54,7 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
 
 
     const [activeCategory, setActiveCategory] = useState<string>(instrument_categories?.[0])
+    const has_natural_presence = currentProfile?.category?.id === 3 || currentProfile?.category?.id === 4 || currentProfile?.category?.id === 5
 
     useEffect(() => {
         get_instrument_categories()
@@ -160,18 +162,23 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
                                 {...register('name', { required: 'Υποχρεωτικό πεδίο' })}
                             />
 
+                            {/* {!has_na} */}
 
+                            {!has_natural_presence &&
+                                <select
+                                    className={CSS.city_dropdown}
+                                    {...register('city')}>
+                                    {cities?.map((city: any) => (
+                                        <option key={city.id}
+                                            // value={city.id}
+                                            value={[city?.latitude, city?.longitude, city?.id]}
+                                            >
+                                            {city.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            }
 
-                            <select
-                                className={CSS.city_dropdown}
-                                {...register('city')}>
-                                {cities?.map((city: any) => (
-                                    <option key={city.id}
-                                        value={city.id}>
-                                        {city.name}
-                                    </option>
-                                ))}
-                            </select>
 
 
                             <input
@@ -199,21 +206,7 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
 
                     <div style={{ width: '70%' }}>
 
-                        <div className='items-inline' style={{ gap: '20px' }}>
-                            <input type='text' />
 
-
-                            <select
-                                className={CSS.city_dropdown}
-                                {...register('city')}>
-                                {cities?.map((city: any) => (
-                                    <option key={city.id}
-                                        value={city.id}>
-                                        {city.name}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
 
                         <MapContainer
                             // @ts-ignore
@@ -228,6 +221,31 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
 
 
                         </MapContainer>
+
+                        <div className='items-inline' style={{ gap: '20px', paddingBottom: '20px' }}>
+
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                                <label>Διεύθυνση</label>
+                                <input type='text' value={new_address || currentProfile?.address} />
+                            </div>
+
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                                <label>Πόλη</label>
+                                <select
+                                    className={CSS.city_dropdown}
+                                    {...register('city')}
+                                    onChange={(e) => {
+                                        setPosition([e?.target?.value.split(",")[0], e?.target?.value.split(",")[1]])
+                                    }}
+                                >
+                                    {cities?.map((city: any) => (
+                                        <option key={city.id} value={[city?.latitude, city?.longitude, city?.id]}>
+                                            {city.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 }
 

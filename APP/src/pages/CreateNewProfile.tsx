@@ -189,7 +189,6 @@ export default function CreateNewProfile() {
 
                                                 onChange={(e) => {
                                                     setCity([e?.target?.value.split(",")[2]])
-
                                                     setPosition([e?.target?.value.split(",")[0], e?.target?.value.split(",")[1]])
                                                 }
                                                 }>

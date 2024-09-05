@@ -42,6 +42,8 @@ export const EditProfileProvider = ({ children }: any) => {
     const [newFile, setNewFile] = useState<any>()
 
 
+
+
     useEffect(() => {
         get_cities()
         get_genres()
@@ -58,7 +60,8 @@ export const EditProfileProvider = ({ children }: any) => {
         setMyInstruments(currentProfile?.instruments?.map((i: any) => i?.id?.toString()))
 
         setValue('name', currentProfile?.name)
-        setValue('city', currentProfile?.city?.id)
+
+        setValue('city', `${currentProfile?.city?.latitude},${currentProfile?.city?.longitude},${currentProfile?.city?.id}`)
         setValue('bio', currentProfile?.bio)
         setValue('address', currentProfile?.address)
 
@@ -138,8 +141,8 @@ export const EditProfileProvider = ({ children }: any) => {
     const updateProfile = (data: any) => {
 
 
-        // console.log(new_address)
         let correct_city = cities.filter((i: any) => i.name === new_city)
+ 
 
         let formData: any = new FormData()
 
@@ -153,11 +156,14 @@ export const EditProfileProvider = ({ children }: any) => {
             formData.append('longitude', position[1])
             formData.append('city', correct_city?.[0]?.id || 1)
         }
+        if (currentProfile?.category?.id === 1 || currentProfile?.category?.id === 2) {
+            formData.append('city', Number(data?.city.split(",")[2]))
+        }
 
 
         // data?.photo?.length !== 0 && formData.append('photo', data?.file?.[0])
         // formData.append('photo', data?.file?.[0])
-        // formData.append('photo', data?.file?.[0])
+
 
 
         for (let index in my_services) {
@@ -176,7 +182,7 @@ export const EditProfileProvider = ({ children }: any) => {
         update_profile
             .PATCH_MEDIA()
             .then((res) => {
-                // console.log(res);
+                console.log(res);
                 setTab(1);
                 close_edit(true)
                 snackbar('Επιτυχής ενημέρωση')
@@ -205,7 +211,8 @@ export const EditProfileProvider = ({ children }: any) => {
 
         newFile, setNewFile,
         control, LocationMarker,
-        position, ChangeView
+        position, setPosition,
+        ChangeView, new_address
     }
 
 
