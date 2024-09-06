@@ -1,11 +1,11 @@
 
 import UtilsContext from '../context/UtilsContext'
 
-import { useContext, useEffect, useState, useCallback } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import CSS from '../css/Homepage/Homepage.module.css'
 import SvgIcon from '../components/SvgIcon'
 
-import parse from 'html-react-parser'
+
 
 // images
 import musicianBg from '../img/backgrounds/musician.jpg'

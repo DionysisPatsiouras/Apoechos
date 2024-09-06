@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import UtilsContext from "./UtilsContext"
 import ProfileContext from "./ProfileContext"
 import { useSnackbarContext } from "./SnackbarContext"
-import { Marker, useMapEvents, useMap } from "react-leaflet"
+import { Marker, useMapEvents } from "react-leaflet"
 import axios from "axios"
 
 const EditProfileContext = createContext({})

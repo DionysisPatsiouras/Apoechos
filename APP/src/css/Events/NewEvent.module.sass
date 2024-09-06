@@ -1,158 +1,95 @@
-.head
-    justify-content: space-around
-    background-color: #5F69C6
-    color: #fff
-    padding: 15px 0
-    margin-bottom: 30px
-    flex-direction: column
 
-    h1
-        font-size: 1rem
 
-    h2
-        font-size: 0.96rem
-
-.information
-    width: 80%
-    font-size: 12px
-    margin: 0 auto
-
-.uploadPhoto
-    display: flex
-    flex-direction: column
-    align-items: center
-    min-width: 210px
-    height: 297px
-    
-
-    img
-        width: 210px
-        height: 297px
-        object-fit: cover
-
-.description
-
-    background-color: #efeeee
-    box-shadow: none
-    margin: 9px 0
-
-.step1Container
-    flex-direction: column
-    justify-content: center
-    gap: 20px
-    align-items: normal
-    width: 90%
-
-.step1Fields
-    display: flex
-    flex-direction: column
-    width: 100%
-
-    input, textarea, label
-        width: 100%
-
-.stageLocation
-    font-size: 0.9rem
-    color: #B3B3B3
-
-.step2Container
-    flex-direction: column
+.container
+    padding: 50px
     align-items: flex-start
     gap: 50px
-
-.sector
-    width: 50vw
-    display: flex
-    align-items: center
-    justify-content: center
     flex-direction: column
 
-.date_and_time
+    input, textarea
+        background-color: #f5f5f5
+        box-shadow: none
+        font-size: 12px
 
+.formContainer
+    display: flex
+    flex-direction: row
+    align-items: flex-start
     width: 100%
+
+.leftSector
+    // margin: 0 auto
+    width: 30%
+
+.iconsSection
+    flex-wrap: wrap
+
+.cover_photo
+
+    object-fit: cover
+    border: 1px solid red
+
+.eventTitle
+    display: flex
+    flex-direction: column
+
+    label
+        font-size: 0.8em
+        color: #afafaf
+
+.rightSector
+    width: 70%
+
+.title
+    font-size: 32px
+    color: #5F69C6
+    text-align: center
+    padding-bottom: 30px
+
+.description_title
+    font-size: 13px
+    color: #8B8B8B
+    font-weight: 400
+    padding-bottom: 15px
+
+.description_text
+    font-size: 15px
+    // max-width: 600px
+
+.addNewBand
+    background-color: #f5f5f5
+    border: 2px solid #c1c1c1
+    border-radius: 5000px
+    width: 50px
+    height: 50px
+    display: flex
+    justify-content: center
+    align-items: center
+    margin-bottom: 15px
+    cursor: pointer
+    
+.divider
+
+    border: 0
+    height: 0 !important
+    margin: 20px 0 !important
+    border-top: 1px solid #DBDBDB
+
+.bandTitle
+    font-size: 20px
 
 .buttonsSection
-    margin: 20px 0
-    display: flex
     gap: 20px
+
     button
-        background-color: #5F69C6
-
-.step2Head
-    flex-direction: column
-
-.costumFields
-    flex-direction: column
-    width: 100%
-
-.stageSelection
-    background-color: #5F69C6
-    padding: 15px 20px
-    border-radius: 4px
-
-.stagesList
-    height: 300px
-    overflow-y: auto
-
-.stepTitle
-    text-align: center
+        padding: 10px 20px
+        width: 200px
+        cursor: pointer
 
 @media screen and ( min-width: 768px )
-
-    .stepTitle
+    .container
+        padding: 40px
+        flex-direction: row
+        
+    .title
         text-align: left
-
-    .step1Container
-        flex-direction: row
-        width: 50vw
-        max-width: 800px
-        min-width: 650px
-
-    .step2Container
-        width: 70vw
-        max-width: 800px
-        min-width: 650px
-        flex-direction: column
-        gap: 0px
-
-    .information
-        width: 500px
-
-    .head
-        flex-direction: row
-
-    .date_and_time
-        input
-            width: 100%
-    .step1Fields
-        width: 80vw
-
-    .stagesList
-        // height: 300px
-        height: auto
-        max-height: 500px
-        overflow-y: auto
-        display: flex
-        flex-wrap: wrap
-        justify-content: center
-
-    .step2Head
-        width: 100%
-        justify-content: space-between
-        display: flex
-        flex-direction: row
-
-    .stepInfo
-        width: 50vw
-        max-width: 800px
-        min-width: 650px
-
-    .costumFields
-        display: flex
-        flex-direction: row
-        gap: 20px
-    .listOfSelectedBands
-        height: 400px
-        overflow-y: auto
-        gap: 15px
-        padding: 10px

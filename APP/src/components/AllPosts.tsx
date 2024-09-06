@@ -19,6 +19,7 @@ import Confirmation from './Modal/Confirmation'
 import SvgIcon from './SvgIcon'
 import { useSnackbarContext } from '../context/SnackbarContext'
 import ProfileImage from './ProfileImage'
+import Loader from '../utils/Loader'
 
 // This component may take up to 2 props
 // 1) can_edit -> is used in "Profile" page to check if the user owns the posts array
@@ -59,6 +60,7 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
     }
 
 
+    let all = new Loader(posts_array)
 
 
     const PostView = (post: any, with_icons: boolean) =>
@@ -74,7 +76,7 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
                         category={post?.profile?.category}
                         size={100}
                     />
-          
+
 
                     <div className={CSS.content}>
 
@@ -125,17 +127,19 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
                 }} />
             </Modal>
 
+            {all.posts_load(
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '33vw', minWidth: '200px', maxWidth: '500px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '33vw', minWidth: '200px', maxWidth: '500px' }}>
 
+                    {posts_array
+                        .map((post: any, index: number) =>
+                            <div key={index} style={{ display: 'flex' }}>
+                                {PostView(post, props?.all_posts ? false : true)}
+                            </div>
+                        )}
+                </div>
+            )}
 
-                {posts_array
-                    .map((post: any, index: number) =>
-                        <div key={index} style={{ display: 'flex' }}>
-                            {PostView(post, props?.all_posts ? false : true)}
-                        </div>
-                    )}
-            </div>
 
 
         </>

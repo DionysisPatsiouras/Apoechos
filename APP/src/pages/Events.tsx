@@ -44,7 +44,7 @@ const Events = forwardRef(function Events(props: any, ref: any) {
 
 
     return (
-        <section>
+        <main>
 
 
 
@@ -144,7 +144,7 @@ const Events = forwardRef(function Events(props: any, ref: any) {
 
             <FixedButton icon='filter' onClick={() => setOpenFilters(!openFilters)} />
 
-        </section>
+        </main>
     )
 })
 

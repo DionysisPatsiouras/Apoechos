@@ -41,6 +41,8 @@ const Card = forwardRef(function Card(props: any, ref) {
 
                     <b className={CSS.profileTitle}>{profile?.name}</b>
                     <small className={CSS.location}>{profile?.city?.name}</small>
+                    {/* {profile?.address && <small className={CSS.location}>{profile?.address}</small>} */}
+
 
 
                 </div>
@@ -49,29 +51,15 @@ const Card = forwardRef(function Card(props: any, ref) {
 
 
                 <div className={CSS.btn_section}>
+
                     <div className={CSS.btn} style={{ borderRight: '1px solid #E9E9E9' }} onClick={() => setModal(!modal)}>
                         <SvgIcon id='send' color='#5F69C6' width={20} />
-                    </div >
-                    <Link to={`/profile/${profile?.profileId}`} className={CSS.btn} >
-                        <div>
-                            <SvgIcon id='view' color='#5F69C6' width={20} />
-                        </div>
-                    </Link>
-                    {/* <div style={{width: '100%'}}>
-                        <p>Προβολή</p>
-                    </div> */}
-
-
-
-                    {/* <div
-                        className={`${CSS.messageIcon} cursor-pointer blue_btn`}
-                        onClick={() => setModal(!modal)}>
-                        <SvgIcon id='send' color='#fff' width={20} />
                     </div>
 
-                    <Link to={`/profile/${profile?.profileId}`} >
-                        <button className={'cursor-pointer blue_btn'}>Προβολή</button>
-                    </Link> */}
+                    <Link to={`/profile/${profile?.profileId}`} className={CSS.btn} >
+                        <SvgIcon id='view' color='#5F69C6' width={20} />
+                    </Link>
+
                 </div>
 
 

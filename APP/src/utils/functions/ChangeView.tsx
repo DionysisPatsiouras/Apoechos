@@ -1,4 +1,4 @@
-import { Marker, useMapEvents, useMap } from "react-leaflet"
+import { useMap } from "react-leaflet"
 
 export function ChangeView({ center, zoom }: any) {
     const map = useMap();

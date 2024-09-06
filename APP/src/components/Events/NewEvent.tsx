@@ -1,399 +1,235 @@
-import { useEffect, useState, useContext } from "react"
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+
+// CSS
 import CSS from '../../css/Events/NewEvent.module.css'
-import SvgIcon from "../../components/SvgIcon"
-import FormError from "../../utils/FormError"
-import Call from "../../utils/Call"
-import { Routes } from "../../utils/Routes"
-import UtilsContext from "../../context/UtilsContext"
-import SearchValidation from "../../utils/SearchValidation"
-import ProfileListItem from "../../components/ProfileListItem"
-// import UserContext from "../context/UserContext"
+
+// utils
+import Call from '../../utils/Call'
+import { Routes } from '../../utils/Routes'
+import FormError from '../../utils/FormError'
+
+// components
+import SvgIcon from '../../components/SvgIcon'
+// import ProfileImage from '../../components/ProfileImage'
+
+// context
 import { useSnackbarContext } from '../../context/SnackbarContext'
-// import { Img } from "react-optimized-image"
-// import { useDebounce } from "use-debounce"
 
 
-export default function NewEvent(props: any) {
 
-    const [step, setStep] = useState<number>(1)
+
+interface EventViewProps {
+    profileId: string;
+    closeModal: () => void
+}
+
+export default function EventView({ profileId, closeModal }: EventViewProps) {
+
 
     const form = useForm()
     const { register, handleSubmit, formState, resetField } = form
-    const { errors }: any = formState
-
+    const { errors } = formState
 
     const { snackbar }: any = useSnackbarContext()
 
 
-    const [uploadedFile, setUploadedFile] = useState<any>()
-    const [costumLocation, setCostumLocation] = useState<boolean>(false)
-    const [search, setSearch] = useState<string>('')
+    let get_profiles = new Call(Routes.profiles.all, 'GET')
 
-    const [stages, setStages] = useState<any[]>([])
+    let svg_color = '#C0C0C0'
+    // let a4Ratio = 1.414
+    let wastedMargin = 150
+    let fields = ['file', 'title', 'description', 'date', 'time', 'location_name', 'address', 'profileId']
+
+
+    const [height, setHeight] = useState<any>(undefined)
     const [selectedStage, setSelectedStage] = useState<any[]>([])
     const [selectedBands, setSelectedBands] = useState<any[]>([])
-    // const [selectedSupportActs, setSelectedSupportActs] = useState<any[]>([])
+    const [customLocation, setCostumLocation] = useState<boolean>(false)
 
 
-    let get_stages = new Call(Routes.profiles.all, 'GET')
+    const Post_event = (data: any) => {
 
-
-    let { get_cities, cities, }: any = useContext(UtilsContext)
-
-    useEffect(() => {
-        get_stages
-            .GET()
-            .then((res) => setStages(res?.[1]))
-            .catch((err) => console.warn(err))
-
-        get_cities()
-        // get_my_profiles()
-        document.title = 'Apoechos - Νέα εκδήλωση'
-
-    }, [])
-
-    // console.log(me)
-    // console.log(my_profiles)
-
-    const check_img_type = (file: any) => {
-        setUploadedFile(
-            file?.target?.files?.[0]?.type === "image/jpeg" ||
-                file?.target?.files?.[0]?.type === "image/jpg" ||
-                file?.target?.files?.[0]?.type === "image/png"
-                ? URL.createObjectURL(file?.target?.files?.[0])
-                : alert('Μη επιτρεπόμενη μορφή αρχείου\nΕπιτρεπόμενες μορφές: .png, .jpg, .jpeg'))
-    }
-
-    const Post_event = (formdata: any) => {
-
-
+        // console.log(data)
         let formData: any = new FormData()
 
-        uploadedFile === undefined && alert('Ανεβάστε εικόνα')
-
-        if (step !== 3 && uploadedFile !== undefined) {
-            setStep(step + 1)
-        } else {
-
-
-            formData.append('photo', formdata?.file?.[0])
-            formdata.title && formData.append('title', formdata?.title)
-            formData.append('description', formdata?.description)
-            formData.append('date', `${formdata.date} ${formdata.time}`)
-
-            if (!costumLocation) {
-                // @ts-ignore
-                formData.append('profile_location', selectedStage?.profileId)
-            } else {
-                formData.append('location_name', formdata.location_name)
-                formData.append('city', formdata.city)
-                formData.append('address', formdata.address)
-            }
-            for (let index in selectedBands) {
-                formData.append('main_bands', selectedBands[index]?.profileId)
-
-            }
-            formData.append('created_by', props?.profileId)
-
-            let post_event = new Call(Routes.events.new, 'POST', formData)
-
-            post_event
-                .POST_MEDIA()
-                .then((res) => {
-                    // console.log(res)
-                    console.log('Event uploaded successfully')
-                    snackbar('Η εκδήλωση δημοσιεύτηκε')
-                    props?.closeModal()
-                    resetField('file')
-                    resetField('title')
-                    resetField('description')
-                    resetField('date')
-                    resetField('location_name')
-                    resetField('address')
-                    resetField('profileId')
-                })
-                .catch((err) => console.warn(err))
+        formData.append('photo', data?.file?.[0])
+        data.title && formData.append('title', data?.title)
+        formData.append('description', data?.description)
+        formData.append('date', `${data.date} ${data.time}`)
+        formData.append('created_by', profileId)
 
 
-        }
+
+
+        let post_event = new Call(Routes.events.new, 'POST', formData)
+
+        post_event
+            .POST_MEDIA()
+            .then((res) => {
+                // console.log(res)
+                console.log('Event uploaded successfully')
+                snackbar('Η εκδήλωση δημοσιεύτηκε')
+
+                closeModal()
+
+                for (let index in fields) {
+                    resetField(fields[index])
+                }
+            })
+            .catch((err) => console.warn(err))
+
+        // uploadedFile === undefined && alert('Ανεβάστε εικόνα')
+
     }
-    // console.log(selectedBands)
+
+    useEffect(() => {
+        document.title = 'Apoechos - Νέα εκδήλωση'
+    }, [])
+
 
     return (
-        <div>
-            {/* <section className={`${CSS.head} items-inline`}>
-                <div>
-                    <h1 className={CSS.stepTitle}> {stepInfo[step - 1]?.title}</h1>
-                    <br></br>
-                    <p className={CSS.information}>{stepInfo?.[step - 1]?.info}</p>
-                </div>
+        <div className={`${CSS.container} items-inline`}>
+            <form onSubmit={handleSubmit(Post_event)} noValidate className={CSS.formContainer}>
+                <section className={CSS.leftSector}
+                    style={{
+                        height: `${height - wastedMargin}px`,
+                        // width: `${(height - wastedMargin) / a4Ratio}px`
+                    }}>
+                    <img
+                        // style={{
+                        //     height: `${height - wastedMargin}px`,
+                        //     width: `${(height - wastedMargin) / a4Ratio}px`
+                        // }}
+                        className={CSS.cover_photo}
+                        // src={`http://127.0.0.1:8000/${event?.photo}`}
+                        alt='profile_photo' />
+                </section>
 
-                <h2>Βήμα {step} / 3</h2>
-            </section> */}
+                <section className={CSS.rightSector}>
 
-
-            <form onSubmit={handleSubmit(Post_event)} noValidate >
-
-
-                {step === 1 &&
-                    <section className={`${CSS.step1Container} items-inline`} >
-                     
-                        <div className={CSS.uploadPhoto} >
-                            <label  className={CSS.uploadPhoto} htmlFor='picture'  style={{border: '1px solid #C9C9C9'}}>
-                                <div className={CSS.bg}>
-                                    <img className={CSS.image_preview} src={uploadedFile} width={20} height={20} alt='uploaded file' />
-                                </div>
-                            </label>
-
-                   
-                            {uploadedFile ?
-                                <p
-                                    className={`${CSS.space_around} cursor-pointer`}
-                                    onClick={() => setUploadedFile(undefined)}>
-                                    <SvgIcon id='delete' />
-                                    Διαγραφή
-                                </p>
-                                :
-                                <label
-                                    className={`${CSS.uploadLabel} cursor-pointer`}
-                                    htmlFor='picture'><SvgIcon id={'upload-image'} /> Μεταφόρτωση</label>
+                    <div className={CSS.eventTitle}>
+                        <label>Τίτλος <small>(προεραιτικό)</small></label>
+                        <input type='text' placeholder='Προσθέστε τίτλο' {...register('title',
+                            {
+                                minLength: {
+                                    value: 3,
+                                    message: 'Πολύ μικρός τίτλος'
+                                },
+                                maxLength: {
+                                    value: 250,
+                                    message: 'Πολύ μεγάλος τίτλος'
+                                }
                             }
+                        )} />
+                        <FormError value={errors?.title} />
+                    </div>
 
-                            <input
-                                {...register('file')}
-                                type="file"
-                                id="picture"
-                                accept="image/png, image/jpeg"
-                                onChange={(file: any) => check_img_type(file)}
-                                style={{ position: 'absolute', top: '-20000px' }}
-                            />
-                            <FormError value={errors?.file} />
+                    <hr className={CSS.divider}></hr>
+
+                    <h2 className={CSS.description_title}>Συγκροτήματα</h2>
+                    <div className='items-inline' style={{ gap: '25px', flexWrap: 'wrap' }}>
 
 
+                        <div className={CSS.addNewBand}>
+                            <SvgIcon id='add' width={40} color='#c1c1c1' />
                         </div>
+                        {/* {event?.main_bands.map((band: any, index: number) => (
 
-                        <div className={CSS.step1Fields}>
-
-
-                            <label>Τίτλος (προεραιτικό)</label>
-                            <input type='text' {...register('title')} />
-                            <label>Περιγραφή (Υποχρεωτικό)</label>
-                            <textarea
-
-                                className={CSS.description}
-                                {...register('description', {
-                                    required: 'Υποχρεωτικό πεδίο',
-                                    minLength: {
-                                        value: 3,
-                                        message: 'Πολύ μικρή περιγραφή'
-                                    },
-                                    maxLength: {
-                                        value: 250,
-                                        message: 'Πολύ μεγάλη περιγραφή'
-                                    }
-                                })} />
-                            <FormError value={errors?.description} />
-
-                            <div className='items-inline' style={{ gap: '15px' }}>
-
-
-                                <div className={`${CSS.date_and_time} column`}>
-                                    <label>Ημερομηνία*</label>
-                                    <input type='date' placeholder='Ημ/νία'
-                                        {...register('date', {
-                                            required: 'Υποχρεωτικό πεδίο'
-                                        })} />
-                                    <FormError value={errors?.date} />
-                                </div>
-                                <div className={`${CSS.date_and_time} column`}>
-                                    <label>Ώρα έναρξης*</label>
-                                    <input type='time' placeholder='Ώρα' {...register('time', {
-                                        required: 'Υποχρεωτικό πεδίο'
-                                    })} />
-                                    <FormError value={errors?.time} />
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </section>
-                }
-
-
-
-                {step === 2 &&
-
-                    <section className={`${CSS.step2Container} items-inline`} >
-
-                        <section className={`${CSS.step2Head} items-inline`}>
-
+                        <Link to={`/profile/${band?.profileId}`} key={index}>
                             <div className='items-inline' style={{ gap: '10px' }}>
 
-                                <input type='checkbox' id='custom_location'
-                                    onChange={() => setCostumLocation(!costumLocation)}
-                                    checked={costumLocation}
+
+                                <ProfileImage
+                                    photo={band?.photo}
+                                    size={60}
+                                    style={{ margin: '0' }}
+                                    key={index}
                                 />
-                                <label htmlFor='custom_location'>Προσαρμοσμένη τοποθεσία</label>
+                                <div>
+                                    <h2>{band?.name}</h2>
+                                    <small>{band?.city?.name}</small>
+                                </div>
 
                             </div>
+                        </Link>
+                    ))} */}
 
-                            {!costumLocation && selectedStage.length === 0 &&
-                                <input type='search' placeholder='Αναζήτηση σκηνής..'
-                                    onChange={(e: any) => setSearch(e.target.value)}
-                                />
+                    </div>
+
+                    <hr className={CSS.divider}></hr>
+
+                    <h2 className={CSS.description_title}>Περιγραφή</h2>
+                    <textarea className={CSS.description_text} placeholder='Γράψτε μια περιγραφή'
+                        {...register('description', {
+                            required: 'Υποχρεωτικό πεδίο',
+                            minLength: {
+                                value: 3,
+                                message: 'Πολύ μικρή περιγραφή'
+                            },
+                            maxLength: {
+                                value: 250,
+                                message: 'Πολύ μεγάλη περιγραφή'
                             }
+                        })} />
+                    <FormError value={errors?.description} />
 
-                        </section>
 
 
-                        {costumLocation
-                            ?
-                            <div className={CSS.costumFields} >
-                                <div className="column">
-                                    <label>Όνομα</label>
-                                    <input type='text'{...register('location_name', {
-                                        required: 'Υποχρεωτικό πεδίο',
-                                        minLength: {
-                                            value: 3,
-                                            message: 'Πολύ μικρό κείμενο'
-                                        }
-                                    })} />
-                                    <FormError value={errors?.location_name} />
-                                </div>
-                                <div className="column">
-                                    <label>Πόλη</label>
-                                    <select {...register('city', { required: 'Υποχρεωτικό πεδίο' })}>
-                                        <option selected></option>
-                                        {cities?.map((city: any) => (
-                                            <option key={city.id} value={city.id}>{city.name}</option>
-                                        ))}
-                                    </select>
-                                    <FormError value={errors?.city} />
-                                </div>
-                                <div className="column">
-                                    <label>Διεύθυνση</label>
-                                    <input type='text'
-                                        {...register('address', {
-                                            required: 'Υποχρεωτικό πεδίο',
-                                            minLength: {
-                                                value: 3,
-                                                message: 'Πολύ μικρό κείμενο'
-                                            }
-                                        })} />
-                                    <FormError value={errors?.address} />
-                                </div>
+
+                    <div className={`${CSS.iconsSection} items-inline`} style={{ gap: '30px', }}>
+
+
+                        <div className='items-inline' style={{ gap: '10px' }}>
+                            <SvgIcon id='calendar' color={svg_color} />
+                            <input type='date' {...register('date', { required: 'Υποχρεωτικό πεδίο' })} />
+                            {/* <FormError value={errors?.date} /> */}
+                        </div>
+
+
+
+
+                        <div className='items-inline' style={{ gap: '10px' }}>
+                            <SvgIcon id='clock' color={svg_color} />
+                            <input type='time' {...register('time', { required: 'Υποχρεωτικό πεδίο' })} />
+                            {/* <FormError value={errors?.time} /> */}
+                        </div>
+
+                    </div>
+
+
+                    <hr className={CSS.divider}></hr>
+
+                    <div className={`${CSS.footer} items-inline`} style={{ gap: '100px' }}>
+
+                        <div>
+                            <p className={CSS.description_title}>Τοποθεσία</p>
+
+                            <input type='checkbox' id='customLocation'
+                                checked={customLocation}
+                                onClick={() => setCostumLocation(!customLocation)} />
+                            <label htmlFor='customLocation'>Προσαρμοσμένη τοποθεσία</label>
+                            <div className={CSS.addNewBand}>
+                                <SvgIcon id='add' width={40} color='#c1c1c1' />
                             </div>
-                            :
-                            <div style={{ margin: '0 auto' }}>
-                                {selectedStage.length !== 0 ?
-                                    <div className={CSS.stageSelection}>
-                                        <div className='items-inline' style={{ justifyContent: 'space-between' }}>
-                                            <label>Επιλέχθηκε:</label>
-                                            <SvgIcon id='close' width={15} onClick={() => setSelectedStage([])} color='#fff' />
-
-                                        </div>
-
-                                        <ProfileListItem profile={selectedStage} />
-                                    </div>
-                                    :
-                                    <>
-                                        <div className={CSS.stagesList} >
-                                            {stages
-                                                .filter((stage: any) => SearchValidation(stage?.name, search))
-                                                .map((stage: any) => (
-                                                    <ProfileListItem
-                                                        key={stage.profileId}
-                                                        profile={stage}
-                                                        onClick={() => { setSelectedStage(stage); setSearch('') }}
-                                                    />
-                                                ))}
-                                        </div>
-                                        <div style={{ textAlign: 'center' }}>
-
-                                            {/* @ts-ignore */}
-                                            <input type='hidden' value={selectedStage.profileId} {...register('profileId', { required: 'Επιλέξτε σκηνή' })} />
-                                            <FormError value={errors?.profileId} />
-                                        </div>
-                                    </>
-                                }
+                        </div>
 
 
-                            </div>
-                        }
 
-                    </section>
-                }
+                    </div>
 
+                    <hr className={CSS.divider}></hr>
 
-                {step === 3 &&
-
-                    <section className={`${CSS.step3Container} items-inline`}
-                        style={{ alignItems: 'flex-start' }}>
-
-                        <section className={CSS.sector} style={{ gap: '20px' }}>
-                            Επιλογές
-                            <div className={`${CSS.listOfSelectedBands} column`}>
-
-
-                                {selectedBands
-                                    .map((band: any, index: number) => (
-                                        <div className={CSS.stageSelection} key={band?.profileId}>
-
-                                            <SvgIcon id='close' width={15}
-                                                color='#fff'
-                                                onClick={() => setSelectedBands((prev: any) => prev.filter((selectedBands: any) =>
-                                                    selectedBands?.profileId !== band?.profileId))}
-                                                style={{ float: 'right' }} />
-                                            <ProfileListItem key={band.profileId} profile={band} />
-                                            <div className='items-inline' style={{ gap: '15px' }}>
-
-                                                <div className='items-inline white' style={{ gap: '5px' }}>
-                                                    <input type='radio' id={`${index}`} value={'basic'} name={band?.profileId} checked />
-                                                    <label htmlFor={`${index}`} >Βασικό act</label>
-                                                </div>
-                                                <div className='items-inline white' style={{ gap: '5px' }}>
-
-                                                    <input type='radio' id={band?.profileId} value={'support'} name={band?.profileId} />
-                                                    <label htmlFor={band?.profileId}>Support act</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))}
-                            </div>
-
-                        </section>
-                        <section style={{ width: '50vw' }}>
-
-                            <input type='search' placeholder='Αναζήτηση..' onChange={(e: any) => setSearch(e.target.value)} />
-                            <div className={CSS.stagesList} style={{ marginLeft: '-119px' }} >
-                                {stages
-                                    .filter((stage: any) => SearchValidation(stage?.name, search))
-                                    .map((stage: any) => (
-                                        <ProfileListItem
-                                            key={stage.profileId}
-                                            profile={stage}
-                                            onClick={() => setSelectedBands([...selectedBands, stage])}
-                                        />
-                                    ))}
-                            </div>
-                        </section>
-
-                    </section>
-
-                }
-
-
-                <section className={CSS.buttonsSection}>
-
-                    {step !== 1 &&
-                        <button type='button' className='btn' onClick={() => setStep(step - 1)}> Προηγούμενο</button>
-                    }
-                    <button type='submit' className='btn' > Επόμενο</button>
+                    <div className={`${CSS.buttonsSection} items-inline`}>
+                        <button type='submit'>Δημοσίευση</button>
+                        <button type='button'>Ακύρωση</button>
+                    </div>
 
 
 
                 </section>
+
+
             </form>
         </div>
     )
