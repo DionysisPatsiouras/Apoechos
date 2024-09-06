@@ -49,12 +49,14 @@ const Card = forwardRef(function Card(props: any, ref) {
 
 
                 <div className={CSS.btn_section}>
-                    <div style={{width: '100%', borderRight: '1px solid grey'}}>
+                    <div className={CSS.btn} style={{ borderRight: '1px solid #E9E9E9' }} onClick={() => setModal(!modal)}>
                         <SvgIcon id='send' color='#5F69C6' width={20} />
-                    </div>
-                    <div style={{width: '100%'}}>
-                        <SvgIcon id='send' color='#5F69C6' width={20} />
-                    </div>
+                    </div >
+                    <Link to={`/profile/${profile?.profileId}`} className={CSS.btn} >
+                        <div>
+                            <SvgIcon id='view' color='#5F69C6' width={20} />
+                        </div>
+                    </Link>
                     {/* <div style={{width: '100%'}}>
                         <p>Προβολή</p>
                     </div> */}
