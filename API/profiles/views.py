@@ -16,7 +16,7 @@ from django.http import JsonResponse
 @api_view(["GET"])
 @permission_classes([])
 def all_stages(request):
-    profiles = Profile.objects.filter(category=5)
+    profiles = Profile.objects.filter(category=5, is_deleted=False)
     serializer = Stages_Serializer(profiles, many=True)
 
     return Response([{"length": len(serializer.data)}, serializer.data])
@@ -24,7 +24,7 @@ def all_stages(request):
 @api_view(["GET"])
 @permission_classes([])
 def all_profiles(request):
-    profiles = Profile.objects.filter(user__is_active=True)
+    profiles = Profile.objects.filter(user__is_active=True, is_deleted=False)
     serializer = ProfileSerializer(profiles, many=True)
 
     return Response([{"length": len(serializer.data)}, serializer.data])
@@ -47,7 +47,7 @@ def new_profile(request):
 def profile_by_id(request, id):
 
     try:
-        profile = Profile.objects.get(pk=id)
+        profile = Profile.objects.get(pk=id, is_deleted=False)
     except Profile.DoesNotExist:
         return Response({"message": "Profile not exist", "status": 404}, status=404)
 
