@@ -79,6 +79,7 @@ export const EditProfileProvider = ({ children }: any) => {
         { icon: 'studio_services', label: 'Υπηρεσίες', category: [3], id: 3 },
         { icon: 'keys', label: 'Όργανα', category: [1], id: 4 },
         { icon: 'location', label: 'Τοποθεσία', category: [3, 4, 5], id: 5 },
+        { icon: 'settings', label: 'Ρυθμίσεις', category: [1, 2, 3, 4, 5], id: 6 },
     ]
 
     // const [fetchedCity, setFetchedCity] = useState<any>()

@@ -94,5 +94,8 @@ class Profile(models.Model):
     studio_services = models.ManyToManyField("Studio_Service", blank=True)
     store_services = models.ManyToManyField("Store_Service", blank=True)
 
+    is_deleted = models.BooleanField(default=False)
+    deleted_at = models.DateTimeField(blank=True, null=True)
+
     def __str__(self):
         return self.name

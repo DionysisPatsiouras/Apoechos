@@ -201,8 +201,6 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
 
                     <div style={{ width: '70%' }}>
 
-
-
                         <MapContainer
                             // @ts-ignore
                             center={[currentProfile.latitude, currentProfile.longitude]}
@@ -244,9 +242,18 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
                     </div>
                 }
 
+                {tab === 6 &&
+
+                    <div>
+                        <h4>Διαγραφή λογαριασμού</h4>
+                        <p>Αυτή η ενέργεια είναι μη αναστρέψιμη. Δε θα μπορέσετε να επαναφέρετε το προφίλ σας</p>
+                        <button>Διαγραφή Προφίλ</button>
+                    </div>
+                }
+
                 <div className={CSS.bottom_section}>
                     <button type='submit' className='btn blue_btn'>Ενημέρωση</button>
-                    <button type='reset' className='btn discard_btn' style={{ 'backgroundColor': '#9A9A9A' }}
+                    <button type='reset' className='btn discard_btn' style={{ backgroundColor: '#9A9A9A' }}
                         onClick={() => { setTab(1); props?.close() }}>  Ακύρωση </button>
                 </div>
             </form>
