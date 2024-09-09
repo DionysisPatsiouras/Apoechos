@@ -140,7 +140,9 @@ export default function CreateNewProfile() {
                                 <div className={CSS.uploadPhoto} >
 
                                     <label htmlFor='picture' className='cursor-pointer'>
-                                        <div className={CSS.bg}><img className={CSS.image_preview} src={uploadedFile} width={20} height={20} alt='' /> </div>
+                                        <div className={CSS.bg}>
+                                            <img className={CSS.image_preview} src={uploadedFile} width={20} height={20} alt='uploaded_photo' />
+                                        </div>
                                     </label>
 
                                     {uploadedFile ?
@@ -330,7 +332,7 @@ export default function CreateNewProfile() {
 
                                         <TileLayer
                                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                 
+
                                         />
 
                                         <ChangeView center={[position?.[0], position?.[1]]} />

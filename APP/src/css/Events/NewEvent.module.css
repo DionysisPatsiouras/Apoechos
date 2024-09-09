@@ -29,6 +29,10 @@
   -o-object-fit: cover;
      object-fit: cover;
   border: 1px solid red;
+  background-image: url("../../img/photo.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .eventTitle {
@@ -71,7 +75,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 15px;
+  margin: auto 0;
   cursor: pointer;
 }
 
@@ -93,6 +97,14 @@
   padding: 10px 20px;
   width: 200px;
   cursor: pointer;
+}
+
+.customLocationFields {
+  display: flex;
+  gap: 20px;
+}
+.customLocationFields select, .customLocationFields input {
+  width: 200px;
 }
 
 @media screen and (min-width: 768px) {

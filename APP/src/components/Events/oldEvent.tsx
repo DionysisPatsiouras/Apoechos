@@ -136,7 +136,7 @@ export default function NewEvent(props: any) {
             <form onSubmit={handleSubmit(Post_event)} noValidate >
 
 
-                {/* {step === 1 &&
+                 {step === 1 &&
                     <section className={`${CSS.step1Container} items-inline`} >
 
                         <div className={CSS.uploadPhoto} >
@@ -219,7 +219,7 @@ export default function NewEvent(props: any) {
 
 
                     </section>
-                } */}
+                } 
 
 
 

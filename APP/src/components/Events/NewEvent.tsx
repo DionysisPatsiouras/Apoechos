@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { useForm } from 'react-hook-form'
+import { useContext, useState } from 'react'
+
 
 // CSS
 import CSS from '../../css/Events/NewEvent.module.css'
@@ -11,12 +11,16 @@ import FormError from '../../utils/FormError'
 
 // components
 import SvgIcon from '../../components/SvgIcon'
-// import ProfileImage from '../../components/ProfileImage'
 
+import Modal from '../Modal'
 // context
-import { useSnackbarContext } from '../../context/SnackbarContext'
+// import { useSnackbarContext } from '../../context/SnackbarContext'
+// import UtilsContext from '../../context/UtilsContext'
+// import ProfileImage from '../ProfileImage'
 
-
+import NewEventContext from '../../context/NewEventContext'
+import SelectedProfile from '../Profile/SelectedProfile'
+import PickBand from './PickBand'
 
 
 interface EventViewProps {
@@ -27,26 +31,28 @@ interface EventViewProps {
 export default function EventView({ profileId, closeModal }: EventViewProps) {
 
 
-    const form = useForm()
-    const { register, handleSubmit, formState, resetField } = form
-    const { errors } = formState
-
-    const { snackbar }: any = useSnackbarContext()
-
-
-    let get_profiles = new Call(Routes.profiles.all, 'GET')
-
     let svg_color = '#C0C0C0'
-    // let a4Ratio = 1.414
-    let wastedMargin = 150
-    let fields = ['file', 'title', 'description', 'date', 'time', 'location_name', 'address', 'profileId']
+    let wastedMargin = 250
+    const {
+        cities,
+        modal, setModal,
+
+        stages, setSelectedBands,
+        selectedBands,
+        selectedStage, setSelectedStage,
+        handleSubmit,
+        // Post_event,
+        height, register, errors,
+        customLocation, setCostumLocation,
+        stageModal, setStageModal,
+        check_img_type, uploadedFile
+
+    }: any = useContext(NewEventContext)
 
 
-    const [height, setHeight] = useState<any>(undefined)
-    const [selectedStage, setSelectedStage] = useState<any[]>([])
-    const [selectedBands, setSelectedBands] = useState<any[]>([])
-    const [customLocation, setCostumLocation] = useState<boolean>(false)
 
+
+    let a4Ratio = 1.414
 
     const Post_event = (data: any) => {
 
@@ -57,9 +63,12 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
         data.title && formData.append('title', data?.title)
         formData.append('description', data?.description)
         formData.append('date', `${data.date} ${data.time}`)
+        formData.append('profile_location', selectedStage?.profileId)
         formData.append('created_by', profileId)
 
-
+        for (let index in selectedBands) {
+            formData.append('main_bands', selectedBands[index]?.profileId)
+        }
 
 
         let post_event = new Call(Routes.events.new, 'POST', formData)
@@ -69,13 +78,13 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
             .then((res) => {
                 // console.log(res)
                 console.log('Event uploaded successfully')
-                snackbar('Η εκδήλωση δημοσιεύτηκε')
+                // snackbar('Η εκδήλωση δημοσιεύτηκε')
 
                 closeModal()
 
-                for (let index in fields) {
-                    resetField(fields[index])
-                }
+                // for (let index in fields) {
+                //     resetField(fields[index])
+                // }
             })
             .catch((err) => console.warn(err))
 
@@ -83,27 +92,54 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
 
     }
 
-    useEffect(() => {
-        document.title = 'Apoechos - Νέα εκδήλωση'
-    }, [])
-
-
     return (
         <div className={`${CSS.container} items-inline`}>
+
+            <Modal open={modal} close={() => setModal(false)} withContainer btn title='Επιλογή συγκροτήματος'>
+                <PickBand
+                    bands={stages}
+                    onClick={(e: any) => {
+                        setModal(false)
+                        setSelectedBands([...selectedBands, e])
+                    }} />
+            </Modal>
+
+            <Modal open={stageModal} close={() => setStageModal(false)} withContainer btn title='Επιλογή Σκηνής'>
+                <PickBand
+                    bands={stages}
+                    onClick={(e: any) => {
+                        setStageModal(false)
+                        setSelectedStage(e)
+                    }} />
+            </Modal>
+
             <form onSubmit={handleSubmit(Post_event)} noValidate className={CSS.formContainer}>
                 <section className={CSS.leftSector}
                     style={{
-                        height: `${height - wastedMargin}px`,
+                        // height: `${height - wastedMargin}px`,
                         // width: `${(height - wastedMargin) / a4Ratio}px`
                     }}>
                     <img
-                        // style={{
-                        //     height: `${height - wastedMargin}px`,
-                        //     width: `${(height - wastedMargin) / a4Ratio}px`
-                        // }}
+                        style={{
+                            height: `${height - wastedMargin}px`,
+                            width: `${(height - wastedMargin) / a4Ratio}px`
+                        }}
                         className={CSS.cover_photo}
                         // src={`http://127.0.0.1:8000/${event?.photo}`}
-                        alt='profile_photo' />
+                        src={uploadedFile}
+                    // alt='profile_photo' 
+                    />
+
+                    <input
+                        {...register('file')}
+                        type="file"
+                        id="picture"
+                        accept="image/png, image/jpeg"
+                        onChange={(file: any) => check_img_type(file)}
+                        style={{ position: 'absolute', top: '-20000px' }}
+                    />
+                    <label htmlFor='picture'>test</label>
+                    <FormError value={errors?.file} />
                 </section>
 
                 <section className={CSS.rightSector}>
@@ -128,32 +164,23 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
                     <hr className={CSS.divider}></hr>
 
                     <h2 className={CSS.description_title}>Συγκροτήματα</h2>
-                    <div className='items-inline' style={{ gap: '25px', flexWrap: 'wrap' }}>
+                    <div className='items-inline' style={{ gap: '20px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
 
 
                         <div className={CSS.addNewBand}>
-                            <SvgIcon id='add' width={40} color='#c1c1c1' />
+                            <SvgIcon id='add' width={40} color='#c1c1c1' onClick={() => setModal(!modal)} />
                         </div>
-                        {/* {event?.main_bands.map((band: any, index: number) => (
+                        {selectedBands.map((band: any, index: number) => (
 
-                        <Link to={`/profile/${band?.profileId}`} key={index}>
-                            <div className='items-inline' style={{ gap: '10px' }}>
+                            <SelectedProfile
+                                key={index}
+                                profile={band}
+                                onClick={() => setSelectedBands((prev: any) => prev.filter((selectedBands: any) =>
+                                    selectedBands?.profileId !== band?.profileId))}
+                            />
 
+                        ))}
 
-                                <ProfileImage
-                                    photo={band?.photo}
-                                    size={60}
-                                    style={{ margin: '0' }}
-                                    key={index}
-                                />
-                                <div>
-                                    <h2>{band?.name}</h2>
-                                    <small>{band?.city?.name}</small>
-                                </div>
-
-                            </div>
-                        </Link>
-                    ))} */}
 
                     </div>
 
@@ -205,18 +232,70 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
                         <div>
                             <p className={CSS.description_title}>Τοποθεσία</p>
 
-                            <input type='checkbox' id='customLocation'
-                                checked={customLocation}
-                                onClick={() => setCostumLocation(!customLocation)} />
-                            <label htmlFor='customLocation'>Προσαρμοσμένη τοποθεσία</label>
-                            <div className={CSS.addNewBand}>
-                                <SvgIcon id='add' width={40} color='#c1c1c1' />
+                            <div className='items-inline' style={{ marginBottom: '20px', gap: '5px' }}>
+
+                                <input type='checkbox' id='customLocation' style={{ margin: 0 }}
+                                    checked={customLocation}
+                                    onClick={() => setCostumLocation(!customLocation)} />
+                                <label htmlFor='customLocation'>Προσαρμοσμένη τοποθεσία</label>
                             </div>
+                            {customLocation ?
+                                <div className={CSS.customLocationFields}>
+                                    <div className="column">
+                                        <label>Όνομα</label>
+                                        <input type='text'{...register('location_name', {
+                                            required: 'Υποχρεωτικό πεδίο',
+                                            minLength: {
+                                                value: 3,
+                                                message: 'Πολύ μικρό κείμενο'
+                                            }
+                                        })} />
+                                        <FormError value={errors?.location_name} />
+                                    </div>
+                                    <div className="column">
+                                        <label>Πόλη</label>
+                                        <select {...register('city', { required: 'Υποχρεωτικό πεδίο' })}>
+                                            <option selected></option>
+                                            {cities?.map((city: any) => (
+                                                <option key={city.id} value={city.id}>{city.name}</option>
+                                            ))}
+                                        </select>
+                                        <FormError value={errors?.city} />
+                                    </div>
+                                    <div className="column">
+                                        <label>Διεύθυνση</label>
+                                        <input type='text'
+                                            {...register('address', {
+                                                required: 'Υποχρεωτικό πεδίο',
+                                                minLength: {
+                                                    value: 3,
+                                                    message: 'Πολύ μικρό κείμενο'
+                                                }
+                                            })} />
+                                        <FormError value={errors?.address} />
+                                    </div>
+                                </div>
+
+                                :
+                                <div>
+
+                                    {selectedStage ?
+
+                                        <SelectedProfile profile={selectedStage} onClick={() => setSelectedStage()} />
+                                        :
+                                        <div className={CSS.addNewBand}>
+                                            <SvgIcon id='add' width={40} color='#c1c1c1' onClick={() => setStageModal(!stageModal)} />
+                                        </div>
+                                    }
+
+
+                                </div>
+                            }
+
                         </div>
-
-
-
                     </div>
+
+
 
                     <hr className={CSS.divider}></hr>
 

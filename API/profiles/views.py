@@ -115,7 +115,7 @@ def get_genres(request):
 def get_my_profiles(request):
     user = request.user
 
-    profiles = Profile.objects.filter(user_id=user)
+    profiles = Profile.objects.filter(user_id=user, is_deleted=False)
     serializer = ProfileSerializer(profiles, many=True)
 
     return Response([{"length": len(serializer.data)}, serializer.data])

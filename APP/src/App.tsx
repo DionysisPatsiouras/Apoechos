@@ -14,6 +14,7 @@ import Create from './pages/Create'
 import EventView from './pages/EventView'
 
 // context
+import { NewEventProvider } from './context/NewEventContext'
 import { AuthProvider } from './context/AuthContext'
 import { UserProvider } from './context/UserContext'
 import { DiscoverProvider } from './context/DiscoverContext'
@@ -75,7 +76,9 @@ export default function App() {
                     <Route path='/profile/:id' element={
                       <ProfileProvider>
                         <EditProfileProvider>
-                          <Profile />
+                          <NewEventProvider>
+                            <Profile />
+                          </NewEventProvider>
                         </EditProfileProvider>
                       </ProfileProvider>} />
                     <Route path='/discover' element={<DiscoverProvider><Discover /></DiscoverProvider>} />

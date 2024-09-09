@@ -17,6 +17,7 @@ import { MapContainer, TileLayer } from 'react-leaflet'
 
 
 
+
 // export default function EditProfile(props: any) {
 const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
 
@@ -42,7 +43,7 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
         LocationMarker,
         position, setPosition,
 
-        new_address
+        new_address, deleteProfile
 
 
     }: any = useContext(EditProfileContext)
@@ -61,20 +62,19 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
 
 
 
-    const update_array = (title: string, initial_Array: any, setState: any, myArray: any, is_instruments: boolean) => {
+
+    const update_array = (initial_Array: any, setState: any, myArray: any, is_instruments: boolean) => {
 
         return (
 
             <div className={CSS.attributes}>
-                <h2>{title}</h2>
 
                 {is_instruments &&
 
-                    <div className={`${CSS.categories_list} cursor-pointer`}
-                        style={{ display: 'flex', justifyContent: 'center', marginBottom: '10px', gap: '10px' }}>
+                    <div className={`${CSS.listContainer} cursor-pointer`}
+                        style={{ display: 'flex', justifyContent: 'center', marginBottom: '10px', gap: '10px', borderRadius: '20px' }} >
                         {instrument_categories?.map((item: any) => (
-                            <div
-                                style={{ backgroundColor: '#5F69C6', display: 'flex', padding: '10px', color: '#fff' }}
+                            <div className={CSS.instCategoriesItem}
                                 key={item}
                                 onClick={() => setActiveCategory(item)}>
                                 {item}
@@ -84,11 +84,11 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
                 }
 
 
-                <div className='cursor-pointer' style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', overflowY: 'auto', width: '82%', margin: '0 auto' }}>
+                <div className={`${CSS.listContainer} cursor-pointer`}>
                     {initial_Array
                         .filter((i: any) => is_instruments ? i.category === activeCategory : i)
                         .map((i: any) => (
-                            <div className='items-inline' key={i.id} style={{ width: '150px', height: '30px' }}>
+                            <div className={`${CSS.listItem} items-inline`} key={i.id}>
                                 <input type='checkbox' value={i.id} id={i.id} style={{ width: 'unset' }}
                                     onChange={(event: any) => handle_checkbox(setState, event.target)}
                                     checked={myArray?.includes(i?.id?.toString())}
@@ -103,10 +103,13 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
     }
 
 
+    const [deleteModal, setDeleteModal] = useState<boolean>(false)
 
 
     return (
         <section>
+
+
 
             <ul className={CSS.tabs}>
 
@@ -144,17 +147,9 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
                                 onChange={(file: any) => setNewFile(URL.createObjectURL(file.target.files[0]))}
                             /> */}
 
-                            <div style={{ display: 'flex', gap: '20px', flexDirection: 'column' }}>
+                            <div style={{ display: 'flex', gap: '20px', flexDirection: 'column', width: '100%' }}>
 
 
-
-                                <div className={CSS.updateImage}>
-
-
-
-
-
-                                </div>
                                 <div className='items-inline' style={{ gap: '20px' }}>
                                     <input
                                         type='text'
@@ -178,24 +173,23 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
 
                                 </div>
 
+                                <textarea {...register('bio')}/> 
+                                <br></br>
+                                <br></br>
+                                <br></br>
 
-                                <textarea {...register('bio')}> </textarea>
+
                             </div>
 
-
                         </div>
-
-
-
-
 
                     </div>
 
                 }
 
-                {tab === 2 && update_array('Είδη', genres, setMyGenres, my_genres, false)}
-                {tab === 3 && update_array('Υπηρεσίες', studio_services, setMyServices, my_services, false)}
-                {tab === 4 && update_array('Όργανα', instruments, setMyInstruments, my_instruments, true)}
+                {tab === 2 && update_array(genres, setMyGenres, my_genres, false)}
+                {tab === 3 && update_array(studio_services, setMyServices, my_services, false)}
+                {tab === 4 && update_array(instruments, setMyInstruments, my_instruments, true)}
 
                 {tab === 5 &&
 
@@ -244,11 +238,20 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
 
                 {tab === 6 &&
 
-                    <div>
-                        <h4>Διαγραφή λογαριασμού</h4>
-                        <p>Αυτή η ενέργεια είναι μη αναστρέψιμη. Δε θα μπορέσετε να επαναφέρετε το προφίλ σας</p>
-                        <button>Διαγραφή Προφίλ</button>
+                    <div className={CSS.info_stats} style={{gap: '20px'}}>
+                        <h4 className={CSS.statsHeading}>Διαγραφή λογαριασμού</h4>
+                        <p className={CSS.statsParagraph}>Αυτή η ενέργεια είναι μη αναστρέψιμη. Δε θα μπορέσετε να επαναφέρετε το προφίλ σας</p>
+                        {deleteModal && <button type='button' onClick={() => setDeleteModal(false)}>Ακύρωση</button>}
+                        <button type='button'
+                            onClick={() => deleteModal ? deleteProfile() : setDeleteModal(true)}>
+                            {deleteModal ? 'Ναι, μόνιμη διαγραφή' : 'Διαγραφή Προφίλ'}
+                        </button>
+
+
+
                     </div>
+
+
                 }
 
                 <div className={CSS.bottom_section}>

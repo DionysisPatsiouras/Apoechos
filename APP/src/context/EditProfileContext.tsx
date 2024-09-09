@@ -190,6 +190,27 @@ export const EditProfileProvider = ({ children }: any) => {
             })
             .catch((err) => console.warn(err))
     }
+
+    const deleteProfile = () => {
+
+        let today = new Date()
+
+        let data = {
+            is_deleted: true,
+            deleted_at: today
+        }
+        const update_profile = new Call(Routes.profiles.update(currentProfile?.profileId), 'PATCH', data)
+
+        update_profile
+            .PATCH_MEDIA()
+            .then((res) => {
+                console.log(res);
+                setTab(1);
+                close_edit(true)
+                snackbar('Επιτυχής διαγραφή')
+            })
+            .catch((err) => console.warn(err))
+    }
     let contextData = {
 
 
@@ -213,7 +234,7 @@ export const EditProfileProvider = ({ children }: any) => {
         newFile, setNewFile,
         control, LocationMarker,
         position, setPosition,
-        new_address
+        new_address, deleteProfile
     }
 
 

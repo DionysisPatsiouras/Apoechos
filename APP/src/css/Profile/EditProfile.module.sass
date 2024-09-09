@@ -13,7 +13,7 @@
         align-items: center
         justify-content: center
 
-    li:first-child, li:nth-child(2)
+    li:first-child, li:nth-child(2), li:nth-child(3)
         border-right: 1px solid #DCDCDC
 
     .active_tab
@@ -51,7 +51,7 @@
         border: none
 
     select
-    
+
         margin: 0
         height: 45px
         padding: 0 0 0 10px
@@ -90,6 +90,7 @@
         gap: 5px
 
 .attributes
+    padding: 30px 0
     h2
         text-align: center
         border-bottom: 1px solid #ebebeb
@@ -101,19 +102,48 @@
         display: flex
         flex-wrap: wrap
         flex-direction: column
-   
 
     li
         padding: 7px
- 
-    input 
+
+    input
         margin: 5px
-        
 
     label, input
         cursor: pointer
 
+.listContainer
+    display: flex
+    flex-wrap: wrap
+    justify-content: center
+    overflow-y: auto
+    width: 82%
+    margin: 0 auto
+    gap: 5px
 
+.instCategoriesItem
+    background-color: #5F69C6 
+    display: flex
+    padding: 10px
+    color: #fff
+    border-radius: 4px
+
+.listItem
+    width: 150px
+    height: 30px
+
+    label
+        margin: 0
+        color: #000000
+        font-size: 14px
+
+.statsHeading
+    font-size: 20px
+    color: #414141
+
+.statsParagraph
+    font-size: 15px
+    color: #7d7d7d
 
 @media screen and ( min-width: 768px )
 

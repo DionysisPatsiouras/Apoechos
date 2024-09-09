@@ -1,5 +1,4 @@
 
-
 .container
     padding: 50px
     align-items: flex-start
@@ -25,9 +24,13 @@
     flex-wrap: wrap
 
 .cover_photo
-
     object-fit: cover
     border: 1px solid red
+    background-image: url('../../img/photo.png')
+
+    background-size: contain
+    background-position: center
+    background-repeat: no-repeat
 
 .eventTitle
     display: flex
@@ -65,9 +68,10 @@
     display: flex
     justify-content: center
     align-items: center
-    margin-bottom: 15px
+    // margin-bottom: 15px
+    margin: auto 0
     cursor: pointer
-    
+
 .divider
 
     border: 0
@@ -86,10 +90,32 @@
         width: 200px
         cursor: pointer
 
+.customLocationFields
+    display: flex
+    gap: 20px
+
+    select, input
+        width: 200px
+
+// .selectedProfile
+//     border-radius: 2000px
+//     padding: 10px
+//     min-width: 150px
+
+//     svg
+//         margin-top: -45px
+//         margin-right: -14px
+//         margin-left: 20px
+//         background-color: #C65F5F
+//         border-radius: 2000px
+//         width: 15px
+//         height: 15px
+//         padding: 5px
+
 @media screen and ( min-width: 768px )
     .container
         padding: 40px
         flex-direction: row
-        
+
     .title
         text-align: left
