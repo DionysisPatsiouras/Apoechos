@@ -62,7 +62,8 @@
   width: 210px;
   overflow-y: auto;
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: auto 100%;
+  background-position: center;
 }
 
 .infoOverlay {

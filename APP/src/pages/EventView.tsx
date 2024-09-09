@@ -22,6 +22,7 @@ export default function EventView() {
     let wastedMargin = 150
 
     const [event, setEvent] = useState<any>()
+    // console.log("🚀 ~ EventView ~ event:", event)
     const [height, setHeight] = useState<any>(undefined)
 
 
@@ -83,9 +84,41 @@ export default function EventView() {
 
                             </div>
                         </Link>
-                  
+
                     ))}
                 </div>
+
+                {event?.support_acts.length !== 0 &&
+                    <>
+
+                        <hr className={CSS.divider}></hr>
+                        <h2 className={CSS.description_title}>Support acts</h2>
+                        <div className='items-inline' style={{ gap: '25px', flexWrap: 'wrap' }}>
+                            {event?.support_acts.map((band: any, index: number) => (
+
+
+                                <Link to={`/profile/${band?.profileId}`} key={index}>
+                                    <div className='items-inline' style={{ gap: '10px' }}>
+
+
+                                        <ProfileImage
+                                            photo={band?.photo}
+                                            size={40}
+                                            style={{ margin: '0' }}
+                                            key={index}
+                                        />
+                                        <div>
+                                            <h3>{band?.name}</h3>
+                                            <small>{band?.city?.name}</small>
+                                        </div>
+
+                                    </div>
+                                </Link>
+
+                            ))}
+                        </div>
+                    </>
+                }
 
                 <hr className={CSS.divider}></hr>
 
@@ -96,7 +129,7 @@ export default function EventView() {
 
                     <div className='items-inline' style={{ gap: '10px' }}>
                         <SvgIcon id='location' color={svg_color} />
-                        <p>{event?.profile_location?.city?.name || event?.location}</p>
+                        <p>{event?.profile_location?.city?.name || `${event?.location_name}, ${event?.address}, ${event?.city?.name}`}</p>
                     </div>
 
 
@@ -116,23 +149,26 @@ export default function EventView() {
                 <hr className={CSS.divider}></hr>
 
                 <section className={`${CSS.footer} items-inline`} style={{ gap: '100px' }}>
-                    <div>
-                        <p className={CSS.description_title}>Τοποθεσία</p>
-                        <Link to={`/profile/${event?.profile_location?.profileId}`}>
-                            <div className='items-inline' style={{ gap: '10px' }}>
-                                <ProfileImage
-                                    photo={event?.profile_location?.photo}
-                                    style={{ margin: '0' }}
-                                    size={60}
-                                />
-                                <div>
-                                    <p>{event?.profile_location?.name}</p>
-                                    <small>{event?.profile_location?.address}</small>
-                                </div>
+                    {event?.profile_location &&
+                        <div>
+                            <p className={CSS.description_title}>Τοποθεσία</p>
+                            <Link to={`/profile/${event?.profile_location?.profileId}`}>
+                                <div className='items-inline' style={{ gap: '10px' }}>
+                                    <ProfileImage
+                                        photo={event?.profile_location?.photo}
+                                        style={{ margin: '0' }}
+                                        size={60}
+                                    />
+                                    <div>
+                                        <p>{event?.profile_location?.name}</p>
+                                        <small>{event?.profile_location?.address}</small>
+                                    </div>
 
-                            </div>
-                        </Link>
-                    </div>
+                                </div>
+                            </Link>
+                        </div>
+                    }
+
 
                     <div>
                         <p className={CSS.description_title}>Δημιουργήθηκε από</p>

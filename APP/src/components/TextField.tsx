@@ -7,11 +7,11 @@ export default function TextField({ label, register, name, required, errors, min
             <input type='text' {...register(name, {
                 required: required ? 'Υποχρεωτικό πεδίο' : false,
                 minLength: {
-                    value: min,
+                    value: 3,
                     message: 'Πολύ μικρό κείμενο'
                 },
                 maxLength: {
-                    value: max,
+                    value: 250,
                     message: 'Πολύ μεγάλο κείμενο'
                 }
             })} />

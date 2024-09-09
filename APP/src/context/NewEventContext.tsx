@@ -33,10 +33,12 @@ export const NewEventProvider = ({ children }: any) => {
     const [height, setHeight] = useState<any>(undefined)
     const [selectedStage, setSelectedStage] = useState<any>()
     const [selectedBands, setSelectedBands] = useState<any[]>([])
+    const [supportActs, setSupportActs] = useState<any[]>([])
 
     const [customLocation, setCostumLocation] = useState<boolean>(false)
     const [modal, setModal] = useState<boolean>(false)
     const [stageModal, setStageModal] = useState<boolean>(false)
+    const [supportModal, setSupportModal] = useState<boolean>(false)
     const [uploadedFile, setUploadedFile] = useState<any>()
 
 
@@ -58,6 +60,11 @@ export const NewEventProvider = ({ children }: any) => {
 
         setHeight(window.innerHeight)
         window.addEventListener("resize", () => setHeight(window.innerHeight))
+
+        for (let index in fields) {
+            resetField(fields[index])
+        }
+        setUploadedFile(undefined)
     }, [])
 
     const check_img_type = (file: any) => {
@@ -124,7 +131,9 @@ export const NewEventProvider = ({ children }: any) => {
         a4Ratio,
         wastedMargin,
         fields,
-        resetField
+        resetField,
+        supportModal, setSupportModal,
+        supportActs, setSupportActs
 
 
     }

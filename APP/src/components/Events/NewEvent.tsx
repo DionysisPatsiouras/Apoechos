@@ -32,7 +32,7 @@ interface EventViewProps {
 
 
 
-  
+
 export default function EventView({ profileId, closeModal }: EventViewProps) {
 
 
@@ -47,7 +47,7 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
         selectedBands,
         selectedStage, setSelectedStage,
         handleSubmit,
- 
+
         height, register, errors,
         customLocation, setCostumLocation,
         stageModal, setStageModal,
@@ -55,7 +55,9 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
         a4Ratio,
         wastedMargin,
         fields,
-        resetField
+        resetField,
+        supportModal, setSupportModal,
+        supportActs, setSupportActs
 
     }: any = useContext(NewEventContext)
 
@@ -66,7 +68,7 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
 
     const Post_event = (data: any) => {
 
-  
+        // console.log(data)
         let formData: any = new FormData()
 
         formData.append('photo', data?.file?.[0])
@@ -87,6 +89,9 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
 
         for (let index in selectedBands) {
             formData.append('main_bands', selectedBands[index]?.profileId)
+        }
+        for (let index in supportActs) {
+            formData.append('support_acts', supportActs[index]?.profileId)
         }
 
 
@@ -118,7 +123,7 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
 
             <Modal open={modal} close={() => setModal(false)} withContainer btn title='Επιλογή συγκροτήματος'>
                 <PickBand
-                    bands={stages.filter((profile: any) => !selectedBands.includes(profile))}
+                    bands={stages.filter((profile: any) => !selectedBands.includes(profile) && !supportActs.includes(profile))}
                     onClick={(e: any) => {
                         setModal(false)
                         setSelectedBands([...selectedBands, e])
@@ -131,6 +136,15 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
                     onClick={(e: any) => {
                         setStageModal(false)
                         setSelectedStage(e)
+                    }} />
+            </Modal>
+
+            <Modal open={supportModal} close={() => setSupportModal(false)} withContainer btn title='Επιλογή support act'>
+                <PickBand
+                    bands={stages.filter((profile: any) => !selectedBands.includes(profile) && !supportActs.includes(profile))}
+                    onClick={(e: any) => {
+                        setSupportModal(false)
+                        setSupportActs([...supportActs, e])
                     }} />
             </Modal>
 
@@ -177,8 +191,6 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
                             register={register}
                             name='title'
                             errors={errors}
-                            min={3}
-                            max={250}
                         />
 
                     </div>
@@ -188,22 +200,37 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
                     <h2 className={CSS.description_title}>Συγκροτήματα</h2>
                     <div className='items-inline' style={{ gap: '20px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
 
-
                         <div className={CSS.addNewBand}>
                             <SvgIcon id='add' width={40} color='#c1c1c1' onClick={() => setModal(!modal)} />
                         </div>
                         {selectedBands.map((band: any, index: number) => (
-
                             <SelectedProfile
                                 key={index}
                                 profile={band}
                                 onClick={() => setSelectedBands((prev: any) => prev.filter((selectedBands: any) =>
                                     selectedBands?.profileId !== band?.profileId))}
                             />
-
                         ))}
 
 
+                    </div>
+
+
+
+                    <hr className={CSS.divider}></hr>
+                    <h2 className={CSS.description_title}>Support acts</h2>
+                    <div className='items-inline' style={{ gap: '20px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+                        <div className={CSS.addNewBand}>
+                            <SvgIcon id='add' width={40} color='#c1c1c1' onClick={() => setSupportModal(!supportModal)} />
+                        </div>
+                        {supportActs.map((band: any, index: number) => (
+                            <SelectedProfile
+                                key={index}
+                                profile={band}
+                                onClick={() => setSupportActs((prev: any) => prev.filter((profile: any) =>
+                                    profile?.profileId !== band?.profileId))}
+                            />
+                        ))}
                     </div>
 
                     <hr className={CSS.divider}></hr>
@@ -322,7 +349,7 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
 
                     <div className={`${CSS.buttonsSection} items-inline`}>
                         <button type='submit'>Δημοσίευση</button>
-                        <button type='button'>Ακύρωση</button>
+                        <button type='button' onClick={closeModal}>Ακύρωση</button>
                     </div>
 
 
