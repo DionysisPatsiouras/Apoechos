@@ -5,11 +5,21 @@ from rest_framework import status
 from users import serializers
 from .serializers import *
 from .models import *
-
+from django.db.models import Q
 
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
+
+
+# /profile/all/bands_and_musicians
+@api_view(["GET"])
+@permission_classes([])
+def get_bands_and_musicians(request):
+    profiles = Profile.objects.filter(Q(category=1) | Q(category=2), is_deleted=False)
+    serializer = Stages_Serializer(profiles, many=True)
+
+    return Response([{"length": len(serializer.data)}, serializer.data])
 
 
 # /profile/all/stages
@@ -20,6 +30,7 @@ def all_stages(request):
     serializer = Stages_Serializer(profiles, many=True)
 
     return Response([{"length": len(serializer.data)}, serializer.data])
+
 
 @api_view(["GET"])
 @permission_classes([])

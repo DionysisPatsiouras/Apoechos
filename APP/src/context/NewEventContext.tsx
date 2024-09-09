@@ -43,28 +43,30 @@ export const NewEventProvider = ({ children }: any) => {
 
 
     const [stages, setStages] = useState<any[]>([])
-    let get_stages = new Call(Routes.profiles.all, 'GET')
+    const [bands, setBands] = useState<any[]>([])
 
 
-    let { get_cities, cities }: any = useContext(UtilsContext)
+
+
+    let { get_cities, cities, all_stages, get_stages, bands_and_musicians, get_bands_and_musicians }: any = useContext(UtilsContext)
+    console.log("🚀 ~ NewEventProvider ~ bands_and_musicians:", bands_and_musicians)
 
 
     useEffect(() => {
-        get_stages
-            .GET()
-            .then((res) => setStages(res?.[1]))
-            .catch((err) => console.warn(err))
+        
+        get_stages()
 
         get_cities()
+        get_bands_and_musicians()
 
 
         setHeight(window.innerHeight)
         window.addEventListener("resize", () => setHeight(window.innerHeight))
 
-        for (let index in fields) {
-            resetField(fields[index])
-        }
-        setUploadedFile(undefined)
+        // for (let index in fields) {
+        //     resetField(fields[index])
+        // }
+        // setUploadedFile(undefined)
     }, [])
 
     const check_img_type = (file: any) => {
@@ -119,7 +121,7 @@ export const NewEventProvider = ({ children }: any) => {
         cities,
         modal, setModal,
 
-        stages, setSelectedBands,
+        all_stages, setSelectedBands,
         selectedBands,
         selectedStage, setSelectedStage,
         handleSubmit,
@@ -133,7 +135,8 @@ export const NewEventProvider = ({ children }: any) => {
         fields,
         resetField,
         supportModal, setSupportModal,
-        supportActs, setSupportActs
+        supportActs, setSupportActs,
+        bands_and_musicians
 
 
     }

@@ -19,6 +19,8 @@ export const UtilsProvider = ({ children }: any) => {
     let [instrumentTypes, setInstrumentTypes] = useState<any[]>([])
 
     let [my_profiles, setMyProfiles] = useState<any>([])
+    let [all_stages, setAllStages] = useState<any>([])
+    let [bands_and_musicians, setBandsAndMusicians] = useState<any>([])
 
 
 
@@ -54,6 +56,17 @@ export const UtilsProvider = ({ children }: any) => {
         fetch_genres.GET_NO_TOKEN().then((res) => setGenres(res?.[1])).catch((err) => console.warn(err))
     }
 
+    const get_stages = () => {
+        const fetch_stages = new Call(Routes.profiles.stages, 'GET')
+        fetch_stages.GET_NO_TOKEN().then((res) => setAllStages(res?.[1])).catch((err) => console.warn(err))
+    }
+    const get_bands_and_musicians = () => {
+        const fetch_bands_and_musicians = new Call(Routes.profiles.bandsAndMusicians, 'GET')
+        fetch_bands_and_musicians.GET_NO_TOKEN().then((res) => setBandsAndMusicians(res?.[1])).catch((err) => console.warn(err))
+    }
+
+
+
 
 
 
@@ -78,7 +91,9 @@ export const UtilsProvider = ({ children }: any) => {
         categories, get_categories,
         instrumentTypes, get_instrument_categories,
         instrument_categories,
-        my_profiles, get_my_profiles
+        my_profiles, get_my_profiles,
+        all_stages, get_stages,
+        bands_and_musicians, get_bands_and_musicians
 
     }
 

@@ -43,7 +43,7 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
         cities,
         modal, setModal,
 
-        stages, setSelectedBands,
+        all_stages, setSelectedBands,
         selectedBands,
         selectedStage, setSelectedStage,
         handleSubmit,
@@ -57,7 +57,8 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
         fields,
         resetField,
         supportModal, setSupportModal,
-        supportActs, setSupportActs
+        supportActs, setSupportActs,
+        bands_and_musicians
 
     }: any = useContext(NewEventContext)
 
@@ -123,7 +124,7 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
 
             <Modal open={modal} close={() => setModal(false)} withContainer btn title='Επιλογή συγκροτήματος'>
                 <PickBand
-                    bands={stages.filter((profile: any) => !selectedBands.includes(profile) && !supportActs.includes(profile))}
+                    bands={bands_and_musicians.filter((profile: any) => !selectedBands.includes(profile) && !supportActs.includes(profile))}
                     onClick={(e: any) => {
                         setModal(false)
                         setSelectedBands([...selectedBands, e])
@@ -132,7 +133,7 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
 
             <Modal open={stageModal} close={() => setStageModal(false)} withContainer btn title='Επιλογή Σκηνής'>
                 <PickBand
-                    bands={stages}
+                    bands={all_stages}
                     onClick={(e: any) => {
                         setStageModal(false)
                         setSelectedStage(e)
@@ -141,7 +142,7 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
 
             <Modal open={supportModal} close={() => setSupportModal(false)} withContainer btn title='Επιλογή support act'>
                 <PickBand
-                    bands={stages.filter((profile: any) => !selectedBands.includes(profile) && !supportActs.includes(profile))}
+                    bands={bands_and_musicians.filter((profile: any) => !selectedBands.includes(profile) && !supportActs.includes(profile))}
                     onClick={(e: any) => {
                         setSupportModal(false)
                         setSupportActs([...supportActs, e])

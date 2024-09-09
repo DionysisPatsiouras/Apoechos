@@ -16,5 +16,6 @@ urlpatterns = [
     path("get/store_services/", views.get_store_services),  # /profiles/get/store_services/
     path("get/my_profiles/", views.get_my_profiles),  # /profiles/get/my_profiles/
     path("get/categories/", views.get_categories),  # /profiles/get/categories/
+    path("get/all_performers/", views.get_bands_and_musicians),  # /profiles/get/bands_and_musicians/
     
 ]

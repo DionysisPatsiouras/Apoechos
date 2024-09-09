@@ -27,6 +27,7 @@ export const Routes = {
         my_profiles: `${url}/profile/get/my_profiles/`,
         categories: `${url}/profile/get/categories/`,
         stages: `${url}/profile/all/stages/`,
+        bandsAndMusicians: `${url}/profile/get/all_performers/`,
     },
 
     messages: {
