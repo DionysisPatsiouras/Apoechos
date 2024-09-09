@@ -5,8 +5,6 @@ import { useContext, useState, useEffect } from 'react'
 import CSS from '../../css/Events/NewEvent.module.css'
 
 // utils
-import Call from '../../utils/Call'
-import { Routes } from '../../utils/Routes'
 import FormError from '../../utils/FormError'
 import TextField from '../TextField'
 
@@ -21,9 +19,8 @@ import Modal from '../Modal'
 
 import NewEventContext from '../../context/NewEventContext'
 import SelectedProfile from '../Profile/SelectedProfile'
-import PickBand from './PickBand'
+import PickProfile from './PickProfile'
 
-import { useSnackbarContext } from '../../context/SnackbarContext'
 
 interface EventViewProps {
     profileId: string;
@@ -37,7 +34,7 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
 
 
     let svg_color = '#C0C0C0'
-    const { snackbar }: any = useSnackbarContext()
+
 
     const {
         cities,
@@ -54,68 +51,14 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
         check_img_type, uploadedFile,
         a4Ratio,
         wastedMargin,
-        fields,
-        resetField,
+
         supportModal, setSupportModal,
         supportActs, setSupportActs,
-        bands_and_musicians
+        bands_and_musicians,
+        Post_event
 
     }: any = useContext(NewEventContext)
 
-
-
-
-
-
-    const Post_event = (data: any) => {
-
-        // console.log(data)
-        let formData: any = new FormData()
-
-        formData.append('photo', data?.file?.[0])
-        data.title && formData.append('title', data?.title)
-        formData.append('description', data?.description)
-        formData.append('date', `${data.date} ${data.time}`)
-        formData.append('created_by', profileId)
-
-
-        if (!customLocation) {
-            formData.append('profile_location', selectedStage?.profileId)
-        } else {
-            formData.append('location_name', data.location_name)
-            formData.append('city', data.city)
-            formData.append('address', data.address)
-        }
-
-
-        for (let index in selectedBands) {
-            formData.append('main_bands', selectedBands[index]?.profileId)
-        }
-        for (let index in supportActs) {
-            formData.append('support_acts', supportActs[index]?.profileId)
-        }
-
-
-        let post_event = new Call(Routes.events.new, 'POST', formData)
-
-        post_event
-            .POST_MEDIA()
-            .then((res) => {
-                console.log(res)
-                console.log('Event uploaded successfully')
-                snackbar('Η εκδήλωση δημοσιεύτηκε')
-
-                closeModal()
-
-                for (let index in fields) {
-                    resetField(fields[index])
-                }
-            })
-            .catch((err) => console.warn(err))
-
-        // uploadedFile === undefined && alert('Ανεβάστε εικόνα')
-
-    }
 
 
 
@@ -123,7 +66,7 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
         <div className={`${CSS.container} items-inline`}>
 
             <Modal open={modal} close={() => setModal(false)} withContainer btn title='Επιλογή συγκροτήματος'>
-                <PickBand
+                <PickProfile
                     bands={bands_and_musicians.filter((profile: any) => !selectedBands.includes(profile) && !supportActs.includes(profile))}
                     onClick={(e: any) => {
                         setModal(false)
@@ -132,7 +75,7 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
             </Modal>
 
             <Modal open={stageModal} close={() => setStageModal(false)} withContainer btn title='Επιλογή Σκηνής'>
-                <PickBand
+                <PickProfile
                     bands={all_stages}
                     onClick={(e: any) => {
                         setStageModal(false)
@@ -141,7 +84,7 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
             </Modal>
 
             <Modal open={supportModal} close={() => setSupportModal(false)} withContainer btn title='Επιλογή support act'>
-                <PickBand
+                <PickProfile
                     bands={bands_and_musicians.filter((profile: any) => !selectedBands.includes(profile) && !supportActs.includes(profile))}
                     onClick={(e: any) => {
                         setSupportModal(false)

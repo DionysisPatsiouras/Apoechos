@@ -26,6 +26,7 @@ import Loader from '../utils/Loader'
 import FixedButton from '../components/FixedButton'
 
 import { useNavigate } from "react-router-dom"
+import { NewEventProvider } from '../context/NewEventContext'
 
 
 export default function Profile() {
@@ -112,7 +113,10 @@ export default function Profile() {
 
 
             <FullModal open={eventModal} close={() => setEventModal(false)} title='Νέα εκδήλωση'>
-                <NewEvent profileId={currentProfile?.profileId} closeModal={() => setEventModal(false)} />
+                <NewEventProvider>
+                    <NewEvent profileId={currentProfile?.profileId} closeModal={() => setEventModal(false)} />
+                </NewEventProvider>
+
             </FullModal>
             <Modal open={modal} close={() => setModal(false)} closeButton>
                 <img src={`http://127.0.0.1:8000/${currentProfile?.photo}`} alt='profile_photo' />
