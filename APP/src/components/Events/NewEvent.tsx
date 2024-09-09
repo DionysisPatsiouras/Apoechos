@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 
 
 // CSS
@@ -8,6 +8,7 @@ import CSS from '../../css/Events/NewEvent.module.css'
 import Call from '../../utils/Call'
 import { Routes } from '../../utils/Routes'
 import FormError from '../../utils/FormError'
+import TextField from '../TextField'
 
 // components
 import SvgIcon from '../../components/SvgIcon'
@@ -22,17 +23,22 @@ import NewEventContext from '../../context/NewEventContext'
 import SelectedProfile from '../Profile/SelectedProfile'
 import PickBand from './PickBand'
 
+import { useSnackbarContext } from '../../context/SnackbarContext'
 
 interface EventViewProps {
     profileId: string;
     closeModal: () => void
 }
 
+
+
+  
 export default function EventView({ profileId, closeModal }: EventViewProps) {
 
 
     let svg_color = '#C0C0C0'
-    let wastedMargin = 250
+    const { snackbar }: any = useSnackbarContext()
+
     const {
         cities,
         modal, setModal,
@@ -41,30 +47,43 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
         selectedBands,
         selectedStage, setSelectedStage,
         handleSubmit,
-        // Post_event,
+ 
         height, register, errors,
         customLocation, setCostumLocation,
         stageModal, setStageModal,
-        check_img_type, uploadedFile
+        check_img_type, uploadedFile,
+        a4Ratio,
+        wastedMargin,
+        fields,
+        resetField
 
     }: any = useContext(NewEventContext)
 
 
 
 
-    let a4Ratio = 1.414
+
 
     const Post_event = (data: any) => {
 
-        // console.log(data)
+  
         let formData: any = new FormData()
 
         formData.append('photo', data?.file?.[0])
         data.title && formData.append('title', data?.title)
         formData.append('description', data?.description)
         formData.append('date', `${data.date} ${data.time}`)
-        formData.append('profile_location', selectedStage?.profileId)
         formData.append('created_by', profileId)
+
+
+        if (!customLocation) {
+            formData.append('profile_location', selectedStage?.profileId)
+        } else {
+            formData.append('location_name', data.location_name)
+            formData.append('city', data.city)
+            formData.append('address', data.address)
+        }
+
 
         for (let index in selectedBands) {
             formData.append('main_bands', selectedBands[index]?.profileId)
@@ -76,15 +95,15 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
         post_event
             .POST_MEDIA()
             .then((res) => {
-                // console.log(res)
+                console.log(res)
                 console.log('Event uploaded successfully')
-                // snackbar('Η εκδήλωση δημοσιεύτηκε')
+                snackbar('Η εκδήλωση δημοσιεύτηκε')
 
                 closeModal()
 
-                // for (let index in fields) {
-                //     resetField(fields[index])
-                // }
+                for (let index in fields) {
+                    resetField(fields[index])
+                }
             })
             .catch((err) => console.warn(err))
 
@@ -92,12 +111,14 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
 
     }
 
+
+
     return (
         <div className={`${CSS.container} items-inline`}>
 
             <Modal open={modal} close={() => setModal(false)} withContainer btn title='Επιλογή συγκροτήματος'>
                 <PickBand
-                    bands={stages}
+                    bands={stages.filter((profile: any) => !selectedBands.includes(profile))}
                     onClick={(e: any) => {
                         setModal(false)
                         setSelectedBands([...selectedBands, e])
@@ -114,51 +135,52 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
             </Modal>
 
             <form onSubmit={handleSubmit(Post_event)} noValidate className={CSS.formContainer}>
-                <section className={CSS.leftSector}
-                    style={{
-                        // height: `${height - wastedMargin}px`,
-                        // width: `${(height - wastedMargin) / a4Ratio}px`
-                    }}>
-                    <img
-                        style={{
-                            height: `${height - wastedMargin}px`,
-                            width: `${(height - wastedMargin) / a4Ratio}px`
-                        }}
-                        className={CSS.cover_photo}
-                        // src={`http://127.0.0.1:8000/${event?.photo}`}
-                        src={uploadedFile}
-                    // alt='profile_photo' 
-                    />
 
-                    <input
-                        {...register('file')}
-                        type="file"
-                        id="picture"
-                        accept="image/png, image/jpeg"
-                        onChange={(file: any) => check_img_type(file)}
-                        style={{ position: 'absolute', top: '-20000px' }}
-                    />
-                    <label htmlFor='picture'>test</label>
+
+                <section className={`${CSS.leftSector} column`}>
+                    <label htmlFor='picture' className='column'>
+                        <img
+                            style={{
+                                height: `${height - wastedMargin}px`,
+                                width: `${(height - wastedMargin) / a4Ratio}px`
+                            }}
+                            className={CSS.cover_photo}
+                            src={uploadedFile}
+                        // alt='profile_photo' 
+                        />
+
+                        <input
+                            {...register('file')}
+                            type="file"
+                            id="picture"
+                            accept="image/png, image/jpeg"
+                            onChange={(file: any) => check_img_type(file)}
+                            style={{ position: 'absolute', top: '-20000px' }}
+                        />
+                        <div className='items-inline' style={{ justifyContent: 'center', marginTop: '10px' }}>
+                            <SvgIcon id='upload-image' />
+                            <b>Μεταφόρτωση</b>
+                        </div>
+
+                    </label>
+
                     <FormError value={errors?.file} />
+
                 </section>
 
                 <section className={CSS.rightSector}>
 
                     <div className={CSS.eventTitle}>
-                        <label>Τίτλος <small>(προεραιτικό)</small></label>
-                        <input type='text' placeholder='Προσθέστε τίτλο' {...register('title',
-                            {
-                                minLength: {
-                                    value: 3,
-                                    message: 'Πολύ μικρός τίτλος'
-                                },
-                                maxLength: {
-                                    value: 250,
-                                    message: 'Πολύ μεγάλος τίτλος'
-                                }
-                            }
-                        )} />
-                        <FormError value={errors?.title} />
+
+                        <TextField
+                            label='Τίτλος(προεραιτικό)'
+                            register={register}
+                            name='title'
+                            errors={errors}
+                            min={3}
+                            max={250}
+                        />
+
                     </div>
 
                     <hr className={CSS.divider}></hr>
@@ -209,6 +231,7 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
 
                         <div className='items-inline' style={{ gap: '10px' }}>
                             <SvgIcon id='calendar' color={svg_color} />
+
                             <input type='date' {...register('date', { required: 'Υποχρεωτικό πεδίο' })} />
                             {/* <FormError value={errors?.date} /> */}
                         </div>
@@ -236,22 +259,21 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
 
                                 <input type='checkbox' id='customLocation' style={{ margin: 0 }}
                                     checked={customLocation}
-                                    onClick={() => setCostumLocation(!customLocation)} />
+                                    onChange={() => setCostumLocation(!customLocation)} />
                                 <label htmlFor='customLocation'>Προσαρμοσμένη τοποθεσία</label>
                             </div>
                             {customLocation ?
                                 <div className={CSS.customLocationFields}>
-                                    <div className="column">
-                                        <label>Όνομα</label>
-                                        <input type='text'{...register('location_name', {
-                                            required: 'Υποχρεωτικό πεδίο',
-                                            minLength: {
-                                                value: 3,
-                                                message: 'Πολύ μικρό κείμενο'
-                                            }
-                                        })} />
-                                        <FormError value={errors?.location_name} />
-                                    </div>
+
+                                    <TextField
+                                        label='Όνομα χώρου'
+                                        register={register}
+                                        required
+                                        name='location_name'
+                                        errors={errors}
+                                    />
+
+
                                     <div className="column">
                                         <label>Πόλη</label>
                                         <select {...register('city', { required: 'Υποχρεωτικό πεδίο' })}>
@@ -262,18 +284,17 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
                                         </select>
                                         <FormError value={errors?.city} />
                                     </div>
-                                    <div className="column">
-                                        <label>Διεύθυνση</label>
-                                        <input type='text'
-                                            {...register('address', {
-                                                required: 'Υποχρεωτικό πεδίο',
-                                                minLength: {
-                                                    value: 3,
-                                                    message: 'Πολύ μικρό κείμενο'
-                                                }
-                                            })} />
-                                        <FormError value={errors?.address} />
-                                    </div>
+
+
+                                    <TextField
+                                        label='Διεύθυνση'
+                                        register={register}
+                                        required
+                                        name='address'
+                                        errors={errors}
+                                    />
+
+
                                 </div>
 
                                 :

@@ -140,9 +140,10 @@ export default function CreateNewProfile() {
                                 <div className={CSS.uploadPhoto} >
 
                                     <label htmlFor='picture' className='cursor-pointer'>
-                                        <div className={CSS.bg}>
+                                        {/* <div className={CSS.bg}>
                                             <img className={CSS.image_preview} src={uploadedFile} width={20} height={20} alt='uploaded_photo' />
-                                        </div>
+                                        </div> */}
+                                        <div className={CSS.bg}><img className={CSS.image_preview} src={uploadedFile} width={20} height={20} alt='' /> </div>
                                     </label>
 
                                     {uploadedFile ?

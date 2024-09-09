@@ -14,11 +14,13 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+  justify-content: space-between;
   width: 100%;
+  gap: 20px;
 }
 
 .leftSector {
-  width: 30%;
+  margin: 0 auto;
 }
 
 .iconsSection {
@@ -28,7 +30,8 @@
 .cover_photo {
   -o-object-fit: cover;
      object-fit: cover;
-  border: 1px solid red;
+  border: 2px solid #DBDBDB;
+  border-radius: 4px;
   background-image: url("../../img/photo.png");
   background-size: contain;
   background-position: center;

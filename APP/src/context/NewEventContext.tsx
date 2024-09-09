@@ -16,7 +16,7 @@ export default NewEventContext
 export const NewEventProvider = ({ children }: any) => {
 
     const form = useForm()
-    const { register, handleSubmit, formState, resetField } = form
+    const { register, handleSubmit, formState, resetField, setValue } = form
     const { errors } = formState
 
     // const { snackbar }: any = useSnackbarContext()
@@ -25,9 +25,9 @@ export const NewEventProvider = ({ children }: any) => {
     // let get_profiles = new Call(Routes.profiles.all, 'GET')
 
     // let svg_color = '#C0C0C0'
-    // let a4Ratio = 1.414
-    // let wastedMargin = 150
-    // let fields = ['file', 'title', 'description', 'date', 'time', 'location_name', 'address', 'profileId']
+    let a4Ratio = 1.414
+    let wastedMargin = 150
+    let fields = ['file', 'title', 'description', 'date', 'time', 'location_name', 'address', 'profileId']
 
 
     const [height, setHeight] = useState<any>(undefined)
@@ -54,6 +54,7 @@ export const NewEventProvider = ({ children }: any) => {
             .catch((err) => console.warn(err))
 
         get_cities()
+
 
         setHeight(window.innerHeight)
         window.addEventListener("resize", () => setHeight(window.innerHeight))
@@ -108,7 +109,6 @@ export const NewEventProvider = ({ children }: any) => {
 
 
     let contextData = {
-
         cities,
         modal, setModal,
 
@@ -116,11 +116,15 @@ export const NewEventProvider = ({ children }: any) => {
         selectedBands,
         selectedStage, setSelectedStage,
         handleSubmit,
-        // Post_event,
+
         height, register, errors,
         customLocation, setCostumLocation,
         stageModal, setStageModal,
-        check_img_type, uploadedFile
+        check_img_type, uploadedFile,
+        a4Ratio,
+        wastedMargin,
+        fields,
+        resetField
 
 
     }
