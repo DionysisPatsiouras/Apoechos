@@ -14,7 +14,7 @@ export default NewEventContext
 
 
 export const NewEventProvider = ({ children }: any) => {
-    console.log("🚀 ~ NewEventProvider ~ children:", children)
+    // console.log("🚀 ~ NewEventProvider ~ children:", children)
 
     const form = useForm()
     const { register, handleSubmit, formState, resetField, setValue } = form

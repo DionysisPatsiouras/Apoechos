@@ -13,7 +13,7 @@ import ProfileContext from '../context/ProfileContext'
 // components
 import Modal from '../components/Modal'
 import SvgIcon from '../components/SvgIcon'
-import Activity from '../components/Profile/Activity'
+import MyActivity from '../components/Activity/MyActivity'
 import EditProfile from '../components/Profile/EditProfile'
 import NewMessageWindow from '../components/Messages/NewMessageWindow'
 import IconButton from '../components/IconButton'
@@ -279,7 +279,7 @@ export default function Profile() {
                     </div>
 
                 </section>
-                <Activity canEdit={currentProfile.user?.id === user?.user_id ? true : false} />
+                <MyActivity canEdit={currentProfile.user?.id === user?.user_id ? true : false} />
 
             </section>
 

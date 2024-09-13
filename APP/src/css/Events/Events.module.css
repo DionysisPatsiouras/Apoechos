@@ -19,11 +19,18 @@
   height: 297px;
   width: 210px;
 }
+.content .infoOverlay {
+  display: none;
+}
 .content h2 {
   font-size: 27px;
 }
 .content h5 {
   font-size: 20px;
+}
+
+.content:hover .infoOverlay {
+  display: block;
 }
 
 .content:nth-child(even) {
@@ -46,6 +53,12 @@
   padding-bottom: 10px;
   border-bottom: 1px solid #fff;
   font-size: 22px !important;
+}
+
+.specificInfo {
+  gap: 10px;
+  margin-bottom: 5px;
+  padding: 0 10px;
 }
 
 .cover {

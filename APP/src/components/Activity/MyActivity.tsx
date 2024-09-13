@@ -5,14 +5,15 @@ import CSS from '../../css/Profile/Activity.module.css'
 
 // components
 import AllPosts from '../AllPosts'
-import Location from './Location'
+import Location from '../Profile/Location'
 import SvgIcon from '../SvgIcon'
 
 // context
 import ProfileContext from '../../context/ProfileContext'
+import MyEvents from '../Events/MyEvents'
 
 
-export default function Activity(props: any) {
+export default function MyActivity(props: any) {
 
 
     let { profile_id, currentProfile }: any = useContext(ProfileContext)
@@ -66,6 +67,11 @@ export default function Activity(props: any) {
                         longitude={currentProfile?.longitude}
                         description={currentProfile?.address}
                     />
+                }
+
+                {activeTab === 'events' && 
+                
+                    <MyEvents />
                 }
             </section>
 

@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react"
+import { createContext, useState, useEffect, useCallback } from "react"
 import Call from "../utils/Call"
 import { Routes } from "../utils/Routes"
 
@@ -16,6 +16,7 @@ export const ProfileProvider = ({ children }: any) => {
 
 
     const [my_profiles, setMyProfiles] = useState<any>([])
+    const [my_events, setMyEvents] = useState<any>([])
     const [currentProfile, setCurrentProfile] = useState<any>([])
     const [posts, setPosts] = useState<any[]>([])
     const [DOM, setDOM] = useState<boolean>(false)
@@ -26,6 +27,7 @@ export const ProfileProvider = ({ children }: any) => {
     const get_profile = new Call(Routes.profiles.id(profile_id), 'GET')
     const get_my_profiles = new Call(Routes.profiles.my_profiles, 'GET')
     const posts_by_id = new Call(Routes.posts.profile_id(profile_id), 'GET')
+    const get_my_events = new Call(Routes.events.profile(profile_id), 'GET')
 
     const close_edit = (update_dom: boolean) => {
         setEditMode(false)
@@ -43,7 +45,7 @@ export const ProfileProvider = ({ children }: any) => {
     const fetch_my_profiles = () => {
         get_my_profiles
             .GET()
-            .then((res) => setMyProfiles(res[1]))
+            .then((res) => setMyProfiles(res?.[1]))
             .catch((err) => console.warn(err))
     }
 
@@ -51,13 +53,24 @@ export const ProfileProvider = ({ children }: any) => {
         posts_by_id.GET().then((res) => setPosts(res?.[1])).catch((err) => console.warn(err))
     }
 
+    const fetch_my_events = () => {
+        get_my_events
+            .GET()
+            .then((res) => setMyEvents(res?.[1]))
+            .catch((err) => console.warn(err))
+    }
+
+
+
+
+
 
 
     const updateDOM = () => {
         setDOM(!DOM)
     }
 
-       
+
 
 
     useEffect(() => {
@@ -73,6 +86,7 @@ export const ProfileProvider = ({ children }: any) => {
 
     let contextData = {
         my_profiles, fetch_my_profiles,
+        my_events, fetch_my_events,
         profile_id,
         currentProfile, fetch_current_profile,
         posts,

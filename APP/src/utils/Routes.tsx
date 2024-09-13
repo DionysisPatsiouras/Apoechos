@@ -50,7 +50,8 @@ export const Routes = {
     events: {
         all: `${url}/event/all/`,
         new: `${url}/event/new/`,
-        id: (event_id: string) => `${url}/event/${event_id}/`
+        id: (event_id: string) => `${url}/event/${event_id}/`,
+        profile: (profile_id:String) => `${url}/event/profile/${profile_id}/`,
     },
 
 
