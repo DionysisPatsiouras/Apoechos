@@ -41,7 +41,7 @@ export default function Profile() {
 
     const navigate = useNavigate()
 
-    let isMobile = width >= 768
+    let isDesktop = width >= 768
     let threshold = width <= 1500
     let my_category = currentProfile?.category?.id
     let url = window.location.href;
@@ -118,7 +118,7 @@ export default function Profile() {
                 </NewEventProvider>
 
             </FullModal>
-            
+
             <Modal open={modal} close={() => setModal(false)} closeButton>
                 <img src={`http://127.0.0.1:8000/${currentProfile?.photo}`} alt='profile_photo' />
             </Modal>
@@ -150,12 +150,13 @@ export default function Profile() {
                 {user?.user_id === currentProfile?.user?.id &&
                     <aside className={CSS.my_profiles_list}
                         style={{
-                            height: isMobile ? height - 55 : '100vh',
-                            width: fullBar && isMobile ? '320px' : '82px'
+                            height: isDesktop ? height - 55 : 'unset',
+                            width: fullBar && isDesktop ? '320px' : '82px'
                         }}>
 
 
-                        <ul className={CSS.myProfilesContainer} style={{ width: isMobile ? 'auto' : '100vw' }}>
+                        <ul className={CSS.myProfilesContainer} style={{ width: isDesktop ? 'auto' : '100vw' }}>
+
                             {my_profiles.map((profile: any) => (
                                 <Link to={`/profile/${profile.profileId}`}
                                     key={profile.profileId}
@@ -195,6 +196,8 @@ export default function Profile() {
                                     <SvgIcon id='add' color='#646464' />
                                 </li>
                             </Link>
+
+
                         </ul>
                         <div className={CSS.toggleIcon}>
                             <SvgIcon id='burger' onClick={() => setFullBar(!fullBar)} width={20} />
@@ -221,27 +224,26 @@ export default function Profile() {
                             />
 
 
-                            <div>
-                                <div className='items-inline' style={{ justifyContent: 'center', width: '200px' }}>
-                                    <strong>{loading.string_load(currentProfile.name)}</strong>
-                                </div>
-
-
-
-
-                                <div className='items-inline' style={{ justifyContent: 'center' }}>
-
-                                    <div className='column' style={{ alignItems: 'center', marginTop: '15px' }}>
-                                        <b>{currentProfile?.city?.name} </b>
-                                        {/* <p style={{ color: '#A4A4A4' }}>{currentProfile?.address && `${currentProfile.address}`}</p> */}
-                                        <div style={{ width: '200%', color: '#A4A4A4' }}>{loading.string_load(currentProfile.address)}</div>
-                                        <br></br>
-                                        {user?.user_id !== currentProfile?.user?.id && <IconButton icon='send' onClick={() => setNewMsg(!newMsg)} />}
-
-                                    </div>
-                                </div>
-
+                         
+                            <div className='items-inline' style={{ justifyContent: 'center', width: '200px', margin: '0 auto' }}>
+                                <strong>{loading.string_load(currentProfile.name)}</strong>
                             </div>
+
+
+
+
+                            <div className='items-inline' style={{ justifyContent: 'center' }}>
+
+                                <div className='column' style={{ alignItems: 'center', marginTop: '15px' }}>
+                                    <b>{currentProfile?.city?.name} </b>
+                                    {/* <p style={{ color: '#A4A4A4' }}>{currentProfile?.address && `${currentProfile.address}`}</p> */}
+                                    <div style={{ width: '200%', color: '#A4A4A4' }}>{loading.string_load(currentProfile.address)}</div>
+                                    <br></br>
+                                    {user?.user_id !== currentProfile?.user?.id && <IconButton icon='send' onClick={() => setNewMsg(!newMsg)} />}
+
+                                </div>
+                            </div>
+
                         </div>
 
                         <div>

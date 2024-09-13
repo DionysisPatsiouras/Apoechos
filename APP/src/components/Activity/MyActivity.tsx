@@ -25,8 +25,8 @@ export default function MyActivity(props: any) {
     }, [profile_id])
 
     let tabs = [
-        { id: [1, 2, 3, 4, 5], label: "Δημοσιεύσεις", tab: "posts", onClick: () => setActiveTab("posts"), icon: 'location' },
-        { id: [1, 2, 5], label: "Εκδηλώσεις", tab: "events", onClick: () => setActiveTab("events"), icon: 'location' },
+        { id: [1, 2, 3, 4, 5], label: "Δημοσιεύσεις", tab: "posts", onClick: () => setActiveTab("posts"), icon: 'post' },
+        { id: [1, 2, 5], label: "Εκδηλώσεις", tab: "events", onClick: () => setActiveTab("events"), icon: 'calendar' },
         { id: [3, 4, 5], label: "Τοποθεσία", tab: "location", onClick: () => setActiveTab("location"), icon: 'location' },
     ]
 

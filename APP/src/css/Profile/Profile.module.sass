@@ -14,12 +14,9 @@
 
 .actionsButton
     position: fixed
-    bottom: 85px
+    bottom: 155px
     right: 20px
     z-index: 999
-
-
-
 
     .toggleButton, .actionsContainer li
         background-color: #5F69C6
@@ -34,8 +31,6 @@
         justify-content: center
         width: 25px
         height: 25px
-
-
 
 .actionsContainer
     display: flex
@@ -57,11 +52,13 @@
     text-align: center
 
 .right_content
-
+    height: inherit
+    border-bottom: 1px solid #ebebeb
+    border-right: unset
 
     strong
         color: #5F69C6
-        font-size: 1.3rem
+        font-size: 2.3rem
         margin: 10px 0 0 0
         text-align: center
         width: 80vw
@@ -130,8 +127,12 @@
     width: 500px
 
 .my_profiles_list
-    height: 100%
+    // height: 100%
+    // width: 100%
+    // background-color: #F8F8F8
+    display: block
     background-color: #F8F8F8
+    height: unset
     transition: 1s
 
     li
@@ -145,6 +146,8 @@
 .myProfilesContainer
     display: flex
     overflow-x: auto
+    align-items: center
+    background-color: #F8F8F8
 
 .profileName, .categoryIcon, .toggleIcon
     display: none
@@ -156,8 +159,22 @@
 // DESKTOP
 @media screen and ( min-width: 768px )
 
+    .actionsButton
+        bottom: 85px
+
+    .my_profiles_list
+        width: 320px
+
+        // display: flex
+        flex-direction: column
+        align-items: center
+
     .right_content
         border-right: 1px solid #ebebeb
+        border-bottom: unset
+
+        strong
+            font-size: 1.3rem
 
     .mainContainer
         flex-direction: row
@@ -166,10 +183,11 @@
         display: block
 
     .myProfilesContainer
-
+        background-color: unset
         flex-direction: column
         height: 70vh
         overflow-y: auto
+        align-items: unset
 
     .container
         flex-direction: row
