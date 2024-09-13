@@ -19,7 +19,7 @@ export default function MyEvents() {
 
 
     return (
-        <div style={{display: 'flex'}}>
+        <div style={{display: 'flex', flexWrap: 'wrap'}}>
 
             {my_events.map((event: any, index: number) => (
                 <EventCard key={index} event={event}  />
