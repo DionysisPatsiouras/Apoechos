@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext } from 'react'
 
 
 // CSS
@@ -23,14 +23,14 @@ import PickProfile from './PickProfile'
 
 
 interface EventViewProps {
-    profileId: string;
     closeModal: () => void
+    data: any | null
 }
 
 
 
 
-export default function EventView({ profileId, closeModal }: EventViewProps) {
+export default function NewEvent({ closeModal, data }: any) {
 
 
     let svg_color = '#C0C0C0'
@@ -55,15 +55,16 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
         supportModal, setSupportModal,
         supportActs, setSupportActs,
         bands_and_musicians,
-        Post_event
+        Post_event, Update_event
 
     }: any = useContext(NewEventContext)
 
 
+    console.warn(data)
 
 
     return (
-        <div className={`${CSS.container} items-inline`}>
+        <div className={`${CSS.container} items-inline`} >
 
             <Modal open={modal} close={() => setModal(false)} withContainer btn title='Επιλογή συγκροτήματος'>
                 <PickProfile
@@ -92,7 +93,8 @@ export default function EventView({ profileId, closeModal }: EventViewProps) {
                     }} />
             </Modal>
 
-            <form onSubmit={handleSubmit(Post_event)} noValidate className={CSS.formContainer}>
+            {/* <form onSubmit={handleSubmit(!data ? Post_event : Update_event)} noValidate className={CSS.formContainer}> */}
+            <form onSubmit={handleSubmit(Post_event )} noValidate className={CSS.formContainer}>
 
 
                 <section className={`${CSS.leftSector} column`}>

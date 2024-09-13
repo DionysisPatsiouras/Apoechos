@@ -14,7 +14,7 @@ export default NewEventContext
 
 
 export const NewEventProvider = ({ children }: any) => {
-    // console.log("🚀 ~ NewEventProvider ~ children:", children)
+
 
     const form = useForm()
     const { register, handleSubmit, formState, resetField, setValue } = form
@@ -46,17 +46,36 @@ export const NewEventProvider = ({ children }: any) => {
 
     let { get_cities, cities, all_stages, get_stages, bands_and_musicians, get_bands_and_musicians }: any = useContext(UtilsContext)
 
+    let data = children?.props?.data
+
+    // console.log(children)
 
     useEffect(() => {
 
         get_stages()
-
         get_cities()
         get_bands_and_musicians()
 
-
         setHeight(window.innerHeight)
         window.addEventListener("resize", () => setHeight(window.innerHeight))
+
+
+        if (data) {
+
+            setValue('title', data?.title)
+            setValue('description', data.description)
+            setValue('date', data.date.split("T")[0])
+            setValue('time', data.date.split("T")[1].replace(":00Z", ""))
+            setValue('created_by', data.created_by.profileId)
+
+            setSelectedBands(data.main_bands)
+            setSupportActs(data?.support_acts)
+            setSelectedStage(data?.profile_location)
+
+        }
+
+
+        // setValue('photo', data?.photo)
 
     }, [])
 
@@ -72,24 +91,26 @@ export const NewEventProvider = ({ children }: any) => {
 
 
 
-    const Post_event = (data: any) => {
+    const Post_event = (inputData: any) => {
 
         // console.log(data)
         let formData: any = new FormData()
 
-        formData.append('photo', data?.file?.[0])
-        data.title && formData.append('title', data?.title)
-        formData.append('description', data?.description)
-        formData.append('date', `${data.date} ${data.time}`)
-        formData.append('created_by', children?.props?.profileId)
+        // formData.append('photo', inputData?.file?.[0])
+        inputData.title && formData.append('title', inputData?.title)
+        formData.append('description', inputData?.description)
+        formData.append('date', `${inputData.date} ${inputData.time}`)
+        // formData.append('created_by', children?.props?.profileId) 
 
+        !data ? formData.append('created_by', children?.props?.profileId) : formData.append('created_by', data.created_by.profileId)
+        !data && formData.append('photo', inputData?.file?.[0])
 
         if (!customLocation) {
             formData.append('profile_location', selectedStage?.profileId)
         } else {
-            formData.append('location_name', data.location_name)
-            formData.append('city', data.city)
-            formData.append('address', data.address)
+            formData.append('location_name', inputData.location_name)
+            formData.append('city', inputData.city)
+            formData.append('address', inputData.address)
         }
 
 
@@ -102,26 +123,49 @@ export const NewEventProvider = ({ children }: any) => {
 
 
         let post_event = new Call(Routes.events.new, 'POST', formData)
+        let update_event = new Call(Routes.events.update(data?.eventId), 'PATCH', formData)
+   
 
-        post_event
-            .POST_MEDIA()
-            .then((res) => {
-                console.log(res)
-                console.log('Event uploaded successfully')
-                snackbar('Η εκδήλωση δημοσιεύτηκε')
+        if (data) {
 
-                children?.props?.closeModal()
+            update_event
+                .PATCH()
+                .then((res) => {
+                    console.log(res)
+                    console.log('Event updated successfully')
+                    snackbar('Η εκδήλωση ενημερώθηκε')
 
-                for (let index in fields) {
-                    resetField(fields[index])
-                }
-            })
-            .catch((err) => console.warn(err))
+                    children?.props?.closeModal()
+                })
+                .catch((err) => console.warn(err))
+
+        } else {
+            post_event
+                .POST_MEDIA()
+                .then((res) => {
+                    console.log(res)
+                    console.log('Event uploaded successfully')
+                    snackbar('Η εκδήλωση δημοσιεύτηκε')
+
+                    children?.props?.closeModal()
+
+                    for (let index in fields) {
+                        resetField(fields[index])
+                    }
+                })
+                .catch((err) => console.warn(err))
+        }
+
+
 
         // uploadedFile === undefined && alert('Ανεβάστε εικόνα')
 
     }
 
+
+    const Update_event = (formdata: any) => {
+        console.warn('update', formdata)
+    }
 
 
 
@@ -144,7 +188,7 @@ export const NewEventProvider = ({ children }: any) => {
         supportModal, setSupportModal,
         supportActs, setSupportActs,
         bands_and_musicians,
-        Post_event
+        Post_event, Update_event
 
 
     }

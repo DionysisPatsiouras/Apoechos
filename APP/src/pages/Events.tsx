@@ -18,22 +18,24 @@ const Events = forwardRef(function Events(props: any, ref: any) {
 
     let { cities, get_cities }: any = useContext(UtilsContext)
 
-    let [events, setEvents] = useState<any[]>([])
-    // console.log("🚀 ~ events:", events)
 
+
+    const [events, setEvents] = useState<any[]>([])
     const [selectedCities, setSelectedCities] = useState<any[]>([])
     const [openFilters, setOpenFilters] = useState<boolean>(false)
-    // const [active, setActive] = useState<string>('')
-
     const [height, setHeight] = useState<any>(100)
 
+
     let fetch_events = new Call(Routes.events.all, 'GET')
-    // let fetch_cities = new Call(Routes.profiles.cities, 'GET')
+
 
     useEffect(() => {
         document.title = 'Apoechos - Εκδηλώσεις'
+        
         fetch_events.GET_NO_TOKEN().then((res) => setEvents(res)).catch((err) => console.warn(err))
+
         get_cities()
+
         setHeight(window.innerHeight)
         window.addEventListener("resize", () => setHeight(window.innerHeight))
     }, [])

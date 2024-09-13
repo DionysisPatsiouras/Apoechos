@@ -9,7 +9,7 @@ import datetime
 
 from django.db.models import Q
 
-from datetime import date, timedelta, datetime
+from datetime import  timedelta, datetime
 
 
 # /event/
@@ -39,6 +39,29 @@ def new_event(request):
         return Response({"message": "Created", "status": 201, "data": serializer.data})
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# /event/update/:id
+@api_view(["PATCH"])
+@permission_classes([IsAuthenticated])
+def update_event(request, id):
+
+    user = request.user
+
+    try:
+        event = Event.objects.get(pk=id)
+    except Event.DoesNotExist:
+        return Response(["error", "not exist"])
+
+   
+    serializer = New_Event_Serializer(event, data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+
+
+
+
 
 
 # /event/<str:id>/

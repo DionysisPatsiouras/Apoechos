@@ -118,6 +118,7 @@ export default function Profile() {
                 </NewEventProvider>
 
             </FullModal>
+            
             <Modal open={modal} close={() => setModal(false)} closeButton>
                 <img src={`http://127.0.0.1:8000/${currentProfile?.photo}`} alt='profile_photo' />
             </Modal>
