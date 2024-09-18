@@ -48,7 +48,8 @@ export const EditProfileProvider = ({ children }: any) => {
         get_cities()
         get_genres()
         get_studio_services()
-        get_instruments()
+        // get_instruments()
+
     }, [])
 
 
@@ -228,7 +229,7 @@ export const EditProfileProvider = ({ children }: any) => {
 
         register,
         my_genres, setMyGenres,
-        instruments,
+        // instruments,
         my_instruments, setMyInstruments,
 
         newFile, setNewFile,

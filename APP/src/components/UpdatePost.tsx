@@ -1,4 +1,4 @@
-import { useState, useEffect, forwardRef } from 'react'
+import { useState, useEffect, forwardRef, useContext } from 'react'
 import CSS from '../css/Profile/NewPost.module.css'
 import { useForm } from 'react-hook-form'
 
@@ -8,11 +8,14 @@ import Button from './Button'
 import Call from '../utils/Call'
 import { Routes } from '../utils/Routes'
 
+import UtilsContext from '../context/UtilsContext'
+import ProfileContext from '../context/ProfileContext'
 import { useSnackbarContext } from '../context/SnackbarContext'
 
 const UpdatePost = forwardRef(function UpdatePost(props: any, ref: any) {
 
     let { snackbar }: any = useSnackbarContext()
+    let { get_labels, labels }: any = useContext(UtilsContext)
 
 
     let data = props?.post
@@ -22,7 +25,7 @@ const UpdatePost = forwardRef(function UpdatePost(props: any, ref: any) {
     const [title, setTitle] = useState<any>()
     const [body, setBody] = useState<string>()
     const [wordCount, setWordCount] = useState<number>()
-    const [labels, setLabels] = useState<any[]>([])
+    // const [labels, setLabels] = useState<any[]>([])
 
     const form = useForm<any>()
     const { handleSubmit } = form
@@ -31,7 +34,7 @@ const UpdatePost = forwardRef(function UpdatePost(props: any, ref: any) {
     let not_allowed = wordCount === 0 || title === "0"
 
 
-    const get_labels = new Call(Routes.posts.titles, 'GET')
+    // const get_labels = new Call(Routes.posts.titles, 'GET')
 
 
 
@@ -40,21 +43,24 @@ const UpdatePost = forwardRef(function UpdatePost(props: any, ref: any) {
         setWordCount(data?.body?.length)
         setBody(data?.body)
         setTitle(data?.title?.id)
+        
+        get_labels(data?.profile?.category?.id)
 
         // get right labels
-        get_labels
-            .GET()
-            .then((res) => {
-                // console.log(res)
-                setLabels(res
-                    .filter((i: any) => i.categoryId?.id === data?.profile?.category?.id)
-                    .map((i: any) => ({ value: i.id, label: i.title, category: i.categoryId?.id }))
-                )
-            })
+        // get_labels
+        //     .GET()
+        //     .then((res) => {
+        //         // console.log(res)
+        //         setLabels(res
+        //             .filter((i: any) => i.categoryId?.id === data?.profile?.category?.id)
+        //             .map((i: any) => ({ value: i.id, label: i.title, category: i.categoryId?.id }))
+        //         )
+        //     })
 
-    }, [props])
+        // console.log('component rendered')
+    }, [props?.post])
 
-    // console.log(labels)
+    // console.warn('props', props)
 
     const onSubmit = () => {
 

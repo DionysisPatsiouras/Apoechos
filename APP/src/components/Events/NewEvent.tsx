@@ -24,13 +24,14 @@ import PickProfile from './PickProfile'
 
 interface EventViewProps {
     closeModal: () => void
-    data: any | null
+    profileId: string
+    data: any
 }
 
 
 
 
-export default function NewEvent({ closeModal, data }: any) {
+export default function NewEvent({ closeModal, profileId, data }: any) {
 
 
     let svg_color = '#C0C0C0'
@@ -55,12 +56,12 @@ export default function NewEvent({ closeModal, data }: any) {
         supportModal, setSupportModal,
         supportActs, setSupportActs,
         bands_and_musicians,
-        Post_event, Update_event
+        Post_event
 
     }: any = useContext(NewEventContext)
 
 
-    console.warn(data)
+    // console.warn(data)
 
 
     return (
@@ -94,7 +95,7 @@ export default function NewEvent({ closeModal, data }: any) {
             </Modal>
 
             {/* <form onSubmit={handleSubmit(!data ? Post_event : Update_event)} noValidate className={CSS.formContainer}> */}
-            <form onSubmit={handleSubmit(Post_event )} noValidate className={CSS.formContainer}>
+            <form onSubmit={handleSubmit(Post_event)} noValidate className={CSS.formContainer}>
 
 
                 <section className={`${CSS.leftSector} column`}>
@@ -105,7 +106,7 @@ export default function NewEvent({ closeModal, data }: any) {
                                 width: `${(height - wastedMargin) / a4Ratio}px`
                             }}
                             className={CSS.cover_photo}
-                            src={uploadedFile}
+                            src={data ? `http://127.0.0.1:8000/${data?.photo}` : uploadedFile}
                         // alt='profile_photo' 
                         />
 
@@ -271,7 +272,7 @@ export default function NewEvent({ closeModal, data }: any) {
                                 </div>
 
                                 :
-                                <div>
+                                <>
 
                                     {selectedStage ?
 
@@ -283,7 +284,7 @@ export default function NewEvent({ closeModal, data }: any) {
                                     }
 
 
-                                </div>
+                                </>
                             }
 
                         </div>

@@ -119,13 +119,13 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
 
             </Modal>
 
-            <Modal open={editModal} close={() => { setEditModal(false) }} withContainer title='Επεξεργασία Δημοσίευσης' btn>
+            {/* <Modal open={editModal} close={() => { setEditModal(false) }} withContainer title='Επεξεργασία Δημοσίευσης' btn>
                 <UpdatePost post={selectedPost} close={() => {
                     setSelectedPost(undefined);
                     setEditModal(false);
                     updateDOM()
                 }} />
-            </Modal>
+            </Modal> */}
 
             {all.posts_load(
 

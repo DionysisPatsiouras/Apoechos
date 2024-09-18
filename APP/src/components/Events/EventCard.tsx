@@ -29,7 +29,7 @@ const EventCard = forwardRef(function EventCard(props: any, ref: any) {
 
                 <div className={CSS.coverInfo}
 
-                    style={{ backgroundImage: `url(http://127.0.0.1:8000/${event?.photo})`, }}>
+                    style={{ backgroundImage: `url(http://127.0.0.1:8000/${event?.photo})` }}>
 
                     <div className={CSS.infoOverlay}>
                         {event?.title && <h2 className={CSS.eventTitle}> {event?.title}</h2>}

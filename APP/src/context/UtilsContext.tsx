@@ -22,7 +22,7 @@ export const UtilsProvider = ({ children }: any) => {
     let [all_stages, setAllStages] = useState<any>([])
     let [bands_and_musicians, setBandsAndMusicians] = useState<any>([])
 
-
+    let [labels, setLabels] = useState<any[]>([])
 
     const get_my_profiles = () => {
         const get_my_profiles = new Call(Routes.profiles.my_profiles, 'GET')
@@ -67,6 +67,18 @@ export const UtilsProvider = ({ children }: any) => {
 
 
 
+    const get_labels = (category_id:string) => {
+        const get_labels = new Call(Routes.posts.titles, 'GET')
+        get_labels
+        .GET()
+        .then((res) => {
+            // console.log(res)
+            setLabels(res
+                .filter((i: any) => i.categoryId?.id === category_id)
+                .map((i: any) => ({ value: i.id, label: i.title, category: i.categoryId?.id }))
+            )
+        })
+    }
 
 
 
@@ -93,7 +105,8 @@ export const UtilsProvider = ({ children }: any) => {
         instrument_categories,
         my_profiles, get_my_profiles,
         all_stages, get_stages,
-        bands_and_musicians, get_bands_and_musicians
+        bands_and_musicians, get_bands_and_musicians,
+        get_labels, labels
 
     }
 

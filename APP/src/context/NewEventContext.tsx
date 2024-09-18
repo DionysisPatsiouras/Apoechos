@@ -96,14 +96,14 @@ export const NewEventProvider = ({ children }: any) => {
         // console.log(data)
         let formData: any = new FormData()
 
-        // formData.append('photo', inputData?.file?.[0])
+        formData.append('photo', inputData?.file?.[0])
         inputData.title && formData.append('title', inputData?.title)
         formData.append('description', inputData?.description)
         formData.append('date', `${inputData.date} ${inputData.time}`)
-        // formData.append('created_by', children?.props?.profileId) 
+
 
         !data ? formData.append('created_by', children?.props?.profileId) : formData.append('created_by', data.created_by.profileId)
-        !data && formData.append('photo', inputData?.file?.[0])
+        // !data && formData.append('photo', inputData?.file?.[0])
 
         if (!customLocation) {
             formData.append('profile_location', selectedStage?.profileId)
@@ -129,7 +129,8 @@ export const NewEventProvider = ({ children }: any) => {
         if (data) {
 
             update_event
-                .PATCH()
+                .PATCH_MEDIA()
+                
                 .then((res) => {
                     console.log(res)
                     console.log('Event updated successfully')
@@ -188,7 +189,7 @@ export const NewEventProvider = ({ children }: any) => {
         supportModal, setSupportModal,
         supportActs, setSupportActs,
         bands_and_musicians,
-        Post_event, Update_event
+        Post_event
 
 
     }

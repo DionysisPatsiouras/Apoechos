@@ -17,9 +17,14 @@ import { MapContainer, TileLayer } from 'react-leaflet'
 
 
 
-
+interface EditProfileProps{
+    close: () => void;
+    profile: any;
+    ref: any;
+}
 // export default function EditProfile(props: any) {
-const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
+// const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
+const EditProfile = forwardRef(function EditProfile({close, profile} : EditProfileProps , ref) {
 
     let {
         tab, setTab,
@@ -36,7 +41,7 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
 
         register,
         my_genres, setMyGenres,
-        instruments,
+        // instruments,
         my_instruments, setMyInstruments,
 
         newFile, setNewFile,
@@ -48,7 +53,8 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
 
     }: any = useContext(EditProfileContext)
 
-    let { get_instrument_categories, instrument_categories }: any = useContext(UtilsContext)
+
+    let { get_instrument_categories, instrument_categories, get_instruments, instruments }: any = useContext(UtilsContext)
 
 
     const [activeCategory, setActiveCategory] = useState<string>(instrument_categories?.[0])
@@ -57,7 +63,9 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
     useEffect(() => {
         get_instrument_categories()
         setActiveCategory(instrument_categories?.[0])
-    }, [props])
+        get_instruments()
+    }, [profile?.profileId])
+    // console.log("🚀 ~ EditProfile ~ props:", props)
 
 
 
@@ -257,7 +265,7 @@ const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
                 <div className={CSS.bottom_section}>
                     <button type='submit' className='btn blue_btn'>Ενημέρωση</button>
                     <button type='reset' className='btn discard_btn' style={{ backgroundColor: '#9A9A9A' }}
-                        onClick={() => { setTab(1); props?.close() }}>  Ακύρωση </button>
+                        onClick={() => { setTab(1); close() }}>  Ακύρωση </button>
                 </div>
             </form>
 

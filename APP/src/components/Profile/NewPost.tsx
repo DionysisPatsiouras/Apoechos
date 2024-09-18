@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 
 // utils
@@ -9,32 +9,44 @@ import { Routes } from '../../utils/Routes'
 import CSS from '../../css/Profile/NewPost.module.css'
 import FormError from '../../utils/FormError'
 // import ProfileContext from '../../context/ProfileContext'
-export default function NewPost(props: any) {
+import UtilsContext from '../../context/UtilsContext'
 
+interface NewPostProps {
+    profile_id: string;
+    close: () => void;
+    category: {
+        color: string;
+        icon: string;
+        id: number;
+        name: string;
+    };
+}
+
+export default function NewPost({ profile_id, close, category }: NewPostProps) {
+  
+
+    // export default function NewPost(props: any) {
 
     const form = useForm()
     const { register, handleSubmit, resetField, formState } = form
     const { errors } = formState
     const [wordCount, setWordCount] = useState<number>(0)
-    const [labels, setLabels] = useState<any[]>([])
+    // const [labels, setLabels] = useState<any[]>([])
     const [checkTitle, setCheckTitle] = useState<string>('')
     let limit = 150
 
 
 
-    const get_labels = new Call(Routes.posts.titles, 'GET')
+    let { get_labels, labels }: any = useContext(UtilsContext)
+    // const get_labels = new Call(Routes.posts.titles, 'GET')
 
 
     useEffect(() => {
-        get_labels
-            .GET()
-            .then((res) => {
-                setLabels(res
-                    .filter((i: any) => i.categoryId?.id === props?.category?.id)
-                    .map((i: any) => ({ value: i.id, label: i.title, category: i.categoryId?.id }))
-                )
-            })
-    }, [props])
+
+        get_labels(category?.id)
+
+    }, [category?.id])
+
 
 
 
@@ -44,7 +56,8 @@ export default function NewPost(props: any) {
         const finalData = {
             title: data.title,
             body: data.body,
-            profile: props?.profile_id
+            // profile: props?.profile_id
+            profile: profile_id
         }
 
         const new_post = new Call(Routes.posts.new, 'POST', finalData)
@@ -56,11 +69,12 @@ export default function NewPost(props: any) {
             new_post
                 .POST()
                 .then(() => {
-                    props?.close()
+                    // props?.close()
+                    close()
                     resetField('body');
                     resetField('title');
                     setWordCount(0);
-               
+
                     console.log('Post uploaded successfully')
                 })
                 .catch((err) => console.warn(err))
