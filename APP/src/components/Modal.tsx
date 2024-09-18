@@ -3,40 +3,46 @@ import { forwardRef } from 'react'
 import CSS from '../css/Modal/Modal.module.sass'
 import SvgIcon from './SvgIcon'
 
-// props => open, close, closeButton, withContainer, title, btn
 
-const Modal = forwardRef(function Modal(props: any, ref: any) {
+interface ModalProps {
+    open: boolean;
+    close?: () => void;
+    closeButton?: boolean;
+    withContainer?: boolean;
+    title?: string;
+    btn?: boolean;
+    children: React.ReactNode;
+}
+
+const Modal = forwardRef(function Modal({ open, close, closeButton, withContainer, title, btn, children }: ModalProps, ref) {
+
     return (
-        <div className={CSS.container} style={{ 'display': props?.open ? 'block' : 'none' }} >
+        <div className={CSS.container} style={{ 'display': open ? 'block' : 'none' }} >
 
-            {props?.closeButton && <SvgIcon id={'close'} color={'#ffffff'} onClick={props?.close} />}
+            {closeButton && <SvgIcon id={'close'} color={'#ffffff'} onClick={close} />}
 
-
-            {props?.withContainer ?
+            {withContainer ?
                 <div className={CSS.content}>
                     <header>
-                        <h3>{props?.title}</h3>
+                        <h3>{title}</h3>
 
-                        {props.btn && <SvgIcon id='close' width={20} height={20} onClick={props?.close} />}
+                        {btn && <SvgIcon id='close' width={20} height={20} onClick={close} />}
 
                     </header>
                     <section className={CSS.body}>
-                        {props?.children}
+                        {children}
                     </section>
 
                 </div>
                 :
-
                 <section className={CSS.imageContent}>
-                    {props?.children}
+                    {children}
                 </section>
 
             }
-
-
         </div>
-    );
-});
+    )
+})
 
 export default Modal
 

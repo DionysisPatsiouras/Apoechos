@@ -25,7 +25,14 @@ import Loader from '../utils/Loader'
 // 1) can_edit -> is used in "Profile" page to check if the user owns the posts array
 // 2) all_posts -> is used on "Posts" page. In this case it returns any post array is provided with
 
-const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
+interface AllPostsProps {
+    can_edit?: boolean;
+    all_posts?: {};
+}
+
+// const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
+const AllPosts = forwardRef(function AllPosts({ can_edit, all_posts }: AllPostsProps, ref) {
+
 
     let { posts, updateDOM }: any = useContext(ProfileContext)
     let { snackbar }: any = useSnackbarContext()
@@ -37,8 +44,7 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
     const [selectedPost, setSelectedPost] = useState<any>()
 
 
-
-    let posts_array = props?.all_posts ? props?.all_posts : posts
+    let posts_array = all_posts ? all_posts : posts
 
 
     const delete_post = (post_id: string) => {
@@ -94,7 +100,8 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
                     </div>
 
                 </div>
-                {with_icons && props?.can_edit &&
+                {/* {with_icons && props?.can_edit && */}
+                {with_icons && can_edit &&
                     <ul>
                         <li> <SvgIcon id='edit' color='#e2e2e2' width={18} height={18} onClick={() => { setEditModal(!editModal); setSelectedPost(post) }} /> </li>
                         <li> <SvgIcon id='delete' color='#e2e2e2' width={18} height={18} onClick={() => { setDeleteModal(!deleteModal); setSelectedPost(post) }} /></li>
@@ -119,13 +126,13 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
 
             </Modal>
 
-            {/* <Modal open={editModal} close={() => { setEditModal(false) }} withContainer title='Επεξεργασία Δημοσίευσης' btn>
+            <Modal open={editModal} close={() => { setEditModal(false) }} withContainer title='Επεξεργασία Δημοσίευσης' btn>
                 <UpdatePost post={selectedPost} close={() => {
                     setSelectedPost(undefined);
                     setEditModal(false);
                     updateDOM()
                 }} />
-            </Modal> */}
+            </Modal>
 
             {all.posts_load(
 
@@ -134,7 +141,7 @@ const AllPosts = forwardRef(function AllPosts(props: any, ref: any) {
                     {posts_array
                         .map((post: any, index: number) =>
                             <div key={index} style={{ display: 'flex' }}>
-                                {PostView(post, props?.all_posts ? false : true)}
+                                {PostView(post, all_posts ? false : true)}
                             </div>
                         )}
                 </div>
