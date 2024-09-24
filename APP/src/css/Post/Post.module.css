@@ -7,7 +7,6 @@
   width: 100%;
 }
 .post_card img {
-  display: none;
   border-radius: 200px;
   width: 80px;
   height: 80px;
@@ -78,6 +77,12 @@ hr {
   box-shadow: rgba(0, 0, 0, 0.15) 1px 2px 11px;
   border-radius: 2px;
   cursor: pointer;
+}
+
+.postsContainer {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
 }
 
 @media screen and (min-width: 768px) {

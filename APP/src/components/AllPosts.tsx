@@ -115,7 +115,7 @@ const AllPosts = forwardRef(function AllPosts({ can_edit, all_posts }: AllPostsP
 
 
     return (
-        <>
+        <div className={CSS.postsContainer}>
             <Modal open={deleteModal} close={() => setDeleteModal(false)} title='Διαγραφή Δημοσίευσης' btn>
                 <Confirmation
                     cancel={() => setDeleteModal(false)}
@@ -133,10 +133,10 @@ const AllPosts = forwardRef(function AllPosts({ can_edit, all_posts }: AllPostsP
                     updateDOM()
                 }} />
             </Modal>
-
+                
             {all.posts_load(
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '33vw', minWidth: '200px', maxWidth: '500px' }}>
+                <>
 
                     {posts_array
                         .map((post: any, index: number) =>
@@ -144,12 +144,12 @@ const AllPosts = forwardRef(function AllPosts({ can_edit, all_posts }: AllPostsP
                                 {PostView(post, all_posts ? false : true)}
                             </div>
                         )}
-                </div>
+                </>
             )}
 
 
 
-        </>
+        </div>
 
 
     )
