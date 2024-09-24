@@ -1,8 +1,12 @@
 import { useForm } from 'react-hook-form'
-import axios from 'axios'
-import { token, config } from '../../utils/Token'
 import CSS from '../../css/Account/Account.module.css'
 import FormError from '../../utils/FormError'
+import Call from '../../utils/Call'
+import { Routes } from '../../utils/Routes'
+
+
+import { useSnackbarContext } from '../../context/SnackbarContext'
+
 
 export default function UpdatePassword() {
 
@@ -10,31 +14,32 @@ export default function UpdatePassword() {
     const { register, handleSubmit, formState, watch } = form
     const { errors } = formState
 
-    const updatePassword = (data: any) => {
+    const { snackbar }: any = useSnackbarContext()
+
+    const onSubmit = (data: any) => {
 
         const finalData = {
-            password: data?.password
+            password: data.password
         }
+        const update_password = new Call(Routes.user.patch, 'PATCH', finalData)
 
-        axios
-            .patch('http://127.0.0.1:8000/user/patch/', data, {
-                headers: { Authorization: `Bearer ${token}` }
-            })
-            .then((response) => { console.log(response) })
+        update_password
+            .PATCH()
+            .then((response) => { snackbar('Ο κωδικός πρόσβασης άλλαξε'); console.log(response); console.log('Password updated successfully') })
             .catch((error) => { console.warn(error) })
+
+
     }
 
     return (
         <section className={CSS.box}>
-            <form onSubmit={handleSubmit(updatePassword)} noValidate>
+            <form onSubmit={handleSubmit(onSubmit)} noValidate>
 
 
                 <h3>Αλλαγή κωδικού</h3>
                 <input type='password' id='password'
                     placeholder='Νέος κωδικός'
-                    {...register('password', {
-                        required: 'Υποχρεωτικό πεδίο'
-                    })}
+                    {...register('password', { required: 'Υποχρεωτικό πεδίο' })}
                 />
                 <FormError value={errors?.password} />
 
@@ -51,7 +56,7 @@ export default function UpdatePassword() {
 
                 <FormError value={errors?.confirm_password} />
 
-                <button className='blue_btn'>Ενημέρωση</button>
+                <button type='submit' className='blue_btn'>Ενημέρωση</button>
             </form>
         </section>
     )

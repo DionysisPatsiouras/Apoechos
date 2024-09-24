@@ -37,7 +37,9 @@ const Card = forwardRef(function Card(props: any, ref) {
                     <img
                         src={`http://127.0.0.1:8000/${profile?.photo}`}
                         width={84} height={84}
-                        alt='Profile' />
+                        alt='Profile' 
+                        loading="lazy"
+                        />
 
                     <b className={CSS.profileTitle}>{profile?.name}</b>
                     <small className={CSS.location}>{profile?.city?.name}</small>

@@ -80,6 +80,7 @@ def updateMe(request):
         return JsonResponse({
             "message" : "Bad request",
             "status" : 400,
+            "errors": serializer.errors,
             "request" : 
                 request.data
             })

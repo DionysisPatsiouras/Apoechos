@@ -31,6 +31,7 @@ const ProfileImage = forwardRef(function ProfileImage({ photo, category, onClick
                 width={size}
                 height={size}
                 onClick={onClick}
+                loading="lazy"
             />
 
             <SvgIcon id={category?.icon}

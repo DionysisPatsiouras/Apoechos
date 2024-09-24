@@ -93,16 +93,16 @@ export const NewEventProvider = ({ children }: any) => {
 
     const Post_event = (inputData: any) => {
 
-        // console.log(data)
+        // console.log(inputData)
         let formData: any = new FormData()
 
-        formData.append('photo', inputData?.file?.[0])
+        // formData.append('photo', inputData?.file?.[0])
         inputData.title && formData.append('title', inputData?.title)
-        formData.append('description', inputData?.description)
+        formData.append('description', inputData.description)
         formData.append('date', `${inputData.date} ${inputData.time}`)
 
 
-        !data ? formData.append('created_by', children?.props?.profileId) : formData.append('created_by', data.created_by.profileId)
+        formData.append('created_by', children?.props?.profileId)
         // !data && formData.append('photo', inputData?.file?.[0])
 
         if (!customLocation) {
@@ -122,40 +122,26 @@ export const NewEventProvider = ({ children }: any) => {
         }
 
 
+
         let post_event = new Call(Routes.events.new, 'POST', formData)
-        let update_event = new Call(Routes.events.update(data?.eventId), 'PATCH', formData)
-   
+ 
 
-        if (data) {
 
-            update_event
-                .PATCH_MEDIA()
-                
-                .then((res) => {
-                    console.log(res)
-                    console.log('Event updated successfully')
-                    snackbar('Η εκδήλωση ενημερώθηκε')
+        post_event
+            .POST_MEDIA()
+            .then((res) => {
+                console.log(res)
+                console.log('Event uploaded successfully')
+                snackbar('Η εκδήλωση δημοσιεύτηκε')
 
-                    children?.props?.closeModal()
-                })
-                .catch((err) => console.warn(err))
+                children?.props?.closeModal()
 
-        } else {
-            post_event
-                .POST_MEDIA()
-                .then((res) => {
-                    console.log(res)
-                    console.log('Event uploaded successfully')
-                    snackbar('Η εκδήλωση δημοσιεύτηκε')
+                for (let index in fields) {
+                    resetField(fields[index])
+                }
+            })
+            .catch((err) => console.warn(err))
 
-                    children?.props?.closeModal()
-
-                    for (let index in fields) {
-                        resetField(fields[index])
-                    }
-                })
-                .catch((err) => console.warn(err))
-        }
 
 
 
@@ -164,9 +150,53 @@ export const NewEventProvider = ({ children }: any) => {
     }
 
 
-    const Update_event = (formdata: any) => {
-        console.warn('update', formdata)
+    const Update_event = (inputData: any) => {
+        console.log("🚀 ~ NewEventProvider ~ inputData:", inputData)
+
+
+        let formData: any = new FormData()
+
+        // let main_bands_array: any = []
+        let support_acts_array: any = []
+
+
+        for (let index in supportActs) {
+            support_acts_array.push(supportActs[index]?.profileId)
+        }
+
+        let finalData = {
+            support_acts: support_acts_array,
+            description: inputData.description,
+            date: `${inputData.date} ${inputData.time}`
+        }
+
+
+        formData.append('photo', inputData?.file?.[0])
+
+
+
+        let update_event = new Call(Routes.events.update(data?.eventId), 'PATCH', finalData)
+      
+
+        const updatePhoto = () => {
+            let update_event = new Call(Routes.events.update(data?.eventId), 'PATCH', formData)
+            update_event.PATCH_MEDIA().then((res) => console.log(res)).catch((err) => console.warn(err))
+        }
+
+        update_event
+            .PATCH()
+
+            .then((res) => {
+                updatePhoto()
+                console.log(res)
+                console.log('Event updated successfully')
+                snackbar('Η εκδήλωση ενημερώθηκε')
+            })
+            .catch((err) => console.warn(err))
+
     }
+
+
 
 
 
@@ -189,7 +219,7 @@ export const NewEventProvider = ({ children }: any) => {
         supportModal, setSupportModal,
         supportActs, setSupportActs,
         bands_and_musicians,
-        Post_event
+        Post_event, Update_event
 
 
     }

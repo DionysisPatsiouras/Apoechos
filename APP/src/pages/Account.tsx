@@ -5,6 +5,7 @@ import Modal from '../components/Modal'
 
 import AuthContext from '../context/AuthContext'
 import FormError from '../utils/FormError'
+import UpdatePassword from '../components/Account/UpdatePassword'
 
 import Call from '../utils/Call'
 import { Routes } from '../utils/Routes'
@@ -63,37 +64,11 @@ export default function Account() {
                 <h2>Ο Λογαριασμός μου</h2>
                 <hr className='divider'></hr>
 
+                <UpdatePassword />
 
 
-                <hr className='divider'></hr>
-                <section className={CSS.box}>
-                    <form noValidate>
 
 
-                        <h3>Αλλαγή κωδικού</h3>
-                        <input type='password' id='password'
-                            placeholder='Νέος κωδικός'
-                            {...register('password', {
-                                required: 'Υποχρεωτικό πεδίο'
-                            })}
-                        />
-                        <FormError value={errors?.password} />
-
-                        <input className={CSS.inputs} type='password' id='confirm_password' placeholder='Επανάληψη νέου κωδικού'
-                            {...register('confirm_password', {
-                                required: 'Υποχρεωτικό πεδίο',
-                                validate: (val) => {
-                                    if (watch('password') !== val) {
-                                        return 'Οι κωδικοί δεν ταιριάζουν'
-                                    }
-                                }
-                            })} />
-
-                        <FormError value={errors?.confirm_password} />
-
-                        <button className='blue_btn btn'>Ενημέρωση</button>
-                    </form>
-                </section>
 
 
                 <hr className='divider'></hr>

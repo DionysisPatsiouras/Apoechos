@@ -9,7 +9,7 @@ import datetime
 
 from django.db.models import Q
 
-from datetime import  timedelta, datetime
+from datetime import timedelta, datetime
 
 
 # /event/
@@ -40,28 +40,31 @@ def new_event(request):
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 # /event/update/:id
 @api_view(["PATCH"])
 @permission_classes([IsAuthenticated])
 def update_event(request, id):
 
-    user = request.user
+    # user = request.user
 
     try:
         event = Event.objects.get(pk=id)
     except Event.DoesNotExist:
         return Response(["error", "not exist"])
 
-   
     serializer = New_Event_Serializer(event, data=request.data, partial=True)
+
     if serializer.is_valid():
         serializer.save()
-    return Response(serializer.data)
+        return Response(
+            {"message": "Updated", "status": 204, "data": request.data},
+            status=status.HTTP_202_ACCEPTED,
+        )
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-
-
-
+    # return Response(serializer.data)
 
 
 # /event/<str:id>/
@@ -78,14 +81,14 @@ def event_by_id(request, id):
     return Response(serializer.data)
 
 
-
-
 # /event/profile/<str:id>/
 @api_view(["GET"])
 def event_by_profile(request, id):
 
     try:
-        event = Event.objects.filter(Q(created_by=id) | Q(profile_location=id), is_deleted=False)
+        event = Event.objects.filter(
+            Q(created_by=id) | Q(profile_location=id), is_deleted=False
+        )
 
     except Event.DoesNotExist:
         return Response(["Message", "Profile not exist!"])
