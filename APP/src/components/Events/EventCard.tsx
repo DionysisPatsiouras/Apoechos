@@ -12,61 +12,63 @@ const EventCard = forwardRef(function EventCard(props: any, ref: any) {
 
     let event = props?.event
     const [modal, setModal] = useState<boolean>(false)
+    // console.log(event)
 
     return (
-        // <Link to={`/events/${event?.eventId}`} target='_blank' key={event.eventId}>
 
 
-        <>
-            <FullModal open={modal} close={() => setModal(false)}>
+
+        <div className={`${CSS.content} cursor-pointer`}>
+
+            <FullModal open={modal} close={() => setModal(false)} title='Επεξεργασία εκδήλωσης'>
                 <NewEventProvider>
-                    <NewEvent closeModal={() => setModal(false)} data={event}/>
+                    <NewEvent closeModal={() => setModal(false)} data={event} />
                 </NewEventProvider>
 
             </FullModal>
 
-            <div className={`${CSS.content} cursor-pointer`}>
+            <div className={CSS.coverInfo}
 
-                <div className={CSS.coverInfo}
+                style={{ backgroundImage: `url(http://127.0.0.1:8000/${event?.photo})` }}>
 
-                    style={{ backgroundImage: `url(http://127.0.0.1:8000/${event?.photo})` }}>
+                <div className={CSS.infoOverlay}>
+                    {event?.title && <h2 className={CSS.eventTitle}> {event?.title}</h2>}
+        
+                    <ul className={CSS.listOfBands}>
+                        {event?.main_bands.map((band: any) => (
+                            <li key={band?.profileId}>{band?.name}</li>
+                        ))}
+                    </ul>
 
-                    <div className={CSS.infoOverlay}>
-                        {event?.title && <h2 className={CSS.eventTitle}> {event?.title}</h2>}
-
-                        <ul className={CSS.listOfBands}>
-                            {event?.main_bands.map((band: any) => (
-                                <li key={band?.profileId}>{band?.name}</li>
-                            ))}
-                        </ul>
-
-                        <div className={`${CSS.specificInfo} items-inline`}>
-                            <SvgIcon id='location' color='#fff' width={20} />
-                            <small>{event?.profile_location?.city?.name || event?.location}</small>
-                        </div>
-
-
-                        <div className={`${CSS.specificInfo} items-inline`}>
-                            <SvgIcon id='calendar' color='#fff' width={20} />
-                            <small>{day_date(event?.date)}</small>
-                        </div>
-
-                        <div className={`${CSS.specificInfo} items-inline`}>
-                            <SvgIcon id='clock' color='#fff' width={20} />
-                            <small>{timestamp(event?.date)}</small>
-                        </div>
-
-                        <button className={CSS.redirectButton}>Προβολή</button>
-                        <button className={CSS.redirectButton} onClick={() => setModal(true)}>Επεξεργασία</button>
+                    <div className={`${CSS.specificInfo} items-inline`}>
+                        <SvgIcon id='location' color='#fff' width={20} />
+                        <small>{event?.profile_location?.city?.name || event?.location}</small>
                     </div>
 
+
+                    <div className={`${CSS.specificInfo} items-inline`}>
+                        <SvgIcon id='calendar' color='#fff' width={20} />
+                        <small>{day_date(event?.date)}</small>
+                    </div>
+
+                    <div className={`${CSS.specificInfo} items-inline`}>
+                        <SvgIcon id='clock' color='#fff' width={20} />
+                        <small>{timestamp(event?.date)}</small>
+                    </div>
+                    <Link to={`/events/${event.eventId}`} target='_blank'>
+                        <button className={CSS.redirectButton}>Προβολή</button>
+                    </Link>
+
+                    <button className={CSS.redirectButton} onClick={() => setModal(true)}>Επεξεργασία</button>
                 </div>
 
-
             </div>
-        </>
 
-        // </Link>
+
+        </div>
+
+
+
     )
 })
 

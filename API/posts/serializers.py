@@ -3,6 +3,7 @@ from .models import *
 from profiles.serializers import Profile_Post_Serializer
 from profiles.serializers import CategorySerializer
 
+
 class TitleSerializer(serializers.ModelSerializer):
 
     categoryId = CategorySerializer(many=False)
@@ -12,16 +13,12 @@ class TitleSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-# class NoIdTitleSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Post_Title
-#         exclude = ("id",)
-
-
 class NewPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = "__all__"
+        fields = ("body", "profile", "title")
+
+        extra_kwargs = {"body": {"min_length": 10, "max_length" : 150}}
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -37,4 +34,6 @@ class PostSerializer(serializers.ModelSerializer):
 class PatchPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = "__all__"
+        fields = ("body", "title")
+
+        extra_kwargs = {"body": {"min_length": 10, "max_length" : 150}}

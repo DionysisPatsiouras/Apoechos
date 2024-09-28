@@ -52,7 +52,7 @@ def me(request):
         
 
 
-# /user/update/
+# /user/patch/
 # UPDATE MY PROFILE
 @api_view(['PATCH'])
 @permission_classes([IsAuthenticated])

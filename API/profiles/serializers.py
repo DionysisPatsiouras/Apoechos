@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import *
 from users.serializers import *
 
+
 class InstrumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Instrument
@@ -49,14 +50,20 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = "__all__"  
+        fields = "__all__"
 
 
 class New_Profile_Serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = "__all__"
+        exclude = ("is_deleted", "deleted_at")
+
+        extra_kwargs = {
+            "name": {"min_length": 4, "required": True},
+            "city": {"required": True},
+            "category": {"required": True},
+        }
 
 
 class Profile_Post_Serializer(serializers.ModelSerializer):
@@ -65,12 +72,8 @@ class Profile_Post_Serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = (
-            "profileId",
-            "photo",
-            "name",
-            "category",
-        )
+        fields = ("profileId", "photo", "name", "category", "user")
+
 
 class Stages_Serializer(serializers.ModelSerializer):
 
@@ -79,14 +82,8 @@ class Stages_Serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = (
-            "profileId",
-            "photo",
-            "name",
-            "category",
-            "address",
-            "city"
-        )
+        fields = ("profileId", "photo", "name", "category", "address", "city")
+
 
 class Profile_Event_Serializer(serializers.ModelSerializer):
 

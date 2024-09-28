@@ -64,7 +64,7 @@ export default function CreateNewProfile() {
     const [genreSearch, setGenreSearch] = useState<string>('')
 
 
-
+   
 
     const getAddress = async (lat: any, lng: any) => {
         try {

@@ -23,11 +23,12 @@ class UserSerializer(serializers.ModelSerializer):
             # "password": {'write_only': True, 'min_length': 8}
         }
 
-# I use this serializer to give only a few permissions
+
 class UpdateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = '__all__'
+        # fields = '__all__'
+        fields = ("password", "last_login", "id", "email",)
 
         # extra_kwargs = {
 

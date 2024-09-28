@@ -12,16 +12,24 @@ class Migration(migrations.Migration):
         Post_Title = apps.get_model("posts", "Post_Title")
 
         titles = [
-            "Ψάχνω νέα μέλη",
+            #
             "Ψάχνω μπάντα",
-            "Νέα κυκλοφορία",
-            "Νέα ενημέρωση",
+            "Νέα σόλο κυκλοφορία"
+            #
+            "Ψάχνουμε νέα μέλη",
+            "Νέο άλμπουμ",
+            #
+            "Ανακαίνιση",
+            "Συνεργασίες",
+            #
             "Νέες αφίξεις",
             "Προσφορές",
-            "Ζητείται προσωπικό",
+            #
+            "Νέα Ενημέρωση",
+            "Ζητείται μπάντα",
         ]
 
-        category = [1, 1, 2, 3, 4, 4, 5]
+        category = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5]
         for index in range(len(titles)):
 
             new_title = Post_Title(title=titles[index], categoryId_id=category[index])

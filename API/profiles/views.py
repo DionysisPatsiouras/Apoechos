@@ -47,7 +47,10 @@ def new_profile(request):
     serializer = New_Profile_Serializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
-        return Response({"message": "Created", "status": 201, "data": serializer.data})
+        return Response(
+            {"message": "Created", "status": 201, "data": serializer.data},
+            status=status.HTTP_201_CREATED,
+        )
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

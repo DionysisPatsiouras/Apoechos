@@ -48,7 +48,6 @@ export const NewEventProvider = ({ children }: any) => {
 
     let data = children?.props?.data
 
-    // console.log(children)
 
     useEffect(() => {
 
@@ -60,10 +59,29 @@ export const NewEventProvider = ({ children }: any) => {
         window.addEventListener("resize", () => setHeight(window.innerHeight))
 
 
+        // if (data) {
+
+        //     setValue('title', data?.title)
+        //     setValue('description', data?.description)
+        //     setValue('date', data.date.split("T")[0])
+        //     setValue('time', data.date.split("T")[1].replace(":00Z", ""))
+        //     setValue('created_by', data.created_by.profileId)
+
+        //     setSelectedBands(data.main_bands)
+        //     setSupportActs(data?.support_acts)
+        //     setSelectedStage(data?.profile_location)
+
+        // }
+
+        // setValue('photo', data?.photo)
+
+    }, [])
+
+    useEffect(() => {
         if (data) {
 
             setValue('title', data?.title)
-            setValue('description', data.description)
+            setValue('description', data?.description)
             setValue('date', data.date.split("T")[0])
             setValue('time', data.date.split("T")[1].replace(":00Z", ""))
             setValue('created_by', data.created_by.profileId)
@@ -74,10 +92,8 @@ export const NewEventProvider = ({ children }: any) => {
 
         }
 
-
-        // setValue('photo', data?.photo)
-
-    }, [])
+    }, [children?.props])
+    
 
     const check_img_type = (file: any) => {
         setUploadedFile(
@@ -88,7 +104,7 @@ export const NewEventProvider = ({ children }: any) => {
                 : alert('Μη επιτρεπόμενη μορφή αρχείου\nΕπιτρεπόμενες μορφές: .png, .jpg, .jpeg'))
     }
 
-
+    // console.log(data)
 
 
     const Post_event = (inputData: any) => {
@@ -96,7 +112,7 @@ export const NewEventProvider = ({ children }: any) => {
         // console.log(inputData)
         let formData: any = new FormData()
 
-        // formData.append('photo', inputData?.file?.[0])
+        formData.append('photo', inputData?.file?.[0])
         inputData.title && formData.append('title', inputData?.title)
         formData.append('description', inputData.description)
         formData.append('date', `${inputData.date} ${inputData.time}`)
@@ -124,7 +140,7 @@ export const NewEventProvider = ({ children }: any) => {
 
 
         let post_event = new Call(Routes.events.new, 'POST', formData)
- 
+
 
 
         post_event
@@ -176,7 +192,7 @@ export const NewEventProvider = ({ children }: any) => {
 
 
         let update_event = new Call(Routes.events.update(data?.eventId), 'PATCH', finalData)
-      
+
 
         const updatePhoto = () => {
             let update_event = new Call(Routes.events.update(data?.eventId), 'PATCH', formData)
