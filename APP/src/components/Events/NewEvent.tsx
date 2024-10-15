@@ -66,6 +66,8 @@ const NewEvent = forwardRef(function NewEvent({ closeModal, profileId, data }: a
     // console.log(data)
 
 
+
+
     return (
         <div className={`${CSS.container} items-inline`} >
 
@@ -99,18 +101,42 @@ const NewEvent = forwardRef(function NewEvent({ closeModal, profileId, data }: a
             <form onSubmit={handleSubmit(!data ? Post_event : Update_event)} noValidate className={CSS.formContainer}>
 
 
-                
+
                 <section className={`${CSS.leftSector} column`}>
                     <label htmlFor='picture' className='column'>
-                        <img
-                            style={{
-                                height: `${height - wastedMargin}px`,
-                                width: `${(height - wastedMargin) / a4Ratio}px`
-                            }}
-                            className={CSS.cover_photo}
-                            src={data ? `http://127.0.0.1:8000/${data?.photo}` : uploadedFile}
-                        // alt='profile_photo' 
-                        />
+
+
+
+                        {!data && 
+
+                            <img
+                                style={{
+                                    height: `${height - wastedMargin}px`,
+                                    width: `${(height - wastedMargin) / a4Ratio}px`
+                                }}
+                                className={CSS.cover_photo}
+                                src={data ? `${process.env.REACT_APP_API_URL}${data?.photo}` : uploadedFile}
+                                alt='event_poster'
+                            />
+
+                        }
+
+
+                        {data &&
+                            <img
+                                style={{
+                                    height: `${height - wastedMargin}px`,
+                                    width: `${(height - wastedMargin) / a4Ratio}px`
+                                }}
+                                className={CSS.cover_photo}
+                                src={uploadedFile || `${process.env.REACT_APP_API_URL}${data?.photo}`}
+                                alt='event_poster'
+                            />
+
+
+                        }
+
+
 
                         <input
                             {...register('file')}
@@ -309,6 +335,6 @@ const NewEvent = forwardRef(function NewEvent({ closeModal, profileId, data }: a
             </form>
         </div>
     )
-// }
+    // }
 })
 export default NewEvent

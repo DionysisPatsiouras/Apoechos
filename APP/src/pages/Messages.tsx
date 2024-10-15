@@ -175,7 +175,7 @@ export default function Messages() {
                                 }}
                                 className={`${CSS.profile_item} items-inline cursor-pointer`}
                                 onClick={() => get_current_conv(profile_id, contact.profileId)}>
-                                <img className={CSS.contactImg} src={`http://127.0.0.1:8000/${contact?.photo}`} alt='contact'/>
+                                <img className={CSS.contactImg} src={`${process.env.REACT_APP_API_URL}${contact?.photo}`} alt='contact'/>
                                 <div>
                                     <h3>{contact.name}</h3>
                                     {/* <p className={CSS.unreadAlert}>

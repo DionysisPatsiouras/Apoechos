@@ -56,7 +56,7 @@ export default function UpdatePassword() {
 
                 <FormError value={errors?.confirm_password} />
 
-                <button type='submit' className='blue_btn'>Ενημέρωση</button>
+                <button type='submit' className='btn blue_btn'>Ενημέρωση</button>
             </form>
         </section>
     )

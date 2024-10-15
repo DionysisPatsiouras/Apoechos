@@ -142,7 +142,7 @@ const EditProfile = forwardRef(function EditProfile({close, profile} : EditProfi
                     <div className={CSS.info_stats}>
                         <div className='items-inline' style={{ gap: '25px', alignItems: 'flex-start', justifyContent: 'center' }}>
 
-                            <img src={newFile || `http://127.0.0.1:8000/${currentProfile?.photo}`} width={200} alt='profile'
+                            <img src={newFile || `${process.env.REACT_APP_API_URL}${currentProfile?.photo}`} width={200} alt='profile'
                                 style={{ height: '218px', objectFit: 'cover' }} />
                             {/* <label htmlFor='photo'>
                                 <SvgIcon id={'upload-image'} color='#fff' />

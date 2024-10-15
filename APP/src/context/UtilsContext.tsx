@@ -32,7 +32,6 @@ export const UtilsProvider = ({ children }: any) => {
 
     const get_categories = () => {
         const fetch_categories = new Call(Routes.profiles.categories, 'GET')
-        // fetch_categories.GET_NO_TOKEN().then((res) => setCategories([...categories, ...res])).catch((err: any) => console.warn(err))
         fetch_categories.GET_NO_TOKEN().then((res) => setCategories(res)).catch((err: any) => console.warn(err))
     }
 
@@ -67,17 +66,17 @@ export const UtilsProvider = ({ children }: any) => {
 
 
 
-    const get_labels = (category_id:string) => {
+    const get_labels = (category_id: string) => {
         const get_labels = new Call(Routes.posts.titles, 'GET')
         get_labels
-        .GET()
-        .then((res) => {
-            // console.log(res)
-            setLabels(res
-                .filter((i: any) => i.categoryId?.id === category_id)
-                .map((i: any) => ({ value: i.id, label: i.title, category: i.categoryId?.id }))
-            )
-        })
+            .GET()
+            .then((res) => {
+                // console.log(res)
+                setLabels(res
+                    .filter((i: any) => i.categoryId?.id === category_id)
+                    .map((i: any) => ({ value: i.id, label: i.title, category: i.categoryId?.id }))
+                )
+            })
     }
 
 
@@ -106,7 +105,7 @@ export const UtilsProvider = ({ children }: any) => {
         my_profiles, get_my_profiles,
         all_stages, get_stages,
         bands_and_musicians, get_bands_and_musicians,
-        get_labels, labels
+        labels, get_labels,
 
     }
 

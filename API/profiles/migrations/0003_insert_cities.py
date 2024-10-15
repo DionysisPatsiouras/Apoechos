@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
             "Άρτα",
             "Σπάρτη",
             "Ζάκυνθος",
-            "Κέρκυρα"
+            # "Κέρκυρα"
         ]
         latitude = [
             "37.983810",
@@ -53,7 +53,7 @@ class Migration(migrations.Migration):
             "39.160140",
             "37.074301",
             "37.778250",
-            "39.620690"
+            # "39.620690"
         ]
 
         longitude = [
@@ -76,7 +76,7 @@ class Migration(migrations.Migration):
             "20.985610",
             "22.432584",
             "20.896425",
-            "19.919750"
+            # "19.919750"
         ]
 
         for index in range(len(names)):

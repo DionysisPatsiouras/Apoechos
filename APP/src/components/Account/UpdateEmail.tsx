@@ -4,7 +4,8 @@ import { token, config } from '../../utils/Token'
 import CSS from '../../css/Account/Account.module.css'
 import { email_regex } from '../../utils/Regex'
 import FormError from '../../utils/FormError'
-
+import Call from '../../utils/Call'
+import { Routes } from '../../utils/Routes'
 
 export default function UpdateEmail(props: any) {
 
@@ -14,26 +15,26 @@ export default function UpdateEmail(props: any) {
 
 
 
-
     const updateEmail = (data: any) => {
 
 
         const finalData = {
             email: data?.email
         }
-        // console.log(data?.email)
-        axios
-            .patch('http://127.0.0.1:8000/user/patch/', finalData, {
-                headers: { Authorization: `Bearer ${token}` }
-            })
-            .then((response) => { console.log(response) })
-            .catch((error) => { console.warn(error) })
+
+        let updateUser = new Call(Routes.user.patch, 'PATCH', finalData)
+
+
+        updateUser
+            .PATCH()
+            .then((res) => console.log('User updated successfully', res))
+            .catch((error) =>  console.warn(error) )
     }
 
     return (
         <form onSubmit={handleSubmit(updateEmail)} noValidate>
             <section className={CSS.box}>
-            
+
                 <h3>Αλλαγή email</h3>
                 <input
                     type='text'

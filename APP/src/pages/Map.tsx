@@ -191,7 +191,7 @@ export default function Map() {
                         />
                         {/* <img
                             className='circle_img'
-                            src={`http://127.0.0.1:8000/${selectedProfile?.photo}`}
+                            src={`${process.env.REACT_APP_API_URL}${selectedProfile?.photo}`}
                             width={184} height={184}
                             alt='Profile photo' />
 

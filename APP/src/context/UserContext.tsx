@@ -57,12 +57,6 @@ export const UserProvider = ({ children }: any) => {
         me, fetchMe,
         myProfiles, fetchMyProfiles,
         updateDOM, setUpdateDOM
-        // me: me,
-        // myProfiles: myProfiles,
-        // fetchMyProfiles: fetchMyProfiles,
-        // fetchMe: fetchMe,
-        // updateDOM: updateDOM,
-        // setUpdateDOM: setUpdateDOM
     }
 
 

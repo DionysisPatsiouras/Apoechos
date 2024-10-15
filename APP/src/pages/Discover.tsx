@@ -45,8 +45,8 @@ export default function Discover() {
                         <ul className={CSS.filters_list} >
                             {item?.data
                                 .filter((i: string) => SearchValidation(i, item?.search))
-                                .map((i: string) => (
-                                    <li key={i}>
+                                .map((i: string, index:number) => (
+                                    <li key={index}>
                                         <input
                                             id={i}
                                             type='checkbox'

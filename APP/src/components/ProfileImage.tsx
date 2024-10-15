@@ -19,7 +19,7 @@ const ProfileImage = forwardRef(function ProfileImage({ photo, category, onClick
         <div style={style || { width: size, margin: '0 auto' }}>
 
             <img
-                src={`http://127.0.0.1:8000/${photo}`}
+                src={`${process.env.REACT_APP_API_URL}${photo}`}
                 alt='profile'
                 style={{
                     borderRadius: '200px',

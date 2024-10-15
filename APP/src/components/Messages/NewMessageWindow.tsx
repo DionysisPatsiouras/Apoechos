@@ -74,7 +74,7 @@ const NewMessageWindow = forwardRef(function NewMessageWindow(props: any, ref: a
                                 key={index}
                                 className={`cursor-pointer ${CSS.myProfilesImgs} ${i?.profileId === senderId ? CSS.selected : CSS.notSelected}`}
                                 onClick={() => setSenderId(i?.profileId)}>
-                                <img src={`http://127.0.0.1:8000/${i?.photo}`} />
+                                <img src={`${process.env.REACT_APP_API_URL}${i?.photo}`} />
                             </div>
 
                         ))}
@@ -90,7 +90,7 @@ const NewMessageWindow = forwardRef(function NewMessageWindow(props: any, ref: a
 
 
                             <img
-                                src={`http://127.0.0.1:8000/${receiver?.photo}`}
+                                src={`${process.env.REACT_APP_API_URL}${receiver?.photo}`}
                                 width={84} height={84}
                                 alt='Profile' />
                         </div>

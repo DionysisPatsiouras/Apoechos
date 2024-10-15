@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }: any) => {
             })
 
         // await axios
-        //     .post('http://127.0.0.1:8000/api/token/', data)
+        //     .post('${process.env.REACT_APP_API_URL}/api/token/', data)
         //     .then((res: any) => {
         //         // console.log('axios res', res)
 
@@ -117,7 +117,7 @@ export const AuthProvider = ({ children }: any) => {
     //     setLoading(true)
     //     console.log('updated token')
     //     //fetch refresh token from backend 
-    //     let response = await fetch('http://127.0.0.1:8000/api/token/refresh/', {
+    //     let response = await fetch('${process.env.REACT_APP_API_URL}api/token/refresh/', {
     //         method: 'POST',
     //         headers: {
     //             'Content-Type': 'application/json'

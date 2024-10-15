@@ -93,7 +93,7 @@ export const NewEventProvider = ({ children }: any) => {
         }
 
     }, [children?.props])
-    
+
 
     const check_img_type = (file: any) => {
         setUploadedFile(
@@ -167,9 +167,9 @@ export const NewEventProvider = ({ children }: any) => {
 
 
     const Update_event = (inputData: any) => {
-        console.log("🚀 ~ NewEventProvider ~ inputData:", inputData)
 
 
+        console.log(inputData)
         let formData: any = new FormData()
 
         // let main_bands_array: any = []
@@ -181,13 +181,14 @@ export const NewEventProvider = ({ children }: any) => {
         }
 
         let finalData = {
+            title: inputData?.title,
             support_acts: support_acts_array,
             description: inputData.description,
             date: `${inputData.date} ${inputData.time}`
         }
 
 
-        formData.append('photo', inputData?.file?.[0])
+        inputData?.file?.[0] && formData.append('photo', inputData?.file?.[0])
 
 
 
@@ -196,17 +197,25 @@ export const NewEventProvider = ({ children }: any) => {
 
         const updatePhoto = () => {
             let update_event = new Call(Routes.events.update(data?.eventId), 'PATCH', formData)
-            update_event.PATCH_MEDIA().then((res) => console.log(res)).catch((err) => console.warn(err))
+            update_event.PATCH_MEDIA()
+                .then((res) => {
+                    console.log(res)
+                    children?.props?.closeModal()
+                    // snackbar('Η εκδήλωση ενημερώθηκε')
+                })
+                .catch((err) => console.warn(err))
         }
 
         update_event
             .PATCH()
 
             .then((res) => {
-                updatePhoto()
-                console.log(res)
-                console.log('Event updated successfully')
                 snackbar('Η εκδήλωση ενημερώθηκε')
+                inputData?.file?.[0] && updatePhoto()
+                console.log(res)
+                children?.props?.closeModal()
+                console.log('Event updated successfully')
+                
             })
             .catch((err) => console.warn(err))
 

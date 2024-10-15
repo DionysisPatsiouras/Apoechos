@@ -120,7 +120,7 @@ export default function Profile() {
             </FullModal>
 
             <Modal open={modal} close={() => setModal(false)} closeButton>
-                <img src={`http://127.0.0.1:8000/${currentProfile?.photo}`} alt='profile_photo' />
+                <img src={`${process.env.REACT_APP_API_URL}${currentProfile?.photo}`} alt='profile_photo' />
             </Modal>
 
             <FullModal open={editMode} title='Επεξεργασία προφίλ' close={() => setEditMode(false)}>
@@ -171,7 +171,7 @@ export default function Profile() {
                                         }}
                                     >
                                         <div className='items-inline' style={{ gap: '10px' }}>
-                                            <img src={`http://127.0.0.1:8000/${profile.photo}`} className='circle_img' width={10} />
+                                            <img src={`${process.env.REACT_APP_API_URL}${profile.photo}`} className='circle_img' width={10} />
                                             {fullBar &&
                                                 <div>
                                                     <p className={CSS.profileName}>{profile.name} </p>
