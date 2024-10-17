@@ -213,9 +213,9 @@ export default function EventView() {
                     </div>
 
                 </section>
+
                 {user_can_edit && <FixedButton onClick={() => setModal(!modal)} icon='edit'/>}
 
-                
 
             </section>
 
