@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import { Navigate, Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import AuthContext from '../context/AuthContext'
-import CSS from '../css/Login/Login.module.css'
+import CSS from '../css/Register/Register.module.css'
 
 // utils
 import Call from '../utils/Call'
@@ -66,7 +66,8 @@ export default function Register() {
 
                 <h6 className={CSS.title}>{accountCreated ? 'Επιτυχής εγγραφή!' : 'Εγγραφή'}</h6>
                 <form onSubmit={handleSubmit(onSubmit)} noValidate style={{ 'display': accountCreated ? 'none' : 'flex' }}>
-                    <div style={{ display: 'flex', gap: '20px' }}>
+
+                    <div className={CSS.fieldsContainer}>
                         <div>
                             <div style={{ display: 'flex', flexDirection: 'column' }}>
 

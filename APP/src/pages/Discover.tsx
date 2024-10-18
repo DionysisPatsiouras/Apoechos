@@ -26,7 +26,7 @@ export default function Discover() {
 
     return (
         <div className={CSS.container}>
-
+            {/* 
             <section className={CSS.filters}>
 
 
@@ -59,45 +59,66 @@ export default function Discover() {
                                 ))}
                         </ul>
                     </div>
-                ))}
+                ))} 
 
             </section>
-
+*/}
 
 
             <section className={CSS.cards_container}>
 
 
-                <ul className={CSS.profiles_menu}>
-                    {tabs.map((category: any, index: number) => (
-                        <div
-                            key={index}
-                            className={CSS.profile_tab}
-                            onClick={category?.action}
-                        >
-                            <li
-                                onMouseEnter={() => setOnHover(category?.label)}
-                                onMouseLeave={() => setOnHover('')}
-                                style={{ color: category?.color }}>
-                                {category?.label}
-                            </li>
-                            <span style={{
-                                background: onHover === category?.label || activeTab === category?.label
-                                    ? category?.color
-                                    : '#ffffff'
-                            }}></span>
+                <div className={CSS.head}>
+
+
+                    <ul className={CSS.profiles_menu}>
+                        {tabs.map((category: any, index: number) => (
+                            <div
+                                key={index}
+                                className={CSS.profile_tab}
+                                onClick={category?.action}
+                            >
+
+                                <SvgIcon
+                                    id={category?.icon}
+                                    width={20} height={20}
+                                    color={activeTab === category?.label ? '#fff' : category?.color}
+                                    className={CSS.categoryIcon}
+                                    style={{
+                                        backgroundColor: activeTab === category?.label ? category?.color : '#fff',
+                                        border: `2px solid ${category?.color}`
+                                    }}
+                                />
+
+                                <div className={CSS.categoryLabel}>
+
+
+                                    <li
+                                        onMouseEnter={() => setOnHover(category?.label)}
+                                        onMouseLeave={() => setOnHover('')}
+                                        style={{ color: category?.color }}>
+                                        {category?.label}
+                                    </li>
+                                    <span style={{
+                                        background: onHover === category?.label || activeTab === category?.label
+                                            ? category?.color
+                                            : '#ffffff'
+                                    }}></span>
+                                </div>
+                            </div>
+                        ))}
+                    </ul>
+
+
+                    <section className={CSS.search}>
+                        <div className={CSS.left_section}>
+                            <SvgIcon id='search' />
+                            <input type='text' placeholder='Αναζήτηση...' onChange={(e) => setSearch(e.target.value)} />
                         </div>
-                    ))}
-                </ul>
+                        <p className={CSS.results}>Αποτελέσματα: {filteredData?.length}</p>
+                    </section>
 
-
-                <section className={CSS.search}>
-                    <div className={CSS.left_section}>
-                        <SvgIcon id='search' />
-                        <input type='text' placeholder='Αναζήτηση...' onChange={(e) => setSearch(e.target.value)} />
-                    </div>
-                    <p>Αποτελέσματα: {filteredData?.length}</p>
-                </section>
+                </div>
 
                 <section className={CSS.all_cards}>
 

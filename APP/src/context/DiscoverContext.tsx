@@ -45,7 +45,7 @@ export const DiscoverProvider = ({ children }: any) => {
     const [filtered_instruments, setFilteredInstruments] = useState<any[]>([])
 
 
-    const [activeTab, setActiveTab] = useState('Everything')
+    const [activeTab, setActiveTab] = useState('Όλα')
 
     const [categories, setCategories] = useState<any[]>(
         [{ id: 0, name: 'Όλα', color: 'black', action: () => changeSelected(all, 'Everything') }]
@@ -73,7 +73,7 @@ export const DiscoverProvider = ({ children }: any) => {
 
         call_categories
             .GET_NO_TOKEN()
-            .then((res) => setCategories([...categories, ...res]))
+            .then((res) => { setCategories([...categories, ...res]) })
             .catch((err: any) => console.warn(err))
 
         call_profiles
@@ -102,7 +102,7 @@ export const DiscoverProvider = ({ children }: any) => {
 
     const filters = [
         {
-            id: 'Everything', label: 'Περιοχή', data: cities.map((i: any) => i.name),
+            id: 'Όλα', label: 'Περιοχή', data: cities.map((i: any) => i.name),
             setSearch: setCitySearch, search: citySearch,
             filtered: filtered_cities, setFilters: setFilteredCities,
         },
@@ -129,12 +129,12 @@ export const DiscoverProvider = ({ children }: any) => {
 
     let tabs: any = [
 
-        { label: 'Όλα', color: 'black', action: () => changeSelected(all, 'Everything') },
-        { label: categories?.[1]?.name, color: categories?.[1]?.color, action: () => changeSelected(allMusicians, categories?.[1]?.name) },
-        { label: categories?.[2]?.name, color: categories?.[2]?.color, action: () => changeSelected(allBands, categories?.[2]?.name) },
-        { label: categories?.[3]?.name, color: categories?.[3]?.color, action: () => changeSelected(allStudios, categories?.[3]?.name) },
-        { label: categories?.[4]?.name, color: categories?.[4]?.color, action: () => changeSelected(allStores, categories?.[4]?.name) },
-        { label: categories?.[5]?.name, color: categories?.[5]?.color, action: () => changeSelected(allStages, categories?.[5]?.name) }
+        { label: 'Όλα', color: 'black', icon: 'expand', action: () => changeSelected(all, 'Όλα') },
+        { label: categories?.[1]?.name, color: categories?.[1]?.color, icon: categories?.[1]?.icon, action: () => changeSelected(allMusicians, categories?.[1]?.name) },
+        { label: categories?.[2]?.name, color: categories?.[2]?.color, icon: categories?.[2]?.icon, action: () => changeSelected(allBands, categories?.[2]?.name) },
+        { label: categories?.[3]?.name, color: categories?.[3]?.color, icon: categories?.[3]?.icon, action: () => changeSelected(allStudios, categories?.[3]?.name) },
+        { label: categories?.[4]?.name, color: categories?.[4]?.color, icon: categories?.[4]?.icon, action: () => changeSelected(allStores, categories?.[4]?.name) },
+        { label: categories?.[5]?.name, color: categories?.[5]?.color, icon: categories?.[5]?.icon, action: () => changeSelected(allStages, categories?.[5]?.name) }
 
     ]
 
