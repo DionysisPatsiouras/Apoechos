@@ -39,7 +39,6 @@ export const DiscoverProvider = ({ children }: any) => {
     const [modal, setModal] = useState<boolean>(false)
 
 
-    const [onHover, setOnHover] = useState('')
     const [filtered_cities, setFilteredCities] = useState<any[]>([])
     const [filtered_genres, setFilteredGenres] = useState<any[]>([])
     const [filtered_studio_services, setFilteredStudioServices] = useState<any[]>([])
@@ -173,13 +172,10 @@ export const DiscoverProvider = ({ children }: any) => {
 
 
     let contextData = {
-        activeTab,
-        tabs,
+        tabs, activeTab,
         filteredData,
         setSearch,
         handle_checkbox,
-        onHover,
-        setOnHover,
         filters,
         toggleModal, modal
     }

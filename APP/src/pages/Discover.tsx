@@ -14,6 +14,7 @@ import DiscoverContext from '../context/DiscoverContext'
 import FixedButton from '../components/FixedButton'
 
 import FullModal from '../components/FullModal'
+import Search from '../components/Search'
 
 
 
@@ -21,13 +22,11 @@ export default function Discover() {
 
     let {
         activeTab, tabs, filteredData,
-        setSearch, handle_checkbox,
-        onHover, setOnHover, filters,
+        setSearch, handle_checkbox, filters,
         toggleModal, modal
 
     }: any = useContext(DiscoverContext)
 
-    // console.log(activeTab)
 
 
 
@@ -40,13 +39,11 @@ export default function Discover() {
 
                     {filters.map((item: any, index: number) => (
 
-                        <div key={index} style={{ display: activeTab === item.id || item?.id === 'Everything' ? 'block' : 'none' }}>
+                        <div key={index} style={{ display: activeTab === item.id || item?.id === 'Όλα' ? 'block' : 'none' }}>
                             <p className={CSS.filter_title}>{item.label}</p>
+
                             <div className='items-inline' style={{ padding: '0 0 0 20px' }}>
-                                <SvgIcon id='search' color='#C8C8C8' />
-                                <input className={CSS.filter_search}
-                                    type='search' placeholder='Αναζήτηση...'
-                                    onChange={(e) => item.setSearch(e.target.value)} />
+                                <Search onChange={(e:any) => item.setSearch(e.target.value)}/>
                             </div>
 
                             <ul className={CSS.filters_list} >
@@ -103,18 +100,15 @@ export default function Discover() {
 
                                 <div className={CSS.categoryLabel}>
 
-
                                     <li
-                                        onMouseEnter={() => setOnHover(category?.label)}
-                                        onMouseLeave={() => setOnHover('')}
-                                        style={{ color: category?.color }}>
+                                        style={{
+                                            color: category?.color,
+                                            borderBottom: activeTab === category?.label ? `2px solid ${category?.color}` : 'unset',
+                                            paddingBottom: '7px'
+                                        }}>
                                         {category?.label}
                                     </li>
-                                    <span style={{
-                                        background: onHover === category?.label || activeTab === category?.label
-                                            ? category?.color
-                                            : '#ffffff'
-                                    }}></span>
+
                                 </div>
                             </div>
                         ))}
@@ -123,21 +117,27 @@ export default function Discover() {
 
                     <section className={CSS.search}>
                         <div className={CSS.left_section}>
-                            <SvgIcon id='search' />
-                            <input type='text' placeholder='Αναζήτηση...' onChange={(e) => setSearch(e.target.value)} />
+                            <Search onChange={(e:any) => setSearch(e.target.value)}/>
                         </div>
                         <p className={CSS.results}>Αποτελέσματα: {filteredData?.length}</p>
                     </section>
 
                 </div>
 
-                <section className={CSS.all_cards}>
+                {filteredData.length !== 0 &&
 
-                    {filteredData?.map((item: any, index: number) => (
-                        <Card key={index} data={item} />
-                    ))}
+                    <section className={CSS.cards_section}>
 
-                </section>
+                        <div className={CSS.cards_list}>
+                            {filteredData?.map((item: any, index: number) => (
+                                <Card key={index} data={item} />
+                            ))}
+
+                        </div>
+                    </section>
+                }
+
+
             </section>
 
 

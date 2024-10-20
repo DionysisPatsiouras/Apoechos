@@ -12,8 +12,8 @@ interface Props {
 
 export default function MyProfiles({ url }: Props) {
 
-    const [height, setHeight] = useState<any>(undefined)
-    const [width, setWidth] = useState<any>(undefined)
+    const [height, setHeight] = useState<any>(window.innerHeight)
+    const [width, setWidth] = useState<any>(window.innerWidth)
     let isDesktop = width >= 768
     let threshold = width <= 1500
 

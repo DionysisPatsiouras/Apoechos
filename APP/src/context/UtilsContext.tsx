@@ -2,7 +2,6 @@ import { createContext, useState } from "react"
 import Call from "../utils/Call"
 import { Routes } from "../utils/Routes"
 
-// const UserContext = createContext({})
 const UtilsContext = createContext({})
 
 export default UtilsContext

@@ -3,9 +3,8 @@ import { forwardRef, useEffect, useState, useContext } from 'react'
 
 import Call from '../utils/Call'
 import { Routes } from '../utils/Routes'
-// import EventView from '../components/Events/EventView'
 import { handle_checkbox } from '../utils/functions/handle_checkbox'
-// import CSS from '../css/'
+
 
 
 import FixedButton from '../components/FixedButton'
@@ -82,9 +81,7 @@ const Events = forwardRef(function Events(props: any, ref: any) {
 
                         )
                         .map((event: any, index: number) => (
-
                             <EventCard key={index} event={event}/>
-
                         ))}
 
                 </div>)}

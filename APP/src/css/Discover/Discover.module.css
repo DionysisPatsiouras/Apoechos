@@ -39,12 +39,19 @@
   background: red;
 }
 
-.all_cards {
+.cards_section {
+  width: 100%;
+  background-color: #F6F6F6;
+}
+
+.cards_list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  background-color: #F6F6F6;
   padding-block: 20px;
+  padding-inline: 0;
+  margin: 0 auto;
+  width: 100%;
 }
 
 ::-webkit-scrollbar {
@@ -141,6 +148,9 @@
   .profile_tab {
     margin-inline: 7px;
   }
+  .cards_list {
+    width: 80%;
+  }
 }
 @media screen and (min-width: 769px) and (max-width: 1279px) {
   .results {
@@ -158,6 +168,12 @@
   .profile_tab {
     margin-inline: 12px;
   }
+  .padding {
+    padding-inline: 100px;
+  }
+  .cards_list {
+    width: 80%;
+  }
 }
 @media screen and (min-width: 1280px) {
   .results {
@@ -174,5 +190,8 @@
   }
   .profile_tab {
     margin-inline: 15px;
+  }
+  .cards_list {
+    width: 80%;
   }
 }/*# sourceMappingURL=Discover.module.css.map */
