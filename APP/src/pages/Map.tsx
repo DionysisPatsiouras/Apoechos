@@ -22,7 +22,7 @@ import { ChangeView } from '../utils/functions/ChangeView'
 export default function Map() {
 
 
-    let { cities, get_cities }: any = useContext(UtilsContext)
+    let { cities, get_cities, categories, get_categories }: any = useContext(UtilsContext)
     let { user }: any = useContext(AuthContext)
 
     const [coordinates, setCoordinates] = useState<any>([38.083810, 23.727539])
@@ -61,6 +61,7 @@ export default function Map() {
 
         document.title = 'Apoechos - Χάρτης'
         get_cities()
+        get_categories()
 
         setLatitude(coordinates?.[0])
         setLongitude(coordinates?.[1])
@@ -76,7 +77,7 @@ export default function Map() {
 
 
 
-    // console.log(selectedProfile)
+    console.log(selectedCategories)
 
     const [height, setHeight] = useState<any>(window.innerHeight)
 
@@ -84,11 +85,6 @@ export default function Map() {
         window.addEventListener("resize", () => setHeight(window.innerHeight))
     }, [])
 
-    let categories = [
-        { id: 3, label: "Στούντιο" },
-        { id: 4, label: "Καταστήματα" },
-        { id: 5, label: "Σκηνές" }
-    ]
 
 
 
@@ -97,11 +93,10 @@ export default function Map() {
 
             <Modal open={modal} close={() => setModal(!modal)} withContainer title='Νέο μήνυμα' btn>
                 <NewMessageWindow receiver={selectedProfile} close={() => setModal(false)} />
-
             </Modal>
 
             <aside className={CSS.sidebar}>
-                <div className='items-inline' style={{ gap: '20px' }}>
+                <div className={CSS.filtersContainer} >
                     <select
                         onChange={(e) => {
                             setSelectedProfile({});
@@ -118,18 +113,39 @@ export default function Map() {
                     </select>
 
                     <ul className='items-inline' style={{ gap: '20px' }}>
-                        {categories.map((category: any) => (
-                            <li key={category?.id} className='items-inline' style={{ gap: '5px' }}>
-                                <input
-                                    type='checkbox'
-                                    id={category.id}
-                                    value={category?.id}
-                                    className='cursor-pointer'
-                                    onChange={(e) => handle_checkbox(setSelectedCategories, e.target)}
-                                />
-                                <label htmlFor={category?.id} className='cursor-pointer'>{category?.label}</label>
-                            </li>
+                        {categories
+                        .filter((category:any) => category?.id !== 1 && category?.id !== 2)
+                        .map((category: any) => (
 
+                            <>
+
+
+                                <li key={category?.id} className='items-inline' style={{ gap: '5px' }}>
+                                    <input
+                                        type='checkbox'
+                                        id={category.id}
+                                        value={category?.id}
+                                        className='cursor-pointer'
+                                        onChange={(e) => handle_checkbox(setSelectedCategories, e.target)}
+                                        style={{display: 'none'}}
+                                    />
+                                    <label htmlFor={category?.id} className='cursor-pointer'>
+                                        {/* {category?.label} */}
+                                        <SvgIcon
+                                        onClick={(e:any) => handle_checkbox(setSelectedCategories, e.target)}
+                                            id={category?.icon}
+                                            width={20} height={20}
+                                            // color={activeTab === category?.label ? '#fff' : category?.color}
+                                            color={selectedCategories.includes(category?.id.toString()) ? '#fff' : category?.color}
+                                            className={CSS.categoryIcon}
+                                            style={{
+                                                backgroundColor: selectedCategories.includes(category?.id.toString()) ? category?.color : '#fff',
+                                                border: `2px solid ${category?.color}`
+                                            }}
+                                        />
+                                    </label>
+                                </li>
+                            </>
                         ))}
                     </ul>
                 </div>
@@ -187,19 +203,7 @@ export default function Map() {
                             onClick={() => setModal(!modal)}
                             size={184}
                         />
-                        {/* <img
-                            className='circle_img'
-                            src={`${process.env.REACT_APP_API_URL}${selectedProfile?.photo}`}
-                            width={184} height={184}
-                            alt='Profile photo' />
 
-                        <SvgIcon
-                            className={CSS.categoryIcon}
-                            id={selectedProfile?.category?.icon}
-                            width={20}
-                            height={20}
-                            color='#fff'
-                            style={{ backgroundColor: selectedProfile?.category?.color }} /> */}
                         <div className={CSS.info}>
                             <h2>{selectedProfile?.name}</h2>
                             <b>{selectedProfile?.city?.name}</b>

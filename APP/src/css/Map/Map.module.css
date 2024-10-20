@@ -11,14 +11,19 @@
   border-radius: 4px;
   color: #6B6767;
   padding: 0 0 0 11px;
-  margin: 9px 0;
+  margin: 0;
+}
+
+.filtersContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding-block: 10px;
 }
 
 .categoryIcon {
   margin: 0 auto;
-  position: relative;
-  top: -40px;
-  left: 50px;
   padding: 10px;
   border-radius: 200px;
 }

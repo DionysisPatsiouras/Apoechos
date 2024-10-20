@@ -93,7 +93,7 @@ export default function Discover() {
                                     color={activeTab === category?.label ? '#fff' : category?.color}
                                     className={CSS.categoryIcon}
                                     style={{
-                                        backgroundColor: activeTab === category?.label ? category?.color : '#fff',
+                                        backgroundColor: activeTab === category?.label ? category?.color : '#f9f9f9',
                                         border: `2px solid ${category?.color}`
                                     }}
                                 />
