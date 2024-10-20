@@ -72,29 +72,35 @@ export default function App() {
                     <Route path='/login' element={<Login />} />
                     <Route path='/register' element={<Register />} />
                     <Route path='/' element={<Homepage />} />
-                    <Route path='/profile/:id' element={
-                      <ProfileProvider>
-                        <EditProfileProvider>
-                            <Profile />
-                        </EditProfileProvider>
-                      </ProfileProvider>} />
                     <Route path='/discover' element={<DiscoverProvider><Discover /></DiscoverProvider>} />
-                    <Route path='/posts' element={<Posts />} />
                     <Route path='/events' element={<Events />} />
                     <Route path='/events/:id' element={<EventView />} />
                     <Route path='/map' element={<Map />} />
-                    <Route path='/messages/:id/' element={<Messages />} />
+
                     {/* need to create this */}
                     {/* <Route path='/terms-and-conditions' element={<Messages />} /> */}
 
 
 
 
-
+                    {/* PROTECTED ROUTES */}
                     <Route element={<PrivateRoutes />} >
                       <Route path='/account' element={<Account />} />
                       <Route path='/create' element={<Create />} />
                       <Route path='/create/new_profile' element={<CreateNewProfileProvider><CreateNewProfile /></CreateNewProfileProvider>} />
+
+                      <Route path='/profile/:id' element={
+                        <ProfileProvider>
+                          <EditProfileProvider>
+                            <Profile />
+                          </EditProfileProvider>
+                        </ProfileProvider>} />
+                      <Route path='/posts' element={<Posts />} />
+                      <Route path='/messages/:id/' element={
+                        <ProfileProvider>
+                          <Messages />
+                        </ProfileProvider>
+                      } />
                     </Route>
 
 

@@ -1,8 +1,14 @@
 
+.mainBody
+    display: flex
+    flex-direction: column
+
 .container
-    width: 800px
+    // width: 800px
+    width: 90%
     margin: 20px auto 0 auto
     display: flex
+    height: 100%
 
     ul
         border-right: 1px solid #F2F2F2
@@ -72,3 +78,29 @@
     color: #b1b1b1
 .unreadAlert
     font-size: 12px
+
+// TABLET
+@media screen and (min-width: 481px) and (max-width: 768px)
+
+    .mainBody
+        flex-direction: column
+
+    .container
+        width: 90%
+
+// LAPTOP
+@media screen and (min-width: 769px) and ( max-width: 1279px )
+
+    .mainBody
+        flex-direction: row
+    
+    .container
+        width: 60%
+
+// DESKTOP
+@media screen and ( min-width: 1280px )
+    .mainBody
+        flex-direction: row
+
+    .container
+        width: 800px

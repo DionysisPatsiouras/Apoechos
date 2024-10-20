@@ -9,10 +9,12 @@ import SvgIcon from "../components/SvgIcon"
 import AuthContext from "../context/AuthContext"
 import { Navigate } from 'react-router-dom'
 import CSS2 from '../css/Profile/Profile.module.sass'
+import MyProfiles from "../components/Profile/MyProfiles"
 
 export default function Messages() {
 
     let { user }: any = useContext(AuthContext)
+
 
     let profile_id = window.location.pathname.replace('/messages/', '')
     const divRef = useRef(null);
@@ -125,32 +127,11 @@ export default function Messages() {
     // console.log(unread)
 
     return (
-        <div style={{ display: 'flex' }}>
+        // <div style={{ display: 'flex' }}>
+        <div className={CSS.mainBody}>
 
             {user?.user_id === currentProfile?.user?.id &&
-                <aside className={CSS2.my_profiles_list} >
-                    <ul>
-                        {my_profiles.map((profile: any) => (
-                            <Link to={`/messages/${profile.profileId}`} key={profile.profileId} onClick={() => setConversation([])}>
-                                <li
-                                    className='items-inline'
-                                    style={{
-                                        backgroundColor: profile.profileId === currentProfile?.profileId ? profile?.category?.color : 'unset',
-                                        color: profile.profileId === currentProfile?.profileId ? '#fff' : '#646464',
-                                        justifyContent: 'space-between'
-                                    }}
-                                >
-                                    {profile.name}
-                                    <SvgIcon id={profile.category.icon}
-                                        color={profile.profileId === currentProfile?.profileId ? '#fff' : '#646464'}
-                                    />
-                                </li>
-                            </Link>
-                        ))}
-
-
-                    </ul>
-                </aside>
+                <MyProfiles url='messages'/>
             }
 
             <div className={`${CSS.container} container shadow`}>
@@ -175,7 +156,7 @@ export default function Messages() {
                                 }}
                                 className={`${CSS.profile_item} items-inline cursor-pointer`}
                                 onClick={() => get_current_conv(profile_id, contact.profileId)}>
-                                <img className={CSS.contactImg} src={`${process.env.REACT_APP_API_URL}${contact?.photo}`} alt='contact'/>
+                                <img className={CSS.contactImg} src={`${process.env.REACT_APP_API_URL}${contact?.photo}`} alt='contact' />
                                 <div>
                                     <h3>{contact.name}</h3>
                                     {/* <p className={CSS.unreadAlert}>
@@ -211,7 +192,7 @@ export default function Messages() {
                                             : 'row',
                                     }}>
                                     <div>
-                                        <img className={CSS.contactImg} src={msg?.sender?.photo}  alt='contact image'/>
+                                        <img className={CSS.contactImg} src={msg?.sender?.photo} alt='contact image' />
                                     </div>
 
                                     <div >

@@ -66,11 +66,6 @@ export default function Account() {
 
                 <UpdatePassword />
 
-
-
-
-
-
                 <hr className='divider'></hr>
                 <section className={CSS.box}>
                     <h3>Απενεργοποίηση λογαριασμού</h3>

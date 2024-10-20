@@ -1,4 +1,4 @@
-import { forwardRef, useState } from 'react'
+import { forwardRef, useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 
 import CSS from '../../css/Discover/Card.module.css'
@@ -6,12 +6,14 @@ import SvgIcon from '../SvgIcon'
 import Modal from '../Modal'
 
 import NewMessageWindow from '../Messages/NewMessageWindow'
+import AuthContext from '../../context/AuthContext'
 
 const Card = forwardRef(function Card(props: any, ref) {
 
 
     let profile = props?.data
     const [modal, setModal] = useState<boolean>(false)
+    const { user }: any = useContext(AuthContext)
 
 
 
@@ -37,9 +39,9 @@ const Card = forwardRef(function Card(props: any, ref) {
                     <img
                         src={`${process.env.REACT_APP_API_URL}${profile?.photo}`}
                         width={84} height={84}
-                        alt='Profile' 
+                        alt='Profile'
                         loading="lazy"
-                        />
+                    />
 
                     <b className={CSS.profileTitle}>{profile?.name}</b>
                     <small className={CSS.location}>{profile?.city?.name}</small>
@@ -51,24 +53,28 @@ const Card = forwardRef(function Card(props: any, ref) {
 
 
 
+                {user &&
 
-                <div className={CSS.btn_section}>
+                    <div className={CSS.btn_section}>
 
-                    <div className={CSS.btn} style={{ borderRight: '1px solid #E9E9E9' }} onClick={() => setModal(!modal)}>
-                        <SvgIcon id='send' color='#5F69C6' width={20} />
+                        <div className={CSS.btn} style={{ borderRight: '1px solid #E9E9E9' }} onClick={() => setModal(!modal)}>
+                            <SvgIcon id='send' color='#5F69C6' width={20} />
+                        </div>
+
+
+                        <Link to={`/profile/${profile?.profileId}`} className={CSS.btn} >
+                            <SvgIcon id='view' color='#5F69C6' width={20} />
+                        </Link>
+
                     </div>
+                }
 
-                    <Link to={`/profile/${profile?.profileId}`} className={CSS.btn} >
-                        <SvgIcon id='view' color='#5F69C6' width={20} />
-                    </Link>
-
-                </div>
 
 
             </div>
 
         </div>
-    );
-});
+    )
+})
 
 export default Card

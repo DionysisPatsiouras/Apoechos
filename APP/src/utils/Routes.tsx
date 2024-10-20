@@ -1,3 +1,6 @@
+// const rawURL = process.env.REACT_APP_API_URL
+// const url = rawURL?.replace(/\/+$/, '')
+
 const url = process.env.REACT_APP_API_URL
 
 export const Routes = {

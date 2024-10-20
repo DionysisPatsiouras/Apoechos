@@ -12,4 +12,4 @@ const PrivateRoutes = ({ children, ...rest }: any) => {
     )
 }
 
-export default PrivateRoutes;
+export default PrivateRoutes

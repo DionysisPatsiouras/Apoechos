@@ -11,9 +11,7 @@ export default ProfileContext
 
 export const ProfileProvider = ({ children }: any) => {
 
-
-    let profile_id = window.location.pathname.replace('/profile/', '')
-
+    let profile_id = window.location.pathname.includes('profile') ? window.location.pathname.replace('/profile/', '') : window.location.pathname.replace('/messages/', '')
 
     const [my_profiles, setMyProfiles] = useState<any>([])
     const [my_events, setMyEvents] = useState<any>([])
@@ -21,7 +19,6 @@ export const ProfileProvider = ({ children }: any) => {
     const [posts, setPosts] = useState<any[]>([])
     const [DOM, setDOM] = useState<boolean>(false)
     const [editMode, setEditMode] = useState<boolean>(false)
-
 
 
     const get_profile = new Call(Routes.profiles.id(profile_id), 'GET')

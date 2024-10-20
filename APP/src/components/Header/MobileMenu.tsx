@@ -19,10 +19,7 @@ export default function MobileMenu(props: any) {
                 onClick={() => setNavMenu(false)}>
                 <nav>
                     <ul>
-                    
-                        <Link to="/profile">Προφίλ</Link>
                         <Link to="/discover">Ανακάλυψε</Link>
-                        <Link to="/posts">Δημοσιεύσεις</Link>
                         <Link to="/events">Εκδηλώσεις</Link>
                         <Link to="/map">Χάρτης</Link>
                     </ul>
@@ -38,7 +35,7 @@ export default function MobileMenu(props: any) {
                     {user ?
                         <ul>
                             <Link to='/account'><SvgIcon id='account' color={'#3E3E3E'} /> Λογαριασμός</Link>
-                            <Link to='/account'><SvgIcon id='messages' color={'#3E3E3E'} /> Μηνύματα</Link>
+                            <Link to='/messages'><SvgIcon id='messages' color={'#3E3E3E'} /> Μηνύματα</Link>
                             <Link to='/account' onClick={logoutUser}><SvgIcon id='logout' color={'#3E3E3E'} /> Αποσύνδεση</Link>
                         </ul>
                         :

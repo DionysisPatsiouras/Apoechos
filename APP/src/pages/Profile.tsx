@@ -27,13 +27,14 @@ import FixedButton from '../components/FixedButton'
 
 import { useNavigate } from "react-router-dom"
 import { NewEventProvider } from '../context/NewEventContext'
+import MyProfiles from '../components/Profile/MyProfiles'
 
 
 export default function Profile() {
 
 
     let { user }: any = useContext(AuthContext)
-    let { my_profiles, currentProfile, updateDOM, editMode, setEditMode }: any = useContext(ProfileContext)
+    let { currentProfile, updateDOM, editMode, setEditMode }: any = useContext(ProfileContext)
     let { snackbar }: any = useSnackbarContext()
 
     const [height, setHeight] = useState<any>(undefined)
@@ -41,13 +42,13 @@ export default function Profile() {
 
     const navigate = useNavigate()
 
-    let isDesktop = width >= 768
-    let threshold = width <= 1500
+    // let isDesktop = width >= 768
+    // let threshold = width <= 1500
     let my_category = currentProfile?.category?.id
     let url = window.location.href;
 
     const [modal, setModal] = useState<boolean>(false)
-    const [fullBar, setFullBar] = useState<boolean>(false)
+    // const [fullBar, setFullBar] = useState<boolean>(false)
     const [newMsg, setNewMsg] = useState<boolean>(false)
     const [actions, setActions] = useState<boolean>(false)
     const [postModal, setPostModal] = useState<boolean>(false)
@@ -91,7 +92,7 @@ export default function Profile() {
     useEffect(() => {
         setWidth(window.innerWidth)
         window.addEventListener("resize", () => setWidth(window.innerWidth))
-        setFullBar(threshold ? false : true)
+        // setFullBar(threshold ? false : true)
         document.title = 'Apoechos - Προφίλ'
     }, [width])
 
@@ -108,8 +109,6 @@ export default function Profile() {
 
 
         <div className={CSS.container}>
-
-
 
 
             <FullModal open={eventModal} close={() => setEventModal(false)} title='Νέα εκδήλωση'>
@@ -142,73 +141,14 @@ export default function Profile() {
                 <NewMessageWindow receiver={currentProfile} close={() => setNewMsg(false)} />
             </Modal>
 
+
+
+
             <section className={CSS.mainContainer}>
 
-
-
-
                 {user?.user_id === currentProfile?.user?.id &&
-                    <aside className={CSS.my_profiles_list}
-                        style={{
-                            height: isDesktop ? height - 55 : 'unset',
-                            width: fullBar && isDesktop ? '320px' : '82px'
-                        }}>
-
-
-                        <ul className={CSS.myProfilesContainer} style={{ width: isDesktop ? 'auto' : '100vw' }}>
-
-                            {my_profiles.map((profile: any) => (
-                                <Link to={`/profile/${profile.profileId}`}
-                                    key={profile.profileId}
-                                    onClick={() => updateDOM()} >
-
-                                    <li
-                                        className='items-inline'
-                                        style={{
-                                            backgroundColor: profile.profileId === currentProfile?.profileId ? profile?.category?.color : 'unset',
-                                            color: profile.profileId === currentProfile?.profileId ? '#fff' : '#646464',
-                                            justifyContent: fullBar ? 'space-between' : 'center'
-                                        }}
-                                    >
-                                        <div className='items-inline' style={{ gap: '10px' }}>
-                                            <img src={`${process.env.REACT_APP_API_URL}${profile.photo}`} className='circle_img' width={10} />
-                                            {fullBar &&
-                                                <div>
-                                                    <p className={CSS.profileName}>{profile.name} </p>
-                                                    <small style={{ color: '#d3d3d3' }} className={CSS.profileName}> {profile?.address}</small>
-                                                </div>
-
-                                            }
-                                        </div>
-                                        {fullBar && <div className={CSS.categoryIcon}>
-                                            <SvgIcon id={profile.category.icon}
-                                                color={profile.profileId === currentProfile?.profileId ? '#fff' : '#646464'}
-                                            />
-                                        </div>}
-                                    </li>
-
-                                </Link>
-                            ))}
-
-                            <Link to='/create/'>
-                                <li className='items-inline' style={{ justifyContent: 'space-between', alignItems: 'center', flexDirection: fullBar ? 'row' : 'column' }}>
-                                    {fullBar && 'Νέο Προφίλ'}
-                                    <SvgIcon id='add' color='#646464' />
-                                </li>
-                            </Link>
-
-
-                        </ul>
-                        <div className={CSS.toggleIcon}>
-                            <SvgIcon id='burger' onClick={() => setFullBar(!fullBar)} width={20} />
-                        </div>
-
-                    </aside>
-
+                    <MyProfiles url='profile' />
                 }
-
-
-
 
                 <section className={CSS.right_content} >
 

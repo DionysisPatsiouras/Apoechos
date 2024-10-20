@@ -15,11 +15,15 @@ import SvgIcon from '../components/SvgIcon'
 import NewMessageWindow from '../components/Messages/NewMessageWindow'
 import Modal from '../components/Modal'
 import ProfileImage from '../components/ProfileImage'
+import AuthContext from '../context/AuthContext'
+
+import { ChangeView } from '../utils/functions/ChangeView'
 
 export default function Map() {
 
 
     let { cities, get_cities }: any = useContext(UtilsContext)
+    let { user }: any = useContext(AuthContext)
 
     const [coordinates, setCoordinates] = useState<any>([38.083810, 23.727539])
 
@@ -72,12 +76,6 @@ export default function Map() {
 
 
 
-    function ChangeView({ center, zoom }: any) {
-        const map = useMap();
-        map.setView(center, zoom);
-        return null;
-    }
-
     // console.log(selectedProfile)
 
     const [height, setHeight] = useState<any>(window.innerHeight)
@@ -98,7 +96,7 @@ export default function Map() {
         <div className='items-column'>
 
             <Modal open={modal} close={() => setModal(!modal)} withContainer title='Νέο μήνυμα' btn>
-                <NewMessageWindow receiver={selectedProfile} close={() => setModal(false)}/>
+                <NewMessageWindow receiver={selectedProfile} close={() => setModal(false)} />
 
             </Modal>
 
@@ -211,7 +209,10 @@ export default function Map() {
                                 <button type='button' className='btn blue_btn' style={{ width: '70%', margin: '0 auto' }} >Προβολή</button>
                             </Link>
 
-                            <button type='button' onClick={() => setModal(true)} className='btn blue_btn' style={{ width: '70%', margin: '10px auto 0 auto', }} >Μήνυμα</button>
+                            {user &&
+                                <button type='button' onClick={() => setModal(true)} className='btn blue_btn' style={{ width: '70%', margin: '10px auto 0 auto' }} >Μήνυμα</button>
+
+                            }
 
 
                         </div>
