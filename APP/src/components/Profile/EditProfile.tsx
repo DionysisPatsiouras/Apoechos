@@ -22,8 +22,7 @@ interface EditProfileProps{
     profile: any;
     ref: any;
 }
-// export default function EditProfile(props: any) {
-// const EditProfile = forwardRef(function EditProfile(props: any, ref: any) {
+
 const EditProfile = forwardRef(function EditProfile({close, profile} : EditProfileProps , ref) {
 
     let {

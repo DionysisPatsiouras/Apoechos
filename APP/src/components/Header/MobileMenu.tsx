@@ -56,11 +56,13 @@ export default function MobileMenu(props: any) {
             <SvgIcon
                 id={navMenu ? 'close' : 'burger'}
                 onClick={() => { setNavMenu(!navMenu); setAccountMenu(false) }}
+                width={30}
             />
             <SvgIcon
                 color={user ? '#32cc1a' : '#000000'}
                 id={'account'}
                 onClick={() => { setNavMenu(false); setAccountMenu(!accountMenu) }}
+                width={30}
             />
         </div>
     )

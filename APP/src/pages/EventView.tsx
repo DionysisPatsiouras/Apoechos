@@ -42,7 +42,7 @@ export default function EventView() {
 
     useEffect(() => {
         get_event
-            .GET()
+            .GET_NO_TOKEN()
             .then((res) => {
                 // console.log(res)
                 setEvent(res)

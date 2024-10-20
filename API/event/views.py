@@ -69,6 +69,7 @@ def update_event(request, id):
 
 # /event/<str:id>/
 @api_view(["GET"])
+@permission_classes([])
 def event_by_id(request, id):
 
     try:

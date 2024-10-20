@@ -36,6 +36,7 @@ export const DiscoverProvider = ({ children }: any) => {
     const [genreSearch, setGenreSearch] = useState<string>('')
     const [studio_services_search, setStudioServicesSearch] = useState<string>('')
     const [instrument_search, setInstrumentSearch] = useState<string>('')
+    const [modal, setModal] = useState<boolean>(false)
 
 
     const [onHover, setOnHover] = useState('')
@@ -60,6 +61,8 @@ export const DiscoverProvider = ({ children }: any) => {
         setSelected(value)
         setActiveTab(value2)
     }
+
+    const toggleModal = () => setModal(!modal)
 
 
 
@@ -178,6 +181,7 @@ export const DiscoverProvider = ({ children }: any) => {
         onHover,
         setOnHover,
         filters,
+        toggleModal, modal
     }
 
 
