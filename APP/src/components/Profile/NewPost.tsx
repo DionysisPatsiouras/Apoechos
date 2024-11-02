@@ -122,6 +122,10 @@ export default function NewPost({ profile_id, close, category }: NewPostProps) {
                             value: 150,
                             message: "Το κείμενό σας είναι πολύ μεγάλο"
                         },
+                        minLength: {
+                            value: 10,
+                            message: 'Το κείμενό σας είναι πολύ μικρό'
+                        },
                         onChange: (e) => setWordCount(e.target.value.length)
                     })}>
                 </textarea>

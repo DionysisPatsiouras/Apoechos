@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    image: apoechos-image 
+    container_name: apoechos-api  
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DEBUG=1
+      - DATABASE_URL=postgres://postgres:3276@db:5432/apoechos
+
+  db:
+    image: postgres:13
+    container_name: apoechos-db
+    environment:
+      POSTGRES_DB: apoechos
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 3276
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      retries: 5

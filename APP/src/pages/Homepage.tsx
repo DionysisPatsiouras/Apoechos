@@ -11,7 +11,7 @@ import bandBg from '../img/backgrounds/band.jpg'
 import studioBg from '../img/backgrounds/studio.jpg'
 import storeBg from '../img/backgrounds/store.jpg'
 import stageBg from '../img/backgrounds/stage.jpg'
-import logo from '../img/logo.png'
+import logo from '../img/logo2.png'
 import { Link } from 'react-router-dom'
 import ReactPlayer from 'react-player'
 import FixedButton from '../components/FixedButton'
@@ -83,7 +83,7 @@ export default function Homepage() {
 
 
         <div>
-          <img src={logo} alt='apoechos logo' className={CSS.logo} />
+          <img src={logo} alt='apoechos logo' className={CSS.logo} style={{padding: '0'}} />
           <h1 className={CSS.appname}>apoechos</h1>
           <p className={CSS.motto}>Όλη η μουσική κοινότητα... ενωμένη!</p>
         </div>

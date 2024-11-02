@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import environ
 
+# for docker
+import dj_database_url
 
 # EXPERIMENTAL
 import os
@@ -36,6 +38,7 @@ SECRET_KEY = "django-insecure-oyqeekwdk0m(89)539%lqgqqy3_wvm_wcsa(ac6qff-&^&)*ls
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -148,23 +151,24 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
+# LOCAL
+# --------------------
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME": "apoechos",
+#         "USER": "postgres",
+#         "PASSWORD": "3276",
+#         "HOST": "localhost",
+#         "PORT": "5432",
 #     }
 # }
 
-
+# DOCKER
+# --------------------
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "apoechos",
-        "USER": "postgres",
-        "PASSWORD": "3276",
-        "HOST": "localhost",
-        "PORT": "5432",
-    }
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
 
 # Password validation

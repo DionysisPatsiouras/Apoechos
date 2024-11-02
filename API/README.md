@@ -53,3 +53,11 @@ DATABASES = {
 
 ### update requirements.txt
 `pip freeze > requirements.txt`
+
+
+
+### Docker 
+# 1. Create docker image -> docker-compose build 
+
+# 2. Create api and db container -> docker-compose up
+# 3. Migrate -> docker-compose run web python manage.py migrate

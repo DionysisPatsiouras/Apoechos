@@ -20,7 +20,7 @@ const ProfileImage = forwardRef(function ProfileImage({ photo, category, onClick
 
             <img
                 src={`${process.env.REACT_APP_API_URL}${photo}`}
-                alt='profile'
+                // alt='profile'
                 style={{
                     borderRadius: '200px',
                     border: '2px solid #D7D7D7',
@@ -31,7 +31,7 @@ const ProfileImage = forwardRef(function ProfileImage({ photo, category, onClick
                 width={size}
                 height={size}
                 onClick={onClick}
-                loading="lazy"
+                // loading="lazy"
             />
 
             <SvgIcon id={category?.icon}
