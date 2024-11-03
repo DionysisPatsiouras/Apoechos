@@ -61,58 +61,62 @@ export default function App() {
 
       <WindowSize.Provider value={responsive}>
         <BrowserRouter>
-          <AuthProvider>
-            <UserProvider>
-              <SnackbarContextProvider>
-
-                <Header />
-                <UtilsProvider>
-
-                  <Routes>
-                    <Route path='/login' element={<Login />} />
-                    <Route path='/register' element={<Register />} />
-                    <Route path='/' element={<Homepage />} />
-                    <Route path='/discover' element={<DiscoverProvider><Discover /></DiscoverProvider>} />
-                    <Route path='/events' element={<Events />} />
-                    <Route path='/events/:id' element={<EventView />} />
-                    <Route path='/map' element={<Map />} />
-
-                    {/* need to create this */}
-                    {/* <Route path='/terms-and-conditions' element={<Messages />} /> */}
+      
 
 
+            <AuthProvider>
+              <UserProvider>
+                <SnackbarContextProvider>
+
+                  <Header />
+                  <UtilsProvider>
+
+                    <Routes>
+                      <Route path='/login' element={<Login />} />
+                      <Route path='/register' element={<Register />} />
+                      <Route path='/' element={<Homepage />} />
+                      <Route path='/discover' element={<DiscoverProvider><Discover /></DiscoverProvider>} />
+                      <Route path='/events' element={<Events />} />
+                      <Route path='/events/:id' element={<EventView />} />
+                      <Route path='/map' element={<Map />} />
+
+                      {/* need to create this */}
+                      {/* <Route path='/terms-and-conditions' element={<Messages />} /> */}
 
 
-                    {/* PROTECTED ROUTES */}
-                    <Route element={<PrivateRoutes />} >
-                      <Route path='/account' element={<Account />} />
-                      <Route path='/create' element={<Create />} />
-                      <Route path='/create/new_profile' element={<CreateNewProfileProvider><CreateNewProfile /></CreateNewProfileProvider>} />
-
-                      <Route path='/profile/:id' element={
-                        <ProfileProvider>
-                          <EditProfileProvider>
-                            <Profile />
-                          </EditProfileProvider>
-                        </ProfileProvider>} />
-                      <Route path='/posts' element={<Posts />} />
-                      <Route path='/messages/:id/' element={
-                        <ProfileProvider>
-                          <Messages />
-                        </ProfileProvider>
-                      } />
-                    </Route>
 
 
-                  </Routes>
-                </UtilsProvider>
-              </SnackbarContextProvider>
-            </UserProvider>
-          </AuthProvider>
+                      {/* PROTECTED ROUTES */}
+                      <Route element={<PrivateRoutes />} >
+                        <Route path='/account' element={<Account />} />
+                        <Route path='/create' element={<Create />} />
+                        <Route path='/create/new_profile' element={<CreateNewProfileProvider><CreateNewProfile /></CreateNewProfileProvider>} />
+
+                        <Route path='/profile/:id' element={
+                          <ProfileProvider>
+                            <EditProfileProvider>
+                              <Profile />
+                            </EditProfileProvider>
+                          </ProfileProvider>} />
+                        <Route path='/posts' element={<Posts />} />
+                        <Route path='/messages/:id/' element={
+                          <ProfileProvider>
+                            <Messages />
+                          </ProfileProvider>
+                        } />
+                      </Route>
+
+
+                    </Routes>
+                  </UtilsProvider>
+                </SnackbarContextProvider>
+              </UserProvider>
+            </AuthProvider>
+      
         </BrowserRouter>
       </WindowSize.Provider>
 
-    </div >
+    </div>
   );
 }
 

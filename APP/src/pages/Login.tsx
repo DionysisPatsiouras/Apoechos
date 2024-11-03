@@ -21,10 +21,6 @@ export default function Login() {
     const { register, handleSubmit, formState } = form
     const { errors } = formState
 
-    useEffect(() => {
-        document.title = 'Apoechos - Σύνδεση'
-    }, [])
-
 
     const onSubmit = (data: { email: any, password: any }) => {
         loginUser(data)

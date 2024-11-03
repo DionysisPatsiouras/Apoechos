@@ -29,10 +29,8 @@ export default function Discover() {
 
 
 
-
-
     return (
-        <div className={CSS.container}>
+        <main className={CSS.container}>
 
             <FullModal open={modal} title='Φίλτρα' close={toggleModal}>
                 <section className={CSS.filters}>
@@ -43,10 +41,10 @@ export default function Discover() {
                             <p className={CSS.filter_title}>{item.label}</p>
 
                             <div className='items-inline' style={{ padding: '0 0 0 20px' }}>
-                                <Search onChange={(e:any) => item.setSearch(e.target.value)}/>
+                                <Search onChange={(e: any) => item.setSearch(e.target.value)} />
                             </div>
 
-                            <ul className={CSS.filters_list} >
+                            <ul className={`${CSS.filters_list} m-0`} >
                                 {item?.data
                                     .filter((i: string) => SearchValidation(i, item?.search))
                                     .map((i: string, index: number) => (
@@ -74,12 +72,11 @@ export default function Discover() {
             <section className={CSS.cards_container}>
 
                 <FixedButton icon='filter' onClick={toggleModal} />
-
-
+            
                 <div className={CSS.head}>
 
 
-                    <ul className={CSS.profiles_menu}>
+                    <ul className={`${CSS.profiles_menu} m-0`}>
                         {tabs.map((category: any, index: number) => (
                             <div
                                 key={index}
@@ -94,7 +91,9 @@ export default function Discover() {
                                     className={CSS.categoryIcon}
                                     style={{
                                         backgroundColor: activeTab === category?.label ? category?.color : '#f9f9f9',
-                                        border: `2px solid ${category?.color}`
+                                        border: `2px solid ${category?.color}`,
+                                        width: '40px',
+                                        height: '40px'
                                     }}
                                 />
 
@@ -117,7 +116,7 @@ export default function Discover() {
 
                     <section className={CSS.search}>
                         <div className={CSS.left_section}>
-                            <Search onChange={(e:any) => setSearch(e.target.value)}/>
+                            <Search onChange={(e: any) => setSearch(e.target.value)} />
                         </div>
                         <p className={CSS.results}>Αποτελέσματα: {filteredData?.length}</p>
                     </section>
@@ -141,6 +140,6 @@ export default function Discover() {
             </section>
 
 
-        </div>
+        </main>
     )
 }

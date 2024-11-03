@@ -103,8 +103,6 @@ export default function Messages() {
 
     useEffect(() => {
 
-        document.title = 'Apoechos - Μηνύματα'
-
         get_my_profiles
             .GET()
             .then((res) => setMyProfiles(res[1]))

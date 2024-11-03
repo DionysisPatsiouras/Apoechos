@@ -24,10 +24,6 @@ export default function Register() {
     const navigate = useNavigate();
 
 
-    useEffect(() => {
-        document.title = 'Apoechos - Εγγραφή'
-    }, [])
-
     const onSubmit = (data: any) => {
 
 

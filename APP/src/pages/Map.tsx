@@ -59,7 +59,6 @@ export default function Map() {
 
     useEffect(() => {
 
-        document.title = 'Apoechos - Χάρτης'
         get_cities()
         get_categories()
 
@@ -114,27 +113,25 @@ export default function Map() {
 
                     <ul className='items-inline' style={{ gap: '20px' }}>
                         {categories
-                        .filter((category:any) => category?.id !== 1 && category?.id !== 2)
-                        .map((category: any) => (
-
-                            <>
+                            .filter((category: any) => category?.id !== 1 && category?.id !== 2)
+                            .map((category: any) => (
 
 
-                                <li key={category?.id} className='items-inline' style={{ gap: '5px' }}>
+                                <li key={category?.id} className='items-inline' style={{ gap: '5px' }} >
                                     <input
                                         type='checkbox'
                                         id={category.id}
                                         value={category?.id}
                                         className='cursor-pointer'
                                         onChange={(e) => handle_checkbox(setSelectedCategories, e.target)}
-                                        style={{display: 'none'}}
+                                        style={{ display: 'none' }}
                                     />
                                     <label htmlFor={category?.id} className='cursor-pointer'>
                                         {/* {category?.label} */}
                                         <SvgIcon
-                                        onClick={(e:any) => handle_checkbox(setSelectedCategories, e.target)}
+                                            onClick={(e: any) => handle_checkbox(setSelectedCategories, e.target)}
                                             id={category?.icon}
-                                            width={20} height={20}
+                                            width={40} height={40}
                                             // color={activeTab === category?.label ? '#fff' : category?.color}
                                             color={selectedCategories.includes(category?.id.toString()) ? '#fff' : category?.color}
                                             className={CSS.categoryIcon}
@@ -145,8 +142,8 @@ export default function Map() {
                                         />
                                     </label>
                                 </li>
-                            </>
-                        ))}
+
+                            ))}
                     </ul>
                 </div>
             </aside>

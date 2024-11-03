@@ -30,9 +30,6 @@ export default function Account() {
         }).catch((err) => console.warn(err))
     }
 
-    useEffect(() => {
-        document.title = 'Apoechos - Λογαριασμός'
-    }, [])
 
     return (
         <div className='space'>

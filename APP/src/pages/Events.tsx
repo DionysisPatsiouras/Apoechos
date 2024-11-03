@@ -29,7 +29,6 @@ const Events = forwardRef(function Events(props: any, ref: any) {
 
 
     useEffect(() => {
-        document.title = 'Apoechos - Εκδηλώσεις'
         
         fetch_events.GET_NO_TOKEN().then((res) => setEvents(res)).catch((err) => console.warn(err))
 
